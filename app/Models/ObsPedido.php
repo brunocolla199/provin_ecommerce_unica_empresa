@@ -9,7 +9,6 @@ class ObsPedido extends Model
     public $table = 'obs_pedido';
 
     protected $fillable = [
-        'id', 
         'pedido_id', 
         'user_id',
         'descricao',

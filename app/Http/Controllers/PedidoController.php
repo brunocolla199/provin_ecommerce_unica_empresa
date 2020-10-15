@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Helper;
-use Illuminate\Support\Facades\{Validator, DB};
+use Illuminate\Support\Facades\{Validator, DB, Auth};
 use Illuminate\Http\Request;
 
 use App\Repositories\PedidoRepository;
 use App\Repositories\ItemPedidoRepository;
 use App\Repositories\ObsPedidoRepository;
+use App\Repositories\StatusPedidoRepository;
 
 class PedidoController extends Controller
 {
@@ -17,13 +18,15 @@ class PedidoController extends Controller
     protected $itemPedidoRepository;
     protected $produtoRepository;
     protected $observacoesRepository;
+    protected $statusPedidoRepository;
 
-    public function __construct(PedidoRepository $pedido, ItemPedidoRepository $itemPedido, ObsPedidoRepository $obsPedido)
+    public function __construct(PedidoRepository $pedido, ItemPedidoRepository $itemPedido, ObsPedidoRepository $obsPedido, StatusPedidoRepository $statusPedido)
     {
         $this->middleware('auth');
         $this->pedidoRepository = $pedido;
         $this->itemPedidoRepository = $itemPedido;
         $this->observacoesRepository = $obsPedido;
+        $this->statusPedidoRepository = $statusPedido;
     }
 
     public function index(){
@@ -110,21 +113,31 @@ class PedidoController extends Controller
      */
     public function update(Request $_request)
     {
-        if (!$this->validator($_request)) {
-            return redirect()->back()->withInput();
-        }
         $update = self::montaRequest($_request);
-        $id = $_request->get('idProduto');
+        $id = $_request->get('idPedido');
+        $buscaStatus = $this->statusPedidoRepository->find($_request->ultStatus);
         try {
-            DB::transaction(function () use ($update, $id) {
-                $this->produtoRepository->update(
+            DB::transaction(function () use ($update, $id, $buscaStatus) {
+                
+
+                $this->pedidoRepository->update
+                (
                     $update,
-                    $id);
+                    $id
+                );
+
+                $createObs = new ObsPedido();
+                $array = $createObs->montaRequestObs($id,"O status do pedido foi alterado para ".$buscaStatus->nome,'0');
+                
+                $this->observacoesRepository->create($array);
+
+
             });
-            Helper::setNotify('Produto atualizado com sucesso!', 'success|check-circle');
-            return redirect()->route('produto');
+            Helper::setNotify('Pedido atualizado com sucesso!', 'success|check-circle');
+            return redirect()->route('pedido');
         } catch (\Throwable $th) {
-            Helper::setNotify("Erro ao atualizar o produto", 'danger|close-circle');
+            var_dump($th);
+            Helper::setNotify("Erro ao atualizar o pedido", 'danger|close-circle');
             return redirect()->back()->withInput();
         }
     }
@@ -157,11 +170,7 @@ class PedidoController extends Controller
     public function validator(Request $_request)
     {
         $validator = Validator::make($_request->all(), [
-            'id'          => 'required|string',
-            'nome'        => 'required|string|min:3',
-            'grupo_id'    => 'required|numeric',
-            'valor'       => 'required|',
-            'qtd_estoque' => 'required|'
+            'id'          => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -174,16 +183,11 @@ class PedidoController extends Controller
     public function montaRequest(Request $request)
     {
         $create = [
-            'nome'                          => $request->nome,
-            'valor'                         => str_replace(',','.',$request->valor),
-            'tamanho'                       => '',
-            'produto_terceiro_id'           => $request->id,
-            'inativo'                       => 0,
-            'grupo_id'                      => $request->grupo_id,
-            'variacao'                      => 0,
-            'peso'                          => 0,
-            'quantidade_estoque'            => $request->qtd_estoque
+            'link_rastreamento'  => $request->link,
+            'status_pedido_id'   => $request->ultStatus
         ];
         return $create;
     }
+
+    
 }
