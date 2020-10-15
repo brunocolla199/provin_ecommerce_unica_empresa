@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('page_title', __('page_titles.pedido.create'))
+@section('page_title', __('page_titles.pedido.update'))
 
 @section('breadcrumbs')
 
@@ -10,8 +10,9 @@
 
 @endsection
 
+
 @section('content')
-       
+<link rel="stylesheet" href="{{ asset('ecommerce/assets/css/timeline.css') }}">  
     <div class="col-12">
         <div class="card">
             <div class="card-body">
@@ -24,6 +25,8 @@
                 
                 <form method="POST" action="{{ route('pedido.alterar', $pedido->id) }}">
                     {{ csrf_field() }}
+                    <input type="hidden" name="link" id="link">
+                    <input type="hidden" name="ultStatus" id="ultStatus" value="{{$pedido->status_pedido_id}}">
                     <div class="form-body">
                         <div class="row p-t-20">
                             <div class="col-md-6">
@@ -57,6 +60,108 @@
                     
                     
                     
+                   
+
+                    <h5 class="box-title">Linha do Tempo</h5>
+                    <hr class="m-t-0 m-b-10">
+                    <div class="row col-md-12">
+                        <div class="col-md-6">
+                                <div id="timeline-wrap">
+                                    <div id="timeline"></div>
+                                    
+                                    <div title="Em Análise" class="marker mfirst timeline-icon one status" data-status='1' style="background-color:@if($pedido->status_pedido_id >= 1 && $pedido->status_pedido_id != 9) green @endif !important">
+                                            <i  class="fas fa-search "  ></i>
+                                            
+                                    </div>
+                                    
+                                    <div title="Emitido NFe" class="marker m2 timeline-icon two status" data-classe="two" data-status='2' style="background-color:@if($pedido->status_pedido_id >= 2 && $pedido->status_pedido_id != 9) green @endif !important">
+                                            <i  class="fas fa-file-alt "   ></i>
+                                    </div>
+                                    
+                                    <div title="Em Transporte" class="marker m3 timeline-icon three status" data-status='3' data-classe="three" style="background-color:@if($pedido->status_pedido_id >= 3 && $pedido->status_pedido_id != 9) green @endif !important">
+                                        <i  class="fas fa-truck-loading "  ></i>
+                                    </div>
+                                    
+                                    <div title="Concluído" class="marker mlast timeline-icon four "   style="background-color:@if($pedido->status_pedido_id >= 4 && $pedido->status_pedido_id != 9) green @endif !important">
+                                        <i  class="fa fa-check "  ></i>
+                                    </div>
+
+                                    
+                                    
+                                </div>  
+                        </div>
+                        <div class="col-md-6">
+                           @if ($pedido->status_pedido_id != 4 && $pedido->status_pedido_id != 9)
+                                <button class="btn btn-success" id="entregarPedido" data-status=4 type="button">Entregar  Pedido</button>   
+                           @endif
+                           
+                        </div>
+                    </div>
+                        
+                    <h5 class="box-title">Itens</h5>
+                    <hr class="m-t-0 m-b-10">
+                    <div class="row">
+                            
+                        <table class="table" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th class="product-remove">&nbsp;</th>
+                                    <th class="product-thumbnail">&nbsp;</th>
+                                    <th class="product-name">Produtos</th>
+                                    <th class="product-price">Preço</th>
+                                    <th class="product-quantity w-lg-15">Quantidade</th>
+                                    <th class="product-subtotal">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($itens as $item)
+                                <tr class="">
+                                        <td class="text-center">
+                                            <!--<a href="#" class="text-gray-32 font-size-26">×</a>-->
+                                        </td>
+                                        <td class="d-none d-md-table-cell">
+                                            <a href="#"><img class="img-fluid max-width-100 p-1 border border-color-1" src="{{asset('ecommerce/assets/img/300X300/img6.jpg')}}" alt="Image Description"></a>
+                                        </td>
+    
+                                        <td data-title="Product">
+                                            <a href="#" class="text-gray-90">{{$item->produto->nome}}</a>
+                                        </td>
+    
+                                        <td data-title="preco">
+                                            <span class="money">{{number_format($item->valor_unitario, 2, ',', '.')}}</span>
+                                        </td>
+    
+                                        <td data-title="Quantity">
+                                            <span class="sr-only">Quantidade</span>
+                                            <!-- Quantity -->
+                                            <!--<div class="border rounded-pill py-1 width-122 w-xl-80 px-3 border-color-1">
+                                                <div class="js-quantity row align-items-center">
+                                                    <div class="col">-->
+                                                    <input readonly class="js-result form-control h-auto border-0 rounded p-0 shadow-none" type="text" value="{{$item->quantidade}}">
+                                                    <!--</div>-->
+                                                    <!--<div class="col-auto pr-1">
+                                                        <a class="js-minus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" href="javascript:;">
+                                                            <small class="fas fa-minus btn-icon__inner"></small>
+                                                        </a>
+                                                        <a class="js-plus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" href="javascript:;">
+                                                            <small class="fas fa-plus btn-icon__inner"></small>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+                                            <!-- End Quantity -->
+                                        </td>
+    
+                                        <td data-title="Total">
+                                            <span class="money">{{number_format($item->valor_total, 2, ',', '.')}}</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                                
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group{{ $errors->has('qtd_itens') ? ' has-error' : '' }}">
@@ -84,76 +189,6 @@
                                 @endif
                             </div>
                         </div>
-                    </div>
-
-                    <h5 class="box-title">Linha do Tempo</h5>
-                    <hr class="m-t-0 m-b-10">
-                    <div class="row">
-                        
-                    </div>
-                    
-                    <h5 class="box-title">Itens</h5>
-                    <hr class="m-t-0 m-b-10">
-                    <div class="row">
-                            
-                        <table class="table" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th class="product-remove">&nbsp;</th>
-                                    <th class="product-thumbnail">&nbsp;</th>
-                                    <th class="product-name">Produtos</th>
-                                    <th class="product-price">Preço</th>
-                                    <th class="product-quantity w-lg-15">Quantidade</th>
-                                    <th class="product-subtotal">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($itens as $item)
-                                <tr class="">
-                                        <td class="text-center">
-                                            <a href="#" class="text-gray-32 font-size-26">×</a>
-                                        </td>
-                                        <td class="d-none d-md-table-cell">
-                                            <a href="#"><img class="img-fluid max-width-100 p-1 border border-color-1" src="{{asset('ecommerce/assets/img/300X300/img6.jpg')}}" alt="Image Description"></a>
-                                        </td>
-    
-                                        <td data-title="Product">
-                                            <a href="#" class="text-gray-90">{{$item->produto->nome}}</a>
-                                        </td>
-    
-                                        <td data-title="preco">
-                                            <span class="money">{{number_format($item->valor_unitario, 2, ',', '.')}}</span>
-                                        </td>
-    
-                                        <td data-title="Quantity">
-                                            <span class="sr-only">Quantidade</span>
-                                            <!-- Quantity -->
-                                            <div class="border rounded-pill py-1 width-122 w-xl-80 px-3 border-color-1">
-                                                <div class="js-quantity row align-items-center">
-                                                    <div class="col">
-                                                    <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none" type="text" value="{{$item->quantidade}}">
-                                                    </div>
-                                                    <div class="col-auto pr-1">
-                                                        <a class="js-minus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" href="javascript:;">
-                                                            <small class="fas fa-minus btn-icon__inner"></small>
-                                                        </a>
-                                                        <a class="js-plus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" href="javascript:;">
-                                                            <small class="fas fa-plus btn-icon__inner"></small>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- End Quantity -->
-                                        </td>
-    
-                                        <td data-title="Total">
-                                            <span class="money">{{number_format($item->valor_total, 2, ',', '.')}}</span>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                                
                     </div>
 
                     <h5 class="box-title">Observações</h5>
@@ -184,5 +219,9 @@
             </div>
         </div>
     </div>
-    
+@endsection
+
+@section('footer')
+    @include('admin.modal.linkRastreamento')
+    <script src="{{ asset('controllers/pedido.js') }}"></script>
 @endsection

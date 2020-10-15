@@ -27,7 +27,7 @@ class HomeController extends Controller
             return redirect()->route('login');
         }
         
-        if(Auth::user()->perfil->admin_controle_geral == 1){
+        if(Auth::user()->perfil->area_admin == 1){
             
             //Se for adm
             return redirect()->guest('admin/home');

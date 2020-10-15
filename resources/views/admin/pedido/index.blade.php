@@ -55,8 +55,10 @@
                                         <td class="money">{{number_format($pedido->total_pedido, 2, ',', '.')  }}</td>
                                         
                                         <td>
-                                            <button class="btn waves-effect waves-light btn-danger sa-danger" data-id="{{$pedido->id}}"> <i class="mdi mdi-delete"></i> @lang('buttons.general.cancel') </button>
-                                            <a href="{{ route('pedido.editar', ['id' => $pedido->id]) }}" class="btn waves-effect waves-light btn-info"> <i class="mdi mdi-lead-pencil"></i> @lang('buttons.general.edit') </a> 
+                                            
+                                                <button class="btn waves-effect waves-light btn-danger sa-danger" data-id="{{$pedido->id}}"> <i class="mdi mdi-delete"></i> @lang('buttons.general.cancel') </button>
+                                            
+                                                <a href="{{ route('pedido.editar', ['id' => $pedido->id]) }}" class="btn waves-effect waves-light btn-info"> <i class="mdi mdi-lead-pencil"></i> @lang('buttons.general.edit') </a> 
                                         </td>
                                     </tr>
                                 @endforeach
@@ -119,7 +121,7 @@
                         data: { id: id, _token: '{{csrf_token()}}' },
                         success: function (data) {
                             if(data.response != 'erro') {
-                                swal2_success("Inativado!", "Pedido cancelado com sucesso.");
+                                swal2_success("Cancelado!", "Pedido cancelado com sucesso.");
                             } else {
                                 swal2_alert_error_support("Tivemos um problema ao cancelar o pedido.");
                             }

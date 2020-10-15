@@ -140,18 +140,25 @@ class ConfiguracaoController extends Controller
                             
                             $linha = fgets($file);
 
-                            $itens = explode(',', $linha);
-                        
-                            $codigo   = $itens[0];
-                            $variacao = $itens[1];
-                            $preco    = $itens[2];
-                            $peso     = $itens[3];
-                            $grupo    = $itens[4];
-                            $descricao= $itens[5];
-                            $estoque  = $itens[6];
+                            $itens = explode(';', $linha);
 
-                            self::processaImportacao($codigo,$variacao,$preco,$peso,$grupo,$descricao,$estoque);
+                            if(!empty($itens)){
+                                $codigo   = $itens[0] ?? '';
+                                $variacao = $itens[1] ?? 0;
+                                $preco    = $itens[2] ?? 0;
+                                $peso     = $itens[3] ?? 0;
+                                $grupo    = $itens[4] ?? 0;
+                                $descricao= $itens[5] ?? '';
+                                $estoque  = $itens[6] ?? 0;
+                            }
+                           
+
+                            
+                            if($codigo != '' && !empty($codigo)){
+                                self::processaImportacao($codigo,$variacao,$preco,$peso,$grupo,$descricao,$estoque);
+                            }
                     } 
+                    
                 });
 
                 Helper::setNotify('Produtos importados com sucesso!', 'success|check-circle');
@@ -162,7 +169,7 @@ class ConfiguracaoController extends Controller
             die();
             Helper::setNotify("Erro ao importar produtos", 'danger|close-circle');
             return redirect()->back()->withInput();
-        } 
+        }
     }
 
     public function processaImportacao($codigo,$variacao,$preco,$peso,$grupo,$descricao,$estoque)
@@ -198,6 +205,7 @@ class ConfiguracaoController extends Controller
         if(!empty($buscaProduto[0])){
             //ativa produto
             $update = self::montaRequestImportProduto($codigo,$variacao,$preco,$peso,$idGrupo,$descricao,$estoque);
+            
             $this->produtoRepository->update(
                 $update,
                 $buscaProduto[0]->id
@@ -206,9 +214,11 @@ class ConfiguracaoController extends Controller
             
             //cadastra produto
             $cadastro = self::montaRequestImportProduto($codigo,$variacao,$preco,$peso,$idGrupo,$descricao,$estoque);
+            
             $retornoCreateProduto = $this->produtoRepository->create(
-               [$cadastro]
+               $cadastro
             );
+            
         }
 
 

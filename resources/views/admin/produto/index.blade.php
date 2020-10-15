@@ -47,8 +47,8 @@
                                 @foreach ($produtos as $produto)
                                     <tr>
                                         <td>{{ $produto->produto_terceiro_id }}</td>
-                                        <td>{{ $produto->nome }}</td>
-                                        <td>{{ $produto->grupo->nome }}</td>
+                                        <td>{{ $produto->nome ?? ''}}</td>
+                                        <td>{{ $produto->grupo->nome ?? '' }}</td>
                                         <td class="money">{{number_format($produto->valor, 2, ',', '.')  }}</td>
                                         <td>{{ $produto->quantidade_estoque }}</td>
                                         <td>

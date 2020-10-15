@@ -255,40 +255,44 @@
                                                                 
     
                                                                 <!-- Shop Pages -->
-                                                                <li class="u-has-submenu u-header-collapse__submenu">
-                                                                    <a class="u-header-collapse__nav-link u-header-collapse__nav-pointer" href="javascript:;" data-target="#headerSidebarPagesCollapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="headerSidebarPagesCollapse">
-                                                                        {{__('sidebar_and_header.uls_li_system.register.collapse')}}
-                                                                    </a>
-    
-                                                                    <div id="headerSidebarPagesCollapse" class="collapse" data-parent="#headerSidebarContent">
-                                                                        <ul id="headerSidebarPagesMenu" class="u-header-collapse__nav-list">
-                                                                            
-                                                                            <li><a class="u-header-collapse__submenu-nav-link" href="{{route('perfil')}}">{{__('sidebar_and_header.uls_li_system.register.item1')}}</a></li>
-                                                                            <li><a class="u-header-collapse__submenu-nav-link" href="{{route('grupo')}}">{{__('sidebar_and_header.uls_li_system.register.item2')}}</a></li>
-                                                                            <li><a class="u-header-collapse__submenu-nav-link" href="{{route('usuario')}}">{{__('sidebar_and_header.uls_li_system.register.item3')}}</a></li>
-                                                                            <li><a class="u-header-collapse__submenu-nav-link" href="{{route('empresa')}}">{{__('sidebar_and_header.uls_li_system.register.item4')}}</a></li>
-                                                                            <li><a class="u-header-collapse__submenu-nav-link" href="{{route('cidade')}}">{{__('sidebar_and_header.uls_li_system.register.item5')}}</a></li>
-                                                                            <li><a class="u-header-collapse__submenu-nav-link" href="{{route('tipoPedido')}}">{{__('sidebar_and_header.uls_li_system.register.item6')}}</a></li>
-                                                                            <li><a class="u-header-collapse__submenu-nav-link" href="{{route('statusPedido')}}">{{__('sidebar_and_header.uls_li_system.register.item7')}}</a></li>
-                                                                            <li><a class="u-header-collapse__submenu-nav-link" href="{{route('grupoProduto')}}">{{__('sidebar_and_header.uls_li_system.register.item8')}}</a></li>
-                                                                            <li><a class="u-header-collapse__submenu-nav-link" href="{{route('produto')}}">{{__('sidebar_and_header.uls_li_system.register.item9')}}</a></li>
-                                                                            
-                                                                        </ul>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="u-has-submenu u-header-collapse__submenu">
-                                                                    <a class="u-header-collapse__nav-link u-header-collapse__nav-pointer" href="javascript:;" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="headerSidebarHomeCollapse" data-target="#headerSidebarHomeCollapse">
-                                                                        {{__('sidebar_and_header.uls_li_system.configuration')}}
-                                                                    </a>
+                                                                @if (Auth::user()->perfil->admin_controle_geral == 1)
+                                                                    <li class="u-has-submenu u-header-collapse__submenu">
+                                                                        <a class="u-header-collapse__nav-link u-header-collapse__nav-pointer" href="javascript:;" data-target="#headerSidebarPagesCollapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="headerSidebarPagesCollapse">
+                                                                            {{__('sidebar_and_header.uls_li_system.register.collapse')}}
+                                                                        </a>
+        
+                                                                        <div id="headerSidebarPagesCollapse" class="collapse" data-parent="#headerSidebarContent">
+                                                                            <ul id="headerSidebarPagesMenu" class="u-header-collapse__nav-list">
+                                                                                
+                                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('perfil')}}">{{__('sidebar_and_header.uls_li_system.register.item1')}}</a></li>
+                                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('grupo')}}">{{__('sidebar_and_header.uls_li_system.register.item2')}}</a></li>
+                                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('usuario')}}">{{__('sidebar_and_header.uls_li_system.register.item3')}}</a></li>
+                                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('empresa')}}">{{__('sidebar_and_header.uls_li_system.register.item4')}}</a></li>
+                                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('cidade')}}">{{__('sidebar_and_header.uls_li_system.register.item5')}}</a></li>
+                                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('tipoPedido')}}">{{__('sidebar_and_header.uls_li_system.register.item6')}}</a></li>
+                                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('statusPedido')}}">{{__('sidebar_and_header.uls_li_system.register.item7')}}</a></li>
+                                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('grupoProduto')}}">{{__('sidebar_and_header.uls_li_system.register.item8')}}</a></li>
+                                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('produto')}}">{{__('sidebar_and_header.uls_li_system.register.item9')}}</a></li>
+                                                                                
+                                                                            </ul>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="u-has-submenu u-header-collapse__submenu">
+                                                                        <a class="u-header-collapse__nav-link u-header-collapse__nav-pointer" href="javascript:;" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="headerSidebarHomeCollapse" data-target="#headerSidebarHomeCollapse">
+                                                                            {{__('sidebar_and_header.uls_li_system.configuration')}}
+                                                                        </a>
+                                                                    
+                                                                        <div id="headerSidebarHomeCollapse" class="collapse" data-parent="#headerSidebarContent">
+                                                                            <ul id="headerSidebarHomeMenu" class="u-header-collapse__nav-list">
+                                                                                
+                                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('configuracao')}}">{{__('sidebar_and_header.uls_li_system.pedido')}}</a></li>
+                                                                                
+                                                                            </ul>
+                                                                        </div>
+                                                                    </li>
+                                                                @endif
                                                                 
-                                                                    <div id="headerSidebarHomeCollapse" class="collapse" data-parent="#headerSidebarContent">
-                                                                        <ul id="headerSidebarHomeMenu" class="u-header-collapse__nav-list">
-                                                                            
-                                                                            <li><a class="u-header-collapse__submenu-nav-link" href="{{route('pedido')}}">{{__('sidebar_and_header.uls_li_system.general.general')}}</a></li>
-                                                                            
-                                                                        </ul>
-                                                                    </div>
-                                                                </li>
+
                                                                 <li class="u-has-submenu u-header-collapse__submenu">
                                                                         <a class="u-header-collapse__nav-link u-header-collapse__nav-pointer" href="javascript:;" data-target="#headerSidebarBlogCollapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="headerSidebarBlogCollapse">
                                                                                 {{__('sidebar_and_header.uls_li_system.sale')}}
@@ -296,8 +300,8 @@
                                                                     <div id="headerSidebarBlogCollapse" class="collapse" data-parent="#headerSidebarContent">
                                                                         <ul id="headerSidebarBlogMenu" class="u-header-collapse__nav-list">
                                                                         
-                                                                            <li><a class="u-header-collapse__submenu-nav-link" href="{{route('configuracao')}}">{{__('sidebar_and_header.uls_li_system.pedido')}}</a></li>
-                                                                            
+                                                                            <li><a class="u-header-collapse__submenu-nav-link" href="{{route('pedido')}}">{{__('sidebar_and_header.uls_li_system.pedido')}}</a></li>
+
                                                                         </ul>
                                                                     </div>
                                                                 </li>
@@ -333,27 +337,31 @@
                                                     <!-- Home - Mega Menu -->
                                                     <div class="hs-mega-menu w-100 u-header__sub-menu" aria-labelledby="pagesMegaMenu">
                                                         <div class="row u-header__mega-menu-wrapper">
-                                                            <div class="col-md-4">
-                                                                <span class="u-header__sub-menu-title">{{__('sidebar_and_header.uls_li_system.register.collapse')}}</span>
-                                                                <ul class="u-header__sub-menu-nav-group">
-                                                                    <li><a href="{{route('perfil')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item1')}}</a></li>
-                                                                    <li><a href="{{route('grupo')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item2')}}</a></li>
-                                                                    <li><a href="{{route('usuario')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item3')}}</a></li>
-                                                                    <li><a href="{{route('empresa')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item4')}}</a></li>
-                                                                    <li><a href="{{route('cidade')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item5')}}</a></li>
-                                                                    <li><a href="{{route('tipoPedido')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item6')}}</a></li>
-                                                                    <li><a href="{{route('statusPedido')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item7')}}</a></li>
-                                                                    <li><a href="{{route('grupoProduto')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item8')}}</a></li>
-                                                                    <li><a href="{{route('produto')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item9')}}</a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <span class="u-header__sub-menu-title">{{__('sidebar_and_header.uls_li_system.configuration')}}</span>
-                                                                <ul class="u-header__sub-menu-nav-group">
-                                                                    <li><a href="{{route('configuracao')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.general.general')}}</a></li>
-                                                                    
-                                                                </ul>
-                                                            </div>
+                                                            @if (Auth::user()->perfil->admin_controle_geral == 1)
+                                                                <div class="col-md-4">
+                                                                    <span class="u-header__sub-menu-title">{{__('sidebar_and_header.uls_li_system.register.collapse')}}</span>
+                                                                    <ul class="u-header__sub-menu-nav-group">
+                                                                        <li><a href="{{route('perfil')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item1')}}</a></li>
+                                                                        <li><a href="{{route('grupo')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item2')}}</a></li>
+                                                                        <li><a href="{{route('usuario')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item3')}}</a></li>
+                                                                        <li><a href="{{route('empresa')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item4')}}</a></li>
+                                                                        <li><a href="{{route('cidade')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item5')}}</a></li>
+                                                                        <li><a href="{{route('tipoPedido')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item6')}}</a></li>
+                                                                        <li><a href="{{route('statusPedido')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item7')}}</a></li>
+                                                                        <li><a href="{{route('grupoProduto')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item8')}}</a></li>
+                                                                        <li><a href="{{route('produto')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.register.item9')}}</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <span class="u-header__sub-menu-title">{{__('sidebar_and_header.uls_li_system.configuration')}}</span>
+                                                                    <ul class="u-header__sub-menu-nav-group">
+                                                                        <li><a href="{{route('configuracao')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.uls_li_system.general.general')}}</a></li>
+                                                                        
+                                                                    </ul>
+                                                                </div>
+                                                            @endif
+                                                            
+
                                                             <div class="col-md-4">
                                                                 <span class="u-header__sub-menu-title">{{__('sidebar_and_header.uls_li_system.sale')}}</span>
                                                                 <ul class="u-header__sub-menu-nav-group">

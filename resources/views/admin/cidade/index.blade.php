@@ -27,10 +27,11 @@
                         {{ Session::forget('message') }}
                     @endif
                     
-                    <div class="col-md-12 mb-3" style="display: flex; justify-content: flex-end">
-                        <a href="{{ route('cidade.novo') }}" class="btn waves-effect waves-light btn-lg btn-success pull-right">@lang('buttons.cidade.create') </a>
-                    </div>
-                
+                    
+                        <div class="col-md-12 mb-3" style="display: flex; justify-content: flex-end">
+                            <a href="{{ route('cidade.novo') }}" class="btn waves-effect waves-light btn-lg btn-success pull-right">@lang('buttons.cidade.create') </a>
+                        </div>
+                    
                     <div class="table-responsive m-t-40">
                         <table id="dataTable-cidades" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>

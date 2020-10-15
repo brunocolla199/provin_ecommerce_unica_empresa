@@ -114,6 +114,16 @@ function swal2_success(title, text) {
     });
 }
 
+function swal2_success_not_reload(title, text) {
+    swal({   
+        title: title,   
+        text: text,
+        type: "success"
+    }, function(){   
+         
+    });
+}
+
 /**
  * Error Message and Page Reload
  */

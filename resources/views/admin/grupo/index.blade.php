@@ -25,10 +25,11 @@
                         {{ Session::forget('message') }}
                     @endif
                     
+                    
                     <div class="col-md-12 mb-3" style="display: flex; justify-content: flex-end">
                         <a href="{{ route('grupo.novo') }}" class="btn waves-effect waves-light btn-lg btn-success pull-right">@lang('buttons.group.create') </a>
                     </div>
-                
+                    
                     <div class="table-responsive m-t-40">
                         <table id="dataTable-grupos" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
@@ -50,11 +51,13 @@
                                         <td>{{ date('d-m-Y',strtotime($grupo->created_at)) }}</td>
                                         <td>@if ($grupo->inativo == 0) Ativo @else Inativo @endif</td>
                                         <td>
+                                            
                                             @if ($grupo->inativo == 0)
                                                 <button style="width: 90px" class="btn waves-effect waves-light btn-danger sa-danger ativar_inativar" data-acao="inativar" data-id="{{$grupo->id}}"> <i class="mdi mdi-delete"></i> @lang('buttons.general.disable') </button>  
                                             @else
                                                 <button style="width: 90px" class="btn waves-effect waves-light btn-warning sa-warning ativar_inativar" data-acao="ativar" data-id="{{$grupo->id}}"> <i class="mdi mdi-delete"></i> @lang('buttons.general.enable') </button>
                                             @endif
+                                            
                                             <a style="width: 90px" href="{{ route('grupo.editar', ['id' => $grupo->id]) }}" class="btn waves-effect waves-light btn-info"> <i class="mdi mdi-lead-pencil"></i> @lang('buttons.general.edit') </a>
                                         </td>
                                     </tr>

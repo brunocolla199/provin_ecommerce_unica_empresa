@@ -9,7 +9,6 @@ class Produto extends Model
     public $table = 'produto';
 
     protected $fillable = [
-        'id',
         'nome', 
         'valor',
         'tamanho',
