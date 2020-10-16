@@ -61,10 +61,10 @@
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('grupo_id') ? ' has-error' : '' }}">
                                     <label class="control-label">Grupo</label>
-                                    <select name="grupo_id" class="form-control selectpicker" id="grupo_id" value="{{ $produto->grupo_id }}" required data-live-search="true">
+                                    <select name="grupo_id" class="form-control selectpicker" id="grupo_id" value="{{ $produto->grupo_produto_id }}" required data-live-search="true">
                                                 <option value="">Selecione</option>
                                         @foreach ($grupos as $grupo )
-                                                <option value="{{ $grupo->id }}" @if ($grupo->id == $produto->grupo_id ) selected @endif > {{ $produto->nome }} </option>    
+                                                <option value="{{ $grupo->id }}" @if ($grupo->id == $produto->grupo_produto_id ) selected @endif > {{ $grupo->nome }} </option>    
                                         @endforeach
                                     </select>
                                     <small class="form-control-feedback"> Selecione o grupo. </small> 

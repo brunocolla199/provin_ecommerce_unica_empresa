@@ -46,7 +46,7 @@
                                 @foreach ($pedidos as $pedido)
                                     <tr>
                                         <td>{{ $pedido->id }}</td>
-                                        <td>{{ $pedido->statusPedido->nome }}</td>
+                                        <td style="display: flex;justify-content: center"><i class="{{$pedido->statusPedido->nome_icone}}"></i></td>
                                         <td>{{ $pedido->usuario->empresa->nome_fantasia }}</td>
                                         <td>{{ $pedido->tipoPedido->nome }}</td>
                                         <td>{{date('d-m-Y', strtotime($pedido->create_at)) }}</td>
@@ -55,10 +55,11 @@
                                         <td class="money">{{number_format($pedido->total_pedido, 2, ',', '.')  }}</td>
                                         
                                         <td>
+                                            @if (Auth::user()->perfil->admin_controle_geral == 1)
+                                                <button style="width: 98px" class="btn waves-effect waves-light btn-danger sa-danger" data-id="{{$pedido->id}}"> <i class="mdi mdi-delete"></i> @lang('buttons.general.cancel') </button>   
+                                            @endif
                                             
-                                                <button class="btn waves-effect waves-light btn-danger sa-danger" data-id="{{$pedido->id}}"> <i class="mdi mdi-delete"></i> @lang('buttons.general.cancel') </button>
-                                            
-                                                <a href="{{ route('pedido.editar', ['id' => $pedido->id]) }}" class="btn waves-effect waves-light btn-info"> <i class="mdi mdi-lead-pencil"></i> @lang('buttons.general.edit') </a> 
+                                                <a style="width: 90px" href="{{ route('pedido.editar', ['id' => $pedido->id]) }}" class="btn waves-effect waves-light btn-info"> <i class="mdi mdi-lead-pencil"></i> @lang('buttons.general.edit') </a> 
                                         </td>
                                     </tr>
                                 @endforeach

@@ -190,7 +190,7 @@ class UsuarioController extends Controller
             'password'                          => $senha_igual == true ? $buscaSenha->password : crypt($request->password),
             'administrador'                     => false,
             'perfil_id'                         => $request->perfil,
-            'grupo_id'                          => $request->grupo,
+            'grupo_produto_id'                  => $request->grupo,
             'empresa_id'                        => $request->empresa ?? null
         ];
 

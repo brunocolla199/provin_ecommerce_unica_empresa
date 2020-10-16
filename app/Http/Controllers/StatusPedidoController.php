@@ -103,6 +103,7 @@ class StatusPedidoController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nome'          => 'required|string|max:50|min:3',
+            'nome_icone'    => 'required|string|max:50|min:3'
         ]);
 
         if ($validator->fails()) {
@@ -117,6 +118,7 @@ class StatusPedidoController extends Controller
         $create = [
             'nome'                           => $request->nome,
             'inativo'                        => 0,
+            'nome_icone'                     => $request->nome_icone
         ];
 
 

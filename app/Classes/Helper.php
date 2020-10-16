@@ -230,70 +230,7 @@ class Helper
     }
 
 
-    public static function buscaIndicesComumAreasGED(array $_areas = [])
-    {
-        try {
-            $listaIndices = array();
+    
 
-            $ged = new RESTServices();
-
-            foreach ($_areas as $key => $area) {
-                $indices = $ged->buscaInfoArea($area)['response'][0]->listaIndicesRegistro ?? false;
-                if (!$indices) {
-                    throw new \Exception("Erro na pesquisa");
-                }
-                foreach ($indices as $key => $indice) {
-                    if ($indice->utilizadoParaBusca) {
-                        $listaIndices[] = serialize([
-                            'idAreaReferenciada' => $indice->idAreaReferenciada,
-                            'descricao' => $indice->descricao,
-                            'idTipoIndice' => $indice->idTipoIndice,
-                            'identificador' => $indice->identificador,
-                            'listaMultivalorado' => $indice->listaMultivalorado,
-                            'preenchimentoObrigatorio' => $indice->preenchimentoObrigatorio
-                        ]);
-                    }
-                }
-            }
-
-            $listaIndices = array_count_values($listaIndices);
-
-            $listaIndices = array_filter($listaIndices, function ($arr) use ($_areas) {
-                return $arr == count($_areas);
-            });
-
-            foreach ($listaIndices as $key => $indice) {
-                $listaFinalIndices[] = unserialize($key);
-            }
-
-            return ['error' => false, 'response' => ['listaIndices' => $listaFinalIndices]];
-        } catch (\Throwable $th) {
-            return ['error' => true, 'response' => null];
-        }
-    }
-
-    public static function getProcessesByUserAccess()
-    {
-        $empresasGrupo = array();
-
-        $empresaRepository = new EmpresaRepository();
-        $grupoUserRepository = new GrupoUserRepository();
-        $empresaUserRepository = new EmpresaUserRepository();
-        $empresaGrupoRepository = new EmpresaGrupoRepository();
-
-        $grupo = $grupoUserRepository->findBy([['user_id', '=', Auth::user()->id]])[0] ?? null;
-        
-        if ($grupo) {
-            $empresasGrupo = $empresaGrupoRepository->findBy([["grupo_id", '=', $grupo->grupo_id]])
-            ->pluck('empresa_id');
-        }
-
-        $empresasUser = $empresaUserRepository->findBy([['user_id', '=', Auth::user()->id]])->pluck('empresa_id');
-
-        $empresasArray = $grupo ? $empresasUser->merge($empresasGrupo)->toArray() : $empresasUser;
-
-        $empresas = $empresaRepository->findBy([['id', '', $empresasArray, "IN"]], ['processes']);
-        
-        return $empresas;
-    }
+    
 }

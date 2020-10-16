@@ -9,6 +9,6 @@ class StatusPedido extends Model
     public $table = 'status_pedido';
 
     protected $fillable = [
-        'id', 'nome', 'inativo'
+        'id', 'nome', 'inativo', 'nome_icone'
     ];
 }

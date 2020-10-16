@@ -14,7 +14,7 @@ class Produto extends Model
         'tamanho',
         'produto_terceiro_id',
         'inativo',
-        'grupo_id',
+        'grupo_produto_id',
         'variacao',
         'peso',
         'quantidade_estoque'
@@ -22,7 +22,7 @@ class Produto extends Model
 
     public function grupo()
     {
-        return $this->hasOne('App\Models\GrupoProduto','id','grupo_id');
+        return $this->hasOne('App\Models\GrupoProduto','id','grupo_produto_id');
     }
 
 

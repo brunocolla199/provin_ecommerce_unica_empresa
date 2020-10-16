@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class grupoProduto extends Model
+class GrupoProduto extends Model
 {
     public $table = 'grupo_produto';
 
@@ -16,6 +16,6 @@ class grupoProduto extends Model
      * Grupo Produto tem muitos produto.
      */
     public function produto() {
-        return $this->masMany('App\Models\Produto');
+        return $this->hasMany('App\Models\Produto');
     }
 }

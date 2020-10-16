@@ -3,15 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\GrupoProdutoRepository;
 
 class ProdutoEcommerceController extends Controller
 {
-    public function __construct()
+    protected $grupoProdutoRepository;
+
+    public function __construct(GrupoProdutoRepository $grupoProduto)
     {
         $this->middleware('auth');
+        $this->grupoProdutoRepository = $grupoProduto;
+
     }
 
     public function index(){
-        return view('ecommerce.produto.index');
+        $grupos = $this->grupoProdutoRepository->findBy([
+            [
+            'inativo','=',0
+            ]
+        ]);
+        return view('ecommerce.produto.index',compact('grupos'));
     }
 }

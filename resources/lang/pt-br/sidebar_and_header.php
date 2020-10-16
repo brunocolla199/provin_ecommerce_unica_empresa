@@ -74,6 +74,32 @@ return [
         'item2'         => 'Com barra lateral escura',
     ],
 
-    'search_for'        => 'Buscar por...'
+    'search_for'        => 'Buscar por...',
+
+
+    'ecommerce'         => [
+        'pages'         => 'Páginas',
+        'product'       => 'Produtos',
+        'search_for_product' => 'Buscar por produtos',
+        'search'        => 'Buscar',
+        'all_categories'=> 'Todos grupos',
+        'cart'          => 'Carrinho',
+        'show_all_categories' => 'Mostrar todos grupos',
+        'filters' => 'Filtros',
+        'price'   => 'Preço',
+        'my_account' => 'Minha Conta',
+        'default_sorting' => 'Ordenação Padrão',
+        'sort_by_price_l_h' => 'Ordenação por Preço do Menor/Maior',
+        'sort_by_price_h_l' => 'Ordenação por Preço do Maior/Menor',
+        'show_20' => 'Mostrar 20',
+        'show_40' => 'Mostrar 40',
+        'show_all' => 'Mostrar Todos',
+        'showing'  => 'Resultados',
+        'results_found' => 'resultados encontrados'
+
+
+        
+
+    ]
 
 ];

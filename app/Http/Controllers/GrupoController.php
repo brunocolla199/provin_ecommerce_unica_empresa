@@ -94,7 +94,7 @@ class GrupoController extends Controller
     {
         $buscaGrupo = $this->grupoRepository->find($_request->id);
         $usuarios = $this->usuarioRepository->findBy(
-            [['grupo_id','=',$_request->id]],
+            [['grupo_produto_id','=',$_request->id]],
             [],
             [],
             [],

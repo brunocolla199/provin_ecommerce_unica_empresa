@@ -230,7 +230,7 @@ class ConfiguracaoController extends Controller
             'nome'               => $descricao,
             'produto_terceiro_id'=> $codigo,
             'inativo'            => 0,
-            'grupo_id'           => $idGrupo,
+            'grupo_produto_id'   => $idGrupo,
             'variacao'           => $variacao ?? 0,
             'peso'               => $peso ?? 0,
             'quantidade_estoque' => $estoque,

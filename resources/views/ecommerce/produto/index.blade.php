@@ -16,47 +16,38 @@
                 <ul id="sidebarNav" class="list-unstyled mb-0 sidebar-navbar">
                     <li>
                         <a class="dropdown-toggle dropdown-toggle-collapse dropdown-title" href="javascript:;" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="sidebarNav1Collapse" data-target="#sidebarNav1Collapse">
-                            Show All Categories
+                            {{__('sidebar_and_header.ecommerce.show_all_categories')}}
                         </a>
 
                         <div id="sidebarNav1Collapse" class="collapse" data-parent="#sidebarNav">
                             <ul id="sidebarNav1" class="list-unstyled dropdown-list">
-                                <!-- Menu List -->
-                                <li><a class="dropdown-item" href="#">Accessories<span class="text-gray-25 font-size-12 font-weight-normal"> (56)</span></a></li>
-                                <li><a class="dropdown-item" href="#">Cameras & Photography<span class="text-gray-25 font-size-12 font-weight-normal"> (11)</span></a></li>
-                                <li><a class="dropdown-item" href="#">Computer Components<span class="text-gray-25 font-size-12 font-weight-normal"> (22)</span></a></li>
-                                <li><a class="dropdown-item" href="#">Gadgets<span class="text-gray-25 font-size-12 font-weight-normal"> (5)</span></a></li>
-                                <li><a class="dropdown-item" href="#">Home Entertainment<span class="text-gray-25 font-size-12 font-weight-normal"> (7)</span></a></li>
-                                <li><a class="dropdown-item" href="#">Laptops & Computers<span class="text-gray-25 font-size-12 font-weight-normal"> (42)</span></a></li>
-                                <li><a class="dropdown-item" href="#">Printers & Ink<span class="text-gray-25 font-size-12 font-weight-normal"> (63)</span></a></li>
-                                <li><a class="dropdown-item" href="#">Smart Phones & Tablets<span class="text-gray-25 font-size-12 font-weight-normal"> (11)</span></a></li>
-                                <li><a class="dropdown-item" href="#">TV & Audio<span class="text-gray-25 font-size-12 font-weight-normal"> (66)</span></a></li>
-                                <li><a class="dropdown-item" href="#">Video Games & Consoles<span class="text-gray-25 font-size-12 font-weight-normal"> (31)</span></a></li>
-                                <!-- End Menu List -->
+                                @foreach ($grupos as $grupo)
+                                    <li><a class="dropdown-item" href="#">{{$grupo->nome}}<span class="text-gray-25 font-size-12 font-weight-normal"> ({{$grupo->produto->count()}})</span></a></li>   
+                                @endforeach
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    <!--<li>
                         <a class="dropdown-current active" href="#">Smart Phones & Tablets <span class="text-gray-25 font-size-12 font-weight-normal"> (50)</span></a>
 
                         <ul class="list-unstyled dropdown-list">
-                            <!-- Menu List -->
+                            
                             <li><a class="dropdown-item" href="#">Smartphones<span class="text-gray-25 font-size-12 font-weight-normal"> (30)</span></a></li>
-                            <li><a class="dropdown-item" href="#">Tablets<span class="text-gray-25 font-size-12 font-weight-normal"> (20)</span></a></li>
-                            <!-- End Menu List -->
+                            
                         </ul>
-                    </li>
+                    </li>-->
                 </ul>
                 <!-- End List -->
             </div>
             <div class="mb-6">
                 <div class="border-bottom border-color-1 mb-5">
-                    <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">Filters</h3>
+                    <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">{{__('sidebar_and_header.ecommerce.filters')}}</h3>
                 </div>
+                <!--
                 <div class="border-bottom pb-4 mb-4">
                     <h4 class="font-size-14 mb-3 font-weight-bold">Brands</h4>
 
-                    <!-- Checkboxes -->
+                    
                     <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="brandAdidas">
@@ -97,9 +88,7 @@
                             </label>
                         </div>
                     </div>
-                    <!-- End Checkboxes -->
-
-                    <!-- View More - Collapse -->
+                    
                     <div class="collapse" id="collapseBrand">
                         <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
                             <div class="custom-control custom-checkbox">
@@ -118,9 +107,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End View More - Collapse -->
-
-                    <!-- Link -->
+                    
                     <a class="link link-collapse small font-size-13 text-gray-27 d-inline-flex mt-2" data-toggle="collapse" href="#collapseBrand" role="button" aria-expanded="false" aria-controls="collapseBrand">
                         <span class="link__icon text-gray-27 bg-white">
                             <span class="link__icon-inner">+</span>
@@ -128,12 +115,12 @@
                         <span class="link-collapse__default">Show more</span>
                         <span class="link-collapse__active">Show less</span>
                     </a>
-                    <!-- End Link -->
+                    
                 </div>
                 <div class="border-bottom pb-4 mb-4">
                     <h4 class="font-size-14 mb-3 font-weight-bold">Color</h4>
 
-                    <!-- Checkboxes -->
+                    
                     <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="categoryTshirt">
@@ -164,9 +151,7 @@
                             <label class="custom-control-label" for="categoryBottom">Spacegrey <span class="text-gray-25 font-size-12 font-weight-normal"> (56)</span></label>
                         </div>
                     </div>
-                    <!-- End Checkboxes -->
-
-                    <!-- View More - Collapse -->
+                   
                     <div class="collapse" id="collapseColor">
                         <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
                             <div class="custom-control custom-checkbox">
@@ -187,9 +172,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End View More - Collapse -->
-
-                    <!-- Link -->
+                    
                     <a class="link link-collapse small font-size-13 text-gray-27 d-inline-flex mt-2" data-toggle="collapse" href="#collapseColor" role="button" aria-expanded="false" aria-controls="collapseColor">
                         <span class="link__icon text-gray-27 bg-white">
                             <span class="link__icon-inner">+</span>
@@ -197,8 +180,9 @@
                         <span class="link-collapse__default">Show more</span>
                         <span class="link-collapse__active">Show less</span>
                     </a>
-                    <!-- End Link -->
+                    
                 </div>
+            -->
                 <div class="range-slider">
                     <h4 class="font-size-14 mb-3 font-weight-bold">Price</h4>
                     <!-- Range Slider -->
@@ -223,9 +207,10 @@
                         <span>$</span>
                         <span id="rangeSliderExample3MaxResult" class=""></span>
                     </div>
-                    <button type="submit" class="btn px-4 btn-primary-dark-w py-2 rounded-lg">Filter</button>
+                    <button type="submit" class="btn px-4 btn-primary-dark-w py-2 rounded-lg">{{__('buttons.general.filter')}}</button>
                 </div>
             </div>
+            <!--
             <div class="mb-8">
                 <div class="border-bottom border-color-1 mb-5">
                     <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">Latest Products</h3>
@@ -345,12 +330,13 @@
                     </li>
                 </ul>
             </div>
+            -->
         </div>
         <div class="col-xl-9 col-wd-9gdot5">
             <!-- Shop-control-bar Title -->
             <div class="d-block d-md-flex flex-center-between mb-3">
-                <h3 class="font-size-25 mb-2 mb-md-0">Smart Phones & Tablets</h3>
-                <p class="font-size-14 text-gray-90 mb-0">Showing 1–25 of 56 results</p>
+                <h3 class="font-size-25 mb-2 mb-md-0">{{__('sidebar_and_header.ecommerce.product')}}</h3>
+                <p class="font-size-14 text-gray-90 mb-0">{{__('sidebar_and_header.ecommerce.showing')}} 1–25 of 56 {{__('sidebar_and_header.ecommerce.results_found')}}</p>
             </div>
             <!-- End shop-control-bar Title -->
             <!-- Shop-control-bar -->
@@ -368,7 +354,7 @@
                         data-unfold-animation-in="fadeInLeft"
                         data-unfold-animation-out="fadeOutLeft"
                         data-unfold-duration="500">
-                        <i class="fas fa-sliders-h"></i> <span class="ml-1">Filters</span>
+                        <i class="fas fa-sliders-h"></i> <span class="ml-1">{{__('sidebar_and_header.ecommerce.filters')}}</span>
                     </a>
                     <!-- End Account Sidebar Toggle Button -->
                 </div>
@@ -409,32 +395,29 @@
                         <!-- Select -->
                         <select class="js-select selectpicker dropdown-select max-width-200 max-width-160-sm right-dropdown-0 px-2 px-xl-0"
                             data-style="btn-sm bg-white font-weight-normal py-2 border text-gray-20 bg-lg-down-transparent border-lg-down-0">
-                            <option value="one" selected>Default sorting</option>
-                            <option value="two">Sort by popularity</option>
-                            <option value="three">Sort by average rating</option>
-                            <option value="four">Sort by latest</option>
-                            <option value="five">Sort by price: low to high</option>
-                            <option value="six">Sort by price: high to low</option>
+                            <option value="one" selected>{{__('sidebar_and_header.ecommerce.default_sorting')}}</option>
+                            <option value="five">{{__('sidebar_and_header.ecommerce.sort_by_price_l_h')}}</option>
+                            <option value="six">{{__('sidebar_and_header.ecommerce.sort_by_price_h_l')}}</option>
                         </select>
                         <!-- End Select -->
                     </form>
                     <form method="POST" class="ml-2 d-none d-xl-block">
                         <!-- Select -->
-                        <select class="js-select selectpicker dropdown-select max-width-120"
+                        <select class="js-select selectpicker dropdown-select max-width-130"
                             data-style="btn-sm bg-white font-weight-normal py-2 border text-gray-20 bg-lg-down-transparent border-lg-down-0">
-                            <option value="one" selected>Show 20</option>
-                            <option value="two">Show 40</option>
-                            <option value="three">Show All</option>
+                            <option value="one" selected>{{__('sidebar_and_header.ecommerce.show_20')}}</option>
+                            <option value="two">{{__('sidebar_and_header.ecommerce.show_40')}}</option>
+                            <option value="three">{{__('sidebar_and_header.ecommerce.show_all')}}</option>
                         </select>
                         <!-- End Select -->
                     </form>
                 </div>
-                <nav class="px-3 flex-horizontal-center text-gray-20 d-none d-xl-flex">
+                <!--<nav class="px-3 flex-horizontal-center text-gray-20 d-none d-xl-flex">
                     <form method="post" class="min-width-50 mr-1">
                         <input size="2" min="1" max="3" step="1" type="number" class="form-control text-center px-2 height-35" value="1">
                     </form> of 3
                     <a class="text-gray-30 font-size-20 ml-2" href="#">→</a>
-                </nav>
+                </nav>-->
             </div>
             <!-- End Shop-control-bar -->
             <!-- Shop Body -->
@@ -2517,7 +2500,7 @@
             <!-- End Shop Body -->
             <!-- Shop Pagination -->
             <nav class="d-md-flex justify-content-between align-items-center border-top pt-3" aria-label="Page navigation example">
-                <div class="text-center text-md-left mb-3 mb-md-0">Showing 1–25 of 56 results</div>
+                <div class="text-center text-md-left mb-3 mb-md-0">{{__('sidebar_and_header.ecommerce.showing')}} 1–25 de 56 {{__('sidebar_and_header.ecommerce.results_found')}}</div>
                 <ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start">
                     <li class="page-item"><a class="page-link current" href="#">1</a></li>
                     <li class="page-item"><a class="page-link" href="#">2</a></li>
@@ -2527,7 +2510,7 @@
             <!-- End Shop Pagination -->
         </div>
     </div>
-    <!-- Brand Carousel -->
+    <!--
     <div class="mb-6">
         <div class="py-2 border-top border-bottom">
             <div class="js-slick-carousel u-slick my-1"
@@ -2585,7 +2568,7 @@
             </div>
         </div>
     </div>
-    <!-- End Brand Carousel -->
+    -->
 @endsection
 
 @section('footer')

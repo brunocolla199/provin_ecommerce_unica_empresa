@@ -48,7 +48,20 @@
                                     @endif
                                 </div>
                             </div>
-                            
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('nome_imagem') ? ' has-error' : '' }}">
+                                    <label class="control-label">Nome Icone</label>
+                                    <input type="text" id="nome_imagem" name="nome_imagem" value="{{ old('nome_imagem') }}" class="form-control" required autofocus>
+                                    <small class="form-control-feedback"> Digite o nome  do icone. </small> 
+
+                                    @if ($errors->has('nome_imagem'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('nome_imagem') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
 
                     </div>

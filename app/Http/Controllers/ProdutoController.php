@@ -163,7 +163,7 @@ class ProdutoController extends Controller
             'tamanho'                       => '',
             'produto_terceiro_id'           => $request->id,
             'inativo'                       => 0,
-            'grupo_id'                      => $request->grupo_id,
+            'grupo_produto_id'              => $request->grupo_id,
             'variacao'                      => 0,
             'peso'                          => 0,
             'quantidade_estoque'            => $request->qtd_estoque

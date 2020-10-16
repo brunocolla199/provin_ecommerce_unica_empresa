@@ -23,9 +23,10 @@
                     {{ Session::forget('message') }}
                 @endif
                 
-                <form method="POST" action="{{ route('pedido.alterar', $pedido->id) }}">
+                <form method="POST" action="{{ route('pedido.alterar') }}">
                     {{ csrf_field() }}
-                    <input type="hidden" name="link" id="link">
+                    <input type="hidden" name="idPedido" id="idPedido" value="{{$pedido->id}}">
+                    <input type="hidden" name="link" id="link" value="{{$pedido->link_rastreamento}}">
                     <input type="hidden" name="ultStatus" id="ultStatus" value="{{$pedido->status_pedido_id}}">
                     <div class="form-body">
                         <div class="row p-t-20">
@@ -57,11 +58,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                    
-                    
-                   
-
                     <h5 class="box-title">Linha do Tempo</h5>
                     <hr class="m-t-0 m-b-10">
                     <div class="row col-md-12">
@@ -211,7 +207,7 @@
                     </div>
                     <div class="row"><br></div> 
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> @lang('buttons.general.save')</button>
+                        <button type="submit" id="buttonSubmit" disabled class="btn btn-success"> <i class="fa fa-check"></i> @lang('buttons.general.save')</button>
                         <a href="{{ route('pedido') }}" class="btn btn-inverse" style="border-color: black"> @lang('buttons.general.back')</a>
                     </div>
                 </form>

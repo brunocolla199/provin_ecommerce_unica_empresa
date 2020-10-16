@@ -4,11 +4,11 @@ $(document).ready(function() {
         
     $('.status').on('click',function(){
         var status = $(this).data('status');
-        var classe = $(this).data('classe');
+        var ultStatus = $('#ultStatus').val();
 
         backgroundTimeline(array,status);
 
-        if(status == 3){
+        if(status == 3 && ultStatus <= 3){
             $('#codRastreio').modal('show');
         }
 
@@ -28,6 +28,7 @@ $(document).ready(function() {
         let entregar = swal2_warning("Essa ação é irreversível!","Sim, entregar!");
         entregar.then(resolvedValue => {
             backgroundTimeline(array,status);
+            atualizastatus(status);
             swal2_success_not_reload("Entregue!", "Pedido entregue com sucesso.");
         }, error => {
             swal.close();
@@ -49,5 +50,6 @@ function atualizastatus(status)
     var ultStatus = $('#ultStatus').val();
     if(status > ultStatus){
         $('#ultStatus').val(status);
+        $('#buttonSubmit').removeAttr('disabled');
     }
 }
