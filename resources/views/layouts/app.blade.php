@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <!-- Title -->
-        <title>Home-v3 | Electro - Responsive Website Template</title>
+         <!-- Title -->
+         <title>{{ env('APP_NAME') }} - @yield('page_title')</title>
 
         <!-- Required Meta Tags Always Come First -->
         <meta charset="utf-8">

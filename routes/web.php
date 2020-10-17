@@ -190,14 +190,11 @@ Route::group(['middleware' => ['auth']], function() {
 
             Route::group(['prefix' => 'produto'], function () {
                 Route::get('', ['as' => 'ecommerce.produto', 'uses' => 'ProdutoEcommerceController@index']);
-               
+                Route::get('detalhe/{id}',   ['as' => 'ecommerce.produto.detalhe', 'uses' => 'ProdutoEcommerceController@detalhe']);
+                
             });
 
-            Route::group(['prefix' => 'detalheProduto'], function () {
-                Route::get('', ['as' => 'ecommerce.detalheProduto', 'uses' => 'DetalheProdutoEcommerceController@index']);
-               
-            });
-
+           
             Route::group(['prefix' => 'carrinho'], function () {
                 Route::get('', ['as' => 'ecommerce.carrinho', 'uses' => 'CarrinhoEcommerceController@index']);
                

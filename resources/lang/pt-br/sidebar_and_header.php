@@ -95,7 +95,9 @@ return [
         'show_40' => 'Mostrar 40',
         'show_all' => 'Mostrar Todos',
         'showing'  => 'Resultados',
-        'results_found' => 'resultados encontrados'
+        'results_found' => 'resultados encontrados',
+        'quantidade' => 'Quantidade',
+        'inEstoque'  => 'em estoque'
 
 
         

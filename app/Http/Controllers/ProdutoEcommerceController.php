@@ -33,4 +33,16 @@ class ProdutoEcommerceController extends Controller
         ]);
         return view('ecommerce.produto.index',compact('grupos','produtos'));
     }
+
+    public function detalhe($id)
+    {
+        $produto = $this->produtoRepository->find($id);
+        $grupos = $this->grupoProdutoRepository->findBy([
+            [
+            'inativo','=',0
+            ]
+        ]);
+        
+        return view('ecommerce.detalheProduto.index', compact('produto','grupos'));
+    }
 }

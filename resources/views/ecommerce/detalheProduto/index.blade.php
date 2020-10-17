@@ -1,10 +1,15 @@
 @extends('layouts.app')
 
+@section('page_title', __('page_titles.ecommerce.detalheProduto.index'))
+
 @section('breadcrumbs')
         <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="{{route('ecommerce.home')}}">Home</a></li>
-        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">{{__('sidebar_and_header.ecommerce.product')}}</li>
-    
+        <li class="breadcrumb-item"><a href="{{ route('ecommerce.produto') }}"> {{__('sidebar_and_header.ecommerce.product')}} </a></li>
+        <li class="breadcrumb-item active"> @lang('page_titles.detalheProduto.index') </li> 
+       
 @endsection
+
+
 
 @section('content')
 <div class="container">
@@ -59,9 +64,9 @@
             </div>
             <div class="col-md-6 col-lg-4 col-xl-4 mb-md-6 mb-lg-0">
                 <div class="mb-2">
-                    <a href="#" class="font-size-12 text-gray-5 mb-2 d-inline-block">Headphones</a>
-                    <h2 class="font-size-25 text-lh-1dot2">Ultra Wireless S50 Headphones S50 with Bluetooth</h2>
-                    <div class="mb-2">
+                    <a href="#" class="font-size-12 text-gray-5 mb-2 d-inline-block">{{$produto->produto_terceiro_id}}</a>
+                    <h2 class="font-size-25 text-lh-1dot2">{{$produto->nome}}</h2>
+                    <!--<div class="mb-2">
                         <a class="d-inline-flex align-items-center small font-size-15 text-lh-1" href="#">
                             <div class="text-warning mr-2">
                                 <small class="fas fa-star"></small>
@@ -73,33 +78,31 @@
                             <span class="text-secondary font-size-13">(3 customer reviews)</span>
                         </a>
                     </div>
-                    <a href="#" class="d-inline-block max-width-150 ml-n2 mb-2"><img class="img-fluid" src="{{asset('ecommerce/assets/img/200X60/img1.png')}}" alt="Image Description"></a>
+                    <a href="#" class="d-inline-block max-width-150 ml-n2 mb-2"><img class="img-fluid" src="{{asset('ecommerce/assets/img/200X60/img1.png')}}" alt="Image Description"></a>-->
                     <div class="mb-2">
                         <ul class="font-size-14 pl-3 ml-1 text-gray-110">
-                            <li>4.5 inch HD Touch Screen (1280 x 720)</li>
-                            <li>Android 4.4 KitKat OS</li>
-                            <li>1.4 GHz Quad Core™ Processor</li>
-                            <li>20 MP Electro and 28 megapixel CMOS rear camera</li>
+                            <!--<li>{{$produto->grupo->nome}}</li>-->
+                            
                         </ul>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-                    <p><strong>SKU</strong>: FW511948218</p>
+                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                    <p><strong>SKU</strong>: FW511948218</p>-->
                 </div>
             </div>
             <div class="mx-md-auto mx-lg-0 col-md-6 col-lg-4 col-xl-3">
                 <div class="mb-2">
                     <div class="card p-5 border-width-2 border-color-1 borders-radius-17">
-                        <div class="text-gray-9 font-size-14 pb-2 border-color-1 border-bottom mb-3">Availability: <span class="text-green font-weight-bold">26 in stock</span></div>
+                        <div class="text-gray-9 font-size-14 pb-2 border-color-1 border-bottom mb-3">{{__('sidebar_and_header.ecommerce.quantidade')}}: <span class="text-green font-weight-bold">{{$produto->quantidade_estoque}} {{__('sidebar_and_header.ecommerce.inEstoque')}}</span></div>
                         <div class="mb-3">
-                            <div class="font-size-36">$685.00</div>
+                        <div class="font-size-36">R${{number_format($produto->valor, 2, ',', '.')}}</div>
                         </div>
                         <div class="mb-3">
-                            <h6 class="font-size-14">Quantity</h6>
+                            <h6 class="font-size-14">{{__('sidebar_and_header.ecommerce.quantidade')}}</h6>
                             <!-- Quantity -->
                             <div class="border rounded-pill py-1 w-md-60 height-35 px-3 border-color-1">
                                 <div class="js-quantity row align-items-center">
                                     <div class="col">
-                                        <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none" type="text" value="1">
+                                    <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none" type="text" value="1" max="{{$produto->quantidade_estoque}}">
                                     </div>
                                     <div class="col-auto pr-1">
                                         <a class="js-minus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" href="javascript:;">
@@ -131,10 +134,10 @@
                         <div class="mb-3">
                             <a href="#" class="btn btn-block btn-dark">Buy Now</a>
                         </div>
-                        <div class="flex-content-center flex-wrap">
+                        <!--<div class="flex-content-center flex-wrap">
                             <a href="#" class="text-gray-6 font-size-13 mr-2"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
                             <a href="#" class="text-gray-6 font-size-13 ml-2"><i class="ec ec-compare mr-1 font-size-15"></i> Compare</a>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

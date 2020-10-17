@@ -138,6 +138,13 @@ return [
         
         'home'     => [
             'index'  => 'Home'
+        ],
+
+        'produto'     => [
+            'index'  => 'Produtos'
+        ],
+        'detalheProduto'     => [
+            'index'  => 'Detalhes do Produto'
         ]
     ]
 
