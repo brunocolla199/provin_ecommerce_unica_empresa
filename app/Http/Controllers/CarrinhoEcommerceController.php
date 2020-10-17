@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Repositories\{GrupoProdutoRepository, ProdutoRepository };
 use Illuminate\Http\Request;
-use App\Repositories\GrupoProdutoRepository;
-use App\Repositories\ProdutoRepository;
 
-class ProdutoEcommerceController extends Controller
+class CarrinhoEcommerceController extends Controller
 {
     protected $grupoProdutoRepository;
     protected $produtoRepository;
@@ -16,21 +14,16 @@ class ProdutoEcommerceController extends Controller
         $this->middleware('auth');
         $this->grupoProdutoRepository = $grupoProduto;
         $this->produtoRepository = $produto;
-
     }
 
-    public function index(){
-        $produtos = $this->produtoRepository->findBy([
-            [
-            'inativo','=',0
-            ]
-        ]);
-
+    public function index()
+    {
         $grupos = $this->grupoProdutoRepository->findBy([
             [
             'inativo','=',0
             ]
         ]);
-        return view('ecommerce.produto.index',compact('grupos','produtos'));
+        
+        return view('ecommerce.carrinho.index',compact('grupos'));
     }
 }

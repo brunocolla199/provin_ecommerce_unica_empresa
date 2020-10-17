@@ -859,7 +859,7 @@
                                                     <ul id="sidebarNav1" class="list-unstyled dropdown-list">
                                                        
                                                         @foreach ($grupos as $grupo)
-                                                            <li><a class="dropdown-item" href="#">{{$grupo->nome}}<span class="text-gray-25 font-size-12 font-weight-normal"> ({{$grupo->produto->count()}})</span></a></li>   
+                                                            <li><a class="dropdown-item" href="#">{{$grupo->nome}}<span class="text-gray-25 font-size-12 font-weight-normal"> ({{$grupo->produto->where("inativo","=","0")->count()}})</span></a></li>   
                                                         @endforeach
                                                     </ul>
                                                 </div>

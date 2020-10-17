@@ -193,6 +193,21 @@ Route::group(['middleware' => ['auth']], function() {
                
             });
 
+            Route::group(['prefix' => 'detalheProduto'], function () {
+                Route::get('', ['as' => 'ecommerce.detalheProduto', 'uses' => 'DetalheProdutoEcommerceController@index']);
+               
+            });
+
+            Route::group(['prefix' => 'carrinho'], function () {
+                Route::get('', ['as' => 'ecommerce.carrinho', 'uses' => 'CarrinhoEcommerceController@index']);
+               
+            });
+
+            Route::group(['prefix' => 'checkout'], function () {
+                Route::get('', ['as' => 'ecommerce.checkout', 'uses' => 'CheckoutEcommerceController@index']);
+               
+            });
+
         });
     });
 
