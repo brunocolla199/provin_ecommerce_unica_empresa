@@ -38,7 +38,7 @@ return [
         'download'       => 'Download',
         'resend'         => 'Reenviar',
         'update'         => 'Atualizar',
-        'filter'         => 'Filtrar'
+        'filter'         => 'Filtrar',
     ],
 
 

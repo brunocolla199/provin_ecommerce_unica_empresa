@@ -132,7 +132,7 @@
                             <a href="#" class="btn btn-block btn-primary-dark"><i class="ec ec-add-to-cart mr-2 font-size-20"></i> Add to Cart</a>
                         </div>
                         <div class="mb-3">
-                            <a href="#" class="btn btn-block btn-dark">Buy Now</a>
+                            <a href="{{route('ecommerce.produto')}}" class="btn btn-block btn-dark">{{__('buttons.general.back')}}</a>
                         </div>
                         <!--<div class="flex-content-center flex-wrap">
                             <a href="#" class="text-gray-6 font-size-13 mr-2"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>

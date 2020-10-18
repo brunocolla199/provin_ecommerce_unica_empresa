@@ -191,6 +191,9 @@ Route::group(['middleware' => ['auth']], function() {
             Route::group(['prefix' => 'produto'], function () {
                 Route::get('', ['as' => 'ecommerce.produto', 'uses' => 'ProdutoEcommerceController@index']);
                 Route::get('detalhe/{id}',   ['as' => 'ecommerce.produto.detalhe', 'uses' => 'ProdutoEcommerceController@detalhe']);
+                Route::get('search/grupo/{id}',   ['as' => 'ecommerce.produto.search.grupo', 'uses' => 'ProdutoEcommerceController@searchGrupo']);
+                Route::post('search/nome', ['as' => 'ecommerce.produto.search.nome', 'uses' => 'ProdutoEcommerceController@searchNome']);
+                Route::post('search/preco', ['as' => 'ecommerce.produto.search.preco', 'uses' => 'ProdutoEcommerceController@searchPreco']);
                 
             });
 

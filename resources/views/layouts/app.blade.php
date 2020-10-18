@@ -489,7 +489,8 @@
                                 <!-- Search bar -->
                                 <div class="col align-self-center">
                                     <!-- Search-Form -->
-                                    <form class="js-focus-state">
+                                    <form class="js-focus-state" method="POST"  action="{{ route('ecommerce.produto.search.nome') }}">
+                                        @csrf
                                         <label class="sr-only" for="searchProduct">{{__('sidebar_and_header.ecommerce.search')}}</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control py-2 pl-5 font-size-15 border-0 height-40 rounded-left-pill" name="searchProduct" id="searchProduct" placeholder="{{__('sidebar_and_header.ecommerce.search_for_product')}}" aria-label="{{__('sidebar_and_header.ecommerce.search_for_product')}}" aria-describedby="searchProduct1" required>
@@ -503,7 +504,7 @@
                                                     @endforeach
                                                 </select>
                                             -->
-                                                <button class="btn btn-dark height-40 py-2 px-3 rounded-right-pill" type="button" id="searchProduct1">
+                                                <button type="submit" class="btn btn-dark height-40 py-2 px-3 rounded-right-pill" type="button" id="searchProduct1">
                                                     <span class="ec ec-search font-size-24"></span>
                                                 </button>
                                             </div>
@@ -859,7 +860,7 @@
                                                     <ul id="sidebarNav1" class="list-unstyled dropdown-list">
                                                        
                                                         @foreach ($grupos as $grupo)
-                                                            <li><a class="dropdown-item" href="#">{{$grupo->nome}}<span class="text-gray-25 font-size-12 font-weight-normal"> ({{$grupo->produto->where("inativo","=","0")->count()}})</span></a></li>   
+                                                            <li><a class="dropdown-item" href="{{route('ecommerce.produto.search.grupo', ['id' => $grupo->id] )}}">{{$grupo->nome}}<span class="text-gray-25 font-size-12 font-weight-normal"> ({{$grupo->produto->where("inativo","=","0")->count()}})</span></a></li>   
                                                         @endforeach
                                                     </ul>
                                                 </div>
@@ -1226,6 +1227,47 @@
             <script src="{{asset('ecommerce/assets/js/components/hs.scroll-nav.js') }}"></script>
             <script src="{{asset('ecommerce/assets/js/components/hs.go-to.js') }}"></script>
             <script src="{{asset('ecommerce/assets/js/components/hs.selectpicker.js') }}"></script>
+
+            <!-- jQuery Mask -->
+            <script src="{{ asset('plugins/jquery-mask/jquery.mask.min.js') }}"></script>
+            <script>
+                $(document).ready(function(){
+                    $('.date').mask('00/00/0000');
+                    $('.time').mask('00:00:00');
+                    $('.date_time').mask('00/00/0000 00:00:00');
+                    $('.cep').mask('00000-000');
+                    $('.phone').mask('00000-0000');
+                    $('.phone_with_ddd').mask('(00) 0000-00000');
+                    $('.phone_us').mask('(000) 000-0000');
+                    $('.mixed').mask('AAA 000-S0S');
+                    $('.cpf').mask('000.000.000-00', {reverse: true});
+                    $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
+                    $('.money').mask('000.000.000.000.000,00', {reverse: true});
+                    $('.money2').mask("#.##0,00", {reverse: true});
+                    $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
+                        translation: {
+                        'Z': {
+                            pattern: /[0-9]/, optional: true
+                        }
+                        }
+                    });
+                    $('.ip_address').mask('099.099.099.099');
+                    $('.percent').mask('##0,00%', {reverse: true});
+                    $('.clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
+                    $('.placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
+                    $('.fallback').mask("00r00r0000", {
+                        translation: {
+                            'r': {
+                            pattern: /[\/]/,
+                            fallback: '/'
+                            },
+                            placeholder: "__/__/____"
+                        }
+                        });
+                    $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
+                    $('.integer').mask("000", {reverse: true});    
+                });
+            </script>
 
              <!-- JS Plugins Init. -->
         <script>

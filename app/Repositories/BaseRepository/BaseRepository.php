@@ -59,9 +59,7 @@ abstract class BaseRepository
     public function findBy(array $where, array $with = [], array $orderBy = [], array $groupBy = [] , $limit = null, $offset = null, array $selects = [] )
     {
         $model = $this->model;
-
-
-
+        
         $model = $model::with($with);
 
         if (!empty($selects)) {
@@ -83,6 +81,12 @@ abstract class BaseRepository
                 case "IN":
                 case "in":
                     $model = $model->whereIn($value[0], $value[2]);
+                    break;
+                
+                case "LIKE":
+                case "like":
+                    $model = $model->orWhere($value[0], $value[3],$value[2]);
+                    
                     break;
 
                 default:

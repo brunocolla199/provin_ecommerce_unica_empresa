@@ -145,6 +145,12 @@ return [
         ],
         'detalheProduto'     => [
             'index'  => 'Detalhes do Produto'
+        ],
+        'carrinho'     => [
+            'index'  => 'Carrinho de Compras'
+        ],
+        'checkout'     => [
+            'index'  => 'Checkout'
         ]
     ]
 

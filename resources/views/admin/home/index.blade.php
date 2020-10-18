@@ -4,6 +4,8 @@
     <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="{{ route('admin.home') }}">{{__('page_titles.general.home')}}</a></li>
 @endsection
 
+@section('page_title', __('page_titles.general.home'))
+
 @section('content')
 <div class="col-12">
     <div class="card">

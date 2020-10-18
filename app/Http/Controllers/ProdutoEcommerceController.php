@@ -10,6 +10,8 @@ class ProdutoEcommerceController extends Controller
 {
     protected $grupoProdutoRepository;
     protected $produtoRepository;
+    public $grupos;
+    
 
     public function __construct(GrupoProdutoRepository $grupoProduto, ProdutoRepository $produto)
     {
@@ -17,32 +19,114 @@ class ProdutoEcommerceController extends Controller
         $this->grupoProdutoRepository = $grupoProduto;
         $this->produtoRepository = $produto;
 
-    }
-
-    public function index(){
-        $produtos = $this->produtoRepository->findBy([
-            [
-            'inativo','=',0
-            ]
-        ]);
-
-        $grupos = $this->grupoProdutoRepository->findBy([
-            [
-            'inativo','=',0
-            ]
-        ]);
-        return view('ecommerce.produto.index',compact('grupos','produtos'));
-    }
-
-    public function detalhe($id)
-    {
-        $produto = $this->produtoRepository->find($id);
-        $grupos = $this->grupoProdutoRepository->findBy([
+        $this->grupos = $this->grupoProdutoRepository->findBy([
             [
             'inativo','=',0
             ]
         ]);
         
-        return view('ecommerce.detalheProduto.index', compact('produto','grupos'));
+    }
+
+    public function index(){
+        $produtos = $this->produtoRepository->findBy(
+            [
+                [
+                'inativo','=',0
+                ]
+            ],
+            [],[],[],
+            20,0
+        );
+
+        
+        return view('ecommerce.produto.index',
+            [
+                'grupos'=> $this->grupos,
+                'produtos' => $produtos
+            ]
+        );
+    }
+
+    public function detalhe($id)
+    {
+        $produto = $this->produtoRepository->find($id);
+        
+        return view('ecommerce.detalheProduto.index', 
+            [
+                'grupos' => $this->grupos,
+                'produto' => $produto
+            ]
+        );
+    }
+
+    public function searchGrupo($id){
+        $produtos = $this->produtoRepository->findBy(
+            [
+                [
+                'grupo_produto_id','=',$id
+                ],
+                [
+                    'inativo','=',0,'AND'
+                ]
+            ],
+            [],[],[],
+            20,0
+        );
+        return view('ecommerce.produto.index', 
+            [
+                'produtos' => $produtos,
+                'grupos' => $this->grupos
+            ]
+        );
+    }
+
+    public function searchNome(Request $request){
+        $nome = $request->searchProduct;
+        
+        $produtos =  $this->produtoRepository->findBy(
+            [
+                [
+                    'nome','ilike','%' . $nome . '%' 
+                ]
+            ],
+            [],[],[],
+            20,0
+        );
+
+        return view('ecommerce.produto.index', 
+            [
+                'grupos'   => $this->grupos,
+                'produtos' => $produtos
+            ]
+        );
+        
+    }
+
+    public function searchPreco(Request $request){
+        $rangeMinimo  = $request->rangeMinimo;
+        $rangeMaximo = $request->rangeMaximo;
+
+        //$query->whereBetween('age', [$ageFrom, $ageTo]);
+        
+        $produtos =  $this->produtoRepository->findBy(
+            [
+                [
+                    'nome','ilike','%' . $nome . '%' 
+                ]
+            ],
+            [],[],[],
+            20,0
+        );
+
+        /*
+        return view('ecommerce.produto.index', 
+            [
+                'grupos'   => $this->grupos,
+                'produtos' => $produtos
+            ]
+        );
+        */
+        
     }
 }
+

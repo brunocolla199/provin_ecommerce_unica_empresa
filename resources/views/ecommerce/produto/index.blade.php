@@ -22,7 +22,7 @@
                         <div id="sidebarNav1Collapse" class="collapse" data-parent="#sidebarNav">
                             <ul id="sidebarNav1" class="list-unstyled dropdown-list">
                                 @foreach ($grupos as $grupo)
-                                    <li><a class="dropdown-item" href="#">{{$grupo->nome}}<span class="text-gray-25 font-size-12 font-weight-normal"> ({{$grupo->produto->where("inativo","=","0")->count()}})</span></a></li>   
+                                <li><a class="dropdown-item" href="{{route('ecommerce.produto.search.grupo', ['id' => $grupo->id] )}}">{{$grupo->nome}}<span class="text-gray-25 font-size-12 font-weight-normal"> ({{$grupo->produto->where("inativo","=","0")->count()}})</span></a></li>   
                                 @endforeach
                             </ul>
                         </div>
@@ -184,30 +184,33 @@
                 </div>
             -->
                 <div class="range-slider">
-                    <h4 class="font-size-14 mb-3 font-weight-bold">Price</h4>
-                    <!-- Range Slider -->
-                    <input class="js-range-slider" type="text"
-                    data-extra-classes="u-range-slider u-range-slider-indicator u-range-slider-grid"
-                    data-type="double"
-                    data-grid="false"
-                    data-hide-from-to="true"
-                    data-prefix="$"
-                    data-min="0"
-                    data-max="3456"
-                    data-from="0"
-                    data-to="3456"
-                    data-result-min="#rangeSliderExample3MinResult"
-                    data-result-max="#rangeSliderExample3MaxResult">
-                    <!-- End Range Slider -->
-                    <div class="mt-1 text-gray-111 d-flex mb-4">
-                        <span class="mr-0dot5">Price: </span>
-                        <span>$</span>
-                        <span id="rangeSliderExample3MinResult" class=""></span>
-                        <span class="mx-0dot5"> — </span>
-                        <span>$</span>
-                        <span id="rangeSliderExample3MaxResult" class=""></span>
-                    </div>
-                    <button type="submit" class="btn px-4 btn-primary-dark-w py-2 rounded-lg">{{__('buttons.general.filter')}}</button>
+                    <form action="{{ route('ecommerce.produto.search.preco') }}" method="POST" >
+                        @csrf
+                        <h4 class="font-size-14 mb-3 font-weight-bold">{{__('sidebar_and_header.ecommerce.price')}}</h4>
+                        <!-- Range Slider -->
+                        <input class="js-range-slider" type="text"
+                        data-extra-classes="u-range-slider u-range-slider-indicator u-range-slider-grid"
+                        data-type="double"
+                        data-grid="false"
+                        data-hide-from-to="true"
+                        data-prefix="R$"
+                        data-min="0"
+                        data-max="3456"
+                        data-from="0"
+                        data-to="3456"
+                        data-result-min="#rangeMinimo"
+                        data-result-max="#rangeMaximo">
+                        <!-- End Range Slider -->
+                        <div class="mt-1 text-gray-111 d-flex mb-4">
+                            <span class="mr-0dot5">{{__('sidebar_and_header.ecommerce.price')}}: </span>
+                            <span>R$</span>
+                            <span id="rangeMinimo" name="rangeMinimo" class="" ></span>
+                            <span class="mx-0dot5"> — </span>
+                            <span>R$</span>
+                            <span id="rangeMaximo" name="rangeMaximo" class=""></span>
+                        </div>
+                        <button type="submit" class="btn px-4 btn-primary-dark-w py-2 rounded-lg">{{__('buttons.general.filter')}}</button>
+                    </form>    
                 </div>
             </div>
             <!--
@@ -336,7 +339,7 @@
             <!-- Shop-control-bar Title -->
             <div class="d-block d-md-flex flex-center-between mb-3">
                 <h3 class="font-size-25 mb-2 mb-md-0">{{__('sidebar_and_header.ecommerce.product')}}</h3>
-                <p class="font-size-14 text-gray-90 mb-0">{{__('sidebar_and_header.ecommerce.showing')}} 1–25 of 56 {{__('sidebar_and_header.ecommerce.results_found')}}</p>
+                <p class="font-size-14 text-gray-90 mb-0">{{__('sidebar_and_header.ecommerce.showing')}} 1–20 of 56 {{__('sidebar_and_header.ecommerce.results_found')}}</p>
             </div>
             <!-- End shop-control-bar Title -->
             <!-- Shop-control-bar -->
@@ -446,8 +449,8 @@
                                         </div>
                                         <div class="product-item__footer">
                                             <div class="border-top pt-2 flex-center-between flex-wrap">
-                                                <a href="../shop/compare.html" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> Compare</a>
-                                                <a href="../shop/wishlist.html" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
+                                                <!--<a href="../shop/compare.html" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> Compare</a>
+                                                <a href="../shop/wishlist.html" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>-->
                                             </div>
                                         </div>
                                     </div>
@@ -461,7 +464,7 @@
             <!-- End Shop Body -->
             <!-- Shop Pagination -->
             <nav class="d-md-flex justify-content-between align-items-center border-top pt-3" aria-label="Page navigation example">
-                <div class="text-center text-md-left mb-3 mb-md-0">{{__('sidebar_and_header.ecommerce.showing')}} 1–25 de 56 {{__('sidebar_and_header.ecommerce.results_found')}}</div>
+                <div class="text-center text-md-left mb-3 mb-md-0">{{__('sidebar_and_header.ecommerce.showing')}} 1–20 de 56 {{__('sidebar_and_header.ecommerce.results_found')}}</div>
                 <ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start">
                     <li class="page-item"><a class="page-link current" href="#">1</a></li>
                     <li class="page-item"><a class="page-link" href="#">2</a></li>
