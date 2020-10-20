@@ -151,8 +151,13 @@ return [
         ],
         'checkout'     => [
             'index'  => 'Checkout'
+        ],
+
+        'pedido'     => [
+            'index'  => 'Pedidos'
+        ],
+        'detalhePedido'     => [
+            'index'  => 'ver detalhes'
         ]
     ]
-
-    
 ];
