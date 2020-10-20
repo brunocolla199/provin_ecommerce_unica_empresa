@@ -244,6 +244,7 @@
                                                                         <ul id="headerSidebarHomeMenu" class="u-header-collapse__nav-list">
                                                                             <!-- Home - v1 -->
                                                                             <li><a class="u-header-collapse__submenu-nav-link" href="{{route('ecommerce.produto')}}">{{__('sidebar_and_header.ecommerce.product')}}</a></li>
+                                                                            <li><a class="u-header-collapse__submenu-nav-link" href="{{route('ecommerce.pedido')}}">Pedidos</a></li>
                                                                         </ul>
                                                                     </div>
                                                                 </li>
@@ -384,6 +385,7 @@
                                                                 <!--<span class="u-header__sub-menu-title"></span>-->
                                                                 <ul class="u-header__sub-menu-nav-group">
                                                                     <li><a href="{{route('ecommerce.produto')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.ecommerce.product')}}</a></li>
+                                                                    <li><a href="{{route('ecommerce.pedido')}}" class="nav-link u-header__sub-menu-nav-link">Pedidos</a></li>
                                                                     
                                                                 </ul>
                                                             </div>

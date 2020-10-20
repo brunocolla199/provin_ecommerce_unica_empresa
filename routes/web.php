@@ -197,6 +197,11 @@ Route::group(['middleware' => ['auth']], function() {
                 
             });
 
+            Route::group(['prefix' => 'pedido'], function () {
+                Route::get('',              ['as' => 'ecommerce.pedido', 'uses' => 'PedidoEcommerceController@index']);
+                Route::get('detalhe/{id}',   ['as' => 'ecommerce.pedido.editar', 'uses' => 'PedidoEcommerceController@edit']);
+            });
+
            
             Route::group(['prefix' => 'carrinho'], function () {
                 Route::get('', ['as' => 'ecommerce.carrinho', 'uses' => 'CarrinhoEcommerceController@index']);
@@ -210,7 +215,5 @@ Route::group(['middleware' => ['auth']], function() {
 
         });
     });
-
-
 });
 
