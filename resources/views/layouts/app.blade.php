@@ -489,8 +489,8 @@
                                 <!-- Search bar -->
                                 <div class="col align-self-center">
                                     <!-- Search-Form -->
-                                    <form class="js-focus-state" method="POST"  action="{{ route('ecommerce.produto.search.nome') }}">
-                                        @csrf
+                                    <form class="js-focus-state" method="GET"  id="buscaPorName" name="buscaPorName"  >
+                                        
                                         <label class="sr-only" for="searchProduct">{{__('sidebar_and_header.ecommerce.search')}}</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control py-2 pl-5 font-size-15 border-0 height-40 rounded-left-pill" name="searchProduct" id="searchProduct" placeholder="{{__('sidebar_and_header.ecommerce.search_for_product')}}" aria-label="{{__('sidebar_and_header.ecommerce.search_for_product')}}" aria-describedby="searchProduct1" required>
