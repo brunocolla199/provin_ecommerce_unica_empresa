@@ -66,7 +66,7 @@ class PedidoEcommerceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function detalhe($id)
     {
         $pedido = $this->pedidoRepository->find($id);
         $itens  = $this->itemPedidoRepository->findBy([
@@ -81,66 +81,14 @@ class PedidoEcommerceController extends Controller
             ]
         ]);
 
-        return view('admin.pedido.update', compact('pedido','itens','observacoes'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $_request)
-    {
-        $update = self::montaRequest($_request);
-        $id = $_request->get('idPedido');
-        $buscaStatus = $this->statusPedidoRepository->find($_request->ultStatus);
-        try {
-            DB::transaction(function () use ($update, $id, $buscaStatus) {
-                
-
-                $this->pedidoRepository->update
-                (
-                    $update,
-                    $id
-                );
-
-                $createObs = new ObsPedido();
-                $array = $createObs->montaRequestObs($id,"O status do pedido foi alterado para ".$buscaStatus->nome,'0');
-                
-                $this->observacoesRepository->create($array);
-
-
-            });
-            Helper::setNotify('Pedido atualizado com sucesso!', 'success|check-circle');
-            return redirect()->route('pedido');
-        } catch (\Throwable $th) {
-            var_dump($th);
-            Helper::setNotify("Erro ao atualizar o pedido", 'danger|close-circle');
-            return redirect()->back()->withInput();
-        }
-    }
-
-    /**
-     * Inativa the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function cancelar(Request $_request)
-    {
-        try {
-            
-            DB::transaction(function () use ($_request) {
-                $this->pedidoRepository->update(['status_id' => 6], $_request->id);
-            });
-            Helper::setNotify('Pedido cancelado com sucesso!', 'success|check-circle');
-            return response()->json(['response' => 'sucesso']);
-        } catch (\Throwable $th) {
-            Helper::setNotify("Erro ao cancelar o pedido ", 'danger|close-circle');
-            return response()->json(['response' => 'erro']);
-        } 
+        return view('ecommerce.detalhePedido.index',
+            [
+                'pedido' => $pedido,
+                'itens' => $itens,
+                'observacoes' => $observacoes,
+                'grupos'=> $this->grupos
+            ]
+        );
     }
 
    /**
