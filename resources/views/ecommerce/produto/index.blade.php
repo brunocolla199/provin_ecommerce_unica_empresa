@@ -475,11 +475,47 @@
             <!-- Shop Pagination -->
             <!-- Shop Pagination -->
             <nav class="d-md-flex justify-content-between align-items-center border-top pt-3" aria-label="Page navigation example">
-                <div class="text-center text-md-left mb-3 mb-md-0"></div>
-                {{$produtos->links()}}
-                <!--<ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start">  
-                </ul>-->
-            </nav>
+                    @if ($produtos->hasPages())
+                        <ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start">
+                            {{-- Previous Page Link --}}
+                            @if ($produtos->onFirstPage())
+                                <li class="disabled page-link"><span>&laquo;</span></li>
+                            @else
+                                <li class="page-link"><a class="page-link" href="{{ $produtos->previousPageUrl() }}" rel="prev">&laquo;</a></li>
+                            @endif
+
+                            @if($produtos->currentPage() > 3)
+                                <li class="hidden-xs page-link"><a class="page-link" href="{{ $produtos->url(1) }}">1</a></li>
+                            @endif
+                            @if($produtos->currentPage() > 4)
+                                <li class="disabled hidden-xs page-link"><span>...</span></li>
+                            @endif
+                            @foreach(range(1, $produtos->lastPage()) as $i)
+                                @if($i >= $produtos->currentPage() - 2 && $i <= $produtos->currentPage() + 2)
+                                    @if ($i == $produtos->currentPage())
+                                        <li class="active page-link current"><span>{{ $i }}</span></li>
+                                    @else
+                                        <li class="page-link"><a class="page-link" href="{{ $produtos->url($i) }}">{{ $i }}</a></li>
+                                    @endif
+                                @endif
+                            @endforeach
+                            @if($produtos->currentPage() < $produtos->lastPage() - 3)
+                                <li class="disabled hidden-xs page-link"><span>...</span></li>
+                            @endif
+                            @if($produtos->currentPage() < $produtos->lastPage() - 2)
+                                <li class="hidden-xs page-link"><a class="page-link" href="{{ $produtos->url($produtos->lastPage()) }}">{{ $produtos->lastPage() }}</a></li>
+                            @endif
+
+                            {{-- Next Page Link --}}
+                            @if ($produtos->hasMorePages())
+                                <li class="page-link"><a class="page-link" href="{{ $produtos->nextPageUrl() }}" rel="next">&raquo;</a></li>
+                            @else
+                                <li class="disabled page-link"><span>&raquo;</span></li>
+                            @endif
+                        </ul>
+                    @endif
+            
+                </nav>
             <!-- End Shop Pagination -->
         </div>
     </div>
