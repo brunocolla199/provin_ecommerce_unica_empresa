@@ -193,8 +193,13 @@ Route::group(['middleware' => ['auth']], function() {
                 Route::get('detalhe/{id}',   ['as' => 'ecommerce.produto.detalhe', 'uses' => 'ProdutoEcommerceController@detalhe']);
                 Route::get('search/grupo/{id}',   ['as' => 'ecommerce.produto.search.grupo', 'uses' => 'ProdutoEcommerceController@searchGrupo']);
                 Route::any('search/nome', ['as' => 'ecommerce.produto.search.nome', 'uses' => 'ProdutoEcommerceController@searchNome']);
-                Route::post('search/preco', ['as' => 'ecommerce.produto.search.preco', 'uses' => 'ProdutoEcommerceController@searchPreco']);
+                Route::get('search/preco', ['as' => 'ecommerce.produto.search.preco', 'uses' => 'ProdutoEcommerceController@searchPreco']);
                 
+            });
+
+            Route::group(['prefix' => 'pedido'], function () {
+                Route::get('',              ['as' => 'ecommerce.pedido', 'uses' => 'PedidoEcommerceController@index']);
+                Route::get('detalhe/{id}',   ['as' => 'ecommerce.pedido.editar', 'uses' => 'PedidoEcommerceController@edit']);
             });
 
            
@@ -210,7 +215,5 @@ Route::group(['middleware' => ['auth']], function() {
 
         });
     });
-
-
 });
 

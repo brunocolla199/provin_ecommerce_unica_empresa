@@ -93,6 +93,7 @@ return [
         'sort_by_price_h_l' => 'Ordenação por Preço do Maior/Menor',
         'show_20' => 'Mostrar 20',
         'show_40' => 'Mostrar 40',
+        'show_100' => 'Mostrar 100',
         'show_all' => 'Mostrar Todos',
         'showing'  => 'Resultados',
         'results_found' => 'resultados encontrados',

@@ -56,7 +56,7 @@ abstract class BaseRepository
     }
 
 
-    public function findBy(array $where, array $with = [], array $orderBy = [], array $groupBy = [] , $limit = null, $offset = null, array $selects = [] )
+    public function findBy(array $where, array $with = [], array $orderBy = [], array $groupBy = [] , $limit = null, $offset = null, array $selects = [], array $between = [], $paginate = null)
     {
         $model = $this->model;
         
@@ -95,6 +95,10 @@ abstract class BaseRepository
             }
         }
 
+        if(!empty($between)) {
+            $model = $model->whereBetween($between[0], [$between[1], $between[2]]);  
+        }
+
         if (count($orderBy)) {
             foreach ($orderBy as $order) {
                 $model = $model->orderBy($order[0], $order[1]);
@@ -114,6 +118,11 @@ abstract class BaseRepository
         if (!is_null($offset)) {
             $model = $model->skip((int) $offset);
         }
+
+        if(!is_null($paginate)){
+            return $model->Paginate($paginate);
+        }
+        
         return $model->get();
     }
 

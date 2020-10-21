@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\GrupoProdutoRepository;
 use App\Repositories\ProdutoRepository;
+use App\Models\Produto;
 
 class ProdutoEcommerceController extends Controller
 {
@@ -27,22 +28,49 @@ class ProdutoEcommerceController extends Controller
         
     }
 
-    public function index(){
-        $produtos = $this->produtoRepository->findBy(
-            [
-                [
-                'inativo','=',0
-                ]
-            ],
-            [],[],[],
-            20,0
-        );
+    public function index(Request $request){
+        $produtos = new Produto();
 
-        
+        if($request->query('regPorPage')){
+            session()->forget('regPorPage');
+            session()->put('regPorPage', $request->query('regPorPage'));
+        }
+
+        $registroPPagina = session()->get('regPorPage') ?? 20;
+
+        $produtos = $produtos->where('inativo','=',0);
+        if($request->has('searchProduct')){
+            $produtos = $produtos->where('nome','ilike','%' . $request->query('searchProduct') . '%');
+        }
+
+        if($request->has('ordenacao')){
+            session()->forget('ordenacao');
+            session()->put('ordenacao', $request->query('ordenacao'));
+            switch($request->query('ordenacao')){
+                case 'preco_l_h':
+                    $produtos = $produtos->orderBy('valor', 'asc');
+                    break;
+                case 'preco_h_l':
+                    $produtos = $produtos->orderBy('valor', 'desc');
+                    break;
+
+            }
+        }
+
+        $produtos = $produtos->paginate($registroPPagina)
+            ->appends(['searchProduct'=>$request->query('searchProduct')])
+            ->appends(['regPorPage'=>$registroPPagina])
+            ->appends(['ordenacao'=>$request->query('ordenacao')]);
+            
         return view('ecommerce.produto.index',
             [
                 'grupos'=> $this->grupos,
-                'produtos' => $produtos
+                'produtos' => $produtos,
+                'totalRegistros' => $produtos->total(),
+                'paginaAtual' => $produtos->currentPage(),
+                'registroPorPagina' => $produtos->perPage(),
+                'totalRegistroPaginaAtual' =>$produtos->count()
+
             ]
         );
     }
@@ -59,73 +87,100 @@ class ProdutoEcommerceController extends Controller
         );
     }
 
-    public function searchGrupo($id){
-        $produtos = $this->produtoRepository->findBy(
-            [
-                [
-                'grupo_produto_id','=',$id
-                ],
-                [
-                    'inativo','=',0,'AND'
-                ]
-            ],
-            [],[],[],
-            20,0
-        );
+    public function searchGrupo($id, Request $request){
+        $produtos = new Produto();
+        
+        if($request->query('regPorPage')){
+            session()->forget('regPorPage');
+            session()->put('regPorPage', $request->query('regPorPage'));
+        }
+
+        $registroPPagina = session()->get('regPorPage') ?? 20;
+
+        $produtos = $produtos->where('inativo','=',0);
+        if($id){
+            $produtos = $produtos->where('grupo_produto_id','=',$id);
+        }
+
+        if($request->has('ordenacao')){
+            session()->forget('ordenacao');
+            session()->put('ordenacao', $request->query('ordenacao'));
+            switch($request->query('ordenacao')){
+                case 'preco_l_h':
+                    $produtos = $produtos->orderBy('valor', 'asc');
+                    break;
+                case 'preco_h_l':
+                    $produtos = $produtos->orderBy('valor', 'desc');
+                    break;
+
+            }
+        }
+
+        $produtos = $produtos->paginate($registroPPagina)
+            ->appends(['regPorPage'=>$registroPPagina])
+            ->appends(['ordenacao'=>$request->query('ordenacao')]);
+         
         return view('ecommerce.produto.index', 
             [
                 'produtos' => $produtos,
-                'grupos' => $this->grupos
+                'grupos' => $this->grupos,
+                'totalRegistros' => $produtos->total(),
+                'paginaAtual' => $produtos->currentPage(),
+                'registroPorPagina' => $produtos->perPage(),
+                'totalRegistroPaginaAtual' =>$produtos->count()
             ]
         );
-    }
-
-    public function searchNome(Request $request){
-        $nome = $request->searchProduct;
-        
-        $produtos =  $this->produtoRepository->findBy(
-            [
-                [
-                    'nome','ilike','%' . $nome . '%' 
-                ]
-            ],
-            [],[],[],
-            20,0
-        );
-
-        return view('ecommerce.produto.index', 
-            [
-                'grupos'   => $this->grupos,
-                'produtos' => $produtos
-            ]
-        );
-        
     }
 
     public function searchPreco(Request $request){
         $rangeMinimo  = $request->rangeMinimo;
         $rangeMaximo = $request->rangeMaximo;
 
-        //$query->whereBetween('age', [$ageFrom, $ageTo]);
+        $produtos = new Produto();
         
-        $produtos =  $this->produtoRepository->findBy(
-            [
-                [
-                    'nome','ilike','%' . $nome . '%' 
-                ]
-            ],
-            [],[],[],
-            20,0
-        );
+        if($request->query('regPorPage')){
+            session()->forget('regPorPage');
+            session()->put('regPorPage', $request->query('regPorPage'));
+        }
 
-        /*
+        $registroPPagina = session()->get('regPorPage') ?? 20;
+
+        $produtos = $produtos->where('inativo','=',0);
+        if($request->has('rangeMaximo') && $request->has('rangeMinimo')){
+            $produtos = $produtos->whereBetween('valor', [$rangeMinimo, $rangeMaximo]);
+        }
+
+        if($request->has('ordenacao')){
+            session()->forget('ordenacao');
+            session()->put('ordenacao', $request->query('ordenacao'));
+            switch($request->query('ordenacao')){
+                case 'preco_l_h':
+                    $produtos = $produtos->orderBy('valor', 'asc');
+                    break;
+                case 'preco_h_l':
+                    $produtos = $produtos->orderBy('valor', 'desc');
+                    break;
+
+            }
+        }
+        
+        $produtos = $produtos->paginate($registroPPagina)
+            ->appends(['rangeMinimo'=>$rangeMinimo])
+            ->appends(['rangeMaximo'=>$rangeMaximo])
+            ->appends(['regPorPage'=>$registroPPagina])
+            ->appends(['ordenacao'=>$request->query('ordenacao')]);
+ 
         return view('ecommerce.produto.index', 
             [
                 'grupos'   => $this->grupos,
-                'produtos' => $produtos
+                'produtos' => $produtos,
+                'totalRegistros' => $produtos->total(),
+                'paginaAtual' => $produtos->currentPage(),
+                'registroPorPagina' => $produtos->perPage(),
+                'totalRegistroPaginaAtual' =>$produtos->count()
             ]
         );
-        */
+        
         
     }
 }

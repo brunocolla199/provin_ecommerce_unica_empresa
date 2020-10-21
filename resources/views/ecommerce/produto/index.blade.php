@@ -184,8 +184,8 @@
                 </div>
             -->
                 <div class="range-slider">
-                    <form action="{{ route('ecommerce.produto.search.preco') }}" method="POST" >
-                        @csrf
+                    <form action="{{ route('ecommerce.produto.search.preco') }}" name="filtroValor" id="filtroValor" method="GET" onsubmit="verificavalore()">
+                       
                         <h4 class="font-size-14 mb-3 font-weight-bold">{{__('sidebar_and_header.ecommerce.price')}}</h4>
                         <!-- Range Slider -->
                         <input class="js-range-slider" type="text"
@@ -195,21 +195,25 @@
                         data-hide-from-to="true"
                         data-prefix="R$"
                         data-min="0"
-                        data-max="3456"
-                        data-from="0"
-                        data-to="3456"
-                        data-result-min="#rangeMinimo"
-                        data-result-max="#rangeMaximo">
+                        data-max="3000"
+                        data-from="{{$_GET['rangeMinimo'] ?? 0}}"
+                        data-to="{{$_GET['rangeMaximo'] ?? 3000}}"
+                        data-result-min=".rangeMinimo"
+                        data-result-max=".rangeMaximo">
                         <!-- End Range Slider -->
                         <div class="mt-1 text-gray-111 d-flex mb-4">
                             <span class="mr-0dot5">{{__('sidebar_and_header.ecommerce.price')}}: </span>
                             <span>R$</span>
-                            <span id="rangeMinimo" name="rangeMinimo" class="" ></span>
+                            <span  class="rangeMinimo" ></span>
+                            <input type="hidden" name="rangeMinimo" id="rangeMinimo" >
                             <span class="mx-0dot5"> — </span>
                             <span>R$</span>
-                            <span id="rangeMaximo" name="rangeMaximo" class=""></span>
+                            <span  class="rangeMaximo"></span>
+                            <input type="hidden" name="rangeMaximo" id="rangeMaximo" >
                         </div>
-                        <button type="submit" class="btn px-4 btn-primary-dark-w py-2 rounded-lg">{{__('buttons.general.filter')}}</button>
+                        <button type="submit"  class="btn px-4 btn-primary-dark-w py-2 rounded-lg">{{__('buttons.general.filter')}}</button>
+                        <a type="button" href="{{route('ecommerce.produto')}}"  class="btn px-4 btn-primary-dark-w py-2 rounded-lg">{{__('buttons.general.clear')}}</a>
+                    
                     </form>    
                 </div>
             </div>
@@ -339,7 +343,7 @@
             <!-- Shop-control-bar Title -->
             <div class="d-block d-md-flex flex-center-between mb-3">
                 <h3 class="font-size-25 mb-2 mb-md-0">{{__('sidebar_and_header.ecommerce.product')}}</h3>
-                <p class="font-size-14 text-gray-90 mb-0">{{__('sidebar_and_header.ecommerce.showing')}} 1–20 of 56 {{__('sidebar_and_header.ecommerce.results_found')}}</p>
+            <p class="font-size-14 text-gray-90 mb-0">{{__('sidebar_and_header.ecommerce.showing')}} {{$paginaAtual*$registroPorPagina-($registroPorPagina -1)}}–{{$paginaAtual*$registroPorPagina-($registroPorPagina -1) + $totalRegistroPaginaAtual -1}} de {{$totalRegistros}} {{__('sidebar_and_header.ecommerce.results_found')}}</p>
             </div>
             <!-- End shop-control-bar Title -->
             <!-- Shop-control-bar -->
@@ -394,25 +398,28 @@
                     </ul>
                 </div>
                 <div class="d-flex">
-                    <form method="get">
+                    <form method="GET" name="itemPorPagina" id="itemPorPagina" class="ml-2 d-none d-xl-block">
+                               
                         <!-- Select -->
-                        <select class="js-select selectpicker dropdown-select max-width-200 max-width-160-sm right-dropdown-0 px-2 px-xl-0"
+                        <select id="ordenacao" name="ordenacao" class="js-select selectpicker dropdown-select max-width-200 max-width-160-sm right-dropdown-0 px-2 px-xl-0"
                             data-style="btn-sm bg-white font-weight-normal py-2 border text-gray-20 bg-lg-down-transparent border-lg-down-0">
-                            <option value="one" selected>{{__('sidebar_and_header.ecommerce.default_sorting')}}</option>
-                            <option value="five">{{__('sidebar_and_header.ecommerce.sort_by_price_l_h')}}</option>
-                            <option value="six">{{__('sidebar_and_header.ecommerce.sort_by_price_h_l')}}</option>
+                            <option value="default" >{{__('sidebar_and_header.ecommerce.default_sorting')}}</option>
+                            <option value="preco_l_h" @if (session()->get('ordenacao') == 'preco_l_h') selected @endif>{{__('sidebar_and_header.ecommerce.sort_by_price_l_h')}}</option>
+                            <option value="preco_h_l" @if (session()->get('ordenacao') == 'preco_h_l') selected @endif>{{__('sidebar_and_header.ecommerce.sort_by_price_h_l')}}</option>
                         </select>
                         <!-- End Select -->
-                    </form>
-                    <form method="POST" class="ml-2 d-none d-xl-block">
+                    
                         <!-- Select -->
-                        <select class="js-select selectpicker dropdown-select max-width-130"
+                        <select id="regPorPage" name="regPorPage" class="js-select selectpicker dropdown-select max-width-130"
                             data-style="btn-sm bg-white font-weight-normal py-2 border text-gray-20 bg-lg-down-transparent border-lg-down-0">
-                            <option value="one" selected>{{__('sidebar_and_header.ecommerce.show_20')}}</option>
-                            <option value="two">{{__('sidebar_and_header.ecommerce.show_40')}}</option>
-                            <option value="three">{{__('sidebar_and_header.ecommerce.show_all')}}</option>
+                            <option value="20" @if (session()->get('regPorPage') == 20) selected @endif>{{__('sidebar_and_header.ecommerce.show_20')}}</option>
+                            <option value="40" @if (session()->get('regPorPage') == 40) selected @endif>{{__('sidebar_and_header.ecommerce.show_40')}}</option>
+                            <option value="100" @if (session()->get('regPorPage') == 100) selected @endif>{{__('sidebar_and_header.ecommerce.show_100')}}</option>
                         </select>
                         <!-- End Select -->
+                        <input type="hidden" id="searchProduct" name="searchProduct" value="{{$_GET['searchProduct'] ?? ''}}">
+                        <input type="hidden" id="rangeMinimo" name="rangeMinimo" value="{{$_GET['rangeMinimo'] ?? ''}}">
+                        <input type="hidden" id="rangeMaximo" name="rangeMaximo" value="{{$_GET['rangeMaximo'] ?? ''}}">
                     </form>
                 </div>
                 <!--<nav class="px-3 flex-horizontal-center text-gray-20 d-none d-xl-flex">
@@ -428,6 +435,9 @@
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade pt-2 show active" id="pills-one-example1" role="tabpanel" aria-labelledby="pills-one-example1-tab" data-target-group="groups">
                     <ul class="row list-unstyled products-group no-gutters">
+                        @if ($produtos->count() == 0)
+                            <h5>Nenhum produto encontrado</h5>
+                        @endif
                         @foreach ($produtos as $produto)
                             <li class="col-6 col-md-3 col-wd-2gdot4 product-item">
                                 <div class="product-item__outer h-100">
@@ -463,17 +473,17 @@
             <!-- End Tab Content -->
             <!-- End Shop Body -->
             <!-- Shop Pagination -->
+            <!-- Shop Pagination -->
             <nav class="d-md-flex justify-content-between align-items-center border-top pt-3" aria-label="Page navigation example">
-                <div class="text-center text-md-left mb-3 mb-md-0">{{__('sidebar_and_header.ecommerce.showing')}} 1–20 de 56 {{__('sidebar_and_header.ecommerce.results_found')}}</div>
-                <ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start">
-                    <li class="page-item"><a class="page-link current" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                </ul>
+                <div class="text-center text-md-left mb-3 mb-md-0"></div>
+                {{$produtos->links()}}
+                <!--<ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start">  
+                </ul>-->
             </nav>
             <!-- End Shop Pagination -->
         </div>
     </div>
+    
     <!--
     <div class="mb-6">
         <div class="py-2 border-top border-bottom">
@@ -536,5 +546,26 @@
 @endsection
 
 @section('footer')
+<script>
+    
+    $(document).ready(function(){
+        
+        $('#regPorPage,#ordenacao').on('change',function(){
+            $('#itemPorPagina').submit();
+        });
+    });
 
+    function verificavalore(){
+        event.preventDefault();
+        var minimo = $('.rangeMinimo').text();
+        var maximo = $('.rangeMaximo').text();
+
+        $('#rangeMinimo').val(minimo);
+        $('#rangeMaximo').val(maximo);
+
+        $('#filtroValor').removeAttr('onsubmit').submit();
+        
+    }
+
+</script>
 @endsection

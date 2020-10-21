@@ -244,6 +244,7 @@
                                                                         <ul id="headerSidebarHomeMenu" class="u-header-collapse__nav-list">
                                                                             <!-- Home - v1 -->
                                                                             <li><a class="u-header-collapse__submenu-nav-link" href="{{route('ecommerce.produto')}}">{{__('sidebar_and_header.ecommerce.product')}}</a></li>
+                                                                            <li><a class="u-header-collapse__submenu-nav-link" href="{{route('ecommerce.pedido')}}">Pedidos</a></li>
                                                                         </ul>
                                                                     </div>
                                                                 </li>
@@ -384,6 +385,7 @@
                                                                 <!--<span class="u-header__sub-menu-title"></span>-->
                                                                 <ul class="u-header__sub-menu-nav-group">
                                                                     <li><a href="{{route('ecommerce.produto')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.ecommerce.product')}}</a></li>
+                                                                    <li><a href="{{route('ecommerce.pedido')}}" class="nav-link u-header__sub-menu-nav-link">Pedidos</a></li>
                                                                     
                                                                 </ul>
                                                             </div>
@@ -493,7 +495,7 @@
                                         
                                         <label class="sr-only" for="searchProduct">{{__('sidebar_and_header.ecommerce.search')}}</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control py-2 pl-5 font-size-15 border-0 height-40 rounded-left-pill" name="searchProduct" id="searchProduct" placeholder="{{__('sidebar_and_header.ecommerce.search_for_product')}}" aria-label="{{__('sidebar_and_header.ecommerce.search_for_product')}}" aria-describedby="searchProduct1" required>
+                                        <input type="text" class="form-control py-2 pl-5 font-size-15 border-0 height-40 rounded-left-pill" name="searchProduct" id="searchProduct" placeholder="{{__('sidebar_and_header.ecommerce.search_for_product')}}" aria-label="{{__('sidebar_and_header.ecommerce.search_for_product')}}" aria-describedby="searchProduct1"  value="{{$_GET['searchProduct'] ?? ''}}">
                                             <div class="input-group-append">
                                             <!-- 
                                                 <select class="js-select selectpicker dropdown-select custom-search-categories-select"
@@ -1022,30 +1024,36 @@
                                         </div>
                                     -->
                                         <div class="range-slider">
-                                            <h4 class="font-size-14 mb-3 font-weight-bold">{{__('sidebar_and_header.ecommerce.price')}}</h4>
-                                            <!-- Range Slider -->
-                                            <input class="js-range-slider" type="text"
-                                            data-extra-classes="u-range-slider u-range-slider-indicator u-range-slider-grid"
-                                            data-type="double"
-                                            data-grid="false"
-                                            data-hide-from-to="true"
-                                            data-prefix="$"
-                                            data-min="0"
-                                            data-max="3456"
-                                            data-from="0"
-                                            data-to="3456"
-                                            data-result-min="#rangeSliderExample3MinResult"
-                                            data-result-max="#rangeSliderExample3MaxResult">
-                                            <!-- End Range Slider -->
-                                            <div class="mt-1 text-gray-111 d-flex mb-4">
-                                                <span class="mr-0dot5">{{__('sidebar_and_header.ecommerce.price')}}: </span>
-                                                <span>$</span>
-                                                <span id="rangeSliderExample3MinResult" class=""></span>
-                                                <span class="mx-0dot5"> — </span>
-                                                <span>$</span>
-                                                <span id="rangeSliderExample3MaxResult" class=""></span>
-                                            </div>
-                                            <button type="submit" class="btn px-4 btn-primary-dark-w py-2 rounded-lg">{{__('buttons.general.filter')}}</button>
+                                            <form action="{{ route('ecommerce.produto.search.preco') }}" name="filtroValor" id="filtroValor" method="GET" onsubmit="verificavalore()">
+                    
+                                                <h4 class="font-size-14 mb-3 font-weight-bold">{{__('sidebar_and_header.ecommerce.price')}}</h4>
+                                                <!-- Range Slider -->
+                                                <input class="js-range-slider" type="text"
+                                                data-extra-classes="u-range-slider u-range-slider-indicator u-range-slider-grid"
+                                                data-type="double"
+                                                data-grid="false"
+                                                data-hide-from-to="true"
+                                                data-prefix="R$"
+                                                data-min="0"
+                                                data-max="3000"
+                                                data-from="{{$_GET['rangeMinimo'] ?? 0}}"
+                                                data-to="{{$_GET['rangeMaximo'] ?? 3000}}"
+                                                data-result-min=".rangeMinimo"
+                                                data-result-max=".rangeMaximo">
+                                                <!-- End Range Slider -->
+                                                <div class="mt-1 text-gray-111 d-flex mb-4">
+                                                    <span class="mr-0dot5">{{__('sidebar_and_header.ecommerce.price')}}: </span>
+                                                    <span>R$</span>
+                                                    <span  class="rangeMinimo" ></span>
+                                                    <input type="hidden" name="rangeMinimo" id="rangeMinimo" >
+                                                    <span class="mx-0dot5"> — </span>
+                                                    <span>R$</span>
+                                                    <span  class="rangeMaximo"></span>
+                                                    <input type="hidden" name="rangeMaximo" id="rangeMaximo" >
+                                                </div>
+                                                <button type="submit"  class="btn px-4 btn-primary-dark-w py-2 rounded-lg">{{__('buttons.general.filter')}}</button>
+                                                <a type="button" href="{{route('ecommerce.produto')}}"  class="btn px-4 btn-primary-dark-w py-2 rounded-lg">{{__('buttons.general.clear')}}</a>
+                                            </form>    
                                         </div>
                                     </div>
                                     <!--<div class="mb-6">
