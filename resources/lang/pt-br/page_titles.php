@@ -158,6 +158,9 @@ return [
         ],
         'detalhePedido'     => [
             'index'  => 'ver detalhes'
+        ],
+        'telaDetalhesPedido'     => [
+            'index'  => 'Detalhes do Pedido'
         ]
     ]
 ];
