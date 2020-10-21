@@ -41,11 +41,18 @@ class PedidoEcommerceController extends Controller
 
     public function index(){
 
-        $pedidos = $this->pedidoRepository->findBy([
+        $pedidos = $this->pedidoRepository->findBy(
             [
-            'excluido','=',0
+                [
+                'excluido','=',0
+                ]
+            ],[],
+            [
+                [
+                    'updated_at','desc'
+                ]
             ]
-        ]);
+        );
 
         return view('ecommerce.pedido.index', [
             'grupos'=> $this->grupos,
