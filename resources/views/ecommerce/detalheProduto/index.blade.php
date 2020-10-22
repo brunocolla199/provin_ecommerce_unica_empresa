@@ -6,7 +6,6 @@
         <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="{{route('ecommerce.home')}}">Home</a></li>
         <li class="breadcrumb-item"><a href="{{ route('ecommerce.produto') }}"> {{__('sidebar_and_header.ecommerce.product')}} </a></li>
         <li class="breadcrumb-item active"> @lang('page_titles.detalheProduto.index') </li> 
-       
 @endsection
 
 
@@ -94,7 +93,7 @@
                     <div class="card p-5 border-width-2 border-color-1 borders-radius-17">
                         <div class="text-gray-9 font-size-14 pb-2 border-color-1 border-bottom mb-3">{{__('sidebar_and_header.ecommerce.quantidade')}}: <span class="text-green font-weight-bold">{{$produto->quantidade_estoque}} {{__('sidebar_and_header.ecommerce.inEstoque')}}</span></div>
                         <div class="mb-3">
-                        <div class="font-size-36">R${{number_format($produto->valor, 2, ',', '.')}}</div>
+                        <div id="valorProduto" class="font-size-36">R${{number_format($produto->valor, 2, ',', '.')}}</div>
                         </div>
                         <div class="mb-3">
                             <h6 class="font-size-14">{{__('sidebar_and_header.ecommerce.quantidade')}}</h6>
@@ -102,13 +101,13 @@
                             <div class="border rounded-pill py-1 w-md-60 height-35 px-3 border-color-1">
                                 <div class="js-quantity row align-items-center">
                                     <div class="col">
-                                    <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none" type="text" value="1" max="{{$produto->quantidade_estoque}}">
+                                    <input id="quantidadeProduto" class="js-result form-control h-auto border-0 rounded p-0 shadow-none" type="text" value="1" min="1" max="{{$produto->quantidade_estoque}}">
                                     </div>
                                     <div class="col-auto pr-1">
-                                        <a class="js-minus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" href="javascript:;">
+                                        <a class="js-minus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" id="remove-btn" href="javascript:;">
                                             <small class="fas fa-minus btn-icon__inner"></small>
                                         </a>
-                                        <a class="js-plus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" href="javascript:;">
+                                        <a class="js-plus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" id="add-btn" href="javascript:;">
                                             <small class="fas fa-plus btn-icon__inner"></small>
                                         </a>
                                     </div>
@@ -116,7 +115,7 @@
                             </div>
                             <!-- End Quantity -->
                         </div>
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <h6 class="font-size-14">Color</h6>
                             <!-- Select -->
                             <select class="js-select selectpicker dropdown-select btn-block col-12 px-0"
@@ -127,9 +126,12 @@
                                 <option value="four">Blue</option>
                             </select>
                             <!-- End Select -->
+                        </div> --}}
+                        <div class="mb-2 pb-0dot5">
+                            <a href="#" class="btn btn-block btn-primary-dark"><i class="ec ec-add-to-cart mr-2 font-size-20"></i>Carrinho Expresso</a>
                         </div>
                         <div class="mb-2 pb-0dot5">
-                            <a href="#" class="btn btn-block btn-primary-dark"><i class="ec ec-add-to-cart mr-2 font-size-20"></i> Add to Cart</a>
+                            <a href="#" class="btn btn-block btn-primary-dark" ><i class="ec ec-add-to-cart mr-2 font-size-20"></i>Carrinho</a>
                         </div>
                         <div class="mb-3">
                             <a href="{{route('ecommerce.produto')}}" class="btn btn-block btn-dark">{{__('buttons.general.back')}}</a>
@@ -148,5 +150,28 @@
 @endsection
 
 @section('footer')
+    <script src="https://cdnjs.com/libraries/jquery.mask"></script>
+    <script>
+        var valorProduto = $('#valorProduto').html();
+        valorProduto = valorProduto.substring(2);
+        var valorFloat = parseFloat(valorProduto);
 
+        $('#add-btn').click( function () {
+            var quantidadeProduto = parseInt($('#quantidadeProduto').val());
+            quantidadeProduto = quantidadeProduto + 1;
+            $('#quantidadeProduto').val(quantidadeProduto.toString());
+            var valorTotal = valorFloat * parseFloat($('#quantidadeProduto').val());
+            $('#valorProduto').html("R$"+valorTotal.toFixed(2).toString().replace('.', ','));
+        });
+
+        $('#remove-btn').click( function () {
+            if (parseInt($('#quantidadeProduto').val()) > 0) {
+                var quantidadeProduto = parseInt($('#quantidadeProduto').val());
+                quantidadeProduto = quantidadeProduto - 1;
+                $('#quantidadeProduto').val(quantidadeProduto.toString());
+                var valorTotal = valorFloat * parseFloat($('#quantidadeProduto').val());
+                $('#valorProduto').html("R$"+valorTotal.toFixed(2).toString().replace('.', ','));
+            }
+        });
+    </script>
 @endsection
