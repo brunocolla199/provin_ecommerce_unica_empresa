@@ -4,8 +4,8 @@
 
 @section('breadcrumbs')
 
-    <li class="breadcrumb-item"><a href="{{ route('admin.home') }}"> {{__('page_titles.general.home')}} </a></li>
-    <li class="breadcrumb-item"><a href="{{ route('pedido') }}"> {{__('page_titles.ecommerce.pedido.index')}} </a></li>
+    <li class="breadcrumb-item"><a href="{{ route('ecommerce.home') }}"> {{__('page_titles.general.home')}} </a></li>
+    <li class="breadcrumb-item"><a href="{{ route('ecommerce.pedido') }}"> {{__('page_titles.ecommerce.pedido.index')}} </a></li>
     <li class="breadcrumb-item active"> {{__('page_titles.ecommerce.telaDetalhesPedido.index')}} </li>    
 
 @endsection
@@ -88,25 +88,17 @@
                         <table class="table" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th class="product-remove">&nbsp;</th>
-                                    <th class="product-thumbnail">&nbsp;</th>
                                     <th class="product-name">Produtos</th>
                                     <th class="product-price">Preço</th>
-                                    <th class="product-quantity w-lg-15">Quantidade</th>
+                                    <th class="product-quantity w-lg-15">Qtd</th>
                                     <th class="product-subtotal">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($itens as $item)
                                 <tr class="">
-                                        <td class="text-center">
-                                            <!--<a href="#" class="text-gray-32 font-size-26">×</a>-->
-                                        </td>
-                                        <td class="d-none d-md-table-cell">
-                                            <a href="#"><img class="img-fluid max-width-100 p-1 border border-color-1" src="{{asset('ecommerce/assets/img/300X300/img6.jpg')}}" alt="Image Description"></a>
-                                        </td>
-    
                                         <td data-title="Product">
+                                            <a href="#"><img class="img-fluid max-width-100 p-1 border border-color-1" src="{{asset('ecommerce/assets/img/300X300/img6.jpg')}}" alt="Image Description"></a>
                                             <a href="#" class="text-gray-90">{{$item->produto->nome}}</a>
                                         </td>
     
