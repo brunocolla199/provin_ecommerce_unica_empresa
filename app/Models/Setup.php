@@ -15,10 +15,11 @@ class Setup extends Model
         'logo_sistema', 
         'tempo_liberacao_pedido',
         'valor_adicional_pedido',
-        'tamanhos_aneis',
-        'tamanho_padrao_anel',
+        'tamanhos',
+        'tamanho_padrao',
         'tempo_expiracao_sessao',
         'caminho_imagen_produto',
-        'caminho_importacao_produto'
+        'caminho_importacao_produto',
+        'grupos'
     ];
 }
