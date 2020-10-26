@@ -47,4 +47,23 @@ class SetupService
     {
         return $this->findBy($where, $with)->first();
     }
+
+    public function tamanhosToString($tamanhos) 
+    {
+        $tamanhosStr = "";
+    
+        foreach ($tamanhos as $tamanho) 
+        {
+            if ($tamanhosStr == "") 
+            {
+                $tamanhosStr = $tamanho;
+            }
+            else 
+            {
+                $tamanhosStr = $tamanhosStr." , ".$tamanho;
+            }
+        }
+
+        return $tamanhosStr;
+    }
 }
