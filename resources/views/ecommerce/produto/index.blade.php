@@ -652,5 +652,17 @@
         
     }
 
+    function verificavalore_mob(){
+        event.preventDefault();
+        var minimo = $('.rangeMinimo_mob').text();
+        var maximo = $('.rangeMaximo_mob').text();
+
+        $('#rangeMinimo_mob').val(minimo);
+        $('#rangeMaximo_mob').val(maximo);
+
+        $('#filtroValor_mob').removeAttr('onsubmit').submit();
+        
+    }
+
 </script>
 @endsection

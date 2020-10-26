@@ -163,6 +163,9 @@ class ProdutoEcommerceController extends Controller
             [
                 'produtos' => $produtos,
                 'grupos' => $this->grupos,
+                'tamanhos' => $this->tamanhos,
+                'tamanho_padrao' => $this->tamanho_padrao,
+                'grupos_necessita_tamanho' => $this->grupos_necessita_tamanho,
                 'totalRegistros' => $produtos->total(),
                 'paginaAtual' => $produtos->currentPage(),
                 'registroPorPagina' => $produtos->perPage(),
@@ -213,6 +216,9 @@ class ProdutoEcommerceController extends Controller
             [
                 'grupos'   => $this->grupos,
                 'produtos' => $produtos,
+                'tamanhos' => $this->tamanhos,
+                'tamanho_padrao' => $this->tamanho_padrao,
+                'grupos_necessita_tamanho' => $this->grupos_necessita_tamanho,
                 'totalRegistros' => $produtos->total(),
                 'paginaAtual' => $produtos->currentPage(),
                 'registroPorPagina' => $produtos->perPage(),

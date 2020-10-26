@@ -448,7 +448,7 @@
                                                 <!-- Input -->
                                                 <div id="searchClassic" class="dropdown-menu dropdown-unfold dropdown-menu-right left-0 mx-2" aria-labelledby="searchClassicInvoker">
                                                     <form class="js-focus-state input-group px-3" method="GET" action="{{route('ecommerce.produto')}}">
-                                                        <input class="form-control" name="searchProduct" id="searchProduct" type="search" placeholder="{{__('sidebar_and_header.ecommerce.search_for_product')}}" value="{{$_GET['searchProduct']}}">
+                                                        <input class="form-control" name="searchProduct" id="searchProduct" type="search" placeholder="{{__('sidebar_and_header.ecommerce.search_for_product')}}" value="{{$_GET['searchProduct'] ?? ''}}">
                                                         <div class="input-group-append">
                                                             <button class="btn btn-primary px-3" type="submit"><i class="font-size-18 ec ec-search"></i></button>
                                                         </div>
@@ -1042,7 +1042,7 @@
                                         </div>
                                     -->
                                         <div class="range-slider">
-                                            <form action="{{ route('ecommerce.produto.search.preco') }}" name="filtroValor" id="filtroValor" method="GET" onsubmit="verificavalore()">
+                                            <form action="{{ route('ecommerce.produto.search.preco') }}" name="filtroValor_mob" id="filtroValor_mob" method="GET" onsubmit="verificavalore_mob()">
                     
                                                 <h4 class="font-size-14 mb-3 font-weight-bold">{{__('sidebar_and_header.ecommerce.price')}}</h4>
                                                 <!-- Range Slider -->
@@ -1056,21 +1056,21 @@
                                                 data-max="3000"
                                                 data-from="{{$_GET['rangeMinimo'] ?? 0}}"
                                                 data-to="{{$_GET['rangeMaximo'] ?? 3000}}"
-                                                data-result-min=".rangeMinimo"
-                                                data-result-max=".rangeMaximo">
+                                                data-result-min=".rangeMinimo_mob"
+                                                data-result-max=".rangeMaximo_mob">
                                                 <!-- End Range Slider -->
                                                 <div class="mt-1 text-gray-111 d-flex mb-4">
                                                     <span class="mr-0dot5">{{__('sidebar_and_header.ecommerce.price')}}: </span>
                                                     <span>R$</span>
-                                                    <span  class="rangeMinimo" ></span>
-                                                    <input type="hidden" name="rangeMinimo" id="rangeMinimo" >
+                                                    <span  class="rangeMinimo_mob" ></span>
+                                                    <input type="hidden" name="rangeMinimo" id="rangeMinimo_mob" >
                                                     <span class="mx-0dot5"> — </span>
                                                     <span>R$</span>
-                                                    <span  class="rangeMaximo"></span>
-                                                    <input type="hidden" name="rangeMaximo" id="rangeMaximo" >
+                                                    <span  class="rangeMaximo_mob"></span>
+                                                    <input type="hidden" name="rangeMaximo" id="rangeMaximo_mob" >
                                                 </div>
                                                 <button type="submit"  class="btn px-4 btn-primary-dark-w py-2 rounded-lg">{{__('buttons.general.filter')}}</button>
-                                                <a type="button" href="{{route('ecommerce.produto')}}"  class="btn px-4 btn-primary-dark-w py-2 rounded-lg">{{__('buttons.general.clear')}}</a>
+                                                <a type="button" href="{{route('ecommerce.produto')}}"  class="btn px-4 btn-dark py-2 rounded-lg">{{__('buttons.general.clear')}}</a>
                                             </form>    
                                         </div>
                                     </div>
