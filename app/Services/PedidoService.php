@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Repositories\PedidoRepository;
 use App\Services\ItemPedidoService;
+use App\Services\UserService;
+use Illuminate\Support\Facades\{Auth};
 
 
 
@@ -11,11 +13,13 @@ class PedidoService
 {
     public $pedidoRepository;
     public $itemPedidoService;
+    public $userService;
 
-    public function __construct(PedidoRepository $pedido, ItemPedidoService $item)
+    public function __construct(PedidoRepository $pedido, ItemPedidoService $item, UserService $user)
     {
         $this->pedidoRepository = $pedido;
         $this->itemPedidoService = $item;
+        $this->userService = $user;
     }
 
 
@@ -94,5 +98,29 @@ class PedidoService
 
         $pedido = self::find($id);
         self::update($id,$pedido->tipo_pedido_id,$pedido->status_pedido_id,$pedido->user_id,$total_pedido,$total_itens,$pedido->previsao_entrega,$pedido->acrescimos,$pedido->excluido,$pedido->link_rastreamento);
+    }
+
+    public function buscaPedidoCarrinho($tipo_pedido)
+    {
+        $empresa = Auth::user()->empresa_id;
+        $buscaUsuario = $this->userService->findBy(
+            [
+                ['empresa_id','=',$empresa]
+            ]
+        );
+
+        $usuariosIn = [];
+        foreach ($buscaUsuario as $key => $value) {
+            array_push($usuariosIn,$value->id);
+        }
+    
+        return $this->pedidoRepository->findBy(
+            [
+                ['excluido','=',0,"AND"],
+                ['status_pedido_id','=',1,"AND"],
+                ['tipo_pedido_id','=',$tipo_pedido,"AND"],
+                ['user_id','',$usuariosIn,"IN"]
+            ]
+        );
     }
 }

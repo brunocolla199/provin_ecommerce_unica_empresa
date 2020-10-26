@@ -463,15 +463,20 @@
                                             <li class="col pr-xl-0 px-2 px-sm-3">
                                                 <a href="../shop/cart.html" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
                                                     <i class="font-size-22 ec ec-shopping-bag"></i>
-                                                    <span class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">2</span>
-                                                    <span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3">$1785.00</span>
+                                                    @if (!empty($pedidoNormal[0]))
+                                                        <span class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoNormal[0]->numero_itens ?? ''}}</span>
+                                                        <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoNormal[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
+                                                    @endif 
                                                 </a>
                                             </li>
                                             <li class="col pr-xl-0 px-2 px-sm-3">
                                                 <a href="../shop/cart.html" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
                                                     <i class="font-size-22 ec ec-shopping-bag"></i>
-                                                    <span class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">2</span>
-                                                    <span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3">$1785.00</span>
+                                                    @if (!empty($pedidoExpress[0]))
+                                                        <span class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoExpress[0]->numero_itens ?? ''}}</span>
+                                                        <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format( $pedidoExpress[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
+                                                    @endif
+                                                    
                                                 </a>
                                             </li>
                                         </ul>
@@ -535,15 +540,19 @@
                                             <li class="col pr-0">
                                                 <a href="../shop/cart.html" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
                                                     <i class="font-size-22 ec ec-shopping-bag"></i>
-                                                    <span class="width-22 height-22 bg-dark position-absolute flex-content-center text-white rounded-circle left-12 top-8 font-weight-bold font-size-12">2</span>
-                                                    <span class="font-weight-bold font-size-16 text-gray-90 ml-3">$1785.00</span>
+                                                    @if (!empty($pedidoNormal[0]))
+                                                        <span class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoNormal[0]->numero_itens ?? ''}}</span>
+                                                        <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoNormal[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
+                                                    @endif 
                                                 </a>
                                             </li>
                                             <li class="col pr-0">
                                                 <a href="../shop/cart.html" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
                                                     <i class="font-size-22 ec ec-shopping-bag"></i>
-                                                    <span class="width-22 height-22 bg-dark position-absolute flex-content-center text-white rounded-circle left-12 top-8 font-weight-bold font-size-12">2</span>
-                                                    <span class="font-weight-bold font-size-16 text-gray-90 ml-3">$1785.00</span>
+                                                    @if (!empty($pedidoExpress[0]))
+                                                        <span class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoExpress[0]->numero_itens ?? ''}}</span>
+                                                        <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoExpress[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
+                                                    @endif
                                                 </a>
                                             </li>
                                         </ul>

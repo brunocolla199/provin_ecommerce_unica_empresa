@@ -2,27 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Repositories\GrupoProdutoRepository;
+use App\Services\GrupoProdutoService;
+use App\Services\PedidoService;
 
 class HomeEcommerceController extends Controller
 {
-    protected $grupoProdutoRepository;
+    protected $grupoProdutoService;
+    protected $pedidoService;
+    public $grupos;
 
-    public function __construct(GrupoProdutoRepository $grupoProduto)
+    public $pedidoNormal;
+    public $pedidoExpress;
+
+    public function __construct(GrupoProdutoService $grupoProduto, PedidoService $pedido)
     {
         $this->middleware('auth');
-        $this->grupoProdutoRepository = $grupoProduto;
-    }
+        $this->grupoProdutoService = $grupoProduto;
+        $this->pedidoService = $pedido;
 
-    public function index()
-    {
-        $grupos = $this->grupoProdutoRepository->findBy([
+        $this->grupos = $this->grupoProdutoService->findBy([
             [
             'inativo','=',0
             ]
         ]);
+
         
-        return view('ecommerce.home.index',compact('grupos'));
+        
+    }
+
+    public function index()
+    {
+        $this->pedidoNormal  = $this->pedidoService->buscaPedidoCarrinho(2);
+        $this->pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1); 
+
+        return view('ecommerce.home.index',
+            [
+                'grupos'       => $this->grupos,
+                'pedidoNormal' => $this->pedidoNormal,
+                'pedidoExpress'=> $this->pedidoExpress
+            ]
+        );
     }
 }

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Classes\Helper;
 use App\Services\UserService;
+use App\Services\PedidoService;
 use Illuminate\Support\Facades\{DB, Auth};
 
 
@@ -22,28 +23,8 @@ class CarrinhoService
 
     public function addCarrinho($id_produto,$tipo_pedido,$tamanho)
     {
-
-        $empresa = Auth::user()->empresa_id;
-        $buscaUsuario = $this->userService->findBy(
-            [
-                ['empresa_id','=',$empresa]
-            ]
-        );
-
-        $usuariosIn = [];
-        foreach ($buscaUsuario as $key => $value) {
-            array_push($usuariosIn,$value->id);
-        }
-    
-        $buscaPedido =$this->pedidoService->findBy(
-            [
-                ['excluido','=',0,"AND"],
-                ['status_pedido_id','=',1,"AND"],
-                ['tipo_pedido_id','=',$tipo_pedido,"AND"],
-                ['user_id','',$usuariosIn,"IN"]
-            ]
-        );
-
+        $buscaPedido =$this->pedidoService->buscaPedidoCarrinho($tipo_pedido);
+        
         //Se achou pedido da empresa ALTERA caso contrario CRIA
         if(!empty($buscaPedido[0])){
             //update
