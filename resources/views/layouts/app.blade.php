@@ -447,10 +447,10 @@
     
                                                 <!-- Input -->
                                                 <div id="searchClassic" class="dropdown-menu dropdown-unfold dropdown-menu-right left-0 mx-2" aria-labelledby="searchClassicInvoker">
-                                                    <form class="js-focus-state input-group px-3">
-                                                        <input class="form-control" type="search" placeholder="{{__('sidebar_and_header.ecommerce.search_for_product')}}">
+                                                    <form class="js-focus-state input-group px-3" method="GET" action="{{route('ecommerce.produto')}}">
+                                                        <input class="form-control" name="searchProduct" id="searchProduct" type="search" placeholder="{{__('sidebar_and_header.ecommerce.search_for_product')}}" value="{{$_GET['searchProduct']}}">
                                                         <div class="input-group-append">
-                                                            <button class="btn btn-primary px-3" type="button"><i class="font-size-18 ec ec-search"></i></button>
+                                                            <button class="btn btn-primary px-3" type="submit"><i class="font-size-18 ec ec-search"></i></button>
                                                         </div>
                                                     </form>
                                                 </div>
