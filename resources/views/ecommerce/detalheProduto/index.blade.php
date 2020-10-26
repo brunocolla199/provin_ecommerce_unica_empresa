@@ -238,23 +238,16 @@
         valorProduto = valorProduto.substring(2);
         var valorFloat = parseFloat(valorProduto);
 
-        $('#add-btn').click( function () {
-            var quantidadeProduto = parseInt($('#quantidadeProduto').val());
-            quantidadeProduto = quantidadeProduto + 1;
-            $('#quantidadeProduto').val(quantidadeProduto.toString());
-            var valorTotal = valorFloat * parseFloat($('#quantidadeProduto').val());
-            $('#valorProduto').html("R$"+valorTotal.toFixed(2).toString().replace('.', ','));
+        $('#quantidadeProduto').change(function () {
+            calculaValorProduto(valorFloat);
         });
 
-        $('#remove-btn').click( function () {
-            if (parseInt($('#quantidadeProduto').val()) > 0) {
-                var quantidadeProduto = parseInt($('#quantidadeProduto').val());
-                quantidadeProduto = quantidadeProduto - 1;
-                $('#quantidadeProduto').val(quantidadeProduto.toString());
-                var valorTotal = valorFloat * parseFloat($('#quantidadeProduto').val());
-                $('#valorProduto').html("R$"+valorTotal.toFixed(2).toString().replace('.', ','));
-            }
-        });
+        function calculaValorProduto(valor) {
+            var quantidadeProduto = parseInt($('#quantidadeProduto').val());
+            $('#quantidadeProduto').val(quantidadeProduto.toString());
+            var valorTotal = valor * parseFloat($('#quantidadeProduto').val());
+            $('#valorProduto').html("R$"+valorTotal.toFixed(2).toString().replace('.', ','));
+        }
     </script>
     <script>
         var modal = document.getElementById("myModal");
