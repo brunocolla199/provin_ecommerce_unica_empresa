@@ -144,7 +144,8 @@ return [
             'index'  => 'Produtos'
         ],
         'detalheProduto'     => [
-            'index'  => 'Detalhes do Produto'
+            'index'  => 'Detalhes do Produto',
+            'descAneis' => 'Os anéis estão disponíveis nos tamanhos'
         ],
         'carrinho'     => [
             'index'  => 'Carrinho de Compras'

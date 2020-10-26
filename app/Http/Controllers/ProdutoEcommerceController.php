@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-
+use App\Classes\SetupService;
 use Illuminate\Http\Request;
 
 use App\Models\Produto;
@@ -109,11 +108,16 @@ class ProdutoEcommerceController extends Controller
     public function detalhe($id)
     {
         $produto = $this->produtoService->find($id);
+        $setupService = new SetupService();
+        $tamanhos = json_decode($setupService->buscar(1)->tamanhos);
+        $tamanhosStr = $setupService->tamanhosToString($tamanhos);
         
         return view('ecommerce.detalheProduto.index', 
             [
                 'grupos' => $this->grupos,
-                'produto' => $produto
+                'produto' => $produto,
+                'tamanhos' => $tamanhos,
+                'tamanhosStr' => $tamanhosStr
             ]
         );
     }

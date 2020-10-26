@@ -2,7 +2,6 @@
 
 namespace App\Classes;
 
-use App\User;
 use Illuminate\Support\Facades\DB;
 
 class UsuarioBancoFactory 
