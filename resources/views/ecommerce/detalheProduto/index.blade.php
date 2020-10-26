@@ -196,7 +196,7 @@
                             <div class="mb-2 pb-0dot5">
                                 <ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start">
                                     @foreach ($tamanhos as $tamanho)
-                                    <li class="page-link">{{ $tamanho }}</li>
+                                    <li class="page-link tamanho" id="tamanho-{{$tamanho}}" >{{ $tamanho }}</li>
                                         {{-- <li class="active page-link current"><span>{{ $tamanho }}</span></li>    --}}
                                     @endforeach
                                 </ul>
@@ -240,6 +240,15 @@
 
         $('#quantidadeProduto').change(function () {
             calculaValorProduto(valorFloat);
+        });
+
+
+        $('.tamanho').on('click',function(){
+            var tamanho = $(this).text();
+            $(".tamanho").each(function(index, value){
+                $('#'+value.id).removeAttr('class').attr('class','page-link tamanho');
+            });
+            $('#tamanho-'+tamanho).attr('class','page-link current tamanho');
         });
 
         function calculaValorProduto(valor) {
