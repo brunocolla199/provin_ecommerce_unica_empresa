@@ -78,7 +78,8 @@ class PedidoEcommerceController extends Controller
         $observacoes = $this->obsPedidoService->findBy([
             [
             'excluido','=',0
-            ]
+            ],
+            ['pedido_id','=',$id,'AND']
         ]);
 
         return view('ecommerce.detalhePedido.index',

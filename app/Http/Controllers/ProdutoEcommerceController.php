@@ -107,15 +107,21 @@ class ProdutoEcommerceController extends Controller
     public function detalhe($id)
     {
         $produto = $this->produtoService->find($id);
-        $tamanhos = json_decode($this->setupService->find(1)->tamanhos);
+
+        $setup = $this->setupService->find(1);
+
+        $tamanhos = json_decode($setup->tamanhos);
         $tamanhosStr = $this->setupService->tamanhosToString($tamanhos);
+
+        $tamanhoDefault = $setup->tamanho_padrao;
         
         return view('ecommerce.detalheProduto.index', 
             [
                 'grupos' => $this->grupos,
                 'produto' => $produto,
                 'tamanhos' => $tamanhos,
-                'tamanhosStr' => $tamanhosStr
+                'tamanhosStr' => $tamanhosStr,
+                'tamanhoDefault' => $tamanhoDefault
             ]
         );
     }

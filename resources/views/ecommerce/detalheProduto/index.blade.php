@@ -196,8 +196,7 @@
                             <div class="mb-2 pb-0dot5">
                                 <ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start">
                                     @foreach ($tamanhos as $tamanho)
-                                    <li class="page-link tamanho" id="tamanho-{{$tamanho}}" >{{ $tamanho }}</li>
-                                        {{-- <li class="active page-link current"><span>{{ $tamanho }}</span></li>    --}}
+                                    <li class="page-link tamanho @if ($tamanhoDefault == $tamanho) current @endif " id="tamanho-{{$tamanho}}" >{{ $tamanho }}</li>
                                     @endforeach
                                 </ul>
                             </div>

@@ -612,8 +612,9 @@
             var id   = $(this).data('id');
             var tipo = $(this).data('tipo');
             var tamanho = $('#tamanho-'+id).val();
+            var descricaoCarrinho = tipo == 'express' ? ' expresso' : ' de compras';
 
-            let add_carrinho = swal2_warning("Essa ação irá adicionar o produto ao carrinho","Sim!");
+            let add_carrinho = swal2_warning("Essa ação irá adicionar o produto ao carrinho"+descricaoCarrinho ,"Sim!");
             let obj = {'id': id};
 
             add_carrinho.then(resolvedValue => {
