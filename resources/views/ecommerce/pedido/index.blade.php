@@ -10,6 +10,7 @@
 
 
 @section('content')
+
     <div class="card">
         <div class="card-body">
             <h3 class="box-title">@lang('page_titles.pedido.index')</h3>
@@ -46,7 +47,5 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('footer')
+  
 @endsection

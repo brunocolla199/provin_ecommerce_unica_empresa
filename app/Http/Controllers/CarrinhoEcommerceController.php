@@ -1,24 +1,24 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Repositories\{GrupoProdutoRepository, ProdutoRepository };
-use Illuminate\Http\Request;
+use App\Services\{GrupoProdutoService, ProdutoService };
+
 
 class CarrinhoEcommerceController extends Controller
 {
-    protected $grupoProdutoRepository;
-    protected $produtoRepository;
+    protected $grupoProdutoService;
+    protected $produtoService;
 
-    public function __construct(GrupoProdutoRepository $grupoProduto, ProdutoRepository $produto)
+    public function __construct(GrupoProdutoService $grupoProduto, ProdutoService $produto)
     {
         $this->middleware('auth');
-        $this->grupoProdutoRepository = $grupoProduto;
-        $this->produtoRepository = $produto;
+        $this->grupoProdutoService = $grupoProduto;
+        $this->produtoService = $produto;
     }
 
     public function index()
     {
-        $grupos = $this->grupoProdutoRepository->findBy([
+        $grupos = $this->grupoProdutoService->findBy([
             [
             'inativo','=',0
             ]

@@ -5,50 +5,48 @@ namespace App\Http\Controllers;
 use App\Classes\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Validator, DB};
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Repositories\{UserRepository, PerfilRepository, GrupoRepository, EmpresaRepository};
+use App\Services\{UserService, PerfilService, GrupoService, EmpresaService};
 
 class UsuarioController extends Controller
 {
     
-    protected $userRepository;
-    protected $perfilRepository;
-    protected $grupoRepository;
-    protected $empresaRepository;
+    protected $userService;
+    protected $perfilService;
+    protected $grupoService;
+    protected $empresaService;
 
 
-    public function __construct(UserRepository $user, PerfilRepository $perfil, GrupoRepository $grupo, EmpresaRepository $empresa)
+    public function __construct(UserService $user, PerfilService $perfil, GrupoService $grupo, EmpresaService $empresa)
     {
         $this->middleware('auth');
-        $this->userRepository   = $user;
-        $this->perfilRepository = $perfil;
-        $this->grupoRepository  = $grupo;
-        $this->empresaRepository = $empresa;
+        $this->userService   = $user;
+        $this->perfilService = $perfil;
+        $this->grupoService  = $grupo;
+        $this->empresaService = $empresa;
     }
 
 
     public function index()
     {
-        $usuarios = $this->userRepository->findAll(
+        $usuarios = $this->userService->findAll(
         );
         return view('admin.usuario.index', compact('usuarios'));
     }
 
     public function create() {
-        $perfis = $this->perfilRepository->findBy(
+        $perfis = $this->perfilService->findBy(
             [
                 ['inativo','=',0]
             ]
         );
 
-        $grupos = $this->grupoRepository->findBy(
+        $grupos = $this->grupoService->findBy(
             [
                 ['inativo','=',0]
             ]
         );
 
-        $empresas = $this->empresaRepository->findBy(
+        $empresas = $this->empresaService->findBy(
             [
                 ['inativo','=',0]
             ]
@@ -67,7 +65,7 @@ class UsuarioController extends Controller
                 $create = self::montaRequest($_request);
                 //event(new Registered($create));
                 //$this->registered($_request, $create);
-                $this->userRepository->create($create);    
+                $this->userService->create($create);    
             });
             Helper::setNotify('Novo usuário criado com sucesso!', 'success|check-circle');
             return redirect()->route('usuario');
@@ -80,25 +78,25 @@ class UsuarioController extends Controller
 
     public function edit($_id)
     {
-        $perfis = $this->perfilRepository->findBy(
+        $perfis = $this->perfilService->findBy(
             [
                 ['inativo','=',0]
             ]
         );
-        $grupos = $this->grupoRepository->findBy(
-            [
-                ['inativo','=',0]
-            ]
-        );
-
-        $empresas = $this->empresaRepository->findBy(
+        $grupos = $this->grupoService->findBy(
             [
                 ['inativo','=',0]
             ]
         );
 
+        $empresas = $this->empresaService->findBy(
+            [
+                ['inativo','=',0]
+            ]
+        );
 
-        $usuario = $this->userRepository->find($_id);
+
+        $usuario = $this->userService->find($_id);
         return view('admin.usuario.update', compact('usuario', 'perfis', 'grupos', 'empresas'));
     }
 
@@ -115,7 +113,7 @@ class UsuarioController extends Controller
        
         try {
             DB::transaction(function () use ($update, $id) {
-                $this->userRepository->update(
+                $this->userService->update(
                     $update,
                     $id);
             });
@@ -130,13 +128,13 @@ class UsuarioController extends Controller
 
     public function ativarInativar(Request $_request)
     {
-        $buscaUsuario = $this->perfilRepository->find($_request->id);
+        $buscaUsuario = $this->perfilService->find($_request->id);
         try {
             $ativo_inativo      = $buscaUsuario->inativo == 0 ? 1: 0;
             $nome_ativo_inativo = $buscaUsuario->inativo == 0 ? 'inativado' : 'ativado';
             
             DB::transaction(function () use ($_request, $ativo_inativo) {
-                $this->userRepository->update(['inativo' => $ativo_inativo], $_request->id);
+                $this->userService->update(['inativo' => $ativo_inativo], $_request->id);
             });
             Helper::setNotify('Usuário '.$nome_ativo_inativo.' com sucesso!', 'success|check-circle');
             return response()->json(['response' => 'sucesso']);
@@ -175,7 +173,7 @@ class UsuarioController extends Controller
     {
         $senha_igual = false;
         if(!empty($request->get('idUsuario'))){
-            $buscaSenha = $this->userRepository->find($request->get('idUsuario'));
+            $buscaSenha = $this->userService->find($request->get('idUsuario'));
             if($buscaSenha->password == $request->password){
                 $senha_igual = true;
             }

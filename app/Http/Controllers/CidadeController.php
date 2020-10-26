@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 use App\Classes\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Validator, DB};
-use App\Repositories\CidadeRepository;
+use App\Services\CidadeService;
 
 class CidadeController extends Controller
 {
-    protected $cidadeRepository;
+    protected $cidadeService;
 
-    public function __construct(CidadeRepository $cidade)
+    public function __construct(CidadeService $cidade)
     {
         $this->middleware('auth');
-        $this->cidadeRepository = $cidade;
+        $this->cidadeService = $cidade;
     }
 
     public function index() {
-        $cidades = $this->cidadeRepository->findBy(
+        $cidades = $this->cidadeService->findBy(
             [],
             [],
             [['nome','asc']]
@@ -29,7 +29,7 @@ class CidadeController extends Controller
 
     public function create()
     {
-        $estados = $this->cidadeRepository->findBy(
+        $estados = $this->cidadeService->findBy(
             [],
             [],
             [['sigla_estado','asc']],
@@ -51,7 +51,7 @@ class CidadeController extends Controller
            
             DB::transaction(function () use ($_request) {
                 $create = self::montaRequest($_request);
-                $this->cidadeRepository->create($create); 
+                $this->cidadeService->create($create); 
             });
             Helper::setNotify('Nova cidade criada com sucesso!', 'success|check-circle');
             return redirect()->route('cidade');
@@ -65,7 +65,7 @@ class CidadeController extends Controller
 
     public function edit($_id)
     {
-        $estados = $this->cidadeRepository->findBy(
+        $estados = $this->cidadeService->findBy(
             [],
             [],
             [['sigla_estado','asc']],
@@ -74,7 +74,7 @@ class CidadeController extends Controller
             null,
             ['sigla_estado','estado']
         );
-        $cidade = $this->cidadeRepository->find($_id);
+        $cidade = $this->cidadeService->find($_id);
         return view('admin.cidade.update', compact('cidade', 'estados'));
     }
 
@@ -90,7 +90,7 @@ class CidadeController extends Controller
        
         try {
             DB::transaction(function () use ($update, $id) {
-                $this->cidadeRepository->update(
+                $this->cidadeService->update(
                     $update,
                     $id);
             });
@@ -118,7 +118,7 @@ class CidadeController extends Controller
 
     public function montaRequest(Request $request)
     {
-        $buscaNomeEstado = $this->cidadeRepository->findBy([['sigla_estado', '=', $request->estado]])->first();
+        $buscaNomeEstado = $this->cidadeService->findBy([['sigla_estado', '=', $request->estado]])->first();
         return [
             'nome'   => $request->nome,
             'sigla_estado' => $request->estado,

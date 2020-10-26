@@ -3,36 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Helper;
-use App\Repositories\GrupoProdutoRepository;
 use Illuminate\Support\Facades\{Validator, DB, Auth};
 use Illuminate\Http\Request;
 
-use App\Repositories\PedidoRepository;
-use App\Repositories\ItemPedidoRepository;
-use App\Repositories\ObsPedidoRepository;
-use App\Repositories\StatusPedidoRepository;
+use App\Services\GrupoProdutoService;
+use App\Services\PedidoService;
+use App\Services\ItemPedidoService;
+use App\Services\ObsPedidoService;
+use App\Services\StatusPedidoService;
 
 class PedidoEcommerceController extends Controller
 {
-    protected $pedidoRepository;
+    protected $pedidoService;
 
-    protected $itemPedidoRepository;
-    protected $produtoRepository;
-    protected $observacoesRepository;
-    protected $statusPedidoRepository;
-    protected $grupoProdutoRepository;
+    protected $itemPedidoService;
+    protected $produtoService;
+    protected $obsPedidoService;
+    protected $statusPedidoService;
+    protected $grupoProdutoService;
     private $grupos;
 
-    public function __construct(PedidoRepository $pedido, ItemPedidoRepository $itemPedido, ObsPedidoRepository $obsPedido, StatusPedidoRepository $statusPedido, GrupoProdutoRepository $grupoProdutoRepository)
+    public function __construct(PedidoService $pedido, ItemPedidoService $itemPedido, ObsPedidoService $obsPedido, StatusPedidoService $statusPedido, GrupoProdutoService $grupoProdutoService)
     {
         $this->middleware('auth');
-        $this->pedidoRepository = $pedido;
-        $this->itemPedidoRepository = $itemPedido;
-        $this->observacoesRepository = $obsPedido;
-        $this->statusPedidoRepository = $statusPedido;
-        $this->grupoProdutoRepository = $grupoProdutoRepository;
+        $this->pedidoService = $pedido;
+        $this->itemPedidoService = $itemPedido;
+        $this->obsPedidoService = $obsPedido;
+        $this->statusPedidoService = $statusPedido;
+        $this->grupoProdutoService = $grupoProdutoService;
 
-        $this->grupos = $this->grupoProdutoRepository->findBy([
+        $this->grupos = $this->grupoProdutoService->findBy([
             [
             'inativo','=',0
             ]
@@ -41,7 +41,7 @@ class PedidoEcommerceController extends Controller
 
     public function index(){
 
-        $pedidos = $this->pedidoRepository->findBy(
+        $pedidos = $this->pedidoService->findBy(
             [
                 [
                 'excluido','=',0
@@ -68,14 +68,14 @@ class PedidoEcommerceController extends Controller
      */
     public function detalhe($id)
     {
-        $pedido = $this->pedidoRepository->find($id);
-        $itens  = $this->itemPedidoRepository->findBy([
+        $pedido = $this->pedidoService->find($id);
+        $itens  = $this->itemPedidoService->findBy([
             [
             'pedido_id','=',$id
             ]
         ]);
 
-        $observacoes = $this->observacoesRepository->findBy([
+        $observacoes = $this->obsPedidoService->findBy([
             [
             'excluido','=',0
             ]

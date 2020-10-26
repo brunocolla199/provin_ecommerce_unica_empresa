@@ -2,30 +2,58 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
-use App\Repositories\GrupoProdutoRepository;
-use App\Repositories\ProdutoRepository;
+
 use App\Models\Produto;
+use App\Services\PedidoService;
+use App\Services\ItemPedidoService;
+use App\Services\GrupoProdutoService;
+use App\Services\ProdutoService;
+
+use App\Services\UserService;
+use App\Services\SetupService;
+use App\Services\CarrinhoService;
 
 class ProdutoEcommerceController extends Controller
 {
-    protected $grupoProdutoRepository;
-    protected $produtoRepository;
-    public $grupos;
-    
+    protected $grupoProdutoService;
+    protected $produtoService;
+    protected $setupService;
+    protected $carrinhoService;
 
-    public function __construct(GrupoProdutoRepository $grupoProduto, ProdutoRepository $produto)
+    protected $pedidoService;
+    protected $itemPedidoService;
+    protected $userService;
+
+    public $grupos;
+    public $tamanhos;
+    public $tamanho_padrao;
+    public $grupos_necessita_tamanho;
+
+    public function __construct(GrupoProdutoService $grupoProduto, ProdutoService $produto, SetupService $setup, PedidoService $pedidoService, ItemPedidoService $itemPedidoService, UserService $userService, CarrinhoService $carrinho)
     {
         $this->middleware('auth');
-        $this->grupoProdutoRepository = $grupoProduto;
-        $this->produtoRepository = $produto;
+        $this->grupoProdutoService = $grupoProduto;
+        $this->produtoService = $produto;
+        $this->setupService = $setup;
+        $this->pedidoService = $pedidoService;
+        $this->itemPedidoService = $itemPedidoService;
+        $this->userService = $userService;
+        $this->carrinhoService = $carrinho;
 
-        $this->grupos = $this->grupoProdutoRepository->findBy([
+        $this->grupos = $this->grupoProdutoService->findBy([
             [
             'inativo','=',0
             ]
         ]);
         
+        $this->setup = $this->setupService->findAll()->first();
+
+        $this->tamanhos = $this->setup->tamanhos;
+        $this->tamanho_padrao = $this->setup->tamanho_padrao;
+        $this->grupos_necessita_tamanho = $this->setup->grupos;
+       
     }
 
     public function index(Request $request){
@@ -66,6 +94,9 @@ class ProdutoEcommerceController extends Controller
             [
                 'grupos'=> $this->grupos,
                 'produtos' => $produtos,
+                'tamanhos' => $this->tamanhos,
+                'tamanho_padrao' => $this->tamanho_padrao,
+                'grupos_necessita_tamanho' => $this->grupos_necessita_tamanho,
                 'totalRegistros' => $produtos->total(),
                 'paginaAtual' => $produtos->currentPage(),
                 'registroPorPagina' => $produtos->perPage(),
@@ -77,7 +108,7 @@ class ProdutoEcommerceController extends Controller
 
     public function detalhe($id)
     {
-        $produto = $this->produtoRepository->find($id);
+        $produto = $this->produtoService->find($id);
         
         return view('ecommerce.detalheProduto.index', 
             [
@@ -183,5 +214,19 @@ class ProdutoEcommerceController extends Controller
         
         
     }
-}
 
+    public function addCarrinho(Request $request){
+        $id_produto  = $request->id;
+        $tipo_pedido = $request->tipo == 'express' ? 1: 2;
+        $tamanho     = $request->tamanho ?? '';
+        
+        $add = $this->carrinhoService->addCarrinho($id_produto,$tipo_pedido,$tamanho);
+        if($add){
+            return response()->json(['response' => 'successo']);
+        }else{
+           return response()->json(['response' => 'erro']);
+        }
+        
+    }
+    
+}

@@ -26,6 +26,10 @@
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/slick-carousel/slick/slick.css') }}">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}">
 
+        <!-- SweetAlert2 -->
+        <link rel="stylesheet" href="{{ asset('plugins/sweetalert/sweetalert.css') }}">
+        <script src="{{ asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
+
         <!-- CSS Electro Template -->
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/theme.css') }}">
 
@@ -455,7 +459,14 @@
                                             <!-- End Search -->
                                             <!--<li class="col d-none d-xl-block"><a href="../shop/compare.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Compare"><i class="font-size-22 ec ec-compare"></i></a></li>-->
                                             <!--<li class="col d-none d-xl-block"><a href="../shop/wishlist.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorites"><i class="font-size-22 ec ec-favorites"></i></a></li>-->
-                                            <li class="col d-xl-none px-2 px-sm-3"><a href="../shop/my-account.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.my_account')}}"><i class="font-size-22 ec ec-user"></i></a></li>
+                                            <!--<li class="col d-xl-none px-2 px-sm-3"><a href="../shop/my-account.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.my_account')}}"><i class="font-size-22 ec ec-user"></i></a></li>-->
+                                            <li class="col pr-xl-0 px-2 px-sm-3">
+                                                <a href="../shop/cart.html" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
+                                                    <i class="font-size-22 ec ec-shopping-bag"></i>
+                                                    <span class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">2</span>
+                                                    <span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3">$1785.00</span>
+                                                </a>
+                                            </li>
                                             <li class="col pr-xl-0 px-2 px-sm-3">
                                                 <a href="../shop/cart.html" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
                                                     <i class="font-size-22 ec ec-shopping-bag"></i>
@@ -491,7 +502,7 @@
                                 <!-- Search bar -->
                                 <div class="col align-self-center">
                                     <!-- Search-Form -->
-                                    <form class="js-focus-state" method="GET"  id="buscaPorName" name="buscaPorName"  >
+                                    <form class="js-focus-state" method="GET"  id="buscaPorName" name="buscaPorName" action="{{route('ecommerce.produto')}}" >
                                         
                                         <label class="sr-only" for="searchProduct">{{__('sidebar_and_header.ecommerce.search')}}</label>
                                         <div class="input-group">
@@ -521,6 +532,13 @@
                                         <ul class="d-flex list-unstyled mb-0">
                                             <!--<li class="col"><a href="../shop/compare.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Compare"><i class="font-size-22 ec ec-compare"></i></a></li>-->
                                             <!--<li class="col"><a href="../shop/wishlist.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorites"><i class="font-size-22 ec ec-favorites"></i></a></li>-->
+                                            <li class="col pr-0">
+                                                <a href="../shop/cart.html" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
+                                                    <i class="font-size-22 ec ec-shopping-bag"></i>
+                                                    <span class="width-22 height-22 bg-dark position-absolute flex-content-center text-white rounded-circle left-12 top-8 font-weight-bold font-size-12">2</span>
+                                                    <span class="font-weight-bold font-size-16 text-gray-90 ml-3">$1785.00</span>
+                                                </a>
+                                            </li>
                                             <li class="col pr-0">
                                                 <a href="../shop/cart.html" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
                                                     <i class="font-size-22 ec ec-shopping-bag"></i>
@@ -1196,6 +1214,10 @@
             </a>
             <!-- End Go to Top -->
 
+
+            <!-- Custom -->
+            <script src="{{ asset('js/custom.js') }}"></script>
+            
             <!-- JS Global Compulsory -->
             <script src="{{asset('ecommerce/assets/vendor/jquery/dist/jquery.min.js') }}"></script>
             <script src="{{asset('ecommerce/assets/vendor/jquery-migrate/dist/jquery-migrate.min.js') }}"></script>

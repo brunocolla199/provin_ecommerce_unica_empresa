@@ -91,40 +91,62 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group{{ $errors->has('tamanhos_aneis') ? ' has-error' : '' }}">
-                                   
-                                    <label class="control-label">Tamanhos disponíveis de anéis</label>
-                                    <select name="tamanhos_aneis[]" id="tamanhos_aneis" class="form-control text-center selectpicker"  data-size="10" data-live-search="true" multiple>
-                                        @foreach ($tamanhos as $key)
-                                            <option value="{{ $key }}" @if (in_array($key,json_decode($configuracao->tamanhos_aneis))) selected @endif > {{ $key }} </option>
+                                <div class="form-group{{ $errors->has('Grupos') ? ' has-error' : '' }}">
+                                    
+                                    <label class="control-label">Grupos que Necessitam de Tamenho</label>
+                                    <select name="grupos[]" id="grupos" class="form-control text-center selectpicker"  data-size="10" data-live-search="true" multiple>
+                                        @foreach ($grupos as $grupo)
+                                            <option value="{{ $grupo->id }}" @if (in_array($grupo->id,json_decode($configuracao->grupos ))) selected @endif > {{ $grupo->nome }} </option>
                                         @endforeach
                                     </select>
-                                    <small class="form-control-feedback"> Selecione os tamanhos disponíveis de anéis. </small> 
+                                    <small class="form-control-feedback"> Selecione os grupos. </small> 
 
-                                    @if ($errors->has('tamanhos_aneis'))
+                                    @if ($errors->has('grupos'))
                                         <br/>    
                                         <span class="help-block text-danger">
-                                            <strong>{{ $errors->first('tamanhos_aneis') }}</strong>
+                                            <strong>{{ $errors->first('grupos') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('tamanhos') ? ' has-error' : '' }}">
+                                   
+                                    <label class="control-label">Tamanhos disponíveis</label>
+                                    <select name="tamanhos[]" id="tamanhos" class="form-control text-center selectpicker"  data-size="10" data-live-search="true" multiple>
+                                        @foreach ($tamanhos as $key)
+                                            <option value="{{ $key }}" @if (in_array($key,json_decode($configuracao->tamanhos))) selected @endif > {{ $key }} </option>
+                                        @endforeach
+                                    </select>
+                                    <small class="form-control-feedback"> Selecione os tamanhos disponíveis. </small> 
+
+                                    @if ($errors->has('tamanhos'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('tamanhos') }}</strong>
                                         </span>
                                     @endif
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group{{ $errors->has('tamanho_padrao_anel') ? ' has-error' : '' }}">
+                                <div class="form-group{{ $errors->has('tamanho_padrao') ? ' has-error' : '' }}">
                                     
-                                    <label class="control-label">Tamanhos padrão de anel</label>
-                                    <select name="tamanho_padrao_anel" id="tamanho_padrao_anel" class="form-control text-center selectpicker"  data-size="10" data-live-search="true" >
+                                    <label class="control-label">Tamanhos padrão</label>
+                                    <select name="tamanho_padrao" id="tamanho_padrao" class="form-control text-center selectpicker"  data-size="10" data-live-search="true" >
                                         <option value=""> Selecione </option>
                                         @foreach ($tamanhos as $key)
-                                            <option value="{{ $key }}" @if ($key == $configuracao->tamanho_padrao_anel) selected @endif > {{ $key }} </option>
+                                            <option value="{{ $key }}" @if ($key == $configuracao->tamanho_padrao) selected @endif > {{ $key }} </option>
                                         @endforeach
                                     </select>
-                                    <small class="form-control-feedback"> Selecione os tamanho padão de anel. </small> 
+                                    <small class="form-control-feedback"> Selecione os tamanho padão. </small> 
 
-                                    @if ($errors->has('tamanho_padrao_anel'))
+                                    @if ($errors->has('tamanho_padrao'))
                                         <br/>    
                                         <span class="help-block text-danger">
-                                            <strong>{{ $errors->first('tamanho_padrao_anel') }}</strong>
+                                            <strong>{{ $errors->first('tamanho_padrao') }}</strong>
                                         </span>
                                     @endif
                                 </div>

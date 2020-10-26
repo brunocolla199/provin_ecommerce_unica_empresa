@@ -5,18 +5,18 @@ namespace App\Http\Controllers;
 use App\Classes\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Validator, DB};
-use App\Repositories\{PerfilRepository, UserRepository};
+use App\Services\{PerfilService, UserService};
 
 class PerfilController extends Controller
 {
-    protected $perfilRepository;
-    protected $usuarioRepository;
+    protected $perfilService;
+    protected $usuarioService;
 
-    public function __construct(PerfilRepository $perfil, UserRepository $user)
+    public function __construct(PerfilService $perfil, UserService $user)
     {
         $this->middleware('auth');
-        $this->perfilRepository = $perfil;
-        $this->usuarioRepository = $user;
+        $this->perfilService = $perfil;
+        $this->usuarioService = $user;
     }
 
     /**
@@ -26,7 +26,7 @@ class PerfilController extends Controller
      */
     public function index()
     {
-        $perfis = $this->perfilRepository->findAll();
+        $perfis = $this->perfilService->findAll();
        
         return view('admin.perfil.index', compact('perfis'));
     }
@@ -56,7 +56,7 @@ class PerfilController extends Controller
 
             DB::transaction(function () use ($_request) {
                 $create = self::montaRequest($_request);
-                $this->perfilRepository->create($create); 
+                $this->perfilService->create($create); 
             });
 
             Helper::setNotify('Novo perfil criado com sucesso!', 'success|check-circle');
@@ -75,7 +75,7 @@ class PerfilController extends Controller
      */
     public function edit($id)
     {
-        $perfil = $this->perfilRepository->find($id);
+        $perfil = $this->perfilService->find($id);
         return view('admin.perfil.update', compact('perfil'));
     }
 
@@ -95,7 +95,7 @@ class PerfilController extends Controller
         $update = self::montaRequest($_request);
         try {
             DB::transaction(function () use ($update, $id) {
-                $this->perfilRepository->update($update, $id);
+                $this->perfilService->update($update, $id);
             });
             Helper::setNotify('Perfil atualizado com sucesso!', 'success|check-circle');
             return redirect()->route('perfil');
@@ -113,8 +113,8 @@ class PerfilController extends Controller
      */
     public function ativarInativar(Request $_request)
     {
-        $buscaPerfil = $this->perfilRepository->find($_request->id);
-        $usuarios = $this->usuarioRepository->findBy(
+        $buscaPerfil = $this->perfilService->find($_request->id);
+        $usuarios = $this->usuarioService->findBy(
             [['perfil_id','=',$_request->id]],
             [],
             [],
@@ -131,7 +131,7 @@ class PerfilController extends Controller
             }
             
             DB::transaction(function () use ($_request, $ativo_inativo) {
-                $this->perfilRepository->update(['inativo' => $ativo_inativo], $_request->id);
+                $this->perfilService->update(['inativo' => $ativo_inativo], $_request->id);
             });
             Helper::setNotify('Perfil '.$nome_ativo_inativo.' com sucesso!', 'success|check-circle');
             return response()->json(['response' => 'sucesso']);

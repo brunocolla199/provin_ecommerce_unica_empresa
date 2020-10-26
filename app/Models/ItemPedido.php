@@ -14,7 +14,8 @@ class ItemPedido extends Model
         'pedido_id', 
         'quantidade', 
         'valor_unitario', 
-        'valor_total'
+        'valor_total',
+        'tamanho'
     ];
 
     public function pedido()

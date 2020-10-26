@@ -3,35 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Helper;
-use Illuminate\Support\Facades\{Validator, DB, Auth};
+use Illuminate\Support\Facades\{DB};
 use Illuminate\Http\Request;
 
-use App\Repositories\PedidoRepository;
-use App\Repositories\ItemPedidoRepository;
-use App\Repositories\ObsPedidoRepository;
-use App\Repositories\StatusPedidoRepository;
+use App\Services\PedidoService;
+use App\Services\ItemPedidoService;
+use App\Services\StatusPedidoService;
+use App\Services\ObsPedidoService;
 
 class PedidoController extends Controller
 {
-    protected $pedidoRepository;
+    protected $pedidoService;
 
-    protected $itemPedidoRepository;
-    protected $produtoRepository;
-    protected $observacoesRepository;
-    protected $statusPedidoRepository;
+    protected $itemPedidoService;
+    protected $produtoService;
+    protected $statusPedidoService;
+    protected $obsPedidoService;
 
-    public function __construct(PedidoRepository $pedido, ItemPedidoRepository $itemPedido, ObsPedidoRepository $obsPedido, StatusPedidoRepository $statusPedido)
+    public function __construct(PedidoService $pedido, ItemPedidoService $itemPedido, StatusPedidoService $statusPedido, ObsPedidoService $obsPedidoServico)
     {
         $this->middleware('auth');
-        $this->pedidoRepository = $pedido;
-        $this->itemPedidoRepository = $itemPedido;
-        $this->observacoesRepository = $obsPedido;
-        $this->statusPedidoRepository = $statusPedido;
+        $this->pedidoService = $pedido;
+        $this->itemPedidoService = $itemPedido;
+        $this->statusPedidoService = $statusPedido;
+        $this->obsPedidoService = $obsPedidoServico;
     }
 
     public function index(){
 
-        $pedidos = $this->pedidoRepository->findBy([
+        $pedidos = $this->pedidoService->findBy([
             [
             'excluido','=',0
             ]
@@ -40,45 +40,6 @@ class PedidoController extends Controller
 
     }
 
-    /*
-    public function create()
-    {
-        $grupos  = $this->grupoProdutoRepository->findBy([
-            [
-            'inativo','=',0
-            ]
-        ]);
-        return view('admin.pedido.create', compact('grupos'));
-    }
-    */
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    /*
-    public function store(Request $_request)
-    {
-        try {
-            if (!$this->validator($_request)) {
-                return redirect()->back()->withInput();
-            }
-
-            DB::transaction(function () use ($_request) {
-                $create = self::montaRequest($_request);
-                $this->produtoRepository->create($create);    
-            });
-
-            Helper::setNotify('Novo produto criado com sucesso!', 'success|check-circle');
-            return redirect()->route('produto');
-        } catch (\Throwable $th) {
-            Helper::setNotify("Erro ao criar o produto", 'danger|close-circle');
-            return redirect()->back()->withInput();
-        }
-    }
-    */
 
     /**
      * Show the form for editing the specified resource.
@@ -88,16 +49,19 @@ class PedidoController extends Controller
      */
     public function edit($id)
     {
-        $pedido = $this->pedidoRepository->find($id);
-        $itens  = $this->itemPedidoRepository->findBy([
+        $pedido = $this->pedidoService->find($id);
+        $itens  = $this->itemPedidoService->findBy([
             [
             'pedido_id','=',$id
             ]
         ]);
 
-        $observacoes = $this->observacoesRepository->findBy([
+        $observacoes = $this->obsPedidoService->findBy([
             [
             'excluido','=',0
+            ],
+            [
+            'pedido_id','=',$id,'AND'
             ]
         ]);
 
@@ -113,25 +77,18 @@ class PedidoController extends Controller
      */
     public function update(Request $_request)
     {
-        $update = self::montaRequest($_request);
+        $link = $_request->link;
+        $status= $_request->ultStatus;
         $id = $_request->get('idPedido');
-        $buscaStatus = $this->statusPedidoRepository->find($_request->ultStatus);
+        $buscaStatus = $this->statusPedidoService->find($_request->ultStatus);
         try {
-            DB::transaction(function () use ($update, $id, $buscaStatus) {
-                
-
-                $this->pedidoRepository->update
+            DB::transaction(function () use ($id,$status,$link, $buscaStatus) {
+                $buscaPedido = $this->pedidoService->find($id);
+                $this->pedidoService->update
                 (
-                    $update,
-                    $id
+                    $id,$buscaPedido->tipo_pedido_id,$status,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$buscaPedido->previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$link
                 );
-
-                $createObs = new ObsPedido();
-                $array = $createObs->montaRequestObs($id,"O status do pedido foi alterado para ".$buscaStatus->nome,'0');
-                
-                $this->observacoesRepository->create($array);
-
-
+                $this->obsPedidoService->create($id,"O status do pedido foi alterado para ".$buscaStatus->nome, 0);
             });
             Helper::setNotify('Pedido atualizado com sucesso!', 'success|check-circle');
             return redirect()->route('pedido');
@@ -153,7 +110,8 @@ class PedidoController extends Controller
         try {
             
             DB::transaction(function () use ($_request) {
-                $this->pedidoRepository->update(['status_id' => 6], $_request->id);
+                $buscaPedido = $this->pedidoService->find($_request->id);
+                $this->pedidoService->update($_request->id,$buscaPedido->tipo_pedido_id,6,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$buscaPedido->previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$buscaPedido->link_rastreamento);
             });
             Helper::setNotify('Pedido cancelado com sucesso!', 'success|check-circle');
             return response()->json(['response' => 'sucesso']);
@@ -163,31 +121,6 @@ class PedidoController extends Controller
         } 
     }
 
-   /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Responsevalidator
-     */
-    public function validator(Request $_request)
-    {
-        $validator = Validator::make($_request->all(), [
-            'id'          => 'required|string'
-        ]);
+   
 
-        if ($validator->fails()) {
-            Helper::setNotify($validator->messages()->first(), 'danger|close-circle');
-            return false;
-        }
-        return true;
-    }
-
-    public function montaRequest(Request $request)
-    {
-        $create = [
-            'link_rastreamento'  => $request->link,
-            'status_pedido_id'   => $request->ultStatus
-        ];
-        return $create;
-    }
-
-    
 }

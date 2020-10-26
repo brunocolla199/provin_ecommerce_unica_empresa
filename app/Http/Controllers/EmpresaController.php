@@ -6,29 +6,26 @@ use App\Classes\Helper;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Validator, DB};
-use App\Repositories\{EmpresaRepository, CidadeRepository, PedidoRepository};
+use App\Services\{EmpresaService, CidadeService};
 
 class EmpresaController extends Controller
 {
 
-    protected $empresaRepository ;
-    protected $cidadeRepository;
-    protected $pedidoRepository;
-    
+    protected $empresaService ;
+    protected $cidadeService;
 
     /*
     * Construtor
     */
-    public function __construct(EmpresaRepository $empresa, CidadeRepository $cidade, PedidoRepository $pedido)
+    public function __construct(EmpresaService $empresa, CidadeService $cidade)
     {
         $this->middleware('auth');
-        $this->empresaRepository = $empresa;
-        $this->cidadeRepository = $cidade;
-        $this->pedidoRepository = $pedido;
+        $this->empresaService = $empresa;
+        $this->cidadeService = $cidade;
     }
     
     public function index() {
-        $empresas = $this->empresaRepository->findBy(
+        $empresas = $this->empresaService->findBy(
             [],
             [],
             [['nome_fantasia','asc']]
@@ -38,7 +35,7 @@ class EmpresaController extends Controller
     
 
     public function create() {
-        $cidades = $this->cidadeRepository->findAll();
+        $cidades = $this->cidadeService->findAll();
         return view('admin.empresa.create', compact('cidades'));
     }
     
@@ -50,7 +47,7 @@ class EmpresaController extends Controller
         try {
             DB::transaction(function () use ($_request) {
                 $create = self::montaRequest($_request);
-                $this->empresaRepository->create($create);    
+                $this->empresaService->create($create);    
             });
             Helper::setNotify('Nova empresa criada com sucesso!', 'success|check-circle');
             return redirect()->route('empresa');
@@ -62,8 +59,8 @@ class EmpresaController extends Controller
 
 
     public function edit($_id) {
-        $cidades = $this->cidadeRepository->findAll();
-        $empresa = $this->empresaRepository->find($_id);
+        $cidades = $this->cidadeService->findAll();
+        $empresa = $this->empresaService->find($_id);
         return view('admin.empresa.update', compact('cidades', 'empresa'));
     }
 
@@ -79,7 +76,7 @@ class EmpresaController extends Controller
       
         try {
             DB::transaction(function () use ($update, $id) {
-                $this->empresaRepository->update(
+                $this->empresaService->update(
                     $update,
                     $id);
             });
@@ -93,12 +90,12 @@ class EmpresaController extends Controller
 
     public function ativar_inativar(Request $_request)
     {
-        $buscaEmpresa = $this->empresaRepository->find($_request->id);
+        $buscaEmpresa = $this->empresaService->find($_request->id);
         try {
             $ativo_inativo      = $buscaEmpresa->inativo == 0 ? 1: 0;
             $nome_ativo_inativo = $buscaEmpresa->inativo == 0 ? 'inativado' : 'ativado';
             DB::transaction(function () use ($_request,  $ativo_inativo) {
-                $this->empresaRepository->update(['inativo' =>  $ativo_inativo], $_request->id);
+                $this->empresaService->update(['inativo' =>  $ativo_inativo], $_request->id);
             });
             Helper::setNotify('Empresa '.$nome_ativo_inativo.' com sucesso!', 'success|check-circle');
             return response()->json(['response' => 'sucesso']);

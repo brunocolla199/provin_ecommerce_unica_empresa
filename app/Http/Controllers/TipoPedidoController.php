@@ -4,25 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Classes\Helper;
 use Illuminate\Http\Request;
-use App\Repositories\TipoPedidoRepository;
 use Illuminate\Support\Facades\{Validator, DB};
-use App\Repositories\PedidoRepository;
+use App\Services\TipoPedidoService;
 
 class TipoPedidoController extends Controller
 {
-    protected $tipoPedidoRepository;
-    protected $pedidoRepository;
+    protected $tipoPedidoService;
 
-    public function __construct(TipoPedidoRepository $tipoPedido, PedidoRepository $pedido)
+    public function __construct(TipoPedidoService $tipoPedido)
     {
         $this->middleware('auth');
-        $this->tipoPedidoRepository = $tipoPedido;
-        $this->pedidoRepository = $pedido;
+        $this->tipoPedidoService = $tipoPedido;
     }
 
     public function index()
     {
-        $tipos = $this->tipoPedidoRepository->findBy(
+        $tipos = $this->tipoPedidoService->findBy(
             [],
             [],
             [['nome','asc']]
@@ -42,7 +39,7 @@ class TipoPedidoController extends Controller
         try {
             DB::transaction(function () use ($_request) {
                 $create = self::montaRequest($_request);
-                $this->tipoPedidoRepository->create($create);    
+                $this->tipoPedidoService->create($create);    
             });
             Helper::setNotify('Novo tipo de pedido criado com sucesso!', 'success|check-circle');
             return redirect()->route('tipoPedido');
@@ -54,7 +51,7 @@ class TipoPedidoController extends Controller
 
 
     public function edit($_id) {
-        $tipoPedido = $this->tipoPedidoRepository->find($_id);
+        $tipoPedido = $this->tipoPedidoService->find($_id);
         return view('admin.tipoPedido.update', compact( 'tipoPedido'));
     }
 
@@ -70,7 +67,7 @@ class TipoPedidoController extends Controller
       
         try {
             DB::transaction(function () use ($update, $id) {
-                $this->tipoPedidoRepository->update(
+                $this->tipoPedidoService->update(
                     $update,
                     $id);
             });
@@ -84,14 +81,14 @@ class TipoPedidoController extends Controller
 
     public function ativar_inativar(Request $_request)
     {
-        $buscaTipoPedido = $this->tipoPedidoRepository->find($_request->id);
+        $buscaTipoPedido = $this->tipoPedidoService->find($_request->id);
         try {
             
             $ativo_inativo      = $buscaTipoPedido->inativo == 0 ? 1: 0;
             $nome_ativo_inativo = $buscaTipoPedido->inativo == 0 ? 'inativado' : 'ativado';
         
             DB::transaction(function () use ($_request, $ativo_inativo) {
-                $this->tipoPedidoRepository->update(['inativo' => $ativo_inativo], $_request->id);
+                $this->tipoPedidoService->update(['inativo' => $ativo_inativo], $_request->id);
             });
             Helper::setNotify('Tipo de pedido '.$nome_ativo_inativo.' com sucesso!', 'success|check-circle');
             return response()->json(['response' => 'sucesso']);

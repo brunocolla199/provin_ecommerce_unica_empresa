@@ -5,32 +5,32 @@ namespace App\Http\Controllers;
 use App\Classes\Helper;
 use Illuminate\Support\Facades\{Validator, DB};
 use Illuminate\Http\Request;
-use App\Repositories\{ProdutoRepository, GrupoProdutoRepository};
+use App\Services\{ProdutoService, GrupoProdutoService};
 
 
 class ProdutoController extends Controller
 {
 
-    protected $produtoRepository;
-    protected $grupoProdutoRepository;
+    protected $produtoService;
+    protected $grupoProdutoService;
 
-    public function __construct(ProdutoRepository $produto, GrupoProdutoRepository $grupoProduto)
+    public function __construct(ProdutoService $produto, GrupoProdutoService $grupoProduto)
     {
         $this->middleware('auth');
-        $this->produtoRepository = $produto;
-        $this->grupoProdutoRepository = $grupoProduto;
+        $this->produtoService = $produto;
+        $this->grupoProdutoService = $grupoProduto;
     }
 
     public function index(){
 
-        $produtos = $this->produtoRepository->findAll();
+        $produtos = $this->produtoService->findAll();
         return view('admin.produto.index', compact('produtos'));
 
     }
 
     public function create()
     {
-        $grupos  = $this->grupoProdutoRepository->findBy([
+        $grupos  = $this->grupoProdutoService->findBy([
             [
             'inativo','=',0
             ]
@@ -53,7 +53,7 @@ class ProdutoController extends Controller
 
             DB::transaction(function () use ($_request) {
                 $create = self::montaRequest($_request);
-                $this->produtoRepository->create($create);    
+                $this->produtoService->create($create);    
             });
 
             Helper::setNotify('Novo produto criado com sucesso!', 'success|check-circle');
@@ -72,8 +72,8 @@ class ProdutoController extends Controller
      */
     public function edit($id)
     {
-        $produto = $this->produtoRepository->find($id);
-        $grupos  = $this->grupoProdutoRepository->findBy([
+        $produto = $this->produtoService->find($id);
+        $grupos  = $this->grupoProdutoService->findBy([
             [
             'inativo','=',0
             ]
@@ -98,7 +98,7 @@ class ProdutoController extends Controller
         $id = $_request->get('idProduto');
         try {
             DB::transaction(function () use ($update, $id) {
-                $this->produtoRepository->update(
+                $this->produtoService->update(
                     $update,
                     $id);
             });
@@ -118,7 +118,7 @@ class ProdutoController extends Controller
      */
     public function ativar_inativar(Request $_request)
     {
-        $buscaProduto = $this->produtoRepository->find($_request->id);
+        $buscaProduto = $this->produtoService->find($_request->id);
         try {
             $ativo_inativo      = $buscaProduto->inativo == 0 ? 1: 0;
             $nome_ativo_inativo = $buscaProduto->inativo == 0 ? 'inativado' : 'ativado';

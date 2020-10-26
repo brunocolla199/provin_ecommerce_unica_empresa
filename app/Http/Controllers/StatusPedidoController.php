@@ -4,24 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Classes\Helper;
 use Illuminate\Http\Request;
-use App\Repositories\{StatusPedidoRepository, PedidoRepository};
+use App\Services\{StatusPedidoService};
 use Illuminate\Support\Facades\{Validator, DB};
 
 class StatusPedidoController extends Controller
 {
-    protected $statusPedidoRepository;
-    protected $pedidoRepository;
+    protected $statusPedidoService;
 
-    public function __construct(StatusPedidoRepository $statusPedido, PedidoRepository $pedido)
+    public function __construct(StatusPedidoService $statusPedido)
     {
         $this->middleware('auth');
-        $this->statusPedidoRepository = $statusPedido;
-        $this->pedidoRepository = $pedido;
+        $this->statusPedidoService = $statusPedido;
     }
 
     public function index()
     {
-        $status = $this->statusPedidoRepository->findBy(
+        $status = $this->statusPedidoService->findBy(
             [],
             [],
             [['nome','asc']]
@@ -41,7 +39,7 @@ class StatusPedidoController extends Controller
         try {
             DB::transaction(function () use ($_request) {
                 $create = self::montaRequest($_request);
-                $this->statusPedidoRepository->create($create);    
+                $this->statusPedidoService->create($create);    
             });
             Helper::setNotify('Novo status do pedido criado com sucesso!', 'success|check-circle');
             return redirect()->route('statusPedido');
@@ -53,7 +51,7 @@ class StatusPedidoController extends Controller
 
 
     public function edit($_id) {
-        $statusPedido = $this->statusPedidoRepository->find($_id);
+        $statusPedido = $this->statusPedidoService->find($_id);
         return view('admin.statusPedido.update', compact( 'statusPedido'));
     }
 
@@ -69,7 +67,7 @@ class StatusPedidoController extends Controller
       
         try {
             DB::transaction(function () use ($update, $id) {
-                $this->statusPedidoRepository->update(
+                $this->statusPedidoService->update(
                     $update,
                     $id);
             });
@@ -83,13 +81,13 @@ class StatusPedidoController extends Controller
 
     public function ativar_inativar(Request $_request)
     {
-        $buscaStatusPedido = $this->statusPedidoRepository->find($_request->id);
+        $buscaStatusPedido = $this->statusPedidoService->find($_request->id);
         try {
             $ativo_inativo      = $buscaStatusPedido->inativo == 0 ? 1: 0;
             $nome_ativo_inativo = $buscaStatusPedido->inativo == 0 ? 'inativado' : 'ativado';
             
             DB::transaction(function () use ($_request, $ativo_inativo) {
-                $this->statusPedidoRepository->update(['inativo' => $ativo_inativo], $_request->id);
+                $this->statusPedidoService->update(['inativo' => $ativo_inativo], $_request->id);
             });
             Helper::setNotify('Status do pedido '.$nome_ativo_inativo.' com sucesso!', 'success|check-circle');
             return response()->json(['response' => 'sucesso']);

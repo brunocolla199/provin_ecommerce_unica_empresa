@@ -212,7 +212,7 @@
                             <input type="hidden" name="rangeMaximo" id="rangeMaximo" >
                         </div>
                         <button type="submit"  class="btn px-4 btn-primary-dark-w py-2 rounded-lg">{{__('buttons.general.filter')}}</button>
-                        <a type="button" href="{{route('ecommerce.produto')}}"  class="btn px-4 btn-primary-dark-w py-2 rounded-lg">{{__('buttons.general.clear')}}</a>
+                        <a type="button" href="{{route('ecommerce.produto')}}"  class="btn px-4 btn-dark py-2 rounded-lg">{{__('buttons.general.clear')}}</a>
                     
                     </form>    
                 </div>
@@ -452,8 +452,25 @@
                                                 <div class="prodcut-price">
                                                     <div class="text-gray-100">R${{number_format($produto->valor, 2, ',', '.')}}</div>
                                                 </div>
-                                                <div class="d-none d-xl-block prodcut-add-cart">
-                                                    <a href="{{ route('ecommerce.produto.detalhe', ['id' => $produto->id ]) }}" class="btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></a>
+                                                
+                                            </div>
+                                            <div class="flex-center-between mb-1">
+                                                <div class=" d-xl-block prodcut-add-cart">
+                                                    <a class="btn-add-cart btn-primary transition-3d-hover" data-tipo="express" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i></a>
+                                                </div>
+                                                @if (in_array($produto->grupo_produto_id,json_decode($grupos_necessita_tamanho)))
+                                                <div class=" d-xl-block prodcut-add-cart">
+                                                    <select style="border-radius: 15px;text-align-last: center; " id="tamanho-{{$produto->id}}">
+                                                        <option value="" disabled>Tam.</option>
+                                                        @foreach (json_decode($tamanhos) as $key)
+                                                            <option  @if ($key == $tamanho_padrao) selected @endif value="{{$key}}">{{$key}}</option>
+                                                        @endforeach
+                                                    <select>
+                                                </div>
+                                                @endif
+    
+                                                <div class=" d-xl-block prodcut-add-cart">
+                                                    <a class="btn-add-cart btn-primary transition-3d-hover" data-tipo="normal" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -589,6 +606,37 @@
         $('#regPorPage,#ordenacao').on('change',function(){
             $('#itemPorPagina').submit();
         });
+
+
+        $('.btn-add-cart').on('click',function(){
+            var id   = $(this).data('id');
+            var tipo = $(this).data('tipo');
+            var tamanho = $('#tamanho-'+id).val();
+
+            let add_carrinho = swal2_warning("Essa ação irá adicionar o produto ao carrinho","Sim!");
+            let obj = {'id': id};
+
+            add_carrinho.then(resolvedValue => {
+                $.ajax({
+                    type: "POST",
+                    url: 'produto/adicionarCarinho',
+                    data: { id: id, tipo: tipo, tamanho:tamanho, _token: '{{csrf_token()}}' },
+                    success: function (data) {
+                        if(data.response != 'erro') {
+                            swal2_success("Adicionado !", "Produto adicionado com sucesso.");
+                        } else {
+                            swal2_alert_error_support("Tivemos um problema ao adicionar o produto.");
+                        }
+                    },
+                    error: function (data, textStatus, errorThrown) {
+                        console.log(data);
+                    },
+                });
+            }, error => {
+                swal.close();
+            });
+        });
+
     });
 
     function verificavalore(){
