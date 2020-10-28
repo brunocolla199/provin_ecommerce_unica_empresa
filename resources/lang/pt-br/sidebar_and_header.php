@@ -98,7 +98,8 @@ return [
         'showing'  => 'Resultados',
         'results_found' => 'resultados encontrados',
         'quantidade' => 'Quantidade',
-        'inEstoque'  => 'em estoque'
+        'inEstoque'  => 'em estoque',
+        'total' => 'Total'
 
 
         

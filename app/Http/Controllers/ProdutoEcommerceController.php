@@ -12,6 +12,7 @@ use App\Services\ProdutoService;
 use App\Services\UserService;
 use App\Services\SetupService;
 use App\Services\CarrinhoService;
+use Illuminate\Support\Facades\Auth;
 
 class ProdutoEcommerceController extends Controller
 {
@@ -28,6 +29,8 @@ class ProdutoEcommerceController extends Controller
     public $tamanhos;
     public $tamanho_padrao;
     public $grupos_necessita_tamanho;
+    public $pedidoNormal;
+    public $pedidoExpress;
 
     public function __construct(GrupoProdutoService $grupoProduto, ProdutoService $produto, SetupService $setup, PedidoService $pedidoService, ItemPedidoService $itemPedidoService, UserService $userService, CarrinhoService $carrinho)
     {
@@ -45,7 +48,7 @@ class ProdutoEcommerceController extends Controller
             'inativo','=',0
             ]
         ]);
-        
+
         $this->setup = $this->setupService->findAll()->first();
 
         $this->tamanhos = $this->setup->tamanhos;
@@ -56,6 +59,9 @@ class ProdutoEcommerceController extends Controller
 
     public function index(Request $request){
         $produtos = new Produto();
+
+        $this->pedidoNormal  = $this->pedidoService->buscaPedidoCarrinho(2);
+        $this->pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
 
         if($request->query('regPorPage')){
             session()->forget('regPorPage');
@@ -92,6 +98,8 @@ class ProdutoEcommerceController extends Controller
             [
                 'grupos'=> $this->grupos,
                 'produtos' => $produtos,
+                'pedidoNormal' => $this->pedidoNormal,
+                'pedidoExpress'=> $this->pedidoExpress,
                 'tamanhos' => $this->tamanhos,
                 'tamanho_padrao' => $this->tamanho_padrao,
                 'grupos_necessita_tamanho' => $this->grupos_necessita_tamanho,
@@ -108,6 +116,9 @@ class ProdutoEcommerceController extends Controller
     {
         $produto = $this->produtoService->find($id);
 
+        $this->pedidoNormal  = $this->pedidoService->buscaPedidoCarrinho(2);
+        $this->pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
+
         $setup = $this->setupService->find(1);
 
         $tamanhos = json_decode($setup->tamanhos);
@@ -119,6 +130,8 @@ class ProdutoEcommerceController extends Controller
             [
                 'grupos' => $this->grupos,
                 'produto' => $produto,
+                'pedidoNormal' => $this->pedidoNormal,
+                'pedidoExpress'=> $this->pedidoExpress,
                 'tamanhos' => $tamanhos,
                 'tamanhosStr' => $tamanhosStr,
                 'tamanhoDefault' => $tamanhoDefault
@@ -128,7 +141,10 @@ class ProdutoEcommerceController extends Controller
 
     public function searchGrupo($id, Request $request){
         $produtos = new Produto();
-        
+
+        $this->pedidoNormal  = $this->pedidoService->buscaPedidoCarrinho(2);
+        $this->pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
+
         if($request->query('regPorPage')){
             session()->forget('regPorPage');
             session()->put('regPorPage', $request->query('regPorPage'));
@@ -163,6 +179,8 @@ class ProdutoEcommerceController extends Controller
             [
                 'produtos' => $produtos,
                 'grupos' => $this->grupos,
+                'pedidoNormal' => $this->pedidoNormal,
+                'pedidoExpress'=> $this->pedidoExpress,
                 'tamanhos' => $this->tamanhos,
                 'tamanho_padrao' => $this->tamanho_padrao,
                 'grupos_necessita_tamanho' => $this->grupos_necessita_tamanho,
@@ -178,8 +196,10 @@ class ProdutoEcommerceController extends Controller
         $rangeMinimo  = $request->rangeMinimo;
         $rangeMaximo = $request->rangeMaximo;
 
+        $this->pedidoNormal  = $this->pedidoService->buscaPedidoCarrinho(2);
+        $this->pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
+
         $produtos = new Produto();
-        
         if($request->query('regPorPage')){
             session()->forget('regPorPage');
             session()->put('regPorPage', $request->query('regPorPage'));
@@ -216,6 +236,8 @@ class ProdutoEcommerceController extends Controller
             [
                 'grupos'   => $this->grupos,
                 'produtos' => $produtos,
+                'pedidoNormal' => $this->pedidoNormal,
+                'pedidoExpress'=> $this->pedidoExpress,
                 'tamanhos' => $this->tamanhos,
                 'tamanho_padrao' => $this->tamanho_padrao,
                 'grupos_necessita_tamanho' => $this->grupos_necessita_tamanho,

@@ -507,7 +507,7 @@
                                 <!-- Search bar -->
                                 <div class="col align-self-center">
                                     <!-- Search-Form -->
-                                    <form class="js-focus-state" method="GET"  id="buscaPorName" name="buscaPorName" action="{{route('ecommerce.produto')}}" >
+                                    <form class="js-focus-state mt-1"  method="GET"  id="buscaPorName" name="buscaPorName" action="{{route('ecommerce.produto')}}" >
                                         
                                         <label class="sr-only" for="searchProduct">{{__('sidebar_and_header.ecommerce.search')}}</label>
                                         <div class="input-group">
@@ -538,7 +538,7 @@
                                             <!--<li class="col"><a href="../shop/compare.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Compare"><i class="font-size-22 ec ec-compare"></i></a></li>-->
                                             <!--<li class="col"><a href="../shop/wishlist.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorites"><i class="font-size-22 ec ec-favorites"></i></a></li>-->
                                             <li class="col pr-0">
-                                                <a href="../shop/cart.html" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
+                                                <a href="@if (!empty($pedidoNormal[0])){{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }} @else #  @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
                                                     <i class="font-size-22 ec ec-shopping-bag"></i>
                                                     @if (!empty($pedidoNormal[0]))
                                                         <span class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoNormal[0]->numero_itens ?? ''}}</span>
@@ -547,7 +547,7 @@
                                                 </a>
                                             </li>
                                             <li class="col pr-0">
-                                                <a href="../shop/cart.html" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
+                                                <a href="@if (!empty($pedidoExpress[0])) {{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }} @else # @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
                                                     <i class="font-size-22 ec ec-shopping-bag"></i>
                                                     @if (!empty($pedidoExpress[0]))
                                                         <span class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoExpress[0]->numero_itens ?? ''}}</span>

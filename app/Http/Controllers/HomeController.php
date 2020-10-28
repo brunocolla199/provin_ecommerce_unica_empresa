@@ -21,7 +21,7 @@ class HomeController extends Controller
      */
     public function checkLogin()
     {
-        
+    
         if(!Auth::check()){
             //Se não estiver logado direciona para o Login
             return redirect()->route('login');
@@ -32,7 +32,6 @@ class HomeController extends Controller
             //Se for adm
             return redirect()->guest('admin/home');
         }else{
-            
             //Se não for adm
            return redirect()->guest('ecommerce/home');
 

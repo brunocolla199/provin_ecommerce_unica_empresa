@@ -22,6 +22,8 @@ class PedidoEcommerceController extends Controller
     protected $statusPedidoService;
     protected $grupoProdutoService;
     private $grupos;
+    private $pedidoNormal;
+    private $pedidoExpress;
 
     public function __construct(PedidoService $pedido, ItemPedidoService $itemPedido, ObsPedidoService $obsPedido, StatusPedidoService $statusPedido, GrupoProdutoService $grupoProdutoService)
     {
@@ -37,6 +39,9 @@ class PedidoEcommerceController extends Controller
             'inativo','=',0
             ]
         ]);
+
+       
+
     }
 
     public function index(){
@@ -54,9 +59,14 @@ class PedidoEcommerceController extends Controller
             ]
         );
 
+        $this->pedidoNormal  = $this->pedidoService->buscaPedidoCarrinho(2);
+        $this->pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1); 
+
         return view('ecommerce.pedido.index', [
             'grupos'=> $this->grupos,
-            'pedidos' => $pedidos
+            'pedidos' => $pedidos,
+            'pedidoNormal' => $this->pedidoNormal,
+            'pedidoExpress'=> $this->pedidoExpress
         ]);
     }
 
@@ -82,12 +92,17 @@ class PedidoEcommerceController extends Controller
             ['pedido_id','=',$id,'AND']
         ]);
 
+        $this->pedidoNormal  = $this->pedidoService->buscaPedidoCarrinho(2);
+        $this->pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1); 
+
         return view('ecommerce.detalhePedido.index',
             [
                 'pedido' => $pedido,
                 'itens' => $itens,
                 'observacoes' => $observacoes,
-                'grupos'=> $this->grupos
+                'grupos'=> $this->grupos,
+                'pedidoNormal' => $this->pedidoNormal,
+                'pedidoExpress'=> $this->pedidoExpress
             ]
         );
     }
