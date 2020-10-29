@@ -90,11 +90,11 @@ class GrupoController extends Controller
     }
 
 
-    public function ativarInativar(Request $_request)
+    public function ativar_inativar(Request $_request)
     {
         $buscaGrupo = $this->grupoService->find($_request->id);
         $usuarios = $this->usuarioRepository->findBy(
-            [['grupo_produto_id','=',$_request->id]],
+            [['grupo_id','=',$_request->id]],
             [],
             [],
             [],

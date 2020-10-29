@@ -61,7 +61,7 @@ Route::group(['middleware' => ['auth']], function() {
                     Route::post('salvar',       ['as' => 'perfil.salvar', 'uses' => 'PerfilController@store']);
                     Route::get('editar/{id}',   ['as' => 'perfil.editar', 'uses' => 'PerfilController@edit']);
                     Route::post('alterar/{id}', ['as' => 'perfil.alterar', 'uses' => 'PerfilController@update']);
-                    Route::post('ativar_inativar',     ['as' => 'perfil.ativar_inativar', 'uses' => 'PerfilController@ativarInativar']);
+                    Route::post('ativar_inativar',     ['as' => 'perfil.ativar_inativar', 'uses' => 'PerfilController@ativar_inativar']);
                 });
 
 
@@ -74,7 +74,7 @@ Route::group(['middleware' => ['auth']], function() {
                     Route::post('salvar',                   ['as' => 'grupo.salvar',                'uses' => 'GrupoController@store']);
                     Route::get('editar/{id}',               ['as' => 'grupo.editar',                'uses' => 'GrupoController@edit']);
                     Route::post('alterar',                  ['as' => 'grupo.alterar',               'uses' => 'GrupoController@update']);
-                    Route::post('ativar_inativar',	        ['as' => 'grupo.ativar_inativar',       'uses' => 'GrupoController@ativarInativar']);
+                    Route::post('ativar_inativar',	        ['as' => 'grupo.ativar_inativar',       'uses' => 'GrupoController@ativar_inativar']);
                 });
 
 
@@ -111,7 +111,7 @@ Route::group(['middleware' => ['auth']], function() {
                     Route::post('salvar',       ['as' => 'cidade.salvar', 'uses' => 'CidadeController@store']);
                     Route::get('editar/{id}',   ['as' => 'cidade.editar', 'uses' => 'CidadeController@edit']);
                     Route::post('alterar',      ['as' => 'cidade.alterar', 'uses' => 'CidadeController@update']);
-                    Route::post('inativar',     ['as' => 'cidade.inativar', 'uses' => 'CidadeController@inativar']);
+                    Route::post('inativar',     ['as' => 'cidade.inativar', 'uses' => 'CidadeController@ativar_inativar']);
                 });
 
 

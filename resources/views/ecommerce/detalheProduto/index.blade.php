@@ -233,7 +233,24 @@
 @section('footer')
     <script src="https://cdnjs.com/libraries/jquery.mask"></script>
     <script>
+        var modal = document.getElementById("myModal");
+        var img = document.getElementById("imagem-produto");
+        var modalImg = document.getElementById("imagem-produto-modal");
+        var captionText = document.getElementById("caption");
+
+        img.onclick = function(){
+            console.log("chama")
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+        }
+
+        var span = document.getElementById("fechar");
         
+        span.onclick = function() { 
+            modal.style.display = "none";
+        }
+
         var valorProduto = $('#valorProduto').html();
         valorProduto = valorProduto.substring(2);
         var valorFloat = parseFloat(valorProduto);
@@ -315,24 +332,5 @@
 
         
 
-    </script>
-    <script>
-        var modal = document.getElementById("myModal");
-        var img = document.getElementById("imagem-produto");
-        var modalImg = document.getElementById("imagem-produto-modal");
-        var captionText = document.getElementById("caption");
-
-        img.onclick = function(){
-            console.log("chama")
-            modal.style.display = "block";
-            modalImg.src = this.src;
-            captionText.innerHTML = this.alt;
-        }
-
-        var span = document.getElementById("fechar");
-        
-        span.onclick = function() { 
-            modal.style.display = "none";
-        }
     </script>
 @endsection

@@ -108,7 +108,10 @@
                 ]
             });
 
-            $('.ativar_inativar').click(function(){
+            
+        });
+
+        $('.ativar_inativar').click(function(){
                 let id = $(this).data('id');
                 let acao = $(this).data('acao');
                 let nome_acao = (acao == 'ativar') ? "Ativado" : "Inativado"
@@ -135,7 +138,6 @@
                     swal.close();
                 });
             });
-        });
 
     </script>
 

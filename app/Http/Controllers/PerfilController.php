@@ -111,7 +111,7 @@ class PerfilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function ativarInativar(Request $_request)
+    public function ativar_inativar(Request $_request)
     {
         $buscaPerfil = $this->perfilService->find($_request->id);
         $usuarios = $this->usuarioService->findBy(

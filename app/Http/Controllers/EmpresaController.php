@@ -93,7 +93,7 @@ class EmpresaController extends Controller
         $buscaEmpresa = $this->empresaService->find($_request->id);
         try {
             $ativo_inativo      = $buscaEmpresa->inativo == 0 ? 1: 0;
-            $nome_ativo_inativo = $buscaEmpresa->inativo == 0 ? 'inativado' : 'ativado';
+            $nome_ativo_inativo = $buscaEmpresa->inativo == 0 ? 'inativada' : 'ativada';
             DB::transaction(function () use ($_request,  $ativo_inativo) {
                 $this->empresaService->update(['inativo' =>  $ativo_inativo], $_request->id);
             });
@@ -107,6 +107,7 @@ class EmpresaController extends Controller
 
     public function validator(Request $request)
     {
+    
         $validator = Validator::make($request->all(), [
             'razao_social'          => 'required|string|max:50',
             'nome_fantasia'         => 'required|string|max:50',
@@ -117,14 +118,12 @@ class EmpresaController extends Controller
             'numero'                => 'required',
             'bairro'                => 'required',
             'endereco'              => 'required|string|max:50',
-            'cidade_id'             => 'required|numeric'
+            'cidade_id'             => 'required|numeric',
+            'cpf'                   => ($request->tipo_pessoa == 'F') ?  'required|string|max:14|min:14' : '',
+            'cnpj'                  => ($request->tipo_pessoa == 'J') ?  'required|string|max:18|min:18' : '' 
         ]);
 
-        if($request->tipo_pessoa == 'F'){
-            $validator['cpf']  = 'required|string|max:15|min:15';
-        }else{
-            $validator['cnpj']  = 'required|string|max:19|min:19';
-        }
+        
 
         if ($validator->fails()) {
             Helper::setNotify($validator->messages()->first(), 'danger|close-circle');

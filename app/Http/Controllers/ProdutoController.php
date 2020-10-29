@@ -124,7 +124,7 @@ class ProdutoController extends Controller
             $nome_ativo_inativo = $buscaProduto->inativo == 0 ? 'inativado' : 'ativado';
 
             DB::transaction(function () use ($_request) {
-                //$this->perfilRepository->update(['inativo' => 1], $_request->id);
+                $this->produtoService->update(['inativo' => 1], $_request->id);
             });
             Helper::setNotify('Produto '.$nome_ativo_inativo.' com sucesso!', 'success|check-circle');
             return response()->json(['response' => 'sucesso']);

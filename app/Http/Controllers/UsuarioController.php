@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Classes\Helper;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Validator, DB};
+use Illuminate\Support\Facades\{Validator, DB, Hash};
 use App\Services\{UserService, PerfilService, GrupoService, EmpresaService};
 
 class UsuarioController extends Controller
@@ -70,6 +70,7 @@ class UsuarioController extends Controller
             Helper::setNotify('Novo usuário criado com sucesso!', 'success|check-circle');
             return redirect()->route('usuario');
         } catch (\Throwable $th) {
+            dd($th);
             Helper::setNotify("Erro ao criar o usuário", 'danger|close-circle');
             return redirect()->back()->withInput();
         }
@@ -110,6 +111,8 @@ class UsuarioController extends Controller
         $id = $request->get('idUsuario');
         
         $update = self::montaRequest($request);
+
+       
        
         try {
             DB::transaction(function () use ($update, $id) {
@@ -126,13 +129,13 @@ class UsuarioController extends Controller
     }
     
 
-    public function ativarInativar(Request $_request)
+    public function ativar_inativar(Request $_request)
     {
-        $buscaUsuario = $this->perfilService->find($_request->id);
+        $buscaUsuario = $this->userService->find($_request->id);
         try {
             $ativo_inativo      = $buscaUsuario->inativo == 0 ? 1: 0;
             $nome_ativo_inativo = $buscaUsuario->inativo == 0 ? 'inativado' : 'ativado';
-            
+
             DB::transaction(function () use ($_request, $ativo_inativo) {
                 $this->userService->update(['inativo' => $ativo_inativo], $_request->id);
             });
@@ -146,18 +149,29 @@ class UsuarioController extends Controller
 
     protected function validator(Request $request)
     {
-        
-        $validator = Validator::make($request->all(), [
-            'name'     => 'required|string|max:255',
-            'password' => 'required|string|min:6|confirmed',
-            'foto'     => 'image|mimes:jpeg,png,jpg',
-            'perfil'   => 'required|numeric',
-            'grupo'    => 'required|numeric'
-        ]);
-
         if(empty($request->get('idUsuario'))){
-            $validator['username'] = 'required|string|max:20|unique:users';
-            $validator['email'] = 'required|string|email|max:255|unique:users';
+            $validator = Validator::make($request->all(),
+                [
+                    'username' => 'required|string|max:20|unique:users',
+                    'email'    => 'required|string|email|max:255|unique:users',
+                    'name'     => 'required|string|max:255',
+                    'password' => 'required|string|min:6|confirmed',
+                    'foto'     => 'image|mimes:jpeg,png,jpg',
+                    'perfil'   => 'required|numeric',
+                    'grupo'    => 'required|numeric'
+                ]
+            );
+            
+        }else{
+            $validator = Validator::make($request->all(), 
+                [
+                    'name'     => 'required|string|max:255',
+                    'password' => 'required|string|min:6|confirmed',
+                    'foto'     => 'image|mimes:jpeg,png,jpg',
+                    'perfil'   => 'required|numeric',
+                    'grupo'    => 'required|numeric'
+                ]
+            );
         }
     
         if ($validator->fails()) {
@@ -185,10 +199,10 @@ class UsuarioController extends Controller
             'username'                          => $request->username,
             'email'                             => $request->email,
             'utilizar_permissoes_nivel_usuario' => false,
-            'password'                          => $senha_igual == true ? $buscaSenha->password : crypt($request->password),
+            'password'                          => $senha_igual == true ? $buscaSenha->password : Hash::make($request->password),
             'administrador'                     => false,
             'perfil_id'                         => $request->perfil,
-            'grupo_produto_id'                  => $request->grupo,
+            'grupo_id'                          => $request->grupo,
             'empresa_id'                        => $request->empresa ?? null
         ];
 
