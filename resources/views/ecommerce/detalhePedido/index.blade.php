@@ -194,6 +194,4 @@
 @endsection
 
 @section('footer')
-    @include('admin.modal.linkRastreamento')
-    <script src="{{ asset('controllers/pedido.js') }}"></script>
 @endsection
