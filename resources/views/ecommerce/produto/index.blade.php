@@ -621,7 +621,7 @@
                 $.ajax({
                     type: "POST",
                     url: 'produto/adicionarCarinho',
-                    data: { id: id, tipo: tipo, tamanho:tamanho, _token: '{{csrf_token()}}' },
+                    data: { id: id, tipo: tipo, tamanho:tamanho,quantidade:1, _token: '{{csrf_token()}}' },
                     success: function (data) {
                         if(data.response != 'erro') {
                             swal2_success("Adicionado !", "Produto adicionado com sucesso.");

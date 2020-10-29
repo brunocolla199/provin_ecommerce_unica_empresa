@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Classes\Helper;
 use App\Services\UserService;
 use App\Services\PedidoService;
+use App\Services\ProdutoService;
 use Illuminate\Support\Facades\{DB, Auth};
 
 
@@ -13,16 +14,24 @@ class CarrinhoService
     protected $userService;
     protected $pedidoService;
     protected $itemPedidoService;
+    protected $produtoService;
 
-    public function __construct(UserService $user, PedidoService $pedido, ItemPedidoService $item)
+    public function __construct(UserService $user, PedidoService $pedido, ItemPedidoService $item, ProdutoService $produto)
     {
         $this->userService = $user;
         $this->pedidoService = $pedido;
         $this->itemPedidoService = $item;
+        $this->produtoService = $produto;
     }
 
-    public function addCarrinho($id_produto,$tipo_pedido,$tamanho)
+    public function addCarrinho($id_produto,$tipo_pedido,$tamanho,$quantidade)
     {
+        $buscaProduto = $this->produtoService->find($id_produto);
+        if($buscaProduto['quantidade_estoque'] < $quantidade){
+            Helper::setNotify("Produto não se encontra mais em estoque.", 'danger|close-circle');
+            return false;
+        }
+
         $buscaPedido =$this->pedidoService->buscaPedidoCarrinho($tipo_pedido);
         
         //Se achou pedido da empresa ALTERA caso contrario CRIA
@@ -39,7 +48,7 @@ class CarrinhoService
                 if(!empty($buscaExistItem[0])){
                     $this->itemPedidoService->update($buscaExistItem[0]->id,$buscaPedido[0]->id,$id_produto,$buscaExistItem[0]->quantidade +1,0,0,$tamanho);
                 }else{
-                    $this->itemPedidoService->create($buscaPedido[0]->id,$id_produto,1,0,0,$tamanho);   
+                    $this->itemPedidoService->create($buscaPedido[0]->id,$id_produto,$quantidade,0,0,$tamanho);   
                 }
                 $this->pedidoService->recalcular($buscaPedido[0]->id);
                 

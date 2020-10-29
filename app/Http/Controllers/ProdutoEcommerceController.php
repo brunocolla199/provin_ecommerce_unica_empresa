@@ -70,7 +70,7 @@ class ProdutoEcommerceController extends Controller
 
         $registroPPagina = session()->get('regPorPage') ?? 20;
 
-        $produtos = $produtos->where('inativo','=',0);
+        $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1);
         if($request->has('searchProduct')){
             $produtos = $produtos->where('nome','ilike','%' . $request->query('searchProduct') . '%');
         }
@@ -152,7 +152,7 @@ class ProdutoEcommerceController extends Controller
 
         $registroPPagina = session()->get('regPorPage') ?? 20;
 
-        $produtos = $produtos->where('inativo','=',0);
+        $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1);
         if($id){
             $produtos = $produtos->where('grupo_produto_id','=',$id);
         }
@@ -207,7 +207,7 @@ class ProdutoEcommerceController extends Controller
 
         $registroPPagina = session()->get('regPorPage') ?? 20;
 
-        $produtos = $produtos->where('inativo','=',0);
+        $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1);
         if($request->has('rangeMaximo') && $request->has('rangeMinimo')){
             $produtos = $produtos->whereBetween('valor', [$rangeMinimo, $rangeMaximo]);
         }
@@ -255,8 +255,9 @@ class ProdutoEcommerceController extends Controller
         $id_produto  = $request->id;
         $tipo_pedido = $request->tipo == 'express' ? 1: 2;
         $tamanho     = $request->tamanho ?? '';
+        $quantidade  = $request->quantidade ?? 1;
         
-        $add = $this->carrinhoService->addCarrinho($id_produto,$tipo_pedido,$tamanho);
+        $add = $this->carrinhoService->addCarrinho($id_produto,$tipo_pedido,$tamanho, $quantidade);
         if($add){
             return response()->json(['response' => 'successo']);
         }else{
