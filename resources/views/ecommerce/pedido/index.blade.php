@@ -30,6 +30,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <h5 class="mb-1 product-item__title" class="font-size-14 text-gray-5">Status: {{$pedido->statusPedido->nome}}</h5>
                                     <h5 class="mb-1 product-item__title" class="font-size-14 text-gray-5">Total de Itens: {{$pedido->numero_itens}}</h5>
                                     <div class="mb-2"><a href="{{ route('ecommerce.pedido.detalhe', ['id' => $pedido->id ]) }}" class="text-blue font-weight-bold">{{__('page_titles.ecommerce.detalhePedido.index')}}</a></div>
                                     <div class="product-item__footer">
