@@ -6,6 +6,7 @@ use App\Classes\Helper;
 use App\Services\UserService;
 use App\Services\PedidoService;
 use App\Services\ProdutoService;
+use App\Services\ItemPedidoService;
 use Illuminate\Support\Facades\{DB, Auth};
 
 
@@ -61,12 +62,11 @@ class CarrinhoService
             } 
             
         }else{
-            
             try {
                 //cria
-                DB::transaction(function () use ($tipo_pedido,$id_produto,$tamanho) {
+                DB::transaction(function () use ($tipo_pedido,$id_produto,$tamanho,$quantidade) {
                     $create = $this->pedidoService->create($tipo_pedido,1,Auth::user()->id,0,0,null,0,0,'');
-                    $this->itemPedidoService->create($create->id,$id_produto,1,0,0,$tamanho);
+                    $this->itemPedidoService->create($create->id,$id_produto,$quantidade,0,0,$tamanho);
                     $this->pedidoService->recalcular($create->id);
                 });
                 

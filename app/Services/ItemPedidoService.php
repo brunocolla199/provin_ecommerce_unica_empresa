@@ -31,6 +31,7 @@ class ItemPedidoService
     public function create($pedido_id,$produto_id,$quantidade,$valor_unitario,$valor_total,$tamanho)
     {   
         $request = self::montaRequest($pedido_id,$produto_id,$quantidade,$valor_unitario,$valor_total,$tamanho);
+       
         return $this->itemPedidoRepository->create($request);
     }
 
@@ -60,12 +61,12 @@ class ItemPedidoService
     public function montaRequest($pedido_id,$produto_id,$quantidade,$valor_unitario,$valor_total,$tamanho)
     {
         return [
-            'pedido_id'      => $pedido_id,
-            'produto_id'     => $produto_id,
-            'quantidade'     => $quantidade,
-            'valor_unitario' => $valor_unitario,
-            'valor_total'    => $valor_total,
-            'tamanho'        => $tamanho
+            "pedido_id"      => $pedido_id,
+            "produto_id"     => $produto_id,
+            "quantidade"     => (int)$quantidade,
+            "valor_unitario" => $valor_unitario,
+            "valor_total"    => $valor_total,
+            "tamanho"        => $tamanho
         ];
     }
 

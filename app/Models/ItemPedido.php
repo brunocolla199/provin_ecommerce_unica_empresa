@@ -9,7 +9,6 @@ class ItemPedido extends Model
     public $table = 'item_pedido';
 
     protected $fillable = [
-        'id',
         'produto_id', 
         'pedido_id', 
         'quantidade', 
