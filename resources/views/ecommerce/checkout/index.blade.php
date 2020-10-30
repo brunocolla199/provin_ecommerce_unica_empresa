@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('page_title', __('page_titles.ecommerce.checkout'))
+@section('page_title', __('page_titles.ecommerce.checkout.index'))
 
 @section('breadcrumbs')
         <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="{{route('ecommerce.home')}}">Home</a></li>
-        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">{{__('sidebar_and_header.ecommerce.product')}}</li>
+        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">{{__('sidebar_and_header.ecommerce.checkout')}}</li>
     
 @endsection
 

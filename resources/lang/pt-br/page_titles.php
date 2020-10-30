@@ -162,6 +162,9 @@ return [
         ],
         'telaDetalhesPedido'     => [
             'index'  => 'Detalhes do Pedido'
-        ]
+        ],
+        'checkout'     => [
+            'index'  => 'Checkout de Compras'
+        ],
     ]
 ];

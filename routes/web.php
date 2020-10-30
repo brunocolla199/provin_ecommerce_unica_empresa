@@ -208,7 +208,7 @@ Route::group(['middleware' => ['auth']], function() {
             });
 
             Route::group(['prefix' => 'checkout'], function () {
-                Route::get('', ['as' => 'ecommerce.checkout', 'uses' => 'CheckoutEcommerceController@index']);
+                Route::get('detalhe/{id}', ['as' => 'ecommerce.checkout.detalhe', 'uses' => 'CheckoutEcommerceController@index']);
                
             });
 

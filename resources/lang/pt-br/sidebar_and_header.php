@@ -99,7 +99,8 @@ return [
         'results_found' => 'resultados encontrados',
         'quantidade' => 'Quantidade',
         'inEstoque'  => 'em estoque',
-        'total' => 'Total'
+        'total' => 'Total',
+        'checkout' => 'Checkout'
 
 
         
