@@ -23,15 +23,15 @@
                             <div class="product-item__outer h-100">
                                 <div class="product-item__inner px-xl-4 p-3">
                                     <div class="product-item__body pb-xl-2">
-                                    <div class="mb-2"><a href="{{ route('ecommerce.pedido.detalhe', ['id' => $pedido->id ]) }}" class="d-block text-center font-size-16 text-gray-5">N° {{$pedido->id}}</a></div>
+                                    <div class="mb-2"><a href="{{ route('ecommerce.pedido.detalhe', ['id' => $pedido->id ]) }}" class="d-block text-center font-size-16 text-gray-5">N° <b>{{$pedido->id}}</b></a></div>
                                         <div class="flex-center-between mb-1">
                                             <div class="prodcut-price">
-                                                <div class="text-gray-100">R${{number_format($pedido->total_pedido, 2, ',', '.')}}</div>
+                                                <div class="text-gray-100">R$ <b>{{number_format($pedido->total_pedido, 2, ',', '.')}}</b></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <h5 class="mb-1 product-item__title" class="font-size-14 text-gray-5">Status: {{$pedido->statusPedido->nome}}</h5>
-                                    <h5 class="mb-1 product-item__title" class="font-size-14 text-gray-5">Total de Itens: {{$pedido->numero_itens}}</h5>
+                                    <h5 class="mb-1 product-item__title" class="font-size-14 text-gray-5">Status: <b>{{$pedido->statusPedido->nome}}</b></h5>
+                                    <h5 class="mb-1 product-item__title" class="font-size-14 text-gray-5">Total de Itens: <b>{{$pedido->numero_itens}}</b></h5>
                                     <div class="mb-2"><a href="{{ route('ecommerce.pedido.detalhe', ['id' => $pedido->id ]) }}" class="text-blue font-weight-bold">{{__('page_titles.ecommerce.detalhePedido.index')}}</a></div>
                                     <div class="product-item__footer">
                                         <div class="border-top pt-2 flex-center-between flex-wrap">
