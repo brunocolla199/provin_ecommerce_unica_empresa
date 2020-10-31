@@ -46,7 +46,8 @@
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('previsao_entrega') ? ' has-error' : '' }}">
                                     <label class="control-label">Previsão de Entrega</label>
-                                    <input type="text" readonly  id="previsao_entrega" name="previsao_entrega" value="{{ date('d-m-Y', strtotime($pedido->previsao_entrega)) }}" class="form-control" required >
+                                    <input type="text" readonly  id="previsao_entrega" name="previsao_entrega" value="@if (!empty($pedido->previsao_entrega))
+                                    {{ date('d-m-Y', strtotime($pedido->previsao_entrega)) }}@endif" class="form-control" required >
                                     <small class="form-control-feedback"> Digite a data de previsão de entrega. </small> 
                                     @if ($errors->has('previsao_entrega'))
                                         <br/>    
@@ -103,9 +104,10 @@
                                 <tr>
                                     <th class="product-remove">&nbsp;</th>
                                     <th class="product-thumbnail">&nbsp;</th>
-                                    <th class="product-name">Produtos</th>
+                                    <th class="product-name">Produto</th>
+                                    <th class="product-name">Tamanho</th>
                                     <th class="product-price">Preço</th>
-                                    <th class="product-quantity w-lg-15">Quantidade</th>
+                                    <th class="product-quantity w-lg-15">Quant</th>
                                     <th class="product-subtotal">Total</th>
                                 </tr>
                             </thead>
@@ -122,13 +124,17 @@
                                         <td data-title="Product">
                                             <a href="#" class="text-gray-90">{{$item->produto->nome}}</a>
                                         </td>
+
+                                        <td data-title="Tam">
+                                            <a href="#" class="text-gray-90">{{$item->tamanho}}</a>
+                                        </td>
     
                                         <td data-title="preco">
                                             <span class="money">{{number_format($item->valor_unitario, 2, ',', '.')}}</span>
                                         </td>
     
                                         <td data-title="Quantity">
-                                            <span class="sr-only">Quantidade</span>
+                                            <span class="sr-only">Quant</span>
                                             <!-- Quantity -->
                                             <!--<div class="border rounded-pill py-1 width-122 w-xl-80 px-3 border-color-1">
                                                 <div class="js-quantity row align-items-center">

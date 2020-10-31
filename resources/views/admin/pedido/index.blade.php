@@ -49,8 +49,10 @@
                                         <td style="display: flex;justify-content: center"><i class="{{$pedido->statusPedido->nome_icone}}"></i></td>
                                         <td>{{ $pedido->usuario->empresa->nome_fantasia }}</td>
                                         <td>{{ $pedido->tipoPedido->nome }}</td>
-                                        <td>{{date('d-m-Y', strtotime($pedido->create_at)) }}</td>
-                                        <td>{{date('d-m-Y', strtotime($pedido->previsao_entrega)) }}</td>
+                                        <td>{{date('d-m-Y', strtotime($pedido->created_at)) }}</td>
+                                        <td>@if (!empty($pedido->previsao_entrega))
+                                                {{date('d-m-Y', strtotime($pedido->previsao_entrega)) }}@endif
+                                        </td>
                                         <td>{{ $pedido->numero_itens }}</td>
                                         <td class="money">{{number_format($pedido->total_pedido, 2, ',', '.')  }}</td>
                                         

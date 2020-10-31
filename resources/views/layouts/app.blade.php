@@ -461,22 +461,21 @@
                                             <!--<li class="col d-none d-xl-block"><a href="../shop/wishlist.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorites"><i class="font-size-22 ec ec-favorites"></i></a></li>-->
                                             <!--<li class="col d-xl-none px-2 px-sm-3"><a href="../shop/my-account.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.my_account')}}"><i class="font-size-22 ec ec-user"></i></a></li>-->
                                             <li class="col pr-xl-0 px-2 px-sm-3">
-                                                <a href="../shop/cart.html" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
+                                                <a href="@if (!empty($pedidoNormal[0])){{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }} @else #  @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
                                                     <i class="font-size-22 ec ec-shopping-bag"></i>
                                                     @if (!empty($pedidoNormal[0]))
-                                                        <span class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoNormal[0]->numero_itens ?? ''}}</span>
+                                                        <span href="{{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoNormal[0]->numero_itens ?? ''}}</span>
                                                         <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoNormal[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
                                                     @endif 
                                                 </a>
                                             </li>
                                             <li class="col pr-xl-0 px-2 px-sm-3">
-                                                <a href="../shop/cart.html" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
+                                                <a href="@if (!empty($pedidoExpress[0])) {{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }} @else # @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
                                                     <i class="font-size-22 ec ec-shopping-bag"></i>
                                                     @if (!empty($pedidoExpress[0]))
-                                                        <span class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoExpress[0]->numero_itens ?? ''}}</span>
-                                                        <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format( $pedidoExpress[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
+                                                        <span href="{{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoExpress[0]->numero_itens ?? ''}}</span>
+                                                        <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoExpress[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
                                                     @endif
-                                                    
                                                 </a>
                                             </li>
                                         </ul>
@@ -541,7 +540,7 @@
                                                 <a href="@if (!empty($pedidoNormal[0])){{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }} @else #  @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
                                                     <i class="font-size-22 ec ec-shopping-bag"></i>
                                                     @if (!empty($pedidoNormal[0]))
-                                                        <span class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoNormal[0]->numero_itens ?? ''}}</span>
+                                                        <span href="{{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoNormal[0]->numero_itens ?? ''}}</span>
                                                         <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoNormal[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
                                                     @endif 
                                                 </a>
@@ -550,7 +549,7 @@
                                                 <a href="@if (!empty($pedidoExpress[0])) {{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }} @else # @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
                                                     <i class="font-size-22 ec ec-shopping-bag"></i>
                                                     @if (!empty($pedidoExpress[0]))
-                                                        <span class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoExpress[0]->numero_itens ?? ''}}</span>
+                                                        <span href="{{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoExpress[0]->numero_itens ?? ''}}</span>
                                                         <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoExpress[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
                                                     @endif
                                                 </a>

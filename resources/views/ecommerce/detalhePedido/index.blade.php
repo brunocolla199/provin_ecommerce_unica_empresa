@@ -45,7 +45,9 @@
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('previsao_entrega') ? ' has-error' : '' }}">
                                     <label class="control-label">Previsão de Entrega</label>
-                                    <input type="text" readonly  id="previsao_entrega" name="previsao_entrega" value="{{ date('d-m-Y', strtotime($pedido->previsao_entrega)) }}" class="form-control" required >
+                                    <input type="text" readonly  id="previsao_entrega" name="previsao_entrega" value="@if (!empty($pedido->previsao_entrega))
+                                    {{  date('d-m-Y', strtotime($pedido->previsao_entrega))  }} 
+                                    @endif" class="form-control" required >
                                     @if ($errors->has('previsao_entrega'))
                                         <br/>    
                                         <span class="help-block text-danger">
@@ -140,7 +142,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group{{ $errors->has('qtd_itens') ? ' has-error' : '' }}">
-                                <label class="control-label">Quantidade</label>
+                                <label class="control-label">Quantidade Total</label>
                                 <input type="text" readonly id="qtd_itens" name="qtd_itens" value="{{ $pedido->numero_itens }}" class=" money form-control" required >
                                 @if ($errors->has('qtd_itens'))
                                     <br/>    

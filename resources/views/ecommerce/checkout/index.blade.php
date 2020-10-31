@@ -11,28 +11,29 @@
 @section('content')
 <div class="container">
     <div class="mb-5">
-        <h1 class="text-center">Checkout</h1>
+        <h3 class="text-center">Checkout</h3>
     </div>
     <!-- Accordion -->
     <div id="shopCartAccordion" class="accordion rounded mb-5">
         <!-- Card -->
+    <!--
         <div class="card border-0">
             <div id="shopCartHeadingOne" class="alert alert-primary mb-0" role="alert">
                 Returning customer? <a href="#" class="alert-link" data-toggle="collapse" data-target="#shopCartOne" aria-expanded="false" aria-controls="shopCartOne">Click here to login</a>
             </div>
             <div id="shopCartOne" class="collapse border border-top-0" aria-labelledby="shopCartHeadingOne" data-parent="#shopCartAccordion" style="">
-                <!-- Form -->
+                
                 <form class="js-validate p-5">
-                    <!-- Title -->
+                    
                     <div class="mb-5">
                         <p class="text-gray-90 mb-2">Welcome back! Sign in to your account.</p>
                         <p class="text-gray-90">If you have shopped with us before, please enter your details below. If you are a new customer, please proceed to the Billing & Shipping section.</p>
                     </div>
-                    <!-- End Title -->
+                    
 
                     <div class="row">
                         <div class="col-lg-6">
-                            <!-- Form Group -->
+                            
                             <div class="js-form-message form-group">
                                 <label class="form-label" for="signinSrEmailExample3">Email address</label>
                                 <input type="email" class="form-control" name="email" id="signinSrEmailExample3" placeholder="Email address" aria-label="Email address" required
@@ -40,10 +41,10 @@
                                 data-error-class="u-has-error"
                                 data-success-class="u-has-success">
                             </div>
-                            <!-- End Form Group -->
+                           
                         </div>
                         <div class="col-lg-6">
-                            <!-- Form Group -->
+                            
                             <div class="js-form-message form-group">
                                 <label class="form-label" for="signinSrPasswordExample2">Password</label>
                                 <input type="password" class="form-control" name="password" id="signinSrPasswordExample2" placeholder="********" aria-label="********" required
@@ -51,11 +52,11 @@
                                 data-error-class="u-has-error"
                                 data-success-class="u-has-success">
                             </div>
-                            <!-- End Form Group -->
+                            
                         </div>
                     </div>
 
-                    <!-- Checkbox -->
+                    
                     <div class="js-form-message mb-3">
                         <div class="custom-control custom-checkbox d-flex align-items-center">
                             <input type="checkbox" class="custom-control-input" id="rememberCheckbox" name="rememberCheckbox" required
@@ -66,9 +67,7 @@
                             </label>
                         </div>
                     </div>
-                    <!-- End Checkbox -->
-
-                    <!-- Button -->
+                    
                     <div class="mb-1">
                         <div class="mb-3">
                             <button type="submit" class="btn btn-primary-dark-w px-5">Login</button>
@@ -77,18 +76,20 @@
                             <a class="text-blue" href="#">Lost your password?</a>
                         </div>
                     </div>
-                    <!-- End Button -->
+                   
                 </form>
-                <!-- End Form -->
+               
             </div>
         </div>
+    -->
         <!-- End Card -->
     </div>
     <!-- End Accordion -->
 
     <!-- Accordion -->
+    <!--
     <div id="shopCartAccordion1" class="accordion rounded mb-6">
-        <!-- Card -->
+        
         <div class="card border-0">
             <div id="shopCartHeadingTwo" class="alert alert-primary mb-0" role="alert">
                 Have a coupon? <a href="#" class="alert-link" data-toggle="collapse" data-target="#shopCartTwo" aria-expanded="false" aria-controls="shopCartTwo">Click here to enter your code</a>
@@ -108,8 +109,9 @@
                 </form>
             </div>
         </div>
-        <!-- End Card -->
+        
     </div>
+-->
     <!-- End Accordion -->
     <form class="js-validate" novalidate="novalidate">
         <div class="row">
@@ -120,7 +122,7 @@
                         <div class="p-4 mb-4 checkout-table">
                             <!-- Title -->
                             <div class="border-bottom border-color-1 mb-5">
-                                <h3 class="section-title mb-0 pb-2 font-size-25">Your order</h3>
+                                <h3 class="section-title mb-0 pb-2 font-size-25">{{__('sidebar_and_header.ecommerce.your_orden')}}</h3>
                             </div>
                             <!-- End Title -->
 
@@ -128,40 +130,39 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class="product-name">Product</th>
+                                        <th class="product-name">{{__('sidebar_and_header.ecommerce.product')}}</th>
                                         <th class="product-total">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="cart_item">
-                                        <td>Ultra Wireless S50 Headphones S50 with Bluetooth&nbsp;<strong class="product-quantity">× 1</strong></td>
-                                        <td>$1,100.00</td>
-                                    </tr>
-                                    <tr class="cart_item">
-                                        <td>Widescreen NX Mini F1 SMART NX&nbsp;<strong class="product-quantity">× 1</strong></td>
-                                        <td>$685.00</td>
-                                    </tr>
+                                    @foreach ($itens as $item)
+                                        <tr class="cart_item">
+                                            <td>{{$item->produto->nome}}&nbsp;<strong class="product-quantity">× {{$item->quantidade}}</strong></td>
+                                            <td>R$ {{number_format($item->valor_total, 2, ',', '.')}}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Subtotal</th>
-                                        <td>$1,785.00</td>
+                                        <th>Sub Total</th>
+                                        <td>R$ {{number_format(($itens[0]->pedido->total_pedido - $itens[0]->pedido->acrescimos), 2, ',', '.')}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Shipping</th>
-                                        <td>Flat rate $300.00</td>
+                                        <th>Adicional</th>
+                                        <td>R$ {{number_format($itens[0]->pedido->acrescimos, 2, ',', '.')}}</td>
                                     </tr>
                                     <tr>
                                         <th>Total</th>
-                                        <td><strong>$2,085.00</strong></td>
+                                        <td><strong>R$ {{number_format($itens[0]->pedido->total_pedido, 2, ',', '.')}}</strong></td>
                                     </tr>
                                 </tfoot>
                             </table>
                             <!-- End Product Content -->
+                            <!--
                             <div class="border-top border-width-3 border-color-1 pt-3 mb-3">
-                                <!-- Basics Accordion -->
+                                
                                 <div id="basicsAccordion1">
-                                    <!-- Card -->
+                                    
                                     <div class="border-bottom border-color-1 border-dotted-bottom">
                                         <div class="p-3" id="basicsHeadingOne">
                                             <div class="custom-control custom-radio">
@@ -183,9 +184,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End Card -->
-
-                                    <!-- Card -->
+                                    
                                     <div class="border-bottom border-color-1 border-dotted-bottom">
                                         <div class="p-3" id="basicsHeadingTwo">
                                             <div class="custom-control custom-radio">
@@ -207,9 +206,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End Card -->
-
-                                    <!-- Card -->
+                                    
                                     <div class="border-bottom border-color-1 border-dotted-bottom">
                                         <div class="p-3" id="basicsHeadingThree">
                                             <div class="custom-control custom-radio">
@@ -231,9 +228,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End Card -->
-
-                                    <!-- Card -->
+                                    
                                     <div class="border-bottom border-color-1 border-dotted-bottom">
                                         <div class="p-3" id="basicsHeadingFour">
                                             <div class="custom-control custom-radio">
@@ -255,9 +250,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End Card -->
+                                    
                                 </div>
-                                <!-- End Basics Accordion -->
+                                
                             </div>
                             <div class="form-group d-flex align-items-center justify-content-between px-3 mb-5">
                                 <div class="form-check">
@@ -271,7 +266,8 @@
                                     </label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary-dark-w btn-block btn-pill font-size-20 mb-3 py-3">Place order</button>
+                            -->
+                            <button type="submit" class="btn btn-primary-dark-w btn-block btn-pill font-size-20 mb-3 py-3">{{__('sidebar_and_header.ecommerce.place_orden')}}</button>
                         </div>
                         <!-- End Order Summary -->
                     </div>

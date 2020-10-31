@@ -100,7 +100,13 @@ return [
         'quantidade' => 'Quantidade',
         'inEstoque'  => 'em estoque',
         'total' => 'Total',
-        'checkout' => 'Checkout'
+        'checkout' => 'Checkout',
+        'tamanho'  => 'Tamanho',
+        'card_total' => 'Total Carrinho',
+        'update_card' => 'Alterar Carrinho',
+        'your_orden'  => 'Meu Pedido',
+        'place_orden' => 'Finalizar Pedido',
+        'produto'    => 'Produto'
 
 
         
