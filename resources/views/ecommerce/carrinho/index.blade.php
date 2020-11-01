@@ -11,7 +11,7 @@
 @section('content')
 <div class="container">
     <div class="mb-4">
-        <h3 class="text-center">{{__('sidebar_and_header.ecommerce.cart')}}</h3>
+        <h3 class="text-center">@if ($itens[0]->pedido->tipo_pedido_id == 2) {{__('sidebar_and_header.ecommerce.cart')}} @else {{__('sidebar_and_header.ecommerce.cart2')}} @endif</h3>
     </div>
     <div class="mb-10 cart-table">
         <form class="mb-4" action="#" method="post">
@@ -19,7 +19,6 @@
                 <thead>
                     <tr>
                         <th class="product-remove">&nbsp;</th>
-                        <th class="product-thumbnail">&nbsp;</th>
                         <th class="product-name">{{__('sidebar_and_header.ecommerce.product')}}</th>
                         <th class="product-name">{{__('sidebar_and_header.ecommerce.tamanho')}}</th>
                         <th class="product-price">{{__('sidebar_and_header.ecommerce.price')}}</th>
@@ -29,16 +28,14 @@
                 </thead>
                 <tbody>
                     @foreach ($itens as $item)
+                        <input type="hidden" id="estoque-{{$item->produto->id}}" value="{{$item->produto->quantidade_estoque}}">
                         <tr class="">
-                            <td class="text-center">
-                                <a href="#" class="text-gray-32 font-size-26">×</a>
+                            <td class="text-center row">
+                                <a href="#" title="Remover" style="color: red" class="text-gray-32 font-size-26">×</a>
                             </td>
-                            <td class="d-none d-md-table-cell">
-                                <a href="#"><img class="img-fluid max-width-100 p-1 border border-color-1" src="{{asset('ecommerce/assets/img/300X300/img6.jpg')}}" alt="Image Description"></a>
-                            </td>
-    
                             <td data-title="{{__('sidebar_and_header.ecommerce.produto')}}">
-                                <a href="#" class="text-gray-90">{{$item->produto->nome}}</a>
+                                <a class="d-none d-md-table-cell" href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}"><img style="width: 100px;height: 100px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img6.jpg')}} @endif" alt="Image Description"></a>
+                                <a href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}" class="text-gray-90">{{$item->produto->nome}}</a>
                             </td>
                             
                             <td data-title="Tamanho">
@@ -57,7 +54,7 @@
                             </td>
     
                             <td data-title="{{__('sidebar_and_header.ecommerce.price')}}">
-                                <span class="">{{number_format($item->valor_unitario, 2, ',', '.')}}</span>
+                                <span class="" id="preco-{{$item->produto->id}}">{{number_format($item->valor_unitario, 2, ',', '.')}}</span>
                             </td>
     
                             <td data-title="{{__('sidebar_and_header.ecommerce.quantidade')}}">
@@ -66,13 +63,13 @@
                                 <div class="border rounded-pill py-1 width-122 w-xl-70 px-3 border-color-1">
                                     <div class="js-quantity row align-items-center">
                                         <div class="col">
-                                            <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none" disabled type="text" value="{{$item->quantidade}}">
+                                            <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none" disabled type="text" value="{{$item->quantidade}}" id="qtd-{{$item->produto->id}}">
                                         </div>
                                         <div class="col-auto pr-1">
-                                            <a class="js-minus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" href="javascript:;">
+                                            <a class=" btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 remove-btn" data-id="{{$item->produto->id}}" >
                                                 <small class="fas fa-minus btn-icon__inner"></small>
                                             </a>
-                                            <a class="js-plus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" href="javascript:;">
+                                            <a class=" btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 add-btn" data-id="{{$item->produto->id}}">
                                                 <small class="fas fa-plus btn-icon__inner"></small>
                                             </a>
                                         </div>
@@ -82,7 +79,7 @@
                             </td>
     
                             <td data-title="Total">
-                                <span class="">{{number_format($item->valor_total, 2, ',', '.')}}</span>
+                                <span class="" id="total-{{$item->produto->id}}">{{number_format($item->valor_total, 2, ',', '.')}}</span>
                             </td>
                         </tr>
                     @endforeach
@@ -128,7 +125,7 @@
                     <tbody>
                         <tr class="cart-subtotal">
                             <th>Sub Total</th>
-                            <td data-title="Subtotal"><span class="amount">R$ {{number_format(($itens[0]->pedido->total_pedido - $itens[0]->pedido->acrescimos), 2, ',', '.')}}</span></td>
+                            <td data-title="Subtotal"><span class="amount" id="subTotal">R$ {{number_format(($itens[0]->pedido->total_pedido - $itens[0]->pedido->acrescimos), 2, ',', '.')}}</span></td>
                         </tr>
                         <tr class="shipping">
                             <th>Valor Adicional</th>
@@ -164,7 +161,7 @@
                         </tr>
                         <tr class="order-total">
                             <th>Total</th>
-                            <td data-title="Total"><strong><span class="amount">R$ {{number_format($itens[0]->pedido->total_pedido, 2, ',', '.')}}</span></strong></td>
+                            <td data-title="Total"><strong><span class="amount" id="total">R$ {{number_format($itens[0]->pedido->total_pedido, 2, ',', '.')}}</span></strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -176,5 +173,38 @@
 @endsection
 
 @section('footer')
+    <script>
+        
+        $(document).on("click",'.remove-btn',function(){
+            var id  = $(this).data('id');
+            var valorFloat = parseFloat($('#preco-'+id).text().replace(',','.'));
+            var qtd = $('#qtd-'+id).val();
+            if(parseInt(qtd) >= 2){
+                $('#qtd-'+id).val(parseInt(qtd)-1);
+                calculaValorProduto(id,valorFloat,parseInt(qtd)-1);
+            } 
+        });
 
+        $(document).on("click",'.add-btn',function(){
+            var id  = $(this).data('id');
+            
+
+            var valorFloat = parseFloat($('#preco-'+id).text().replace(',','.'));
+            var qtd = $('#qtd-'+id).val();
+            var qtd_estoque = $('#estoque-'+id).val();
+            
+            if(parseInt(qtd) < parseInt(qtd_estoque)){
+                $('#qtd-'+id).val(parseInt(qtd)+1);
+                calculaValorProduto(id,valorFloat,parseInt(qtd)+1);
+            } 
+        });
+
+
+        function calculaValorProduto(id,valor, qtd) {
+            console.log(valor);
+            console.log(qtd);
+            var valorTotal = valor * parseFloat(qtd);
+            $('#total-'+id).html("R$"+valorTotal.toFixed(2).toString().replace('.', ','));
+        }
+    </script>
 @endsection

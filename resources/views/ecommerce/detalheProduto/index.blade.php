@@ -85,19 +85,19 @@
                     data-arrow-right-classes="fas fa-arrow-right u-slick__arrow-classic-inner u-slick__arrow-classic-inner--right mr-lg-2 mr-xl-4"
                     data-nav-for="#sliderSyncingThumb">
                     <div class="js-slide">
-                        <img class="img-fluid" id="imagem-produto" src="{{asset('ecommerce/assets/img/720X660/img1.jpg')}}" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.$produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                     <div class="js-slide">
-                        <img class="img-fluid" id="imagem-produto" src="{{asset('ecommerce/assets/img/720X660/img2.jpg')}}" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.$produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                     <div class="js-slide">
-                        <img class="img-fluid" id="imagem-produto" src="{{asset('ecommerce/assets/img/720X660/img3.jpg')}}" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.$produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                     <div class="js-slide">
-                        <img class="img-fluid" id="imagem-produto" src="{{asset('ecommerce/assets/img/720X660/img4.jpg')}}" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.$produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                     <div class="js-slide">
-                        <img class="img-fluid" id="imagem-produto" src="{{asset('ecommerce/assets/img/720X660/img5.jpg')}}" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.$produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                 </div>
 
@@ -107,19 +107,19 @@
                     data-is-thumbs="true"
                     data-nav-for="#sliderSyncingNav">
                     <div class="js-slide" style="cursor: pointer;">
-                        <img class="img-fluid"  src="{{asset('ecommerce/assets/img/720X660/img1.jpg')}}" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px"  src="@if (file_exists(public_path($caminho_imagem.$produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                     <div class="js-slide" style="cursor: pointer;">
-                        <img class="img-fluid" src="{{asset('ecommerce/assets/img/720X660/img2.jpg')}}" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.$produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                     <div class="js-slide" style="cursor: pointer;">
-                        <img class="img-fluid" src="{{asset('ecommerce/assets/img/720X660/img3.jpg')}}" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.$produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                     <div class="js-slide" style="cursor: pointer;">
-                        <img class="img-fluid" src="{{asset('ecommerce/assets/img/720X660/img4.jpg')}}" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.$produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                     <div class="js-slide" style="cursor: pointer;">
-                        <img class="img-fluid" src="{{asset('ecommerce/assets/img/720X660/img5.jpg')}}" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.$produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                 </div>
             </div>
@@ -140,7 +140,7 @@
                         </a>
                     </div>
                     <a href="#" class="d-inline-block max-width-150 ml-n2 mb-2"><img class="img-fluid" src="{{asset('ecommerce/assets/img/200X60/img1.png')}}" alt="Image Description"></a>-->
-                    @if($produto->grupo_produto_id == 31) 
+                    @if(in_array($produto->grupo_produto_id,json_decode($grupos_necessita_tamanho))) 
                         <p class="font-size-16 text-lh-1dot2">{{__('page_titles.ecommerce.detalheProduto.descAneis')}} {{$tamanhosStr}}.</p>
                     @endif
                     <div class="mb-2">
@@ -192,9 +192,9 @@
                             </select>
                             <!-- End Select -->
                         </div> --}}
-                        @if($produto->grupo_produto_id == 31) 
+                        @if(in_array($produto->grupo_produto_id,json_decode($grupos_necessita_tamanho))) 
                             <div class="mb-2 pb-0dot5">
-                                <ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start">
+                                <ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start row">
                                     @foreach ($tamanhos as $tamanho)
                                     <li class="page-link tamanho @if ($tamanhoDefault == $tamanho) current @endif " @if ($tamanhoDefault == $tamanho)data-selected="true" @else data-selected="false" @endif  id="tamanho-{{$tamanho}}" >{{ $tamanho }}</li>
                                     @endforeach
@@ -233,8 +233,9 @@
 @section('footer')
     <script src="https://cdnjs.com/libraries/jquery.mask"></script>
     <script>
-        var modal = document.getElementById("myModal");
+        
         var img = document.getElementById("imagem-produto");
+        var modal = document.getElementById("myModal");
         var modalImg = document.getElementById("imagem-produto-modal");
         var captionText = document.getElementById("caption");
 
@@ -251,9 +252,7 @@
             modal.style.display = "none";
         }
 
-        var valorProduto = $('#valorProduto').html();
-        valorProduto = valorProduto.substring(2);
-        var valorFloat = parseFloat(valorProduto);
+        var valorFloat = parseFloat($('#valorProduto').text().substr(2).replace(',','.'));
 
         $('.tamanho').on('click',function(){
             var tamanho = $(this).text();

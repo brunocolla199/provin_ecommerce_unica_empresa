@@ -62,6 +62,7 @@ class CarrinhoService
             } 
             
         }else{
+            
             try {
                 //cria
                 DB::transaction(function () use ($tipo_pedido,$id_produto,$tamanho,$quantidade) {

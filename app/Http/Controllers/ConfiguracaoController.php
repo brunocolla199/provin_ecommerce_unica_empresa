@@ -45,6 +45,7 @@ class ConfiguracaoController extends Controller
         }
         $id = $_request->id;
         $update = self::montaRequest($_request);
+        
         try {
             DB::transaction(function () use ($update, $id) {
                 $this->setupService->update(
@@ -86,7 +87,7 @@ class ConfiguracaoController extends Controller
             'tempo_liberacao_pedido'               => $request->prazo,
             'valor_adicional_pedido'               => str_replace(',','.',$request->valor_add),
             'tamanhos'                             => json_encode($request->tamanhos) ?? [],
-            'tamanho_padrao     '                  => $request->tamanho_padrao_anel,
+            'tamanho_padrao'                       => $request->tamanho_padrao,
             'caminho_imagen_produto'               => $request->caminho_imagens_produtos,
             'caminho_importacao_produto'           => $request->caminho_importacao_produtos,
             'tempo_expiracao_sessao'               => 0,

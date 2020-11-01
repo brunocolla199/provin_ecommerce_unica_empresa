@@ -104,6 +104,7 @@
                                     <nav class="navbar navbar-expand u-header__navbar py-0 justify-content-xl-between max-width-270 min-width-270">
                                         <!-- Logo -->
                                         <a class="order-1 order-xl-0 navbar-brand u-header__navbar-brand u-header__navbar-brand-center" href="{{route('ecommerce.home')}}" aria-label="Electro">
+                                            <!--
                                             <svg version="1.1" x="0px" y="0px" width="175.748px" height="42.52px" viewBox="0 0 175.748 42.52" enable-background="new 0 0 175.748 42.52" style="margin-bottom: 0;">
                                                 <ellipse class="ellipse-bg" fill-rule="evenodd" clip-rule="evenodd" fill="#FDD700" cx="170.05" cy="36.341" rx="5.32" ry="5.367"></ellipse>
                                                 <path fill-rule="evenodd" clip-rule="evenodd" fill="#333E48" d="M30.514,0.71c-0.034,0.003-0.066,0.008-0.056,0.056
@@ -143,6 +144,8 @@
                                                     c5.976-0.568,9.574-3.936,11.816-8.354c-0.141-0.271-0.221-0.604-0.336-0.902C92.929,31.364,90.843,30.485,88.812,29.55z">
                                                 </path>
                                             </svg>
+                                            -->
+                                            <img src="{{App\Models\Setup::first()->logo_sistema}}" alt="width:175.748px;height:42.52px">
                                         </a>
                                         <!-- End Logo -->
     
@@ -194,6 +197,7 @@
                                                         <div id="headerSidebarContent" class="u-sidebar__content u-header-sidebar__content">
                                                             <!-- Logo -->
                                                             <a class="d-flex ml-0 navbar-brand u-header__navbar-brand u-header__navbar-brand-vertical" href="../home/index.html" aria-label="Electro">
+                                                                <!--
                                                                 <svg version="1.1" x="0px" y="0px" width="175.748px" height="42.52px" viewBox="0 0 175.748 42.52" enable-background="new 0 0 175.748 42.52" style="margin-bottom: 0;">
                                                                     <ellipse class="ellipse-bg" fill-rule="evenodd" clip-rule="evenodd" fill="#FDD700" cx="170.05" cy="36.341" rx="5.32" ry="5.367"></ellipse>
                                                                     <path fill-rule="evenodd" clip-rule="evenodd" fill="#333E48" d="M30.514,0.71c-0.034,0.003-0.066,0.008-0.056,0.056
@@ -233,6 +237,8 @@
                                                                         c5.976-0.568,9.574-3.936,11.816-8.354c-0.141-0.271-0.221-0.604-0.336-0.902C92.929,31.364,90.843,30.485,88.812,29.55z">
                                                                     </path>
                                                                 </svg>
+                                                                -->
+                                                                <img src="{{App\Models\Setup::first()->logo_sistema}}" alt="width:175.748px;height:42.52px">
                                                             </a>
                                                             <!-- End Logo -->
     
@@ -470,7 +476,7 @@
                                                 </a>
                                             </li>
                                             <li class="col pr-xl-0 px-2 px-sm-3">
-                                                <a href="@if (!empty($pedidoExpress[0])) {{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }} @else # @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
+                                                <a href="@if (!empty($pedidoExpress[0])) {{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }} @else # @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart2')}}">
                                                     <i class="font-size-22 ec ec-shopping-bag"></i>
                                                     @if (!empty($pedidoExpress[0]))
                                                         <span href="{{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoExpress[0]->numero_itens ?? ''}}</span>
@@ -488,7 +494,7 @@
                     <!-- End Logo and Menu -->
     
                     <!-- Vertical-and-Search-Bar -->
-                    <div class="d-none d-xl-block bg-primary">
+                    <div class="d-none d-xl-block bg-primary" style="height: 60px">
                         <div class="container">
                             <div class="row align-items-stretch min-height-50">
                                 <!-- Vertical Menu -->
@@ -504,9 +510,9 @@
                                 </div>
                                 <!-- End Vertical Menu -->
                                 <!-- Search bar -->
-                                <div class="col align-self-center">
+                                <div class="col align-self-center mt-2">
                                     <!-- Search-Form -->
-                                    <form class="js-focus-state mt-1"  method="GET"  id="buscaPorName" name="buscaPorName" action="{{route('ecommerce.produto')}}" >
+                                    <form class="js-focus-state "  method="GET"  id="buscaPorName" name="buscaPorName" action="{{route('ecommerce.produto')}}" >
                                         
                                         <label class="sr-only" for="searchProduct">{{__('sidebar_and_header.ecommerce.search')}}</label>
                                         <div class="input-group">
@@ -546,7 +552,7 @@
                                                 </a>
                                             </li>
                                             <li class="col pr-0">
-                                                <a href="@if (!empty($pedidoExpress[0])) {{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }} @else # @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
+                                                <a href="@if (!empty($pedidoExpress[0])) {{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }} @else # @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart2')}}">
                                                     <i class="font-size-22 ec ec-shopping-bag"></i>
                                                     @if (!empty($pedidoExpress[0]))
                                                         <span href="{{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoExpress[0]->numero_itens ?? ''}}</span>

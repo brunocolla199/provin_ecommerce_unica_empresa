@@ -13,8 +13,9 @@ class ItemPedidoService
 
     public function __construct(ItemPedidoRepository $itemPedido, ProdutoService $produtoService)
     {
-        $this->itemPedidoRepository = $itemPedido;
+        
         $this->produtoService = $produtoService;
+        $this->itemPedidoRepository = $itemPedido;
     }
 
     public function find($id, array $with = [])
@@ -31,8 +32,9 @@ class ItemPedidoService
     public function create($pedido_id,$produto_id,$quantidade,$valor_unitario,$valor_total,$tamanho)
     {   
         $request = self::montaRequest($pedido_id,$produto_id,$quantidade,$valor_unitario,$valor_total,$tamanho);
-       
         return $this->itemPedidoRepository->create($request);
+        
+        
     }
 
     public function update($id, $pedido_id,$produto_id,$quantidade,$valor_unitario,$valor_total,$tamanho)

@@ -8,7 +8,7 @@ $(document).ready(function() {
 
         backgroundTimeline(array,status);
 
-        if(status == 3 && ultStatus <= 3){
+        if(status == 4 && ultStatus <= 4){
             $('#codRastreio').modal('show');
         }
 
@@ -41,7 +41,7 @@ $(document).ready(function() {
 function backgroundTimeline(array,status)
 {
     for (let index = 0; index < status; index++) {
-        $('.'+array[index]).css("background","green");
+        $('.'+array[index-1]).css("background","green");
     } 
 }
 

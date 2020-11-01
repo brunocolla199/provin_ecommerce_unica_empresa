@@ -47,7 +47,7 @@ class CarrinhoEcommerceController extends Controller
         $tamanhos   = $buscaSetup['tamanhos'];
         $tamanho_padrao = $buscaSetup['tamanho_padrao'];
         $grupos_necessita_tamanho = $buscaSetup['grupos'];
-        
+        $caminho_imagem = $buscaSetup['caminho_imagen_produto'];
         
         return view('ecommerce.carrinho.index',
             [
@@ -57,6 +57,7 @@ class CarrinhoEcommerceController extends Controller
                 'tamanhos'                 => $tamanhos,
                 'tamanho_padrao'           => $tamanho_padrao,
                 'grupos_necessita_tamanho' => $grupos_necessita_tamanho,
+                'caminho_imagem'           => $caminho_imagem,
                 'itens'                    => $itens
             ]
         );

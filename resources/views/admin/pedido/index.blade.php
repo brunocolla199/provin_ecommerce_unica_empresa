@@ -47,7 +47,7 @@
                                     <tr>
                                         <td>{{ $pedido->id }}</td>
                                         <td style="display: flex;justify-content: center"><i class="{{$pedido->statusPedido->nome_icone}}"></i></td>
-                                        <td>{{ $pedido->usuario->empresa->nome_fantasia }}</td>
+                                        <td>{{ $pedido->usuario->empresa->nome_fantasia ?? '' }}</td>
                                         <td>{{ $pedido->tipoPedido->nome }}</td>
                                         <td>{{date('d-m-Y', strtotime($pedido->created_at)) }}</td>
                                         <td>@if (!empty($pedido->previsao_entrega))
@@ -57,7 +57,7 @@
                                         <td class="money">{{number_format($pedido->total_pedido, 2, ',', '.')  }}</td>
                                         
                                         <td>
-                                            @if (Auth::user()->perfil->admin_controle_geral == 1)
+                                            @if (Auth::user()->perfil->admin_controle_geral == 1 && $pedido->status_pedido_id != 6)
                                                 <button style="width: 98px" class="btn waves-effect waves-light btn-danger sa-danger" data-id="{{$pedido->id}}"> <i class="mdi mdi-delete"></i> @lang('buttons.general.cancel') </button>   
                                             @endif
                                             

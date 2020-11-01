@@ -8,8 +8,7 @@ class Pedido extends Model
 {
     public $table = 'pedido';
 
-    protected $fillable = [
-        'id', 
+    protected $fillable = [ 
         'tipo_pedido_id', 
         'status_pedido_id',
         'user_id',

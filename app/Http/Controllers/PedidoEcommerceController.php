@@ -11,6 +11,7 @@ use App\Services\PedidoService;
 use App\Services\ItemPedidoService;
 use App\Services\ObsPedidoService;
 use App\Services\StatusPedidoService;
+use App\Services\SetupService;
 
 class PedidoEcommerceController extends Controller
 {
@@ -21,11 +22,13 @@ class PedidoEcommerceController extends Controller
     protected $obsPedidoService;
     protected $statusPedidoService;
     protected $grupoProdutoService;
+    protected $setupService;
+
     private $grupos;
     private $pedidoNormal;
     private $pedidoExpress;
 
-    public function __construct(PedidoService $pedido, ItemPedidoService $itemPedido, ObsPedidoService $obsPedido, StatusPedidoService $statusPedido, GrupoProdutoService $grupoProdutoService)
+    public function __construct(PedidoService $pedido, ItemPedidoService $itemPedido, ObsPedidoService $obsPedido, StatusPedidoService $statusPedido, GrupoProdutoService $grupoProdutoService, SetupService $setup)
     {
         $this->middleware('auth');
         $this->pedidoService = $pedido;
@@ -33,6 +36,7 @@ class PedidoEcommerceController extends Controller
         $this->obsPedidoService = $obsPedido;
         $this->statusPedidoService = $statusPedido;
         $this->grupoProdutoService = $grupoProdutoService;
+        $this->setupService = $setup;
 
         $this->grupos = $this->grupoProdutoService->findBy([
             [
@@ -50,7 +54,8 @@ class PedidoEcommerceController extends Controller
             [
                 [
                 'excluido','=',0
-                ]
+                ],
+                ['status_pedido_id','!=',1]
             ],[],
             [
                 [
@@ -92,6 +97,8 @@ class PedidoEcommerceController extends Controller
             ['pedido_id','=',$id,'AND']
         ]);
 
+        $setup = $this->setupService->find(1);
+
         $this->pedidoNormal  = $this->pedidoService->buscaPedidoCarrinho(2);
         $this->pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1); 
 
@@ -102,7 +109,8 @@ class PedidoEcommerceController extends Controller
                 'observacoes' => $observacoes,
                 'grupos'=> $this->grupos,
                 'pedidoNormal' => $this->pedidoNormal,
-                'pedidoExpress'=> $this->pedidoExpress
+                'pedidoExpress'=> $this->pedidoExpress,
+                'caminho_imagem' => $setup['caminho_imagen_produto']
             ]
         );
     }

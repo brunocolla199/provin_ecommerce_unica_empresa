@@ -84,6 +84,7 @@ return [
         'search'        => 'Buscar',
         'all_categories'=> 'Todos grupos',
         'cart'          => 'Carrinho',
+        'cart2'         => 'Carrinho Express',
         'show_all_categories' => 'Mostrar todos grupos',
         'filters' => 'Filtros',
         'price'   => 'Preço',

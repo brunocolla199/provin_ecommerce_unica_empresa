@@ -45,9 +45,7 @@
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('previsao_entrega') ? ' has-error' : '' }}">
                                     <label class="control-label">Previsão de Entrega</label>
-                                    <input type="text" readonly  id="previsao_entrega" name="previsao_entrega" value="@if (!empty($pedido->previsao_entrega))
-                                    {{  date('d-m-Y', strtotime($pedido->previsao_entrega))  }} 
-                                    @endif" class="form-control" required >
+                                    <input type="date" readonly  id="previsao_entrega" name="previsao_entrega" value="{{ $pedido->previsao_entrega ? date('Y-m-d', strtotime($pedido->previsao_entrega)) : '' }}" class="form-control" required >
                                     @if ($errors->has('previsao_entrega'))
                                         <br/>    
                                         <span class="help-block text-danger">
@@ -64,20 +62,20 @@
                             <div id="timeline-wrap">
                                 <div id="timeline"></div>
                                 
-                                <div title="Em Análise" class="marker mfirst timeline-icon one status" data-status='1' style="background-color:@if($pedido->status_pedido_id >= 1 && $pedido->status_pedido_id != 9) green @endif !important">
+                                <div title="Em Análise" class="marker mfirst timeline-icon one status" data-status='12' style="background-color:@if($pedido->status_pedido_id >= 2 && $pedido->status_pedido_id != 6) green @endif !important">
                                         <i  class="fas fa-search "  ></i>
                                         
                                 </div>
                                 
-                                <div title="Emitido NFe" class="marker m2 timeline-icon two status" data-classe="two" data-status='2' style="background-color:@if($pedido->status_pedido_id >= 2 && $pedido->status_pedido_id != 9) green @endif !important">
+                                <div title="Emitido NFe" class="marker m2 timeline-icon two status" data-classe="two" data-status='3' style="background-color:@if($pedido->status_pedido_id >= 3 && $pedido->status_pedido_id != 6) green @endif !important">
                                         <i  class="fas fa-file-alt "   ></i>
                                 </div>
                                 
-                                <div title="Em Transporte" class="marker m3 timeline-icon three status" data-status='3' data-classe="three" style="background-color:@if($pedido->status_pedido_id >= 3 && $pedido->status_pedido_id != 9) green @endif !important">
+                                <div title="Em Transporte" class="marker m3 timeline-icon three status" data-status='4' data-classe="three" style="background-color:@if($pedido->status_pedido_id >= 4 && $pedido->status_pedido_id != 5) green @endif !important">
                                     <i  class="fas fa-truck-loading "  ></i>
                                 </div>
                                 
-                                <div title="Concluído" class="marker mlast timeline-icon four "   style="background-color:@if($pedido->status_pedido_id >= 4 && $pedido->status_pedido_id != 9) green @endif !important">
+                                <div title="Concluído" class="marker mlast timeline-icon four "   style="background-color:@if($pedido->status_pedido_id >= 5 && $pedido->status_pedido_id != 6) green @endif !important">
                                     <i  class="fa fa-check "  ></i>
                                 </div>
                             </div>  
@@ -100,7 +98,7 @@
                                 @foreach ($itens as $item)
                                 <tr class="">
                                         <td data-title="Product">
-                                            <a href="#"><img class="img-fluid max-width-100 p-1 border border-color-1" src="{{asset('ecommerce/assets/img/300X300/img6.jpg')}}" alt="Image Description"></a>
+                                            <a href="#"><img style="width: 100px;height: 100px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img6.jpg')}} @endif" alt="Image Description"></a>
                                             <a href="#" class="text-gray-90">{{$item->produto->nome}}</a>
                                         </td>
     

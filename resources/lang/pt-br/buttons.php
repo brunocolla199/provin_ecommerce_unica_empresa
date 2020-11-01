@@ -39,7 +39,8 @@ return [
         'resend'         => 'Reenviar',
         'update'         => 'Atualizar',
         'filter'         => 'Filtrar',
-        'clear'          => 'Limpar'
+        'clear'          => 'Limpar',
+        'printer'        => 'Imprimir'
     ],
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\GrupoProdutoService;
 use App\Services\PedidoService;
 
+
 class HomeEcommerceController extends Controller
 {
     protected $grupoProdutoService;

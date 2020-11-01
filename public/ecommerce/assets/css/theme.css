@@ -33804,6 +33804,11 @@ blockquote:not(.blockquote) p {
   color: #fff;
 }
 
+.CartNormal:hover {
+  background-color: #00dffc;
+  color: #fff;
+}
+
 .btn-add-cart__wide {
   width: auto;
   background-color: #fed700;

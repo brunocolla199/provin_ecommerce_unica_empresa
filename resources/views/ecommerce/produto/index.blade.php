@@ -446,7 +446,8 @@
                                         <div class="mb-2"><a href="{{ route('ecommerce.produto.detalhe', ['id' => $produto->id ]) }}" class="font-size-12 text-gray-5">{{$produto->produto_terceiro_id}}</a></div>
                                         <h5 class="mb-1 product-item__title"><a href="{{ route('ecommerce.produto.detalhe', ['id' => $produto->id ]) }}" class="text-blue font-weight-bold">{{$produto->nome}}</a></h5>
                                             <div class="mb-2">
-                                                <a href="{{ route('ecommerce.produto.detalhe', ['id' => $produto->id ]) }}" class="d-block text-center"><img class="img-fluid" src="{{asset('ecommerce/assets/img/212X200/img9.jpg')}}" alt="Image Description"></a>
+                                                    
+                                            <a href="{{ route('ecommerce.produto.detalhe', ['id' => $produto->id ]) }}" class="d-block text-center"><img style="border-radius: 10px;width: 150px;height: 140px" class="img-fluid" src="@if (file_exists(public_path($caminho_imagem.$produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img9.jpg')}} @endif" alt="Image Description"></a>
                                             </div>
                                             <div class="flex-center-between mb-1">
                                                 <div class="prodcut-price">
@@ -456,7 +457,7 @@
                                             </div>
                                             <div class="flex-center-between mb-1">
                                                 <div class=" d-xl-block prodcut-add-cart">
-                                                    <a class="btn-add-cart btn-primary transition-3d-hover" data-tipo="express" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i></a>
+                                                    <a class="btn-add-cart CartNormal btn-info transition-3d-hover" data-tipo="normal" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i></a>
                                                 </div>
                                                 @if (in_array($produto->grupo_produto_id,json_decode($grupos_necessita_tamanho)))
                                                 <div class=" d-xl-block prodcut-add-cart">
@@ -468,10 +469,10 @@
                                                     <select>
                                                 </div>
                                                 @endif
-    
                                                 <div class=" d-xl-block prodcut-add-cart">
-                                                    <a class="btn-add-cart btn-primary transition-3d-hover" data-tipo="normal" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i></a>
+                                                    <a class="btn-add-cart btn-primary transition-3d-hover" data-tipo="express" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i></a>
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                         <div class="product-item__footer">

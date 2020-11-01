@@ -31,11 +31,17 @@ class PedidoController extends Controller
 
     public function index(){
 
-        $pedidos = $this->pedidoService->findBy([
+        $pedidos = $this->pedidoService->findBy(
+        [
             [
             'excluido','=',0
-            ]
-        ]);
+            ],
+            ['status_pedido_id','<>',1]
+        ],[],
+        [
+            ['status_pedido_id','asc']
+        ]
+        );
         return view('admin.pedido.index', compact('pedidos'));
 
     }
@@ -63,8 +69,7 @@ class PedidoController extends Controller
             [
             'pedido_id','=',$id,'AND'
             ]
-        ]);
-
+        ]);        
         return view('admin.pedido.update', compact('pedido','itens','observacoes'));
     }
 
@@ -80,15 +85,19 @@ class PedidoController extends Controller
         $link = $_request->link;
         $status= $_request->ultStatus;
         $id = $_request->get('idPedido');
+        $previsao_entrega = date('Y-m-d',strtotime($_request->get('previsao_entrega')));
+
         $buscaStatus = $this->statusPedidoService->find($_request->ultStatus);
         try {
-            DB::transaction(function () use ($id,$status,$link, $buscaStatus) {
+            DB::transaction(function () use ($id,$status,$link, $buscaStatus,$previsao_entrega) {
                 $buscaPedido = $this->pedidoService->find($id);
                 $this->pedidoService->update
                 (
-                    $id,$buscaPedido->tipo_pedido_id,$status,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$buscaPedido->previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$link
+                    $id,$buscaPedido->tipo_pedido_id,$status,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$link
                 );
-                $this->obsPedidoService->create($id,"O status do pedido foi alterado para ".$buscaStatus->nome, 0);
+                if($status != $buscaPedido['status_pedido_id']){
+                    $this->obsPedidoService->create($id,"O status do pedido foi alterado para ".$buscaStatus->nome, 0);
+                }
             });
             Helper::setNotify('Pedido atualizado com sucesso!', 'success|check-circle');
             return redirect()->route('pedido');
