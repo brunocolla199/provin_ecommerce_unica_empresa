@@ -192,7 +192,6 @@ Route::group(['middleware' => ['auth']], function() {
                 Route::get('', ['as' => 'ecommerce.produto', 'uses' => 'ProdutoEcommerceController@index']);
                 Route::get('detalhe/{id}',   ['as' => 'ecommerce.produto.detalhe', 'uses' => 'ProdutoEcommerceController@detalhe']);
                 Route::get('search/grupo/{id}',   ['as' => 'ecommerce.produto.search.grupo', 'uses' => 'ProdutoEcommerceController@searchGrupo']);
-                Route::get('search/preco', ['as' => 'ecommerce.produto.search.preco', 'uses' => 'ProdutoEcommerceController@searchPreco']);
                 Route::post('adicionarCarinho',  ['as' => 'ecommerce.produto.adicionarCarinho', 'uses' => 'ProdutoEcommerceController@addCarrinho']);    
             });
 
@@ -204,6 +203,8 @@ Route::group(['middleware' => ['auth']], function() {
            
             Route::group(['prefix' => 'carrinho'], function () {
                 Route::get('detalhe/{id}',   ['as' => 'ecommerce.carrinho.detalhe', 'uses' => 'CarrinhoEcommerceController@index']);
+                Route::post('remover',  ['as' => 'ecommerce.carrinho.remover', 'uses' => 'CarrinhoEcommerceController@remove']);    
+                Route::post('update',  ['as' => 'ecommerce.carrinho.update', 'uses' => 'CarrinhoEcommerceController@update']);    
                 
             });
 

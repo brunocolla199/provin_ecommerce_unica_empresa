@@ -47,4 +47,10 @@ class ProdutoService
     {
         return $this->findBy($where, $with)->first();
     }
+
+    public function verificaEstoque($id,$qtd)
+    {
+        $buscaItem = $this->produtoRepository->find($id);
+        return $buscaItem->quantidade_estoque < $qtd ? false : true;
+    }
 }

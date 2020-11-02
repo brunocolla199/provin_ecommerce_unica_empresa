@@ -107,7 +107,8 @@ return [
         'update_card' => 'Alterar Carrinho',
         'your_orden'  => 'Meu Pedido',
         'place_orden' => 'Finalizar Pedido',
-        'produto'    => 'Produto'
+        'produto'    => 'Produto',
+        'continuar_comprando' => 'Continuar Comprando'
 
 
         

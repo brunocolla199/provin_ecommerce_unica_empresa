@@ -89,6 +89,7 @@
                             <thead>
                                 <tr>
                                     <th class="product-name">Produtos</th>
+                                    <th class="tam-name">Tam.</th>
                                     <th class="product-price">Preço</th>
                                     <th class="product-quantity w-lg-15">Qtd</th>
                                     <th class="product-subtotal">Total</th>
@@ -98,8 +99,12 @@
                                 @foreach ($itens as $item)
                                 <tr class="">
                                         <td data-title="Product">
-                                            <a href="#"><img style="width: 100px;height: 100px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img6.jpg')}} @endif" alt="Image Description"></a>
-                                            <a href="#" class="text-gray-90">{{$item->produto->nome}}</a>
+                                            <a href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}"><img style="width: 100px;height: 100px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img6.jpg')}} @endif" alt="Image Description"></a>
+                                            <a href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}" class="text-gray-90">{{$item->produto->nome}}</a>
+                                        </td>
+
+                                        <td data-title="Tam">
+                                            <span class="text-gray-90">{{$item->tamanho}}</span>
                                         </td>
     
                                         <td data-title="preco">
@@ -137,6 +142,8 @@
                                 
                     </div>
 
+                    <h5 class="box-title">Totais</h5>
+                    <hr class="m-t-0 m-b-10">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group{{ $errors->has('qtd_itens') ? ' has-error' : '' }}">

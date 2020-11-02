@@ -184,7 +184,7 @@
                 </div>
             -->
                 <div class="range-slider">
-                    <form action="{{ route('ecommerce.produto.search.preco') }}" name="filtroValor" id="filtroValor" method="GET" onsubmit="verificavalore()">
+                    <form action="{{ route('ecommerce.produto') }}" name="filtroValor" id="filtroValor" method="GET" onsubmit="verificavalore()">
                        
                         <h4 class="font-size-14 mb-3 font-weight-bold">{{__('sidebar_and_header.ecommerce.price')}}</h4>
                         <!-- Range Slider -->

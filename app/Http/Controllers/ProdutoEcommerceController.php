@@ -66,6 +66,9 @@ class ProdutoEcommerceController extends Controller
 
         $this->pedidoNormal  = $this->pedidoService->buscaPedidoCarrinho(2);
         $this->pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
+
+        $rangeMinimo  = $request->rangeMinimo;
+        $rangeMaximo = $request->rangeMaximo;
         
         
 
@@ -79,6 +82,10 @@ class ProdutoEcommerceController extends Controller
         $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1);
         if($request->has('searchProduct')){
             $produtos = $produtos->where('nome','ilike','%' . $request->query('searchProduct') . '%');
+        }
+
+        if($request->has('rangeMaximo') && $request->has('rangeMinimo')){
+            $produtos = $produtos->whereBetween('valor', [$rangeMinimo, $rangeMaximo]);
         }
 
         if($request->has('ordenacao')){
@@ -98,6 +105,8 @@ class ProdutoEcommerceController extends Controller
         $produtos = $produtos->paginate($registroPPagina)
             ->appends(['searchProduct'=>$request->query('searchProduct')])
             ->appends(['regPorPage'=>$registroPPagina])
+            ->appends(['rangeMinimo'=>$rangeMinimo])
+            ->appends(['rangeMaximo'=>$rangeMaximo])
             ->appends(['ordenacao'=>$request->query('ordenacao')]);
             
         return view('ecommerce.produto.index',
@@ -115,26 +124,6 @@ class ProdutoEcommerceController extends Controller
                 'registroPorPagina' => $produtos->perPage(),
                 'totalRegistroPaginaAtual' =>$produtos->count()
 
-            ]
-        );
-    }
-
-    public function detalhe($id)
-    {
-        $produto = $this->produtoService->find($id);
-        $this->pedidoNormal  = $this->pedidoService->buscaPedidoCarrinho(2);
-        $this->pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
-        return view('ecommerce.detalheProduto.index', 
-            [
-                'grupos' => $this->grupos,
-                'produto' => $produto,
-                'pedidoNormal' => $this->pedidoNormal,
-                'pedidoExpress'=> $this->pedidoExpress,
-                'tamanhos' => json_decode($this->tamanhos),
-                'tamanhosStr' => $this->tamanhosStr,
-                'tamanhoDefault' => $this->tamanho_padrao,
-                'grupos_necessita_tamanho' => $this->grupos_necessita_tamanho,
-                'caminho_imagem' => $this->caminhoImagens
             ]
         );
     }
@@ -195,65 +184,24 @@ class ProdutoEcommerceController extends Controller
         );
     }
 
-    public function searchPreco(Request $request){
-        $rangeMinimo  = $request->rangeMinimo;
-        $rangeMaximo = $request->rangeMaximo;
-
+    public function detalhe($id)
+    {
+        $produto = $this->produtoService->find($id);
         $this->pedidoNormal  = $this->pedidoService->buscaPedidoCarrinho(2);
         $this->pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
-        
-
-        $produtos = new Produto();
-        if($request->query('regPorPage')){
-            session()->forget('regPorPage');
-            session()->put('regPorPage', $request->query('regPorPage'));
-        }
-
-        $registroPPagina = session()->get('regPorPage') ?? 20;
-
-        $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1);
-        if($request->has('rangeMaximo') && $request->has('rangeMinimo')){
-            $produtos = $produtos->whereBetween('valor', [$rangeMinimo, $rangeMaximo]);
-        }
-
-        if($request->has('ordenacao')){
-            session()->forget('ordenacao');
-            session()->put('ordenacao', $request->query('ordenacao'));
-            switch($request->query('ordenacao')){
-                case 'preco_l_h':
-                    $produtos = $produtos->orderBy('valor', 'asc');
-                    break;
-                case 'preco_h_l':
-                    $produtos = $produtos->orderBy('valor', 'desc');
-                    break;
-
-            }
-        }
-        
-        $produtos = $produtos->paginate($registroPPagina)
-            ->appends(['rangeMinimo'=>$rangeMinimo])
-            ->appends(['rangeMaximo'=>$rangeMaximo])
-            ->appends(['regPorPage'=>$registroPPagina])
-            ->appends(['ordenacao'=>$request->query('ordenacao')]);
- 
-        return view('ecommerce.produto.index', 
+        return view('ecommerce.detalheProduto.index', 
             [
-                'grupos'   => $this->grupos,
-                'produtos' => $produtos,
+                'grupos' => $this->grupos,
+                'produto' => $produto,
                 'pedidoNormal' => $this->pedidoNormal,
                 'pedidoExpress'=> $this->pedidoExpress,
-                'caminho_imagem' => $this->caminhoImagens,
-                'tamanhos' => $this->tamanhos,
-                'tamanho_padrao' => $this->tamanho_padrao,
+                'tamanhos' => json_decode($this->tamanhos),
+                'tamanhosStr' => $this->tamanhosStr,
+                'tamanhoDefault' => $this->tamanho_padrao,
                 'grupos_necessita_tamanho' => $this->grupos_necessita_tamanho,
-                'totalRegistros' => $produtos->total(),
-                'paginaAtual' => $produtos->currentPage(),
-                'registroPorPagina' => $produtos->perPage(),
-                'totalRegistroPaginaAtual' =>$produtos->count()
+                'caminho_imagem' => $this->caminhoImagens
             ]
         );
-        
-        
     }
 
     public function addCarrinho(Request $request){

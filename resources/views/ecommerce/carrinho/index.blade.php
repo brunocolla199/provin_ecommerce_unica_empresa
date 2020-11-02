@@ -28,18 +28,18 @@
                 </thead>
                 <tbody>
                     @foreach ($itens as $item)
-                        <input type="hidden" id="estoque-{{$item->produto->id}}" value="{{$item->produto->quantidade_estoque}}">
+                        <input type="hidden" id="estoque-{{$item->id}}" value="{{$item->produto->quantidade_estoque}}">
                         <tr class="">
                             <td class="text-center row">
-                                <a href="#" title="Remover" style="color: red" class="text-gray-32 font-size-26">×</a>
+                                <button  title="Remover" style="color: white;border-radius: 5px;width: 20px;height: 20px;display: flex;align-items: center;justify-content: center" class="btn btn-danger text-gray-32 font-size-26 remove" data-id="{{$item->id}}">×</button>
                             </td>
                             <td data-title="{{__('sidebar_and_header.ecommerce.produto')}}">
-                                <a class="d-none d-md-table-cell" href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}"><img style="width: 100px;height: 100px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img6.jpg')}} @endif" alt="Image Description"></a>
+                                <a class="d-none d-md-table-cell" href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}"><img style="width: 100px;height: 100px;border-radius: 10px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img6.jpg')}} @endif" alt="Image Description"></a>
                                 <a href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}" class="text-gray-90">{{$item->produto->nome}}</a>
                             </td>
                             
                             <td data-title="Tamanho">
-                                <select name="tamanho" class="border rounded-pill py-1 width-122 w-xl-80 px-3 border-color-1">
+                                <select name="tamanho" id="tamanho-{{$item->id}}" data-id="{{$item->id}}" class="border rounded-pill py-1 width-122 w-xl-80 px-3 border-color-1 tamanho">
                                     @if (in_array($item->produto->grupo_produto_id,json_decode($grupos_necessita_tamanho)))
                                         <option value="" disabled>Selecione</option>
                                         @foreach (json_decode($tamanhos) as $key)
@@ -54,7 +54,7 @@
                             </td>
     
                             <td data-title="{{__('sidebar_and_header.ecommerce.price')}}">
-                                <span class="" id="preco-{{$item->produto->id}}">{{number_format($item->valor_unitario, 2, ',', '.')}}</span>
+                                <span class="" id="preco-{{$item->id}}">{{number_format($item->valor_unitario, 2, ',', '.')}}</span>
                             </td>
     
                             <td data-title="{{__('sidebar_and_header.ecommerce.quantidade')}}">
@@ -63,13 +63,13 @@
                                 <div class="border rounded-pill py-1 width-122 w-xl-70 px-3 border-color-1">
                                     <div class="js-quantity row align-items-center">
                                         <div class="col">
-                                            <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none" disabled type="text" value="{{$item->quantidade}}" id="qtd-{{$item->produto->id}}">
+                                            <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none" disabled type="text" value="{{$item->quantidade}}" id="qtd-{{$item->id}}">
                                         </div>
                                         <div class="col-auto pr-1">
-                                            <a class=" btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 remove-btn" data-id="{{$item->produto->id}}" >
+                                            <a class=" btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 remove-btn" data-id="{{$item->id}}" >
                                                 <small class="fas fa-minus btn-icon__inner"></small>
                                             </a>
-                                            <a class=" btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 add-btn" data-id="{{$item->produto->id}}">
+                                            <a class=" btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 add-btn" data-id="{{$item->id}}">
                                                 <small class="fas fa-plus btn-icon__inner"></small>
                                             </a>
                                         </div>
@@ -79,7 +79,7 @@
                             </td>
     
                             <td data-title="Total">
-                                <span class="" id="total-{{$item->produto->id}}">{{number_format($item->valor_total, 2, ',', '.')}}</span>
+                                <span class="total" id="total-{{$item->id}}">{{number_format($item->valor_total, 2, ',', '.')}}</span>
                             </td>
                         </tr>
                     @endforeach
@@ -103,8 +103,10 @@
                                         -->
                                         <!-- End Apply coupon Form -->
                                     </div>
-                                    <div class="d-md-flex">
-                                        <button type="button" class="btn btn-soft-secondary mb-3 mb-md-0 font-weight-normal px-5 px-md-4 px-lg-5 w-100 w-md-auto">{{__('sidebar_and_header.ecommerce.update_card')}}</button>
+                                    <div class="d-md-flex ">
+                                        
+                                        <a href="{{route('ecommerce.produto')}}" type="button" class="btn btn-dark mb-3 mb-md-0 font-weight-normal px-5 px-md-4 px-lg-5 w-100 w-md-auto">{{__('sidebar_and_header.ecommerce.continuar_comprando')}}</a>
+                                        
                                         <a href="{{route('ecommerce.checkout.detalhe',['id' => $itens[0]->pedido_id])}}" class="btn btn-primary-dark-w ml-md-2 px-5 px-md-4 px-lg-5 w-100 w-md-auto d-none d-md-inline-block">{{__('sidebar_and_header.ecommerce.checkout')}}</a>
                                     </div>
                                 </div>
@@ -130,7 +132,7 @@
                         <tr class="shipping">
                             <th>Valor Adicional</th>
                             <td data-title="Shipping">
-                                <span class="amount">R$ {{number_format($itens[0]->pedido->acrescimos, 2, ',', '.')}}</span>
+                                <span class="amount" id="adicional">R$ {{number_format($itens[0]->pedido->acrescimos, 2, ',', '.')}}</span>
                                 <!--
                                 <div class="mt-1">
                                     <a class="font-size-12 text-gray-90 text-decoration-on underline-on-hover font-weight-bold mb-3 d-inline-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -174,37 +176,57 @@
 
 @section('footer')
     <script>
-        
-        $(document).on("click",'.remove-btn',function(){
-            var id  = $(this).data('id');
-            var valorFloat = parseFloat($('#preco-'+id).text().replace(',','.'));
-            var qtd = $('#qtd-'+id).val();
-            if(parseInt(qtd) >= 2){
-                $('#qtd-'+id).val(parseInt(qtd)-1);
-                calculaValorProduto(id,valorFloat,parseInt(qtd)-1);
-            } 
+    $(document).on("click",".remove",function(){
+        event.preventDefault();
+        var id = $(this).data('id');
+        let removeCarinho = swal2_warning("Essa ação irá remover o produto do carrinho","Sim !");
+        removeCarinho.then(resolvedValue => {
+            $.ajax({
+                type: "POST",
+                url: '../remover',
+                data: { id: id, _token: '{{csrf_token()}}' },
+                success: function (data) {
+                    if(data.response != 'erro') {
+                        swal2_success("Sucesso !", "Produto removido com sucesso.");
+                        location.reload();
+                    } else {
+                        swal2_alert_error_support("Tivemos um problema ao remover o produto.");
+                    }
+                },
+                error: function (data, textStatus, errorThrown) {
+                    console.log(data);
+                },
+            });
+        }, error => {
+            swal.close();
         });
+    });
 
-        $(document).on("click",'.add-btn',function(){
-            var id  = $(this).data('id');
-            
-
-            var valorFloat = parseFloat($('#preco-'+id).text().replace(',','.'));
-            var qtd = $('#qtd-'+id).val();
-            var qtd_estoque = $('#estoque-'+id).val();
-            
-            if(parseInt(qtd) < parseInt(qtd_estoque)){
-                $('#qtd-'+id).val(parseInt(qtd)+1);
-                calculaValorProduto(id,valorFloat,parseInt(qtd)+1);
-            } 
+    
+    function alteraCarinho(id)
+    {
+        var tamanho    = $('#tamanho-'+id).val();
+        var quantidade = $('#qtd-'+id).val();
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                type: "POST",
+                url: '../update',
+                data: { id: id,tamanho: tamanho,quantidade: quantidade, _token: '{{csrf_token()}}' },
+                success: function (data) {
+                    if(data.response == 'erro') {
+                        reject(data.msg);
+                    }
+                    resolve(true);
+                },
+                error: function (data, textStatus, errorThrown) {
+                    reject("Tivemos um problema ao atualizar o item.");
+                },
+            });
         });
+    }
+    
 
 
-        function calculaValorProduto(id,valor, qtd) {
-            console.log(valor);
-            console.log(qtd);
-            var valorTotal = valor * parseFloat(qtd);
-            $('#total-'+id).html("R$"+valorTotal.toFixed(2).toString().replace('.', ','));
-        }
     </script>
+    <script src="{{ asset('controllers/carrinho.js') }}"></script>
 @endsection
