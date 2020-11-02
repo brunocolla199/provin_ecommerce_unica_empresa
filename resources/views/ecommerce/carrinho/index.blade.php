@@ -9,6 +9,8 @@
 @endsection
 
 @section('content')
+
+
 <div class="container">
     <div class="mb-4">
         <h3 class="text-center">@if ($itens[0]->pedido->tipo_pedido_id == 2) {{__('sidebar_and_header.ecommerce.cart')}} @else {{__('sidebar_and_header.ecommerce.cart2')}} @endif</h3>
@@ -27,6 +29,9 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if ($itens->count() == 0)
+                        
+                    @endif
                     @foreach ($itens as $item)
                         <input type="hidden" id="estoque-{{$item->id}}" value="{{$item->produto->quantidade_estoque}}">
                         <tr class="">
@@ -172,10 +177,12 @@
         </div>
     </div>
 </div>
+
+
 @endsection
 
 @section('footer')
-    <script>
+<script>
     $(document).on("click",".remove",function(){
         event.preventDefault();
         var id = $(this).data('id');
@@ -224,9 +231,7 @@
             });
         });
     }
-    
 
-
-    </script>
-    <script src="{{ asset('controllers/carrinho.js') }}"></script>
+</script>
+<script src="{{ asset('controllers/carrinho.js') }}"></script>
 @endsection

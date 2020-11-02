@@ -52,6 +52,11 @@ class CarrinhoEcommerceController extends Controller
         $tamanho_padrao = $buscaSetup['tamanho_padrao'];
         $grupos_necessita_tamanho = $buscaSetup['grupos'];
         $caminho_imagem = $buscaSetup['caminho_imagen_produto'];
+
+        if($itens->count() == 0){
+            Helper::setNotify("O carrinho esta vazio.", 'danger|close-circle');
+            return redirect()->route('ecommerce.produto');
+        }
         
         return view('ecommerce.carrinho.index',
             [

@@ -16,13 +16,14 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
+                
                 <h3 class="box-title">@lang('page_titles.ecommerce.telaDetalhesPedido.index')</h3>
-                <hr class="m-t-0 m-b-10">
                 @if(Session::has('message'))
                     @component('componentes.alert') @endcomponent
                     {{ Session::forget('message') }}
                 @endif
-                
+                <hr class="m-t-0 m-b-10">
+        
                 <form method="POST" action="{{ route('pedido.alterar') }}">
                     {{ csrf_field() }}
                     <input type="hidden" name="idPedido" id="idPedido" value="{{$pedido->id}}">

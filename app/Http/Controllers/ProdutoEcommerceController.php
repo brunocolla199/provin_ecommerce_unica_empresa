@@ -52,12 +52,14 @@ class ProdutoEcommerceController extends Controller
             ]
         ]);
 
-        $setup= $this->setupService->findAll()->first();
+        $setup= $this->setupService->find(1);
 
-        $this->tamanhos = $setup['tamanhos'];
-        $this->tamanho_padrao = $setup['tamanho_padrao'];
-        $this->grupos_necessita_tamanho = $setup['grupos'];
-        $this->caminhoImagens = $setup['caminho_imagen_produto'];
+        
+
+        $this->tamanhos = $setup->tamanhos;
+        $this->tamanho_padrao = $setup->tamanho_padrao;
+        $this->grupos_necessita_tamanho = $setup->grupos;
+        $this->caminhoImagens = $setup->caminho_imagen_produto;
         $this->tamanhosStr = $this->setupService->tamanhosToString(json_decode($this->tamanhos));
     }
 
@@ -172,7 +174,7 @@ class ProdutoEcommerceController extends Controller
                 'grupos' => $this->grupos,
                 'pedidoNormal' => $this->pedidoNormal,
                 'pedidoExpress'=> $this->pedidoExpress,
-                'caminho_imagem' -> $this->caminhoImagens,
+                'caminho_imagem' => $this->caminhoImagens,
                 'tamanhos' => $this->tamanhos,
                 'tamanho_padrao' => $this->tamanho_padrao,
                 'grupos_necessita_tamanho' => $this->grupos_necessita_tamanho,

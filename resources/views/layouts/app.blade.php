@@ -381,18 +381,17 @@
                                             <ul class="navbar-nav u-header__navbar-nav">
                                                 
     
-                                                <!-- Pages -->
+                                               <!--
                                                 <li class="nav-item hs-has-mega-menu u-header__nav-item"
                                                     data-event="hover"
                                                     data-animation-in="slideInUp"
                                                     data-animation-out="fadeOut">
                                                     <a id="pagesMegaMenu" class="nav-link u-header__nav-link u-header__nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false">{{__('sidebar_and_header.ecommerce.pages')}}</a>
     
-                                                    <!-- Home - Mega Menu -->
+                                                    
                                                     <div class="hs-mega-menu w-100 u-header__sub-menu" aria-labelledby="pagesMegaMenu">
                                                         <div class="row u-header__mega-menu-wrapper">
                                                             <div class="col-md-3">
-                                                                <!--<span class="u-header__sub-menu-title"></span>-->
                                                                 <ul class="u-header__sub-menu-nav-group">
                                                                     <li><a href="{{route('ecommerce.produto')}}" class="nav-link u-header__sub-menu-nav-link">{{__('sidebar_and_header.ecommerce.product')}}</a></li>
                                                                     <li><a href="{{route('ecommerce.pedido')}}" class="nav-link u-header__sub-menu-nav-link">Pedidos</a></li>
@@ -401,10 +400,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- End Home - Mega Menu -->
+                                                    
                                                 </li>
-                                                <!-- End Pages -->
-    
+                                                -->
                                                 
                                             </ul>
                                         </div>
