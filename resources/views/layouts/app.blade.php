@@ -34,6 +34,10 @@
         <link rel="stylesheet" href="{{ asset('css/datatable/jquery.dataTables.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/datatable/buttons.dataTables.min.css') }}">
 
+        
+        <link rel="stylesheet" href="{{ asset('css/datatable/rowReorder.dataTables.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/datatable/responsive.dataTables.min.css') }}">
+
         <!-- CSS Electro Template -->
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/theme.css') }}">
 
@@ -1286,6 +1290,11 @@
             <script src="{{ asset('js/datatable/vfs_fonts.js') }}"></script>
             <script src="{{ asset('js/datatable/buttons.html5.min.js') }}"></script>
             <script src="{{ asset('js/datatable/buttons.print.min.js') }}"></script>
+
+            
+            
+            <script type="text/javascript" src="{{ asset('js/datatable/dataTables.rowReorder.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/datatable/dataTables.responsive.min.js') }}"></script>
 
             <!-- jQuery Mask -->
             <script src="{{ asset('plugins/jquery-mask/jquery.mask.min.js') }}"></script>

@@ -32,7 +32,7 @@
                     </thead>
                     <tbody>
                         @foreach ($produtos as $produto)
-                            <tr style="font-size:10px">
+                            <tr>
                                 <td>{{$produto->produto->produto_terceiro_id}}</td>
                                 <td>{{$produto->produto->nome}}</td>
                                 <td>{{$produto->quantidade_estoque}}</td>
@@ -78,7 +78,11 @@
                 buttons: [
                     { extend: 'pdf',    text: 'PDF' },
                     { extend: 'print',  text: 'Imprimir' }
-                ]
+                ],
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
             });
         });
 
