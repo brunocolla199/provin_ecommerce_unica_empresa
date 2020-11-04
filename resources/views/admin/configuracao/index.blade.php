@@ -183,12 +183,65 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <legend>Sistema de Terceiros</legend>
+                                <hr class="m-t-0 m-b-10">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('link_sistema_terceiros') ? ' has-error' : '' }}">
+                                    <label class="control-label">Link de acesso ao sitema de terceiros</label>
+                                    <input type="text"  id="link_sistema_terceiros" name="link_sistema_terceiros" value="{{ $configuracao->link_sistema_terceiros }}" class="form-control " required autofocus>
+                                    <small class="form-control-feedback"> Digite o link para acessar o sistema de terceiros. </small> 
+
+                                    @if ($errors->has('link_sistema_terceiros'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('link_sistema_terceiros') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('usuario_sistema_terceiros') ? ' has-error' : '' }}">
+                                    <label class="control-label">Usuário de acesso ao sitema de terceiros</label>
+                                    <input type="text"  id="usuario_sistema_terceiros" name="usuario_sistema_terceiros" value="{{ $configuracao->usuario_sistema_terceiros }}" class="form-control " required autofocus>
+                                    <small class="form-control-feedback"> Digite o usuário para acessar o sistema de terceiros. </small> 
+
+                                    @if ($errors->has('usuario_sistema_terceiros'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('usuario_sistema_terceiros') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('senha_sistema_terceiros') ? ' has-error' : '' }}">
+                                    <label class="control-label">Senha de acesso ao sitema de terceiros</label>
+                                    <input type="text"  id="senha_sistema_terceiros" name="senha_sistema_terceiros" value="{{ $configuracao->senha_sistema_terceiros }}" class="form-control " required autofocus>
+                                    <small class="form-control-feedback"> Digite a senha para acessar o sistema de terceiros. </small> 
+
+                                    @if ($errors->has('senha_sistema_terceiros'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('senha_sistema_terceiros') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> @lang('buttons.general.save')</button>
                         <a href="{{ route('configuracao') }}" class="btn btn-inverse" style="border-color: black"> @lang('buttons.general.back')</a>
                     </div>
                     <br class="m-t-0 m-b-10">
+                    
                 </form>
 
                 <div class="row">

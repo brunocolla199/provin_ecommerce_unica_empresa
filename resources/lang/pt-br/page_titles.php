@@ -166,5 +166,8 @@ return [
         'checkout'     => [
             'index'  => 'Checkout de Compras'
         ],
+        'estoque'     => [
+            'index'  => 'Consulta de Estoque'
+        ],
     ]
 ];

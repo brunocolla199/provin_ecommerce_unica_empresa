@@ -33,15 +33,15 @@ class PedidoService
         return $this->pedidoRepository->findAll($with,$orderBy);
     }
 
-    public function create($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento)
+    public function create($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento, $pedido_terceiro_id = null)
     {
-        $request = self::montaRequest($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento);
+        $request = self::montaRequest($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento, $pedido_terceiro_id);
         return $this->pedidoRepository->create($request);
     }
 
-    public function update($id,$tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento)
+    public function update($id,$tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento,$pedido_terceiro_id = null)
     {
-        $request = self::montaRequest($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento);
+        $request = self::montaRequest($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento,$pedido_terceiro_id);
         return $this->pedidoRepository->update($request,$id);
     }
 
@@ -63,7 +63,7 @@ class PedidoService
 
 
 
-    public function montaRequest($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento)
+    public function montaRequest($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento, $pedido_terceiro_id = null)
     {
         return [
             'tipo_pedido_id'    => $tipo_pedido_id,
@@ -74,7 +74,8 @@ class PedidoService
             'previsao_entrega'  => $previsao_entrega,
             'acrescimos'        => $acrescimos,
             'link_rastreamento' => $link_rastreamento,
-            'excluido'          => $excluido
+            'excluido'          => $excluido,
+            'pedido_terceiro_id'=> $pedido_terceiro_id
         ];
     }
 

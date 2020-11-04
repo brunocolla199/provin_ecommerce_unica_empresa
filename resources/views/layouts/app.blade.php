@@ -255,6 +255,7 @@
                                                                             <!-- Home - v1 -->
                                                                             <li><a class="u-header-collapse__submenu-nav-link" href="{{route('ecommerce.produto')}}">{{__('sidebar_and_header.ecommerce.product')}}</a></li>
                                                                             <li><a class="u-header-collapse__submenu-nav-link" href="{{route('ecommerce.pedido')}}">Pedidos</a></li>
+                                                                            <li><a class="u-header-collapse__submenu-nav-link" href="{{route('ecommerce.estoque')}}">Estoque</a></li>
                                                                         </ul>
                                                                     </div>
                                                                 </li>

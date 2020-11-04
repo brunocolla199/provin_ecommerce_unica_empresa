@@ -113,7 +113,7 @@
     </div>
 -->
     <!-- End Accordion -->
-    <form class="js-validate" novalidate="novalidate">
+    <form class="js-validate" novalidate="novalidate" method="GET" action="{{ route('ecommerce.checkout.enviarPedido',['id' =>$itens[0]->pedido->id]) }}">
         <div class="row">
             <div class="col-lg-5 order-lg-2 mb-7 mb-lg-0">
                 <div class="pl-lg-3 ">

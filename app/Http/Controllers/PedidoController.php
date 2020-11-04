@@ -93,7 +93,7 @@ class PedidoController extends Controller
                 $buscaPedido = $this->pedidoService->find($id);
                 $this->pedidoService->update
                 (
-                    $id,$buscaPedido->tipo_pedido_id,$status,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$link
+                    $id,$buscaPedido->tipo_pedido_id,$status,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$link,$buscaPedido->pedido_terceiro_id
                 );
                 if($status != $buscaPedido['status_pedido_id']){
                     $this->obsPedidoService->create($id,"O status do pedido foi alterado para ".$buscaStatus->nome, 0);
@@ -120,7 +120,7 @@ class PedidoController extends Controller
             
             DB::transaction(function () use ($_request) {
                 $buscaPedido = $this->pedidoService->find($_request->id);
-                $this->pedidoService->update($_request->id,$buscaPedido->tipo_pedido_id,6,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$buscaPedido->previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$buscaPedido->link_rastreamento);
+                $this->pedidoService->update($_request->id,$buscaPedido->tipo_pedido_id,6,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$buscaPedido->previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$buscaPedido->link_rastreamento,$buscaPedido->pedido_terceiro_id);
             });
             Helper::setNotify('Pedido cancelado com sucesso!', 'success|check-circle');
             return response()->json(['response' => 'sucesso']);

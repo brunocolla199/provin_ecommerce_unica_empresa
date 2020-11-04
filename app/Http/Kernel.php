@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'administrativeArea' => \App\Http\Middleware\AdministrativeAreaMiddleware::class,
         'ecommerceArea' => \App\Http\Middleware\EcommerceAreaMiddleware::class,
         'controleGeral' => \App\Http\Middleware\ControleGeralMiddleware::class,
+        'carrinhoEmpresa' => \App\Http\Middleware\CarrinhoEmpresaMiddleware::class,
     ];
 }

@@ -72,7 +72,7 @@ class CarrinhoService
             try {
                 //cria
                 DB::transaction(function () use ($tipo_pedido,$id_produto,$tamanho,$quantidade,$valorAdicional) {
-                    $create = $this->pedidoService->create($tipo_pedido,1,Auth::user()->id,0,0,null,$valorAdicional,0,'');
+                    $create = $this->pedidoService->create($tipo_pedido,1,Auth::user()->id,0,0,null,$valorAdicional,0,'',null);
                     $this->itemPedidoService->create($create->id,$id_produto,$quantidade,0,0,$tamanho);
                     $this->pedidoService->recalcular($create->id);
                 });

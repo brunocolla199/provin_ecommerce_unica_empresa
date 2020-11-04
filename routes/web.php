@@ -202,15 +202,21 @@ Route::group(['middleware' => ['auth']], function() {
 
            
             Route::group(['prefix' => 'carrinho'], function () {
-                Route::get('detalhe/{id}',   ['as' => 'ecommerce.carrinho.detalhe', 'uses' => 'CarrinhoEcommerceController@index']);
+                Route::get('detalhe/{id}',   ['as' => 'ecommerce.carrinho.detalhe', 'uses' => 'CarrinhoEcommerceController@index'])->middleware('carrinhoEmpresa');
                 Route::post('remover',  ['as' => 'ecommerce.carrinho.remover', 'uses' => 'CarrinhoEcommerceController@remove']);    
                 Route::post('update',  ['as' => 'ecommerce.carrinho.update', 'uses' => 'CarrinhoEcommerceController@update']);    
                 
             });
 
             Route::group(['prefix' => 'checkout'], function () {
-                Route::get('detalhe/{id}', ['as' => 'ecommerce.checkout.detalhe', 'uses' => 'CheckoutEcommerceController@index']);
-               
+                Route::get('detalhe/{id}', ['as' => 'ecommerce.checkout.detalhe', 'uses' => 'CheckoutEcommerceController@index'])->middleware('carrinhoEmpresa');
+                Route::get('enviarPedido/{id}', ['as' => 'ecommerce.checkout.enviarPedido', 'uses' => 'CheckoutEcommerceController@enviarPedido'])->middleware('carrinhoEmpresa');
+                
+            });
+
+            Route::group(['prefix' => 'estoque'], function () {
+                Route::get('', ['as' => 'ecommerce.estoque', 'uses' => 'EstoqueEcommerceController@index']);
+                
             });
 
         });

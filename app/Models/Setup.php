@@ -20,6 +20,9 @@ class Setup extends Model
         'tempo_expiracao_sessao',
         'caminho_imagen_produto',
         'caminho_importacao_produto',
-        'grupos'
+        'grupos',
+        'link_sistema_terceiros',
+        'usuario_sistema_terceiros',
+        'senha_sistema_terceiros'
     ];
 }

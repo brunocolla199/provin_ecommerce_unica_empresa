@@ -24,7 +24,9 @@ class Empresa extends Model
         'bairro',
         'inativo',
         'cidade_id',
-        'cep'
+        'cep',
+        'usuario_sistema_terceiros',
+        'senha_sistema_terceiros'
     ];
 
     

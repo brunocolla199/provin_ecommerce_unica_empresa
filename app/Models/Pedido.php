@@ -17,7 +17,8 @@ class Pedido extends Model
         'previsao_entrega',
         'excluido',
         'acrescimos',
-        'link_rastreamento'
+        'link_rastreamento',
+        'pedido_terceiro_id'
     ];
 
     public function tipoPedido()

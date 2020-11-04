@@ -55,6 +55,7 @@ class ConfiguracaoController extends Controller
             Helper::setNotify('Configurações atualizadas com sucesso!', 'success|check-circle');
             return redirect()->route('configuracao');
         } catch (\Throwable $th) {
+            
             Helper::setNotify("Erro ao atualizar as configurações", 'danger|close-circle');
             return redirect()->back()->withInput();
         }
@@ -68,8 +69,11 @@ class ConfiguracaoController extends Controller
             'valor_add'                    => 'required',
             'caminho_imagens_produtos'    => 'required|string',
             'caminho_importacao_produtos' => 'required|string',
-            'logo_login' => 'image|mimes:jpeg,png,jpg',
-            'logo_sistema' => 'image|mimes:jpeg,png,jpg',
+            'logo_login'                  => 'image|mimes:jpeg,png,jpg',
+            'logo_sistema'                => 'image|mimes:jpeg,png,jpg',
+            'link_sistema_terceiros'      => 'required|string',
+            'usuario_sistema_terceiros'    => 'required|string',
+            'senha_sistema_terceiros'      => 'required|string',
             
 
         ]);
@@ -91,7 +95,10 @@ class ConfiguracaoController extends Controller
             'caminho_imagen_produto'               => $request->caminho_imagens_produtos,
             'caminho_importacao_produto'           => $request->caminho_importacao_produtos,
             'tempo_expiracao_sessao'               => 0,
-            'grupos'                               => json_encode($request->grupos) ?? []
+            'grupos'                               => json_encode($request->grupos) ?? [],
+            'link_sistema_terceiros'               => $request->link_sistema_terceiros,
+            'usuario_sistema_terceiros'             => $request->usuario_sistema_terceiros,
+            'senha_sistema_terceiros'               => $request->senha_sistema_terceiros
         ];
 
         if ($request->logo_login) {
