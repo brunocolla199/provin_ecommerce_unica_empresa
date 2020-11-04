@@ -8,43 +8,41 @@
 @endsection
 
 @section('content')
-<div class="col-12">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="box-title">@lang('page_titles.ecommerce.estoque.index')</h4>
-            <hr class="m-t-0 m-b-10">
-                @if(Session::has('message'))
-                    @component('componentes.alert')
-                    @endcomponent
+<div class="card">
+    <div class="card-body">
+        <h4 class="box-title">@lang('page_titles.ecommerce.estoque.index')</h4>
+        <hr class="m-t-0 m-b-10">
+            @if(Session::has('message'))
+                @component('componentes.alert')
+                @endcomponent
 
-                    {{ Session::forget('message') }}
-                @endif
-                
+                {{ Session::forget('message') }}
+            @endif
             
-                <div class="table-responsive m-t-40">
-                    <table id="dataTable-estoque" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Produto</th>
-                                <th>Qtd</th>
+        
+            <div class="table-responsive m-t-40">
+                <table id="dataTable-estoque" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Produto</th>
+                            <th>Qtd</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($produtos as $produto)
+                            <tr style="font-size:10px">
+                                <td>{{$produto->produto->produto_terceiro_id}}</td>
+                                <td>{{$produto->produto->nome}}</td>
+                                <td>{{$produto->quantidade_estoque}}</td>
                                 
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($produtos as $produto)
-                                <tr style="font-size:10px">
-                                    <td>{{$produto->produto->produto_terceiro_id}}</td>
-                                    <td>{{$produto->produto->nome}}</td>
-                                    <td>{{$produto->quantidade_estoque}}</td>
-                                    
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
 
-        </div>
     </div>
 </div>
 @endsection
@@ -77,6 +75,10 @@
                     }
                 },
                 dom: 'frtip',
+                buttons: [
+                    { extend: 'pdf',    text: 'PDF' },
+                    { extend: 'print',  text: 'Imprimir' }
+                ]
             });
         });
 
