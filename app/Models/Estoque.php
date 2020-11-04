@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EstoqueEmpresa extends Model
+class Estoque extends Model
 {
-    public $table = 'estoque_empresa';
+    public $table = 'estoque';
 
     protected $fillable = [
-        'id', 'empresa_id', 'produto_id', 'estoque'
+        'id', 'empresa_id', 'produto_id', 'quantidade_estoque'
     ];
 
     public function empresa()

@@ -30,6 +30,10 @@
         <link rel="stylesheet" href="{{ asset('plugins/sweetalert/sweetalert.css') }}">
         <script src="{{ asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
 
+         <!-- Custom styles for this page -->
+        <link rel="stylesheet" href="{{ asset('css/datatable/jquery.dataTables.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/datatable/buttons.dataTables.min.css') }}">
+
         <!-- CSS Electro Template -->
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/theme.css') }}">
 
@@ -1228,8 +1232,7 @@
             <!-- End Go to Top -->
 
 
-            <!-- Custom -->
-            <script src="{{ asset('js/custom.js') }}"></script>
+            
             
             <!-- JS Global Compulsory -->
             <script src="{{asset('ecommerce/assets/vendor/jquery/dist/jquery.min.js') }}"></script>
@@ -1270,6 +1273,19 @@
             <script src="{{asset('ecommerce/assets/js/components/hs.scroll-nav.js') }}"></script>
             <script src="{{asset('ecommerce/assets/js/components/hs.go-to.js') }}"></script>
             <script src="{{asset('ecommerce/assets/js/components/hs.selectpicker.js') }}"></script>
+
+            <!-- Custom -->
+            <script src="{{ asset('js/custom.js') }}"></script>
+
+
+            <script src="{{ asset('js/datatable/jquery.dataTables.min.js') }}"></script>
+            <script src="{{ asset('js/datatable/dataTables.buttons.min.js') }}"></script>
+            <script src="{{ asset('js/datatable/buttons.flash.min.js') }}"></script>
+            <script src="{{ asset('js/datatable/jszip.min.js') }}"></script>
+            <script src="{{ asset('js/datatable/pdfmake.min.js') }}"></script>
+            <script src="{{ asset('js/datatable/vfs_fonts.js') }}"></script>
+            <script src="{{ asset('js/datatable/buttons.html5.min.js') }}"></script>
+            <script src="{{ asset('js/datatable/buttons.print.min.js') }}"></script>
 
             <!-- jQuery Mask -->
             <script src="{{ asset('plugins/jquery-mask/jquery.mask.min.js') }}"></script>
