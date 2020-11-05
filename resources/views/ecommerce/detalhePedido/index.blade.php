@@ -84,63 +84,51 @@
                         
                     <h5 class="box-title">Itens</h5>
                     <hr class="m-t-0 m-b-10">
-                    <div class="row">
-                            
-                        <table class="table" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th class="product-name">Produtos</th>
-                                    <th class="tam-name">Tam.</th>
-                                    <th class="product-price">Preço</th>
-                                    <th class="product-quantity w-lg-15">Qtd</th>
-                                    <th class="product-subtotal">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($itens as $item)
-                                <tr class="">
-                                        <td data-title="Product">
-                                            <a href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}"><img style="width: 100px;height: 100px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img6.jpg')}} @endif" alt="Image Description"></a>
-                                            <a href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}" class="text-gray-90">{{$item->produto->nome}}</a>
-                                        </td>
-
-                                        <td data-title="Tam">
-                                            <span class="text-gray-90">{{$item->tamanho}}</span>
-                                        </td>
-    
-                                        <td data-title="preco">
-                                            <span class="money">{{number_format($item->valor_unitario, 2, ',', '.')}}</span>
-                                        </td>
-    
-                                        <td data-title="Quantity">
-                                            <span class="sr-only">Quantidade</span>
-                                            <!-- Quantity -->
-                                            <!--<div class="border rounded-pill py-1 width-122 w-xl-80 px-3 border-color-1">
-                                                <div class="js-quantity row align-items-center">
-                                                    <div class="col">-->
-                                                    <input readonly class="js-result form-control h-auto border-0 rounded p-0 shadow-none" type="text" value="{{$item->quantidade}}">
-                                                    <!--</div>-->
-                                                    <!--<div class="col-auto pr-1">
-                                                        <a class="js-minus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" href="javascript:;">
-                                                            <small class="fas fa-minus btn-icon__inner"></small>
-                                                        </a>
-                                                        <a class="js-plus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" href="javascript:;">
-                                                            <small class="fas fa-plus btn-icon__inner"></small>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>-->
-                                            <!-- End Quantity -->
-                                        </td>
-    
-                                        <td data-title="Total">
-                                            <span class="money">{{number_format($item->valor_total, 2, ',', '.')}}</span>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                                
+                    <div class="row mb-2">
+                        <div class="col-md-12"> 
+                            <div class="table-responsive m-t-40">
+                                <table id="dataTable-pedido" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Produto</th>
+                                            <th>Tam.</th>
+                                            <th>Preço</th>
+                                            <th>Qtd</th>
+                                            <th>Total</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($itens as $item)
+                                            <tr>
+                                                <td style="width: 150px">
+                                                    <a href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}"><img style="width: 100px;height: 100px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img6.jpg')}} @endif" alt="Image Description"></a>
+                                                </td>
+                                                <td>
+                                                    <a style="color: black" href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}">{{trim($item->produto->nome)}}</a>
+                                                </td>
+                                                <td>
+                                                        {{$item->tamanho}}
+                                                </td>
+                                                <td>
+                                                    {{number_format($item->valor_unitario, 2, ',', '.')}}   
+                                                </td>
+                                                <td>
+                                                    {{$item->quantidade}}
+                                                    
+                                                </td>
+                                                <td>
+                                                    {{number_format($item->valor_total, 2, ',', '.')}}
+                                                    
+                                                </td>
+                                                
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>  
+                        </div>        
                     </div>
 
                     <h5 class="box-title">Totais</h5>
@@ -202,4 +190,44 @@
 @endsection
 
 @section('footer')
+    <script>
+        $(document).ready(function() {
+            $('#dataTable-pedido').DataTable({
+                "language": {
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "_MENU_ resultados por página",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ordenar colunas de forma ascendente",
+                        "sSortDescending": ": Ordenar colunas de forma descendente"
+                    }
+                },
+                dom: 'rt',
+                buttons: [
+                    { extend: 'pdf',    text: 'PDF' },
+                    { extend: 'print',  text: 'Imprimir' }
+                ],
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
+
+        
+    </script>
 @endsection
