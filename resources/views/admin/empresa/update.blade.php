@@ -55,7 +55,7 @@
                                     <div class="form-group{{ $errors->has('cnpj') ? ' has-error' : '' }}">
                                         <label class="control-label">CNPJ</label>
                                         <input type="text" id="cnpj" name="cnpj" value="{{ $empresa->cpf_cnpj }}" class="form-control cnpj" required autofocus>
-                                        <small class="form-control-feedback"> Digite o cnpj da nova empresa. </small> 
+                                        <small class="form-control-feedback"> Digite o cnpj da empresa. </small> 
     
                                         @if ($errors->has('cnpj'))
                                             <br/>    
@@ -69,12 +69,43 @@
                                     <div class="form-group{{ $errors->has('cpf') ? ' has-error' : '' }}">
                                         <label class="control-label">CPF</label>
                                         <input type="text" id="cpf" name="cpf" value="{{ $empresa->cpf_cnpj }}" class="form-control cpf"  autofocus>
-                                        <small class="form-control-feedback"> Digite o cpf da nova empresa. </small> 
+                                        <small class="form-control-feedback"> Digite o cpf da empresa. </small> 
     
                                         @if ($errors->has('cpf'))
                                             <br/>    
                                             <span class="help-block text-danger">
                                                 <strong>{{ $errors->first('cpf') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6" id="divIE">
+                                    <div class="form-group{{ $errors->has('ie') ? ' has-error' : '' }}">
+                                        <label class="control-label">Inscrição Estadual</label>
+                                        <input type="text" id="ie" name="ie" value="{{ $empresa->rg_inscricao_estadual }}" class="form-control ie" required autofocus>
+                                        <small class="form-control-feedback"> Digite a inscrição estadual da empresa. </small> 
+    
+                                        @if ($errors->has('ie'))
+                                            <br/>    
+                                            <span class="help-block text-danger">
+                                                <strong>{{ $errors->first('ie') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="divRG" style="display: none">
+                                    <div class="form-group{{ $errors->has('rg') ? ' has-error' : '' }}">
+                                        <label class="control-label">RG</label>
+                                        <input type="text" id="rg" name="rg" value="{{ $empresa->rg_inscricao_estadual }}" class="form-control rg" required autofocus>
+                                        <small class="form-control-feedback"> Digite o RG da empresa. </small> 
+    
+                                        @if ($errors->has('rg'))
+                                            <br/>    
+                                            <span class="help-block text-danger">
+                                                <strong>{{ $errors->first('rg') }}</strong>
                                             </span>
                                         @endif
                                     </div>
@@ -86,7 +117,7 @@
                                     <div class="form-group{{ $errors->has('razao_social') ? ' has-error' : '' }}">
                                         <label class="control-label">Razão Social</label>
                                         <input type="text" id="razao_social" name="razao_social" value="{{ $empresa->razao_social }}" class="form-control" required autofocus>
-                                        <small class="form-control-feedback"> Digite a razão social da nova empresa. </small> 
+                                        <small class="form-control-feedback"> Digite a razão social da empresa. </small> 
     
                                         @if ($errors->has('razao_social'))
                                             <br/>    
@@ -100,7 +131,7 @@
                                     <div class="form-group{{ $errors->has('nome_fantasia') ? ' has-error' : '' }}">
                                         <label class="control-label">Nome Fantasia</label>
                                         <input type="text" id="nome_fantasia" class="form-control" name="nome_fantasia" value="{{ $empresa->nome_fantasia }}" required>
-                                        <small class="form-control-feedback"> Coloque nome fantasia da nova empresa. </small> 
+                                        <small class="form-control-feedback"> Coloque nome fantasia da empresa. </small> 
     
                                         @if ($errors->has('nome_fantasia'))
                                             <br/>
@@ -204,7 +235,7 @@
                                     <div class="form-group{{ $errors->has('bairro') ? ' has-error' : '' }}">
                                         <label class="control-label">Bairro</label>
                                         <input type="text" id="bairro" name="bairro" value="{{ $empresa->bairro }}" class="form-control " required>
-                                        <small class="form-control-feedback"> Digite o nome do bairro do endereço. </small> 
+                                        <small class="form-control-feedback"> Digite o nome do bairro. </small> 
     
                                         @if ($errors->has('bairro'))
                                             <span class="help-block text-danger">

@@ -120,7 +120,9 @@ class EmpresaController extends Controller
             'endereco'              => 'required|string|max:50',
             'cidade_id'             => 'required|numeric',
             'cpf'                   => ($request->tipo_pessoa == 'F') ?  'required|string|max:14|min:14' : '',
-            'cnpj'                  => ($request->tipo_pessoa == 'J') ?  'required|string|max:18|min:18' : '' 
+            'cnpj'                  => ($request->tipo_pessoa == 'J') ?  'required|string|max:18|min:18' : '',
+            'rg'                    => ($request->tipo_pessoa == 'F') ?  'required|string' : '',
+            'ie'                    => ($request->tipo_pessoa == 'J') ?  'required|string' : '' 
         ]);
 
         
@@ -148,7 +150,8 @@ class EmpresaController extends Controller
             'cep'                                    => $request->cep,
             'bairro'                                 => $request->bairro,
             'inativo'                                => $request->inativo ?? 0,
-            'email'                                  => $request->email
+            'email'                                  => $request->email,
+            'rg_inscricao_estadual'                  => $request->ie ?? $request->rg
         ];
 
 

@@ -74,6 +74,36 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6" id="divIE">
+                                <div class="form-group{{ $errors->has('ie') ? ' has-error' : '' }}">
+                                    <label class="control-label">Inscrição Estadual</label>
+                                    <input type="text" id="ie" name="ie" value="{{ old('ie') }}" class="form-control ie" required autofocus>
+                                    <small class="form-control-feedback"> Digite a inscrição estadual da nova empresa. </small> 
+
+                                    @if ($errors->has('ie'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('ie') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="divRG" style="display: none">
+                                <div class="form-group{{ $errors->has('rg') ? ' has-error' : '' }}">
+                                    <label class="control-label">RG</label>
+                                    <input type="text" id="rg" name="rg" value="{{ old('rg') }}" class="form-control rg" required autofocus>
+                                    <small class="form-control-feedback"> Digite o RG da nova empresa. </small> 
+
+                                    @if ($errors->has('rg'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('rg') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-6">

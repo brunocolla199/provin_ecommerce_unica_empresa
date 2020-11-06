@@ -26,7 +26,8 @@ class Empresa extends Model
         'cidade_id',
         'cep',
         'usuario_sistema_terceiros',
-        'senha_sistema_terceiros'
+        'senha_sistema_terceiros',
+        'rg_inscricao_estadual'
     ];
 
     

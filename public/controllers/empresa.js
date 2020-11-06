@@ -33,16 +33,16 @@ function verifica()
     console.log('entra');
     var tipo = $('#tipo_pessoa').val();
     if(tipo == 'F'){
-        $('#divCNPJ').hide();
-        $('#cnpj').removeAttr('required').val('');
+        $('#divCNPJ, #divIE').hide();
+        $('#cnpj, #ie').removeAttr('required').val('');
 
-        $('#divCPF').show();
-        $('#cpf').attr('required',true);
+        $('#divCPF, #divRG').show();
+        $('#cpf, #rg').attr('required',true);
     }else{
-        $('#divCNPJ').show();
-        $('#cnpj').attr('required',true);
+        $('#divCNPJ, #divIE').show();
+        $('#cnpj, #ie').attr('required',true);
 
-        $('#divCPF').hide();
-        $('#cpf').removeAttr('required').val('');
+        $('#divCPF, #divRG').hide();
+        $('#cpf, #rg').removeAttr('required').val('');
     }
 }

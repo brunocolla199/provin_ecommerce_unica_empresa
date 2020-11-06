@@ -1296,6 +1296,12 @@
             <script type="text/javascript" src="{{ asset('js/datatable/dataTables.rowReorder.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/datatable/dataTables.responsive.min.js') }}"></script>
 
+            <!--moment-->
+            <script type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>
+
+            <!--chart.js-->
+            <script type="text/javascript" src="{{ asset('js/chart.js/dist/Chart.min.js') }}"></script>
+
             <!-- jQuery Mask -->
             <script src="{{ asset('plugins/jquery-mask/jquery.mask.min.js') }}"></script>
             <script>
