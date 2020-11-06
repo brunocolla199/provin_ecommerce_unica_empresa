@@ -425,11 +425,11 @@
                                     <div class="d-flex">
                                         <i class="ec ec-support font-size-50 text-primary"></i>
                                         <div class="ml-2">
-                                            <div class="phone">
-                                                <strong>Support</strong> <a href="tel:800856800604" class="text-gray-90">(+800) 856 800 604</a>
+                                            <div class="">
+                                                <b>Fone: </b>{{App\Models\Setup::first()->telefone_proprietaria}}
                                             </div>
                                             <div class="email">
-                                                E-mail: <a href="mailto:info@electro.com?subject=Help Need" class="text-gray-90">info@electro.com</a>
+                                            <b>E-mail:</b> <a href="mailto:{{App\Models\Setup::first()->email_proprietaria}}?subject=Preciso de Ajuda" class="text-gray-90">{{App\Models\Setup::first()->email_proprietaria}}</a>
                                             </div>
                                         </div>
                                     </div>

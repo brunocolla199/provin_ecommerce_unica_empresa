@@ -74,6 +74,8 @@ class ConfiguracaoController extends Controller
             'link_sistema_terceiros'      => 'required|string',
             'usuario_sistema_terceiros'    => 'required|string',
             'senha_sistema_terceiros'      => 'required|string',
+            'telefone_proprietaria'        => 'required|string',
+            'email_proprietaria'           => 'required|email:rfc,dns'
             
 
         ]);
@@ -98,7 +100,9 @@ class ConfiguracaoController extends Controller
             'grupos'                               => json_encode($request->grupos) ?? [],
             'link_sistema_terceiros'               => $request->link_sistema_terceiros,
             'usuario_sistema_terceiros'             => $request->usuario_sistema_terceiros,
-            'senha_sistema_terceiros'               => $request->senha_sistema_terceiros
+            'senha_sistema_terceiros'               => $request->senha_sistema_terceiros,
+            'telefone_proprietaria'                 => $request->telefone_proprietaria,
+            'email_proprietaria'                    => $request->email_proprietaria
         ];
 
         if ($request->logo_login) {

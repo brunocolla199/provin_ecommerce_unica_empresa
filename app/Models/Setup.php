@@ -23,6 +23,8 @@ class Setup extends Model
         'grupos',
         'link_sistema_terceiros',
         'usuario_sistema_terceiros',
-        'senha_sistema_terceiros'
+        'senha_sistema_terceiros',
+        'telefone_proprietaria',
+        'email_proprietaria'
     ];
 }

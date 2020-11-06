@@ -6,6 +6,11 @@ use App\Services\PedidoService;
 use App\Services\ItemPedidoService;
 use App\Services\SetupService;
 use App\Services\EmpresaService;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\RequestOptions;
+use GuzzleHttp\Cookie\CookieJar;
 
 class WonderServices
 {
@@ -22,6 +27,8 @@ class WonderServices
 
     public $buscaSetup;
 
+    private $HTTP_CLIENT = null;
+
     /*
     * Construtor
     */
@@ -33,27 +40,39 @@ class WonderServices
         $this->empresaService    = $empresaService;
 
         $this->buscaSetup = $this->setupService->find(1);
-        
-        
         $this->linkWebService = $this->buscaSetup->link_sistema_terceiros;
+        
+        
     }
 
    
     public function login()
     {
-        echo 'curl -k -i -d "usuario='.$this->usuarioWebService.'&password='.$this->senhaWebService.'"  -H "Content-Type:application/x-www-form-urlencoded" '.$this->linkWebService.'/probusweb/seam/resource/probusrest/integracao/session';
-        die();
+        try {
 
-        $loga = shell_exec('curl -k -i -d "usuario='.$this->usuarioWebService.'&password='.$this->senhaWebService.'"  -H "Content-Type:application/x-www-form-urlencoded" '.$this->linkWebService.'/probusweb/seam/resource/probusrest/integracao/session');
-        dd($loga);
-        preg_match_all('/^Set-Cookie:\s*([^;]*)/mi', $loga, $matches);
-        $cookies = array();
-        foreach($matches[1] as $item) {
-            parse_str($item, $cookie);
-            $cookies = array_merge($cookies, $cookie);
+            $this->HTTP_CLIENT = new Client(
+                [
+                    'headers' => [
+                        'Accept'     => 'application/json',
+                        
+                    ]
+                ]
+            );
+
+            $dados = ["usuario"=> $this->usuarioWebService, "password"=> $this->senhaWebService];
+            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/v1/session';
+            $response = $this->HTTP_CLIENT->post($url,[
+                RequestOptions::JSON =>  $dados
+            ]);
+            $body = $response->getBody()->getContents();
+            $result = json_decode($body);
+            if ($result->token) {
+                $this->token = $result->token;
+            } 
+        } catch (RequestException $e) {
+            ///dd($e);
+            return ['error' => true, 'response' => $e->getMessage()];
         }
-        dd($cookies);
-        $this->token($cookies['JSESSIONID']);
     }
 
     
@@ -63,16 +82,38 @@ class WonderServices
         $this->senhaWebService = $this->buscaSetup->senha_sistema_terceiros;
 
         self::login();
+        
+       
+        try {
+            $request = self::montaRequestPedido($idPedido);
 
-        die();
+            $this->HTTP_CLIENT = new Client(
+                [
+                    'headers' => [
+                        'content-type'  => 'application/json',
+                        'authorization' => $this->token    
+                    ]
+                ]
+            );
+        
+            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/pedidos';
+            
+            $response = $this->HTTP_CLIENT->post($url,[
+                RequestOptions::JSON =>  $request
+            ]);
+            dd($response);
+            $body = $response->getBody()->getContents();
+            $result = json_decode($body);
+            dd($result);
 
-        $request = self::montaRequestPedido($idPedido);
 
-        $result = shell_exec("curl -i -k -X POST -H 'Content-Type: application/json' -H 'Cookie: JSESSIONID=".$this->token.";' -d '".$request."' ".$this->linkWebService."/probusweb/seam/resource/probusrest/integracao/default/novoPedido");
+            return $array[1];
 
-        $array = explode("GMT",$result);
-
-        return $array[1];
+        } catch (RequestException $e) {
+            dd($e);
+            return ['error' => true, 'response' => $e->getMessage()];
+        }
+        
         
     }
 
@@ -99,25 +140,23 @@ class WonderServices
         $request = [
             "numero"     => $buscaPedido->id,
             "data"       => date('Y-m-d').'T'.date('H:i:s').'-03:00',
-            "codTipoDoc" => 62,
-            "idCondPagto"=> 2,
             "vlTotal"    => $buscaPedido->total_pedido,
             "vlDesconto" => 0,
-            "vlFrete"    => $buscaPedido->acrescimos,
+            "tipoPagamento" => "AV",
             "cliente"    => [
-                "nomeRazaoSocial" => $buscaPedido->empresa->razao_social,
-                "nomeFantasia"    => $buscaPedido->empresa->nome_fantasia,
-                "cpfCnpj"         => $buscaPedido->empresa->cpf_cnpj,
-                "tipoPessoa"      => $buscaPedido->empresa->tipo_pessoa,
+                "nomeRazaoSocial" => $buscaPedido->usuario->empresa->razao_social,
+                "nomeFantasia"    => $buscaPedido->usuario->empresa->nome_fantasia,
+                "cpfCnpj"         => $buscaPedido->usuario->empresa->cpf_cnpj,
+                "tipoPessoa"      => $buscaPedido->usuario->empresa->tipo_pessoa,
                 "rgInscEst"       => '',
-                "cidade"          => $buscaPedido->empresa->cidade->nome,
-                "uf"              => $buscaPedido->empresa->cidade->sigla_estado,
-                "endereco"        => $buscaPedido->empresa->endereco,
-                "bairro"          => $buscaPedido->empresa->bairro,
-                "referencia"      => $buscaPedido->empresa->complemento,
-                "cep"             => $buscaPedido->empresa->cep,
-                "email"           => $buscaPedido->empresa->email,
-                "fone1"           => $buscaPedido->empresa->telefone,
+                "cidade"          => $buscaPedido->usuario->empresa->cidade->nome,
+                "uf"              => $buscaPedido->usuario->empresa->cidade->sigla_estado,
+                "endereco"        => $buscaPedido->usuario->empresa->endereco,
+                "bairro"          => $buscaPedido->usuario->empresa->bairro,
+                "referencia"      => $buscaPedido->usuario->empresa->complemento,
+                "cep"             => $buscaPedido->usuario->empresa->cep,
+                "email"           => $buscaPedido->usuario->empresa->email,
+                "fone1"           => $buscaPedido->usuario->empresa->telefone,
                 "fone2"           => ''
             ],
             "itens"      => $itens,

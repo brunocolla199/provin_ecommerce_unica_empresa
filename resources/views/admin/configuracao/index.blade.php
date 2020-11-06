@@ -34,6 +34,36 @@
                     <div class="form-body">
                         <div class="row p-t-20">
                             <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('telefone_proprietaria') ? ' has-error' : '' }}">
+                                    <label class="control-label">Telefone</label>
+                                    <input type="text"  id="telefone_proprietaria" name="telefone_proprietaria" value="{{ $configuracao->telefone_proprietaria }}" class="form-control phone_with_ddd" required autofocus>
+                                    <small class="form-control-feedback"> Digite o telefone da empresa proprietária. </small> 
+
+                                    @if ($errors->has('telefone_proprietaria'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('telefone_proprietaria') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('email_proprietaria') ? ' has-error' : '' }}">
+                                    <label class="control-label">Email</label>
+                                    <input type="email"  id="email_proprietaria" name="email_proprietaria" value="{{$configuracao->email_proprietaria}}" class="form-control " required autofocus>
+                                    <small class="form-control-feedback"> Digite o email da empresa proprietária. </small> 
+
+                                    @if ($errors->has('email_proprietaria'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('email_proprietaria') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('logo_login') ? ' has-error' : '' }}">
                                     <label class="control-label">Logo do login</label>
                                     <input type="file" id="logo_login" name="logo_login" class="form-control" >
@@ -41,10 +71,9 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                            <img name=img_logo_login id="img_logo_login" src="{{ $configuracao->logo_login}}" align="center" style=" margin-top: 20px; margin-left: 20px; width: 150px">
+                                <img name=img_logo_login id="img_logo_login" src="{{ $configuracao->logo_login}}" align="center" style=" margin-top: 20px; margin-left: 20px; width: 150px">
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('logo_sistema') ? ' has-error' : '' }}">
