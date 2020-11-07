@@ -226,7 +226,6 @@
 <div id="myModal" class="modal">
     <span class="close" style="font-size: 40px;color: red"  id="fechar">&times;</span>
     <img class="modal-content" id="imagem-produto-modal">
-    <div id="caption"></div>
 </div>
 @endsection
 
@@ -246,7 +245,6 @@
             }
         });
         
-
         var descricaoCarrinho = tipo == 'express' ? ' expresso' : ' de compras';
         let add_carrinho = swal2_warning("Essa ação irá adicionar o produto ao carrinho"+descricaoCarrinho ,"Sim!");
         add_carrinho.then(resolvedValue => {

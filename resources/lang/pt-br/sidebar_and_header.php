@@ -101,7 +101,7 @@ return [
         'quantidade' => 'Quantidade',
         'inEstoque'  => 'em estoque',
         'total' => 'Total',
-        'checkout' => 'Checkout',
+        'checkout' => 'Enviar pedido',
         'tamanho'  => 'Tamanho',
         'card_total' => 'Total Carrinho',
         'update_card' => 'Alterar Carrinho',
