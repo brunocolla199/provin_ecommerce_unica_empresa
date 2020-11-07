@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 use App\Classes\Helper;
-use App\Services\{GrupoProdutoService, PedidoService, ItemPedidoService, SetupService, ProdutoService };
+use App\Services\{PedidoService, ItemPedidoService, SetupService, ProdutoService };
 use Illuminate\Support\Facades\{DB};
 use Illuminate\Http\Request;
 
 class CarrinhoEcommerceController extends Controller
 {
-    protected $grupoProdutoService;
     protected $pedidoService;
     protected $itemPedidoService;
     protected $setupService;
@@ -18,20 +17,15 @@ class CarrinhoEcommerceController extends Controller
     public $pedidoNormal;
     public $pedidoExpress;
 
-    public function __construct(GrupoProdutoService $grupoProduto, PedidoService $pedido, ItemPedidoService $item, SetupService $setup, ProdutoService $produto)
+    public function __construct(PedidoService $pedido, ItemPedidoService $item, SetupService $setup, ProdutoService $produto)
     {
         $this->middleware('auth');
-        $this->grupoProdutoService = $grupoProduto;
         $this->pedidoService = $pedido;
         $this->itemPedidoService = $item;
         $this->setupService = $setup;
         $this->produtoService = $produto;
 
-        $this->grupos = $this->grupoProdutoService->findBy([
-            [
-            'inativo','=',0
-            ]
-        ]);
+        
     }
 
     public function index($id)
@@ -60,7 +54,7 @@ class CarrinhoEcommerceController extends Controller
         
         return view('ecommerce.carrinho.index',
             [
-                'grupos'                   => $this->grupos,
+                
                 'pedidoNormal'             => $this->pedidoNormal,
                 'pedidoExpress'            => $this->pedidoExpress,
                 'tamanhos'                 => $tamanhos,

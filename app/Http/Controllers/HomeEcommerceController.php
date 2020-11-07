@@ -2,32 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\GrupoProdutoService;
+
 use App\Services\PedidoService;
 
 
 class HomeEcommerceController extends Controller
 {
-    protected $grupoProdutoService;
     protected $pedidoService;
-    public $grupos;
+    
 
     public $pedidoNormal;
     public $pedidoExpress;
 
-    public function __construct(GrupoProdutoService $grupoProduto, PedidoService $pedido)
+    public function __construct(PedidoService $pedido)
     {
         $this->middleware('auth');
-        $this->grupoProdutoService = $grupoProduto;
-        $this->pedidoService = $pedido;
-
-        $this->grupos = $this->grupoProdutoService->findBy([
-            [
-            'inativo','=',0
-            ]
-        ]);
-
         
+        $this->pedidoService = $pedido; 
         
     }
 
@@ -38,7 +29,6 @@ class HomeEcommerceController extends Controller
 
         return view('ecommerce.home.index',
             [
-                'grupos'       => $this->grupos,
                 'pedidoNormal' => $this->pedidoNormal,
                 'pedidoExpress'=> $this->pedidoExpress
             ]

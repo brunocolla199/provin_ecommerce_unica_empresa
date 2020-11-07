@@ -43,8 +43,10 @@
 
     </head>
     <body>
+        @php
+            $grupos = \App\Models\GrupoProduto::where('inativo','=',0);
+        @endphp
         <body>
-
             <!-- ========== HEADER ========== -->
             <header id="header" class="u-header u-header-left-aligned-nav">
                 <div class="u-header__section">

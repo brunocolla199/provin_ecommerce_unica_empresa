@@ -169,5 +169,8 @@ return [
         'estoque'     => [
             'index'  => 'Consulta de Estoque'
         ],
+        'dashboard'     => [
+            'index'  => 'Dashboards'
+        ],
     ]
 ];

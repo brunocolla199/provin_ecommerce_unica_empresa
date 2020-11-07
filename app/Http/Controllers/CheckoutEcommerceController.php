@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Services\{GrupoProdutoService, ProdutoService, PedidoService,ItemPedidoService };
+use App\Services\{ProdutoService, PedidoService,ItemPedidoService };
 use Illuminate\Support\Facades\Request;
 use App\Classes\WonderServices;
 use App\Classes\Helper;
 
 class CheckoutEcommerceController extends Controller
 {
-    protected $grupoProdutoService;
     protected $produtoService;
     protected $pedidoService;
     protected $itemPedidoService;
@@ -18,20 +17,16 @@ class CheckoutEcommerceController extends Controller
     public $pedidoNormal;
     public $pedidoExpress;
 
-    public function __construct(GrupoProdutoService $grupoProduto, ProdutoService $produto,PedidoService $pedido,ItemPedidoService $item, WonderServices $wonder)
+    public function __construct( ProdutoService $produto,PedidoService $pedido,ItemPedidoService $item, WonderServices $wonder)
     {
         $this->middleware('auth');
-        $this->grupoProdutoService = $grupoProduto;
+       
         $this->produtoService = $produto;
         $this->pedidoService = $pedido;
         $this->itemPedidoService = $item;
         $this->wonderService = $wonder;
 
-        $this->grupos = $this->grupoProdutoService->findBy([
-            [
-            'inativo','=',0
-            ]
-        ]);
+        
     }
 
     public function index($id)
@@ -51,7 +46,6 @@ class CheckoutEcommerceController extends Controller
         return view('ecommerce.checkout.index',
             [
                 'itens'  => $itens,
-                'grupos' => $this->grupos,
                 'pedidoNormal'  => $this->pedidoNormal,
                 'pedidoExpress' => $this->pedidoExpress,
             

@@ -6,7 +6,6 @@ use App\Classes\Helper;
 use Illuminate\Support\Facades\{Validator, DB, Auth};
 use Illuminate\Http\Request;
 
-use App\Services\GrupoProdutoService;
 use App\Services\PedidoService;
 use App\Services\ItemPedidoService;
 use App\Services\ObsPedidoService;
@@ -21,28 +20,22 @@ class PedidoEcommerceController extends Controller
     protected $produtoService;
     protected $obsPedidoService;
     protected $statusPedidoService;
-    protected $grupoProdutoService;
     protected $setupService;
 
     private $grupos;
     private $pedidoNormal;
     private $pedidoExpress;
 
-    public function __construct(PedidoService $pedido, ItemPedidoService $itemPedido, ObsPedidoService $obsPedido, StatusPedidoService $statusPedido, GrupoProdutoService $grupoProdutoService, SetupService $setup)
+    public function __construct(PedidoService $pedido, ItemPedidoService $itemPedido, ObsPedidoService $obsPedido, StatusPedidoService $statusPedido, SetupService $setup)
     {
         $this->middleware('auth');
         $this->pedidoService = $pedido;
         $this->itemPedidoService = $itemPedido;
         $this->obsPedidoService = $obsPedido;
         $this->statusPedidoService = $statusPedido;
-        $this->grupoProdutoService = $grupoProdutoService;
         $this->setupService = $setup;
 
-        $this->grupos = $this->grupoProdutoService->findBy([
-            [
-            'inativo','=',0
-            ]
-        ]);
+        
 
        
 
@@ -68,7 +61,6 @@ class PedidoEcommerceController extends Controller
         $this->pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1); 
 
         return view('ecommerce.pedido.index', [
-            'grupos'=> $this->grupos,
             'pedidos' => $pedidos,
             'pedidoNormal' => $this->pedidoNormal,
             'pedidoExpress'=> $this->pedidoExpress
@@ -107,7 +99,6 @@ class PedidoEcommerceController extends Controller
                 'pedido' => $pedido,
                 'itens' => $itens,
                 'observacoes' => $observacoes,
-                'grupos'=> $this->grupos,
                 'pedidoNormal' => $this->pedidoNormal,
                 'pedidoExpress'=> $this->pedidoExpress,
                 'caminho_imagem' => $setup['caminho_imagen_produto']

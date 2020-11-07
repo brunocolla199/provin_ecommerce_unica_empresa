@@ -4,31 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\PedidoService;
-use App\Services\GrupoProdutoService;
+
 use App\Services\EstoqueService;
 use Illuminate\Support\Facades\Auth;
 
 class EstoqueEcommerceController extends Controller
 {
     protected $pedidoService;
-    protected $grupoProdutoService;
     protected $estoqueService;
 
     protected $grupos;
     private $pedidoNormal;
     private $pedidoExpress;
     
-    public function __construct(PedidoService $pedido, GrupoProdutoService $grupoProduto, EstoqueService $estoque)
+    public function __construct(PedidoService $pedido, EstoqueService $estoque)
     {
         $this->pedidoService = $pedido;
-        $this->grupoProdutoService = $grupoProduto;
+        
         $this->estoqueService = $estoque;
 
-        $this->grupos = $this->grupoProdutoService->findBy([
-            [
-            'inativo','=',0
-            ]
-        ]);
+
         
     }
 
@@ -46,7 +41,6 @@ class EstoqueEcommerceController extends Controller
         );
 
         return view('ecommerce.estoque.index', [
-            'grupos'       => $this->grupos,
             'pedidoNormal' => $this->pedidoNormal,
             'pedidoExpress'=> $this->pedidoExpress,
             'produtos'     => $produtos

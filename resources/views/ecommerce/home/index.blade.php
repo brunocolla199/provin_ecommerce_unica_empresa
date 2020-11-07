@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('page_title', __('page_titles.ecommerce.home.index'))
+@section('page_title', __('page_titles.ecommerce.dashboard.index'))
 
 @section('breadcrumbs')
         <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="{{ route('ecommerce.home') }}">{{__('page_titles.general.home')}}</a></li>
-        <li class="breadcrumb-item active"> @lang('page_titles.ecommerce.home.index') </li>
+        <li class="breadcrumb-item active"> @lang('page_titles.ecommerce.dashboard.index') </li>
 @endsection
 
 @section('content')
 <div class="card">
     <div class="card-body">
-        <h4 class="box-title">Dashboards</h4>
+        <h4 class="box-title">{{__('page_titles.ecommerce.dashboard.index')}}</h4>
         <hr class="m-t-0 m-b-10">
         
         <div class="row">

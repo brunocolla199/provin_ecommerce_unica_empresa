@@ -170,7 +170,7 @@ class WonderServices
         return $request;
     }
 
-    public function consultaEstoque($empresa_id)
+    public function consultaEstoque($empresa_id,$id_produto)
     {
         $buscaEmpresa = $this->empresaService->find($empresa_id);
 
@@ -178,15 +178,63 @@ class WonderServices
         $this->senhaWebService   = $buscaEmpresa->senha_sistema_terceiros;
 
         self::login();
-        $request = self::montaRequestProduto();
-        $resul   = shell_exec("curl -i -k -X POST -H 'Content-Type: application/json' -H 'Cookie: JSESSIONID=".$this->token.";' -d '".$request."' ".$this->linkWebService."/probusweb/seam/resource/probusrest/ecommerce/estoque");
+        try {
+            $this->HTTP_CLIENT = new Client(
+                [
+                    'headers' => [
+                        'content-type'  => 'application/json',
+                        'authorization' => $this->token    
+                    ]
+                ]
+            );
+        
+            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/produtos/'.$id_produto.'/estoque';
+            
+            $response = $this->HTTP_CLIENT->get($url);
+            dd($response);
+            $body = $response->getBody()->getContents();
+            $result = json_decode($body);
+            dd($result);
+        } catch (RequestException $e) {
+            dd($e);
+            return ['error' => true, 'response' => $e->getMessage()];
+        }
 
     }
-    
-    public function montaRequestProduto()
+
+
+    public function consultaProduto($inicio, $fim)
     {
 
+        $this->usuarioWebService = $this->buscaSetup->usuario_sistema_terceiros;
+        $this->senhaWebService = $this->buscaSetup->senha_sistema_terceiros;
+
+        self::login();
+        
+        try {
+            $this->HTTP_CLIENT = new Client(
+                [
+                    'headers' => [
+                        'content-type'  => 'application/json',
+                        'authorization' => $this->token    
+                    ]
+                ]
+            );
+        
+            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/produtos?first='.$inicio.'&max='.$fim;
+            
+            $response = $this->HTTP_CLIENT->get($url);
+            dd($response);
+            $body = $response->getBody()->getContents();
+            $result = json_decode($body);
+            dd($result);
+        } catch (RequestException $e) {
+            dd($e);
+            return ['error' => true, 'response' => $e->getMessage()];
+        }
     }
+    
+    
 
 
 }
