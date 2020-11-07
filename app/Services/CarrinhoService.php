@@ -37,6 +37,7 @@ class CarrinhoService
         }
 
         $buscaPedido =$this->pedidoService->buscaPedidoCarrinho($tipo_pedido);
+        
 
         $buscaSetup = $this->setupService->find(1);
         $valorAdicional = $tipo_pedido == 1 ? $buscaSetup->valor_adicional_pedido : 0;
@@ -44,6 +45,7 @@ class CarrinhoService
         //Se achou pedido da empresa ALTERA caso contrario CRIA
         if(!empty($buscaPedido[0])){
             //update
+           
             $buscaExistItem =  $this->itemPedidoService->findBy(
                 [
                     ['produto_id','=',$id_produto],
@@ -52,17 +54,22 @@ class CarrinhoService
                 ]
             );
             try {
-                if(!empty($buscaExistItem[0])){
-                    $this->itemPedidoService->update($buscaExistItem[0]->id,$buscaPedido[0]->id,$id_produto,$buscaExistItem[0]->quantidade +1,0,0,$tamanho);
-                }else{
-                    $this->itemPedidoService->create($buscaPedido[0]->id,$id_produto,$quantidade,0,0,$tamanho);   
-                }
-                $this->pedidoService->recalcular($buscaPedido[0]->id);
-                
+                DB::transaction(function () use ($buscaExistItem,$buscaPedido,$id_produto,$quantidade,$tamanho){
+                    if(!empty($buscaExistItem[0])){
+                        $this->itemPedidoService->update($buscaExistItem[0]->id,$buscaPedido[0]->id,$id_produto,$buscaExistItem[0]->quantidade +1,0,0,$tamanho);
+                    }else{
+                        
+                        $this->itemPedidoService->create($buscaPedido[0]->id,$id_produto,$quantidade,0,0,$tamanho);   
+                    }
+                    
+                    $this->pedidoService->recalcular($buscaPedido[0]->id);  
+                }); 
+                 
                 Helper::setNotify('Produto adicionado com sucesso!', 'success|check-circle');
                 return true;
 
             } catch (\Throwable $th) {
+                
                 Helper::setNotify("Erro ao adicionar o produto", 'danger|close-circle');
                 return false;
             } 

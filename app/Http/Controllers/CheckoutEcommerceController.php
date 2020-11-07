@@ -14,8 +14,7 @@ class CheckoutEcommerceController extends Controller
     protected $wonderService;
 
     public $grupos;
-    public $pedidoNormal;
-    public $pedidoExpress;
+
 
     public function __construct( ProdutoService $produto,PedidoService $pedido,ItemPedidoService $item, WonderServices $wonder)
     {
@@ -32,9 +31,6 @@ class CheckoutEcommerceController extends Controller
     public function index($id)
     {
         
-        $this->pedidoNormal  = $this->pedidoService->buscaPedidoCarrinho(2);
-        $this->pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1); 
-
         $itens = $this->itemPedidoService->findBy(
             [
                 [
@@ -45,9 +41,7 @@ class CheckoutEcommerceController extends Controller
 
         return view('ecommerce.checkout.index',
             [
-                'itens'  => $itens,
-                'pedidoNormal'  => $this->pedidoNormal,
-                'pedidoExpress' => $this->pedidoExpress,
+                'itens'  => $itens
             
             ]
         );

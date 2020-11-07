@@ -624,11 +624,13 @@
                 url: 'produto/adicionarCarinho',
                 data: { id: id, tipo: tipo, tamanho:tamanho,quantidade:1, _token: '{{csrf_token()}}' },
                 success: function (data) {
+                   
                     if(data.response != 'erro') {
                         swal2_success("Adicionado !", "Produto adicionado com sucesso.");
                     } else {
                         swal2_alert_error_support("Tivemos um problema ao adicionar o produto.");
                     }
+                    
                 },
                 error: function (data, textStatus, errorThrown) {
                     console.log(data);

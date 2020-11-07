@@ -45,6 +45,27 @@
     <body>
         @php
             $grupos = \App\Models\GrupoProduto::where('inativo','=',0);
+
+            $pedidoNormal  = buscaPedidoCarrinho(2);
+            $pedidoExpress = buscaPedidoCarrinho(1);
+
+            function buscaPedidoCarrinho($tipo_pedido)
+            {
+                $empresa = Auth::user()->empresa_id;
+                
+                $buscaUsuario = \App\Models\User::where('empresa_id','=',$empresa)->get();
+                
+                $usuariosIn = [];
+                foreach ($buscaUsuario as $key => $value) {
+                    array_push($usuariosIn,$value->id);
+                }
+                return \App\Models\Pedido::where('excluido','=',0)
+                    ->where('status_pedido_id','=',1)
+                    ->where('tipo_pedido_id','=',$tipo_pedido)
+                    ->whereIn('user_id', $usuariosIn)->get();
+                   
+            }
+
         @endphp
         <body>
             <!-- ========== HEADER ========== -->

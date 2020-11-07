@@ -14,8 +14,6 @@ class CarrinhoEcommerceController extends Controller
     protected $produtoService;
 
     public $grupos;
-    public $pedidoNormal;
-    public $pedidoExpress;
 
     public function __construct(PedidoService $pedido, ItemPedidoService $item, SetupService $setup, ProdutoService $produto)
     {
@@ -30,8 +28,7 @@ class CarrinhoEcommerceController extends Controller
 
     public function index($id)
     {
-        $this->pedidoNormal  = $this->pedidoService->buscaPedidoCarrinho(2);
-        $this->pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1); 
+
 
         $itens = $this->itemPedidoService->findBy(
             [
@@ -54,9 +51,6 @@ class CarrinhoEcommerceController extends Controller
         
         return view('ecommerce.carrinho.index',
             [
-                
-                'pedidoNormal'             => $this->pedidoNormal,
-                'pedidoExpress'            => $this->pedidoExpress,
                 'tamanhos'                 => $tamanhos,
                 'tamanho_padrao'           => $tamanho_padrao,
                 'grupos_necessita_tamanho' => $grupos_necessita_tamanho,
