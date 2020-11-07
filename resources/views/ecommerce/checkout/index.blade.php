@@ -125,7 +125,9 @@
                                 <h3 class="section-title mb-0 pb-2 font-size-25">{{__('sidebar_and_header.ecommerce.your_orden')}}</h3>
                             </div>
                             <!-- End Title -->
-
+                            <div class="mb-5">
+                            <h3 class="text-center">Carrinho {{$pedido->tipoPedido->nome}}</h3>
+                            </div>
                             <!-- Product Content -->
                             <table class="table">
                                 <thead>
