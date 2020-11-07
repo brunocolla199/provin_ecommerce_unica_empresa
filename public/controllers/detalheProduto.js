@@ -2,15 +2,18 @@ var img = document.getElementById("imagem-produto");
 var modal = document.getElementById("myModal");
 
 
+//MONTA MODAL
 $(document).on("click",'.img-fluid',function(){
-    console.log("chama")
-    
     var modalImg = document.getElementById("imagem-produto-modal");
-    var captionText = document.getElementById("caption");
-
     modal.style.display = "block";
     modalImg.src = this.src;
     captionText.innerHTML = this.alt;
+});
+
+$(document).on('keyup',function(evt) {
+    if (evt.keyCode == 27) {
+		modal.style.display = "none";
+    }
 });
 
 var span = document.getElementById("fechar");
@@ -19,6 +22,7 @@ span.onclick = function() {
     modal.style.display = "none";
 }
 
+//CALCULA VALOR
 var valorFloat = parseFloat($('#valorProduto').text().substr(2).replace(',','.'));
 
 $('.tamanho').on('click',function(){
@@ -28,8 +32,6 @@ $('.tamanho').on('click',function(){
     });
     $('#tamanho-'+tamanho).attr('data-selected',true).attr('class','page-link current tamanho');
 });
-
-
 
 $(document).on("click",'#add-btn',function(){
     var qtd = $('#quantidadeProduto').val();
@@ -48,7 +50,6 @@ $(document).on("click",'#remove-btn',function(){
         calculaValorProduto(valorFloat);
     } 
 });
-
 
 function calculaValorProduto(valor) {
     var quantidadeProduto = parseInt($('#quantidadeProduto').val());
