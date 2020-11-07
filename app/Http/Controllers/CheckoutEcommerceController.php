@@ -30,6 +30,7 @@ class CheckoutEcommerceController extends Controller
 
     public function index($id)
     {
+        $pedido = $this->pedidoService->find($id);
         
         $itens = $this->itemPedidoService->findBy(
             [
@@ -41,7 +42,8 @@ class CheckoutEcommerceController extends Controller
 
         return view('ecommerce.checkout.index',
             [
-                'itens'  => $itens
+                'itens'  => $itens,
+                'pedido' => $pedido
             
             ]
         );

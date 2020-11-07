@@ -1478,6 +1478,9 @@
              <!-- ========== FOOTER ========== -->
              <footer>
                 @yield('footer')
+                <center>
+                    <p>CEU Sistemas - Todos direitos reservados</p>
+                </center>
             </footer>
         </body>    
     </body>

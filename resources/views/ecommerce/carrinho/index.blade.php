@@ -44,17 +44,16 @@
                             </td>
                             
                             <td data-title="Tamanho">
-                                <select name="tamanho" id="tamanho-{{$item->id}}" data-id="{{$item->id}}" class="border rounded-pill py-1 width-122 w-xl-80 px-3 border-color-1 tamanho">
                                     @if (in_array($item->produto->grupo_produto_id,json_decode($grupos_necessita_tamanho)))
-                                        <option value="" disabled>Selecione</option>
-                                        @foreach (json_decode($tamanhos) as $key)
-                                            <option @if ((int)$key == (int)$item->tamanho) selected @endif value="{{$key}}">{{$key}}</option>
-                                        @endforeach
-                                    @else
-                                        <option value="" readonly>Padrão</option>
+                                        <select name="tamanho" id="tamanho-{{$item->id}}" data-id="{{$item->id}}" class="border rounded-pill py-1 width-122 w-xl-80 px-3 border-color-1 tamanho">
+                                            <option value="" disabled>Selecione</option>
+                                            @foreach (json_decode($tamanhos) as $key)
+                                                <option @if ((int)$key == (int)$item->tamanho) selected @endif value="{{$key}}">{{$key}}</option>
+                                            @endforeach
+                                        </select>
                                     @endif
                                     
-                                </select>
+                                
                                 
                             </td>
     
