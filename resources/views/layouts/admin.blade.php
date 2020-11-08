@@ -227,7 +227,7 @@
                                                                         <div id="headerSidebarHomeCollapse" class="collapse" data-parent="#headerSidebarContent">
                                                                             <ul id="headerSidebarHomeMenu" class="u-header-collapse__nav-list">
                                                                                 
-                                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('configuracao')}}">{{__('sidebar_and_header.uls_li_system.pedido')}}</a></li>
+                                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('configuracao')}}">{{__('sidebar_and_header.uls_li_system.general.general')}}</a></li>
                                                                                 
                                                                             </ul>
                                                                         </div>
@@ -270,13 +270,14 @@
                                                 
     
                                                 <!-- Pages -->
+                                            <!--
                                                 <li class="nav-item hs-has-mega-menu u-header__nav-item"
                                                     data-event="hover"
                                                     data-animation-in="slideInUp"
                                                     data-animation-out="fadeOut">
                                                     <a id="pagesMegaMenu" class="nav-link u-header__nav-link u-header__nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false">Menu</a>
     
-                                                    <!-- Home - Mega Menu -->
+                                                    
                                                     <div class="hs-mega-menu w-100 u-header__sub-menu" aria-labelledby="pagesMegaMenu">
                                                         <div class="row u-header__mega-menu-wrapper">
                                                             @if (Auth::user()->perfil->admin_controle_geral == 1)
@@ -317,6 +318,7 @@
                                                     
                                                     
                                                 </li>
+                                            -->
                                                 <!-- End Pages -->  
                                             </ul>
                                         </div>
@@ -512,7 +514,7 @@
                 <div class="bg-gray-14 py-2 mt-5">
                     <div class="container">
                         <div class="flex-center-between d-block d-md-flex">
-                            <div class="mb-3 mb-md-0">© <a href="#" class="font-weight-bold text-gray-90">Electro</a> - All rights Reserved</div>
+                            <div class="mb-3 mb-md-0">© <a href="#" class="font-weight-bold text-gray-90">CEU Sistemas </a> - Todos Direitos Reservados</div>
                             <div class="text-md-right">
                                 
                             </div>
@@ -1368,9 +1370,6 @@
              <!-- ========== FOOTER ========== -->
              <footer>
                 @yield('footer')
-                <center>
-                    <p>CEU Sistemas - Todos direitos reservados</p>
-                </center>
             </footer>
         </body>    
     </body>

@@ -66,7 +66,7 @@ class ConfiguracaoController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'prazo'                       => 'required|max:100|min:1',
-            'valor_add'                    => 'required',
+            'valor_add'                    => 'required|min:0',
             'caminho_imagens_produtos'    => 'required|string',
             'caminho_importacao_produtos' => 'required|string',
             'logo_login'                  => 'image|mimes:jpeg,png,jpg',
@@ -91,7 +91,7 @@ class ConfiguracaoController extends Controller
     {
         $create = [
             'tempo_liberacao_pedido'               => $request->prazo,
-            'valor_adicional_pedido'               => str_replace(',','.',$request->valor_add),
+            'valor_adicional_pedido'               => str_replace(',','.',str_replace('%','',$request->valor_add)),
             'tamanhos'                             => json_encode($request->tamanhos) ?? [],
             'tamanho_padrao'                       => $request->tamanho_padrao,
             'caminho_imagen_produto'               => $request->caminho_imagens_produtos,

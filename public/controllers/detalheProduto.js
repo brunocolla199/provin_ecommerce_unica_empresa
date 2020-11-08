@@ -16,6 +16,10 @@ $(document).on('keyup',function(evt) {
     }
 });
 
+$(Document).on('click','#myModal',function(){
+    modal.style.display = "none";
+});
+
 var span = document.getElementById("fechar");
 
 span.onclick = function() { 

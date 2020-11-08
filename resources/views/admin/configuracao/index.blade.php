@@ -104,9 +104,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('valor_add') ? ' has-error' : '' }}">
-                                    <label class="control-label">Valor adicional no pedido Expresso</label>
-                                    <input type="text"  id="valor_add" name="valor_add" value="{{number_format($configuracao->valor_adicional_pedido, 2, ',', '.') }}" class="form-control money2" required autofocus>
-                                    <small class="form-control-feedback"> Digite o valor adicional ao pedido expresso. </small> 
+                                    <label class="control-label">Porcentagem adicional no pedido Expresso (%)</label>
+                                    <input type="text" min="0" max="100"  id="valor_add" name="valor_add" value="{{$configuracao->valor_adicional_pedido}}" class="form-control percent" required autofocus>
+                                    <small class="form-control-feedback"> Digite a porcentagem adicional ao pedido expresso. </small> 
 
                                     @if ($errors->has('valor_add'))
                                         <br/>    

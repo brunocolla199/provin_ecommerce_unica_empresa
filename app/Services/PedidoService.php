@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\PedidoRepository;
 use App\Services\ItemPedidoService;
 use App\Services\UserService;
+use App\Services\SetupService;
 use Illuminate\Support\Facades\{Auth};
 
 
@@ -14,12 +15,14 @@ class PedidoService
     public $pedidoRepository;
     public $itemPedidoService;
     public $userService;
+    public $setupService;
 
-    public function __construct(PedidoRepository $pedido, ItemPedidoService $item, UserService $user)
+    public function __construct(PedidoRepository $pedido, ItemPedidoService $item, UserService $user, SetupService $setup)
     {
         $this->pedidoRepository = $pedido;
         $this->itemPedidoService = $item;
         $this->userService = $user;
+        $this->setupService = $setup;
     }
 
 
@@ -83,6 +86,10 @@ class PedidoService
     {   
         $total_itens = 0;
         $total_pedido = 0;
+        $valor_adicional = 0;
+
+        $busca_porcentagem_setup = $this->setupService->find(1);
+
         $itens = $this->itemPedidoService->findBy(
             [
                 [
@@ -98,7 +105,9 @@ class PedidoService
         }
 
         $pedido = self::find($id);
-        self::update($id,$pedido->tipo_pedido_id,$pedido->status_pedido_id,$pedido->user_id,$total_pedido,$total_itens,$pedido->previsao_entrega,$pedido->acrescimos,$pedido->excluido,$pedido->link_rastreamento);
+        $valor_adicional = $total_pedido * ($busca_porcentagem_setup['valor_adicional_pedido']/100);
+        $total_pedido += $valor_adicional;
+        self::update($id,$pedido->tipo_pedido_id,$pedido->status_pedido_id,$pedido->user_id,$total_pedido,$total_itens,$pedido->previsao_entrega,$valor_adicional,$pedido->excluido,$pedido->link_rastreamento);
     }
 
     public function buscaPedidoCarrinho($tipo_pedido)
