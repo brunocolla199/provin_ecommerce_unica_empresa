@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Services\{ProdutoService, PedidoService,ItemPedidoService };
+use App\Services\{ProdutoService, PedidoService,ItemPedidoService, SetupService};
 use Illuminate\Support\Facades\Request;
 use App\Classes\WonderServices;
 use App\Classes\Helper;
@@ -12,11 +12,12 @@ class CheckoutEcommerceController extends Controller
     protected $pedidoService;
     protected $itemPedidoService;
     protected $wonderService;
+    protected $setupService;
 
     public $grupos;
 
 
-    public function __construct( ProdutoService $produto,PedidoService $pedido,ItemPedidoService $item, WonderServices $wonder)
+    public function __construct( ProdutoService $produto,PedidoService $pedido,ItemPedidoService $item, SetupService $setup,WonderServices $wonder)
     {
         $this->middleware('auth');
        
@@ -24,13 +25,24 @@ class CheckoutEcommerceController extends Controller
         $this->pedidoService = $pedido;
         $this->itemPedidoService = $item;
         $this->wonderService = $wonder;
-
+        $this->setupService = $setup;
         
     }
 
     public function index($id)
     {
         $pedido = $this->pedidoService->find($id);
+        $setup = $this->setupService->find(1);
+
+        $ultimoPedido = $this->pedidoService->buscaUltimoPedidoNormalProcessado();
+        
+        $dataProximaLiberacao = $ultimoPedido->count() > 0? date ('Y-m-d h:i:s',strtotime('+'.$setup->tempo_liberacao_pedido.' days', strtotime($ultimoPedido[0]['created_at']))) : date('Y-m-d h:i:s');
+        
+        if(strtotime($dataProximaLiberacao) - strtotime(date('Y-m-d H:i:s')) > 0 && $pedido->tipo_pedido_id == 2){
+            Helper::setNotify("Pedido não esta liberado.", 'danger|close-circle');
+            return redirect()->back()->withInput();
+        }
+        
         
         $itens = $this->itemPedidoService->findBy(
             [

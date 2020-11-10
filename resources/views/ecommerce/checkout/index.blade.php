@@ -13,6 +13,10 @@
     <div class="mb-5">
         <h3 class="text-center">Resumo do pedido</h3>
     </div>
+    @if(Session::has('message'))
+        @component('componentes.alert') @endcomponent
+        {{ Session::forget('message') }}
+    @endif
     <!-- Accordion -->
     <div id="shopCartAccordion" class="accordion rounded mb-5">
         <!-- Card -->
@@ -114,6 +118,7 @@
 -->
     <!-- End Accordion -->
     <form class="js-validate" novalidate="novalidate" method="GET" action="{{ route('ecommerce.checkout.enviarPedido',['id' =>$itens[0]->pedido->id]) }}">
+        <input type="hidden" id="tipoPedido" value="{{$pedido->tipo_pedido_id}}">
         <div class="row">
             <div class="col-lg-5 order-lg-2 mb-7 mb-lg-0">
                 <div class="pl-lg-3 ">
@@ -122,7 +127,7 @@
                         <div class="p-4 mb-4 checkout-table">
                             <!-- Title -->
                             <div class="border-bottom border-color-1 mb-5">
-                                <h3 class="section-title mb-0 pb-2 font-size-25">@if ($pedido->tipo_pedido_id = 1) Carrinho Expresso @else Carinho @endif</h3>
+                                <h3 class="section-title mb-0 pb-2 font-size-25">@if ($pedido->tipo_pedido_id == 1) Carrinho Expresso @else Carinho @endif</h3>
                             </div>
                             <!-- End Title -->
                             
@@ -267,7 +272,7 @@
                                 </div>
                             </div>
                             -->
-                            <button type="submit" class="btn btn-primary-dark-w btn-block btn-pill font-size-20 mb-3 py-3">{{__('sidebar_and_header.ecommerce.place_orden')}}</button>
+                            <button type="submit" id="btn-enviar" class="btn btn-primary-dark-w btn-block btn-pill font-size-20 mb-3 py-3">{{__('sidebar_and_header.ecommerce.place_orden')}}</button>
                         </div>
                         <!-- End Order Summary -->
                     </div>
@@ -284,5 +289,16 @@
 @endsection
 
 @section('footer')
-
+<script>
+    let tipoPedido = $('#tipoPedido').val();
+    var now = new Date().getTime();
+    var deadline = new Date(document.getElementById("proximaLiberacao").value).getTime(); 
+    var t = deadline - now;
+    console.log(t);
+    if(tipoPedido == 2 &&  t > 0 ){
+        $('#btn-enviar').attr('disabled',true);
+        document.getElementById("btn-enviar").style.cursor = 'not-allowed';
+        
+    }
+</script>
 @endsection

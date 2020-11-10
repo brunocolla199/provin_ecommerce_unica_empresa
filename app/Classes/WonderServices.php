@@ -82,8 +82,7 @@ class WonderServices
         $this->senhaWebService = $this->buscaSetup->senha_sistema_terceiros;
 
         self::login();
-        
-       
+    
         try {
             $request = self::montaRequestPedido($idPedido);
 
@@ -101,17 +100,15 @@ class WonderServices
             $response = $this->HTTP_CLIENT->post($url,[
                 RequestOptions::JSON =>  $request
             ]);
-            dd($response);
+            
             $body = $response->getBody()->getContents();
             $result = json_decode($body);
-            dd($result);
-
-
-            return $array[1];
+            
+            return $result;
 
         } catch (RequestException $e) {
-            dd($e);
-            return ['error' => true, 'response' => $e->getMessage()];
+            $msg = explode("response:",$e->getMessage());
+            return $msg[1];
         }
         
         

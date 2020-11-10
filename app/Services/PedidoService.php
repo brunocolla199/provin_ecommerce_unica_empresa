@@ -133,4 +133,33 @@ class PedidoService
             ]
         );
     }
+
+    public function buscaUltimoPedidoNormalProcessado()
+    {
+        $empresa = Auth::user()->empresa_id;
+        $buscaUsuario = $this->userService->findBy(
+            [
+                ['empresa_id','=',$empresa]
+            ]
+        );
+
+        $usuariosIn = [];
+        foreach ($buscaUsuario as $key => $value) {
+            array_push($usuariosIn,$value->id);
+        }
+        return $this->pedidoRepository->findBy(
+            [
+                ['excluido','=',0],
+                ['status_pedido_id','>',1,"AND"],
+                ['status_pedido_id','!=',6,"AND"],
+                ['user_id','',$usuariosIn,"IN"]
+            ],[],
+            [
+                ['created_at','desc']
+            ],[],
+            [1]
+        );
+        
+        
+    }
 }

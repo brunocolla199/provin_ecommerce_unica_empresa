@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Classes\Helper;
-use App\Services\{PedidoService, ItemPedidoService, SetupService, ProdutoService };
+use App\Services\{PedidoService, ItemPedidoService, SetupService, ProdutoService, CarrinhoService};
 use Illuminate\Support\Facades\{DB};
 use Illuminate\Http\Request;
 
@@ -12,16 +12,18 @@ class CarrinhoEcommerceController extends Controller
     protected $itemPedidoService;
     protected $setupService;
     protected $produtoService;
+    protected $carrinhoService;
 
     public $grupos;
 
-    public function __construct(PedidoService $pedido, ItemPedidoService $item, SetupService $setup, ProdutoService $produto)
+    public function __construct(PedidoService $pedido, ItemPedidoService $item, SetupService $setup, ProdutoService $produto, CarrinhoService $carrinho)
     {
         $this->middleware('auth');
         $this->pedidoService = $pedido;
         $this->itemPedidoService = $item;
         $this->setupService = $setup;
         $this->produtoService = $produto;
+        $this->carrinhoService = $carrinho;
 
         
     }
@@ -92,17 +94,12 @@ class CarrinhoEcommerceController extends Controller
 
     public function remove(Request $request){
         $id = trim($request->id);
-        $buscaItem = $this->itemPedidoService->find($id);
-        try {
-            DB::transaction(function () use ($id,$buscaItem) {
-                $this->itemPedidoService->delete($id);
-                $this->pedidoService->recalcular($buscaItem->pedido->id);
-            });
-            Helper::setNotify('Produto removido com sucesso!', 'success|check-circle');
+    
+        if($this->carrinhoService->removerCarrinho($id))
+        {
             return response()->json(['response' => 'sucesso']);
-        } catch (\Throwable $th) {
-            Helper::setNotify("Erro ao remover o produto.", 'danger|close-circle');
+        }else{
             return response()->json(['response' => 'erro']);
-        }
+        }   
     }
 }

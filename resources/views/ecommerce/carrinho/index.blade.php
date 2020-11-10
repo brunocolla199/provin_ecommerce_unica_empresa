@@ -16,7 +16,12 @@
         <h3 class="text-center">@if ($itens[0]->pedido->tipo_pedido_id == 2) {{__('sidebar_and_header.ecommerce.cart')}} @else {{__('sidebar_and_header.ecommerce.cart2')}} @endif</h3>
     </div>
     <div class="mb-10 cart-table">
+        @if(Session::has('message'))
+            @component('componentes.alert') @endcomponent
+            {{ Session::forget('message') }}
+        @endif
         <form class="mb-4" action="#" method="post">
+        <input type="hidden" id="tipoPedido" value="{{$itens[0]->pedido->tipo_pedido_id}}">
             <table class="table" cellspacing="0">
                 <thead>
                     <tr>
@@ -111,7 +116,8 @@
                                         
                                         <a href="{{route('ecommerce.produto')}}" type="button" class="btn btn-dark mb-3 mb-md-0 font-weight-normal px-5 px-md-4 px-lg-5 w-100 w-md-auto">{{__('sidebar_and_header.ecommerce.continuar_comprando')}}</a>
                                         
-                                        <a href="{{route('ecommerce.checkout.detalhe',['id' => $itens[0]->pedido_id])}}" class="btn btn-primary-dark-w ml-md-2 px-5 px-md-4 px-lg-5 w-100 w-md-auto d-none d-md-inline-block">{{__('sidebar_and_header.ecommerce.checkout')}}</a>
+                                        <button type="button" onclick="window.location.href='{{route('ecommerce.checkout.detalhe',['id' => $itens[0]->pedido_id])}}'" id="btn-enviar" class="btn btn-primary-dark-w ml-md-2 px-5 px-md-4 px-lg-5 w-100 w-md-auto d-none d-md-inline-block">{{__('sidebar_and_header.ecommerce.checkout')}}</button>   
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -171,7 +177,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <a href="{{route('ecommerce.checkout.detalhe',['id' => $itens[0]->pedido_id])}}" type="button" class="btn btn-primary-dark-w ml-md-2 px-5 px-md-4 px-lg-5 w-100 w-md-auto d-md-none">{{__('sidebar_and_header.ecommerce.checkout')}}</a>
+                <button  onclick="window.location.href='{{route('ecommerce.checkout.detalhe',['id' => $itens[0]->pedido_id])}}'" type="button" id="btn-enviar-mob" class="btn btn-primary-dark-w ml-md-2 px-5 px-md-4 px-lg-5 w-100 w-md-auto d-md-none">{{__('sidebar_and_header.ecommerce.checkout')}}</button>
             </div>
         </div>
     </div>
@@ -181,7 +187,20 @@
 @endsection
 
 @section('footer')
+<script src="{{ asset('controllers/carrinho.js') }}"></script>
 <script>
+    let tipoPedido = $('#tipoPedido').val();
+    var now = new Date().getTime();
+    var deadline = new Date(document.getElementById("proximaLiberacao").value).getTime(); 
+    var t = deadline - now;
+    console.log(t);
+    if(tipoPedido == 2 &&  t > 0 ){
+        $('#btn-enviar').attr('disabled',true);
+        $('#btn-enviar-mob').attr('disabled',true);
+        document.getElementById("btn-enviar").style.cursor = 'not-allowed';
+        document.getElementById("btn-enviar-mob").style.cursor = 'not-allowed';
+    }
+
     $(document).on("click",".remove",function(){
         event.preventDefault();
         var id = $(this).data('id');
@@ -232,5 +251,5 @@
     }
 
 </script>
-<script src="{{ asset('controllers/carrinho.js') }}"></script>
+
 @endsection

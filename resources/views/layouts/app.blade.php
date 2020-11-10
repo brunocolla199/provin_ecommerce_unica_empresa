@@ -45,29 +45,44 @@
     <body>
         @php
             $grupos = \App\Models\GrupoProduto::where('inativo','=',0);
+            $setup  = \App\Models\Setup::find(1);
 
-            $pedidoNormal  = buscaPedidoCarrinho(2);
-            $pedidoExpress = buscaPedidoCarrinho(1);
+            $empresa = Auth::user()->empresa_id;
+            $buscaUsuario = \App\Models\User::where('empresa_id','=',$empresa)->get();
+                
+            $usuariosIn = [];
+            foreach ($buscaUsuario as $key => $value) {
+                array_push($usuariosIn,$value->id);
+            }
 
-            function buscaPedidoCarrinho($tipo_pedido)
+
+
+            $buscaUltimoPedidoNormalProcessado = \App\Models\Pedido::where('excluido','=',0)
+                    ->where('status_pedido_id','>',1)
+                    ->where('status_pedido_id','!=',6)
+                    ->where('tipo_pedido_id','=',2)
+                    ->whereIn('user_id', $usuariosIn)
+                    ->orderBy('created_at','desc')
+                    ->take(1)
+                    ->get();
+
+            $dataProximaLiberacao = $buscaUltimoPedidoNormalProcessado->count() > 0? date ('Y-m-d h:i:s',strtotime('+'.$setup->tempo_liberacao_pedido.' days', strtotime($buscaUltimoPedidoNormalProcessado[0]['created_at']))) : date('Y-m-d h:i:s');
+            $pedidoNormal  = buscaPedidoCarrinho(2, $usuariosIn);
+            $pedidoExpress = buscaPedidoCarrinho(1, $usuariosIn);
+
+            function buscaPedidoCarrinho($tipo_pedido, $usuariosIn)
             {
-                $empresa = Auth::user()->empresa_id;
                 
-                $buscaUsuario = \App\Models\User::where('empresa_id','=',$empresa)->get();
-                
-                $usuariosIn = [];
-                foreach ($buscaUsuario as $key => $value) {
-                    array_push($usuariosIn,$value->id);
-                }
                 return \App\Models\Pedido::where('excluido','=',0)
                     ->where('status_pedido_id','=',1)
                     ->where('tipo_pedido_id','=',$tipo_pedido)
-                    ->whereIn('user_id', $usuariosIn)->get();
-                   
+                    ->whereIn('user_id', $usuariosIn)->get();       
             }
 
         @endphp
         <body>
+        <input type="hidden" name="pedidoNormal" id="pedidoNormal" value="{{$pedidoNormal->count() > 0 ? $pedidoNormal[0]->id : ''}}">
+        <input type="hidden" name="proximaLiberacao" id="proximaLiberacao" value="{{$dataProximaLiberacao}}">
             <!-- ========== HEADER ========== -->
             <header id="header" class="u-header u-header-left-aligned-nav">
                 <div class="u-header__section">
@@ -238,6 +253,14 @@
                                                                         </ul>
                                                                     </div>
                                                                 </li>
+
+                                                                <li>
+                                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" >
+                                                                    @csrf
+                                                                    <button type="submit" class="dropdown-item active">Sair</button>
+                                                                </form>
+                                                                </li>
+
                                                                 <!-- End Home Section -->
     
                                                                 <!-- Shop Pages -->
@@ -342,6 +365,37 @@
                                                                 <!-- End Blog Pages -->
                                                             </ul>
                                                             <!-- End List -->
+                                                            <div class=" d-xl-block col-md-auto">
+                                                                <div class="d-flex">
+                                                                    <i class="ec ec-support font-size-50 text-primary"></i>
+                                                                    <div class="ml-2">
+                                                                        <div id="clockdiv" style="display: flex"> 
+                                                                            <div style="mb-1"> 
+                                                                                <b><span class="days" id="dayMob"></span></b>&nbsp;<span style="font-size:10px">Dias</span>&nbsp; 
+                                                                                    
+                                                                            </div> 
+                                                                            <div style="mb-1"> 
+                                                                                <b><span class="hours" id="hourMob"></span></b>:
+                                                                                
+                                                                            </div> 
+                                                                            <div style="mb-1"> 
+                                                                                <b><span class="minutes" id="minuteMob"></span></b>: 
+                                                                                    
+                                                                            </div> 
+                                                                            <div> 
+                                                                                <b><span class="seconds" id="secondMob"></span></b>&nbsp;<span style="font-size:10px">Horas</span>
+                                                                                
+                                                                            </div> 
+                                                                        </div> 
+                                                                        <div id="clockdiv" style="display: flex;height: 10px">
+                                                                            <div style="mb-1">
+                                                                                <b id="demoMob" style="font-size:14px"></b>
+                                                                            </div>
+                                                                        </div>          
+                                                                    </div> 
+                                                                </div>           
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                     <!-- End Content -->
@@ -390,6 +444,38 @@
                                     </nav>
                                     <!-- End Nav -->
                                 </div>
+
+                                <div class="d-none d-xl-block col-md-auto">
+                                    <div class="d-flex">
+                                        <i class="ec ec-support font-size-50 text-primary"></i>
+                                        <div class="ml-2">
+                                                <div id="clockdiv" style="display: flex"> 
+                                                    <div style="mb-1"> 
+                                                        <b><span class="days" id="day"></span></b>&nbsp;<span style="font-size:10px">Dias</span>&nbsp; 
+                                                         
+                                                    </div> 
+                                                    <div style="mb-1"> 
+                                                        <b><span class="hours" id="hour"></span></b>:
+                                                        
+                                                    </div> 
+                                                    <div style="mb-1"> 
+                                                        <b><span class="minutes" id="minute"></span></b>: 
+                                                         
+                                                    </div> 
+                                                    <div> 
+                                                        <b><span class="seconds" id="second"></span></b>&nbsp;<span style="font-size:10px">Horas</span>
+                                                        
+                                                    </div> 
+                                                </div> 
+                                                <div id="clockdiv" style="display: flex;height: 10px">
+                                                    <div style="mb-1">
+                                                        <b id="demo" style="font-size:14px"></b>
+                                                    </div>
+                                                </div>    
+                                        </div> 
+                                    </div>           
+                                </div>
+
                                 <!-- End Primary Menu -->
                                 <!-- Customer Care -->
                                 <div class="d-none d-xl-block col-md-auto">
@@ -495,6 +581,7 @@
                                             <!--<li class="col d-none d-xl-block"><a href="../shop/compare.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Compare"><i class="font-size-22 ec ec-compare"></i></a></li>-->
                                             <!--<li class="col d-none d-xl-block"><a href="../shop/wishlist.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorites"><i class="font-size-22 ec ec-favorites"></i></a></li>-->
                                             <!--<li class="col d-xl-none px-2 px-sm-3"><a href="../shop/my-account.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.my_account')}}"><i class="font-size-22 ec ec-user"></i></a></li>-->
+                                            
                                             <li class="col pr-xl-0 px-2 px-sm-3">
                                                 <a href="@if (!empty($pedidoNormal[0])){{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }} @else #  @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
                                                     <i class="font-size-22 ec ec-shopping-bag"></i>
@@ -1324,6 +1411,8 @@
             <!--chart.js-->
             <script type="text/javascript" src="{{ asset('js/chart.js/dist/Chart.min.js') }}"></script>
 
+            
+
             <!-- jQuery Mask -->
             <script src="{{ asset('plugins/jquery-mask/jquery.mask.min.js') }}"></script>
             <script>
@@ -1366,7 +1455,7 @@
             </script>
 
              <!-- JS Plugins Init. -->
-        <script>
+            <script>
                 $(window).on('load', function () {
                     // initialization of HSMegaMenu component
                     $('.js-mega-menu').HSMegaMenu({
@@ -1475,10 +1564,48 @@
                     $.HSCore.components.HSSelectPicker.init('.js-select');
                 });
             </script>
+
+            <script> 
+                var deadline = new Date(document.getElementById("proximaLiberacao").value).getTime(); 
+                //var deadline = document.getElementById("proximaLiberacao").value;
+                
+                var x = setInterval(function() { 
+                
+                var now = new Date().getTime(); 
+                var t = deadline - now; 
+                var days = Math.floor(t / (1000 * 60 * 60 * 24)); 
+                var hours = Math.floor((t%(1000 * 60 * 60 * 24))/(1000 * 60 * 60)); 
+                var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)); 
+                var seconds = Math.floor((t % (1000 * 60)) / 1000); 
+                document.getElementById("day").innerHTML =days ;
+                document.getElementById("dayMob").innerHTML =days ; 
+                document.getElementById("hour").innerHTML = hours < 9 && t > 0 ? '0'+hours : hours;
+                document.getElementById("hourMob").innerHTML = hours < 9 && t > 0 ? '0'+hours : hours; 
+                document.getElementById("minute").innerHTML = minutes < 9 && t > 0  ? '0'+minutes : minutes;
+                document.getElementById("minuteMob").innerHTML = minutes < 9 && t > 0  ? '0'+minutes : minutes;  
+                document.getElementById("second").innerHTML =seconds;
+                document.getElementById("secondMob").innerHTML =seconds;
+                if (t < 0) { 
+                        clearInterval(x); 
+                        document.getElementById("demo").innerHTML = "Carrinho Liberado";
+                        document.getElementById("demoMob").innerHTML = "Carrinho Liberado"; 
+                        document.getElementById("day").innerHTML ='0';
+                        document.getElementById("dayMob").innerHTML ='0'; 
+                        document.getElementById("hour").innerHTML ='0';
+                        document.getElementById("hourMob").innerHTML ='0'; 
+                        document.getElementById("minute").innerHTML ='0' ;
+                        document.getElementById("minuteMob").innerHTML ='0' ;  
+                        document.getElementById("second").innerHTML = '0';
+                        document.getElementById("secondMob").innerHTML = '0';
+                    } 
+                }, 1000); 
+            </script>
+
              <!-- ========== FOOTER ========== -->
              <footer>
                 @yield('footer')
             </footer>
-        </body>    
+        </body>        
     </body>
+    
 </html>

@@ -67,6 +67,28 @@ function swal2_warning(text, buttonText = 'Sim, excluir!', colorConfirm = "#DD6B
     });
 }
 
+function swal2_alert_question(titulo,text, buttonText = 'Sim !', colorConfirm = "#DD6B55" ) {
+    return new Promise((resolve, reject) => {
+        swal({   
+            title: titulo,   
+            text: text,   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: colorConfirm,   
+            confirmButtonText: buttonText,   
+            cancelButtonText: "Fechar",   
+            closeOnConfirm: false,   
+            closeOnCancel: false 
+        }, function(isConfirm){   
+            if (isConfirm) {     
+                resolve(true);
+            } else {     
+                reject(false);
+            }  
+        });
+    });
+}
+
 /**
  * Input Message
  * 

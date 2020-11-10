@@ -31,18 +31,18 @@ class CarrinhoService
     public function addCarrinho($id_produto,$tipo_pedido,$tamanho,$quantidade)
     {
         $verificaEstoque = $this->produtoService->find($id_produto);
-        if(!$verificaEstoque){
+        if($verificaEstoque['quantidade_estoque'] < $quantidade){
             Helper::setNotify("Produto não se encontra mais em estoque.", 'danger|close-circle');
             return false;
         }
-
+        
         $buscaPedido =$this->pedidoService->buscaPedidoCarrinho($tipo_pedido);
         
 
         $buscaSetup = $this->setupService->find(1);
         $valorAdicional = 0;
         //Se achou pedido da empresa ALTERA caso contrario CRIA
-        if(!empty($buscaPedido[0])){
+        if($buscaPedido->count() > 0){
             //update
            
             $buscaExistItem =  $this->itemPedidoService->findBy(
@@ -53,14 +53,14 @@ class CarrinhoService
                 ]
             );
             try {
-                DB::transaction(function () use ($buscaExistItem,$buscaPedido,$id_produto,$quantidade,$tamanho){
-                    if(!empty($buscaExistItem[0])){
+                DB::transaction(function () use ($buscaExistItem,$buscaPedido,$id_produto,$quantidade,$tamanho,$verificaEstoque){
+                    if($buscaExistItem->count() > 0){
                         $this->itemPedidoService->update($buscaExistItem[0]->id,$buscaPedido[0]->id,$id_produto,$buscaExistItem[0]->quantidade +1,0,0,$tamanho);
                     }else{
                         
                         $this->itemPedidoService->create($buscaPedido[0]->id,$id_produto,$quantidade,0,0,$tamanho);   
                     }
-                    
+                    $this->produtoService->update(['quantidade_estoque' => $verificaEstoque['quantidade_estoque']-$quantidade],$id_produto);
                     $this->pedidoService->recalcular($buscaPedido[0]->id);  
                 }); 
                  
@@ -90,6 +90,28 @@ class CarrinhoService
                 Helper::setNotify("Erro ao adicionar o produto", 'danger|close-circle');
                 return false;
             } 
+        }
+    }
+
+    public function removerCarrinho ($idItem)
+    {
+        try {
+
+            DB::transaction(function () use ($idItem){
+                $buscaItem     = $this->itemPedidoService->find($idItem);
+                $buscaProduto  = $this->produtoService->find($buscaItem['produto_id']);
+
+                $this->itemPedidoService->delete($idItem);
+                $this->produtoService->update(['quantidade_estoque' => $buscaProduto['quantidade_estoque']+$buscaItem['quantidade']],$buscaItem['produto_id']);
+                $this->pedidoService->recalcular($buscaItem->pedido->id);
+            });
+            
+            Helper::setNotify('Produto removido com sucesso!', 'success|check-circle');
+            return true;
+
+        } catch (\Throwable $th) {
+            Helper::setNotify("Erro ao remover o produto", 'danger|close-circle');
+            return false;
         }
     }
 }
