@@ -105,7 +105,7 @@ class PedidoService
         }
 
         $pedido = self::find($id);
-        $valor_adicional = $total_pedido * ($busca_porcentagem_setup['valor_adicional_pedido']/100);
+        $valor_adicional = $pedido->tipo_pedido_id ==1 ? $total_pedido * ($busca_porcentagem_setup['valor_adicional_pedido']/100) : 0;
         $total_pedido += $valor_adicional;
         self::update($id,$pedido->tipo_pedido_id,$pedido->status_pedido_id,$pedido->user_id,$total_pedido,$total_itens,$pedido->previsao_entrega,$valor_adicional,$pedido->excluido,$pedido->link_rastreamento);
     }

@@ -85,7 +85,7 @@ class WonderServices
     
         try {
             $request = self::montaRequestPedido($idPedido);
-
+            
             $this->HTTP_CLIENT = new Client(
                 [
                     'headers' => [
