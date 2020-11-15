@@ -18,7 +18,8 @@ class Pedido extends Model
         'excluido',
         'acrescimos',
         'link_rastreamento',
-        'pedido_terceiro_id'
+        'pedido_terceiro_id',
+        'data_envio_pedido'
     ];
 
     public function tipoPedido()

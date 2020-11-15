@@ -24,7 +24,7 @@
                 @endif
                 <hr class="m-t-0 m-b-10">
         
-                <form method="POST" action="{{ route('pedido.alterar') }}">
+                <form method="POST" action="{{ route('ecommerce.pedido.obs') }}">
                     {{ csrf_field() }}
                     <input type="hidden" name="idPedido" id="idPedido" value="{{$pedido->id}}">
                     <input type="hidden" name="link" id="link" value="{{$pedido->link_rastreamento}}">
@@ -34,7 +34,7 @@
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('id') ? ' has-error' : '' }}">
                                     <label class="control-label">Número do pedido</label>
-                                    <input type="text" readonly id="id" name="id" value="{{ $pedido->id }}" class="form-control" required >
+                                    <input type="text" readonly id="id" name="id" value="{{ $pedido->id }}" class="form-control"  >
                                     @if ($errors->has('id'))
                                         <br/>    
                                         <span class="help-block text-danger">
@@ -46,7 +46,7 @@
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('previsao_entrega') ? ' has-error' : '' }}">
                                     <label class="control-label">Previsão de Entrega</label>
-                                    <input type="date" readonly  id="previsao_entrega" name="previsao_entrega" value="{{ $pedido->previsao_entrega ? date('Y-m-d', strtotime($pedido->previsao_entrega)) : '' }}" class="form-control" required >
+                                    <input type="date" readonly  id="previsao_entrega" name="previsao_entrega" value="{{ $pedido->previsao_entrega ? date('Y-m-d', strtotime($pedido->previsao_entrega)) : '' }}" class="form-control"  >
                                     @if ($errors->has('previsao_entrega'))
                                         <br/>    
                                         <span class="help-block text-danger">
@@ -137,7 +137,7 @@
                         <div class="col-md-6">
                             <div class="form-group{{ $errors->has('qtd_itens') ? ' has-error' : '' }}">
                                 <label class="control-label">Quantidade Total</label>
-                                <input type="text" readonly id="qtd_itens" name="qtd_itens" value="{{ $pedido->numero_itens }}" class=" money form-control" required >
+                                <input type="text" readonly id="qtd_itens" name="qtd_itens" value="{{ $pedido->numero_itens }}" class=" money form-control"  >
                                 @if ($errors->has('qtd_itens'))
                                     <br/>    
                                     <span class="help-block text-danger">
@@ -149,7 +149,7 @@
                         <div class="col-md-6">
                             <div class="form-group{{ $errors->has('total_pedido') ? ' has-error' : '' }}">
                                 <label class="control-label">Total</label>
-                                <input type="text" readonly id="total_pedido" name="total_pedido" value="{{number_format($pedido->total_pedido, 2, ',', '.')  }}" class=" money form-control" required >
+                                <input type="text" readonly id="total_pedido" name="total_pedido" value="{{number_format($pedido->total_pedido, 2, ',', '.')  }}" class=" money form-control"  >
                                 @if ($errors->has('total_pedido'))
                                     <br/>    
                                     <span class="help-block text-danger">
@@ -178,8 +178,29 @@
                             </table>
                         </div>
                     </div>
+
+                    
+                    <div class="row">
+                        
+                        <div class="col-md-12">
+                            <div class="form-group{{ $errors->has('nova_obs') ? ' has-error' : '' }}">
+                                <label class="control-label">Nova Observação</label>
+                                <input type="text"  id="nova_obs" name="nova_obs"  class="  form-control"  >
+                                @if ($errors->has('nova_obs'))
+                                    <br/>    
+                                    <span class="help-block text-danger">
+                                        <strong>{{ $errors->first('nova_obs') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                            
+                        
+                    </div>
+
                     <div class="row"><br></div> 
                     <div class="form-actions">
+                        <button type="submit" id="buttonSubmit"  class="btn btn-success"> <i class="fa fa-check"></i> @lang('buttons.general.save')</button>
                         <a href="{{ route('ecommerce.pedido') }}" class="btn btn-inverse" style="border-color: black"> @lang('buttons.general.back')</a>
                     </div>
                 </form>

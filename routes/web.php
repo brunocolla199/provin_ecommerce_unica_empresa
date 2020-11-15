@@ -17,7 +17,7 @@ Route::get('home','HomeController@checkLogin')->name('home');
 
 
 Route::get('login',  'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login')->middleware('userInativo');
+Route::post('login', 'Auth\LoginController@login');
 Route::post('logout','Auth\LoginController@logout')->name('logout');
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
@@ -25,7 +25,7 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth','userInativo']], function() {
     
     /** AREA ADMINISTRATIVA */
     Route::group(['middleware' => ['administrativeArea']], function() {
@@ -198,6 +198,8 @@ Route::group(['middleware' => ['auth']], function() {
             Route::group(['prefix' => 'pedido'], function () {
                 Route::get('',              ['as' => 'ecommerce.pedido', 'uses' => 'PedidoEcommerceController@index']);
                 Route::get('detalhe/{id}',   ['as' => 'ecommerce.pedido.detalhe', 'uses' => 'PedidoEcommerceController@detalhe']);
+                Route::post('obs',  ['as' => 'ecommerce.pedido.obs', 'uses' => 'PedidoEcommerceController@novaObs']);    
+                
             });
 
            

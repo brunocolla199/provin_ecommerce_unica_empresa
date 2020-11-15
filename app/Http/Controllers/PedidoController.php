@@ -86,10 +86,11 @@ class PedidoController extends Controller
         $status= $_request->ultStatus;
         $id = $_request->get('idPedido');
         $previsao_entrega = date('Y-m-d',strtotime($_request->get('previsao_entrega')));
+        $nova_obs = $_request->nova_obs ? $_request->nova_obs : '';
 
         $buscaStatus = $this->statusPedidoService->find($_request->ultStatus);
         try {
-            DB::transaction(function () use ($id,$status,$link, $buscaStatus,$previsao_entrega) {
+            DB::transaction(function () use ($id,$status,$link, $buscaStatus,$previsao_entrega,$nova_obs) {
                 $buscaPedido = $this->pedidoService->find($id);
                 $this->pedidoService->update
                 (
@@ -98,6 +99,11 @@ class PedidoController extends Controller
                 if($status != $buscaPedido['status_pedido_id']){
                     $this->obsPedidoService->create($id,"O status do pedido foi alterado para ".$buscaStatus->nome, 0);
                 }
+
+                if($nova_obs != ''){
+                    $this->obsPedidoService->create($id,$nova_obs, 0);
+                }
+
             });
             Helper::setNotify('Pedido atualizado com sucesso!', 'success|check-circle');
             return redirect()->route('pedido');

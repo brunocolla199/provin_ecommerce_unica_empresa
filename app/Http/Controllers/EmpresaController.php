@@ -122,7 +122,8 @@ class EmpresaController extends Controller
             'cpf'                   => ($request->tipo_pessoa == 'F') ?  'required|string|max:14|min:14' : '',
             'cnpj'                  => ($request->tipo_pessoa == 'J') ?  'required|string|max:18|min:18' : '',
             'rg'                    => ($request->tipo_pessoa == 'F') ?  'required|string' : '',
-            'ie'                    => ($request->tipo_pessoa == 'J') ?  'required|string' : '' 
+            'ie'                    => ($request->tipo_pessoa == 'J') ?  'required|string' : '' ,
+            'empresa_terceiro_id'   => 'required|numeric|min:1|max:1000'
         ]);
 
         
@@ -143,7 +144,7 @@ class EmpresaController extends Controller
             'telefone'                               => $request->telefone,
             'cidade_id'                              => $request->cidade_id,
             'tipo_pessoa'                            => $request->tipo_pessoa,
-            'empresa_terceiro_id'                    => $request->empresa_terceiro,
+            'empresa_terceiro_id'                    => $request->empresa_terceiro_id,
             'endereco'                               => $request->endereco,
             'numero'                                 => $request->numero,
             'complemento'                            => $request->complemento,

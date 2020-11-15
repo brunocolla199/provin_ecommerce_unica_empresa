@@ -36,15 +36,15 @@ class PedidoService
         return $this->pedidoRepository->findAll($with,$orderBy);
     }
 
-    public function create($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento, $pedido_terceiro_id = null)
+    public function create($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento, $pedido_terceiro_id = null, $data_envio_pedido = null)
     {
-        $request = self::montaRequest($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento, $pedido_terceiro_id);
+        $request = self::montaRequest($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento, $pedido_terceiro_id, $data_envio_pedido);
         return $this->pedidoRepository->create($request);
     }
 
-    public function update($id,$tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento,$pedido_terceiro_id = null)
+    public function update($id,$tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento,$pedido_terceiro_id = null, $data_envio_pedido =null)
     {
-        $request = self::montaRequest($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento,$pedido_terceiro_id);
+        $request = self::montaRequest($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento,$pedido_terceiro_id, $data_envio_pedido);
         return $this->pedidoRepository->update($request,$id);
     }
 
@@ -66,7 +66,7 @@ class PedidoService
 
 
 
-    public function montaRequest($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento, $pedido_terceiro_id = null)
+    public function montaRequest($tipo_pedido_id,$status_pedido_id,$user_id,$total_pedido,$numero_itens,$previsao_entrega,$acrescimos,$excluido,$link_rastreamento, $pedido_terceiro_id = null, $data_envio_pedido= null)
     {
         return [
             'tipo_pedido_id'    => $tipo_pedido_id,
@@ -78,7 +78,8 @@ class PedidoService
             'acrescimos'        => $acrescimos,
             'link_rastreamento' => $link_rastreamento,
             'excluido'          => $excluido,
-            'pedido_terceiro_id'=> $pedido_terceiro_id
+            'pedido_terceiro_id'=> $pedido_terceiro_id,
+            'data_envio_pedido' => $data_envio_pedido
         ];
     }
 

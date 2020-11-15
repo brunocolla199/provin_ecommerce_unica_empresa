@@ -104,7 +104,7 @@ class WonderServices
             $body = $response->getBody()->getContents();
             $result = json_decode($body);
             
-            return $result;
+            return $result->id;
 
         } catch (RequestException $e) {
             $msg = explode("response:",$e->getMessage());

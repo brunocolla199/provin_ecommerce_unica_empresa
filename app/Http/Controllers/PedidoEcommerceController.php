@@ -123,5 +123,23 @@ class PedidoEcommerceController extends Controller
         return $create;
     }
 
+    public function novaObs(Request $request)
+    {
+        $idPedido = $request->idPedido;
+        $obs      = $request->nova_obs;
+        
+        try {
+            DB::transaction(function () use ($idPedido,$obs) {
+            $this->obsPedidoService->create($idPedido,$obs,0);
+            });
+            Helper::setNotify('Nova observação salva com sucesso!', 'success|check-circle');
+            return redirect()->route('ecommerce.pedido.detalhe', ['id' => $idPedido ]);
+        } catch (\Throwable $th) {
+            Helper::setNotify("Erro ao salvar nova observação", 'danger|close-circle');
+            return redirect()->back()->withInput();
+        }
+        
+    }
+
     
 }

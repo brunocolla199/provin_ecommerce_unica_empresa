@@ -45,7 +45,7 @@
                             </td>
                             <td data-title="{{__('sidebar_and_header.ecommerce.produto')}}">
                                 <a class="d-none d-md-table-cell" href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}"><img style="width: 100px;height: 100px;border-radius: 10px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img6.jpg')}} @endif" alt="Image Description"></a>
-                                <a href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}" class="text-gray-90">{{$item->produto->nome}}</a>
+                                <a href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}" class="text-gray-90">{{$item->produto->produto_terceiro_id}} - {{$item->produto->nome}}</a>
                             </td>
                             
                             <td data-title="Tamanho">

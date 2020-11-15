@@ -210,6 +210,22 @@
                             </table>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group{{ $errors->has('nova_obs') ? ' has-error' : '' }}">
+                                <label class="control-label">Nova Observacao</label>
+                                <input type="text"  id="nova_obs" name="nova_obs"  class="  form-control"  >
+                                <small class="form-control-feedback"> Digite a nova observação. </small> 
+                                @if ($errors->has('nova_obs'))
+                                    <br/>    
+                                    <span class="help-block text-danger">
+                                        <strong>{{ $errors->first('nova_obs') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row"><br></div> 
                     <div class="form-actions">
                         <button type="submit" id="buttonSubmit"  class="btn btn-success"> <i class="fa fa-check"></i> @lang('buttons.general.save')</button>

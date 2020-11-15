@@ -5,6 +5,7 @@ use App\Services\{ProdutoService, PedidoService,ItemPedidoService, SetupService}
 use Illuminate\Support\Facades\Request;
 use App\Classes\WonderServices;
 use App\Classes\Helper;
+use Illuminate\Support\Facades\DB;
 
 class CheckoutEcommerceController extends Controller
 {
@@ -66,15 +67,16 @@ class CheckoutEcommerceController extends Controller
     {
         $buscaPedido = $this->pedidoService->find($id);
         $retorno = $this->wonderService->enviarPedido($id);
-
         if(is_numeric($retorno)){
             try{
                 DB::transaction(function () use ($retorno, $buscaPedido) {
-                    $this->pedidoService->update($buscaPedido->id,$buscaPedido->tipo_pedido_id,$buscaPedido->status_pedido_id,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$buscaPedido->previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$buscaPedido->link_rastreamento,$retorno);
-                    Helper::setNotify('Pedido '.$retorno.' criado com sucesso!', 'success|check-circle');
-                    redirect()->route('ecommerce.produto');
+                    $this->pedidoService->update($buscaPedido->id,$buscaPedido->tipo_pedido_id,2,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$buscaPedido->previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$buscaPedido->link_rastreamento,$retorno, date('Y-m-d H:i:s'));
                 });
+                Helper::setNotify('Pedido '.$retorno.' criado com sucesso!', 'success|check-circle');
+                
+                return redirect()->route('ecommerce.produto');
             } catch (\Throwable $th) {
+                
                 Helper::setNotify("Erro ao salvar o pedido", 'danger|close-circle');
                 return redirect()->back()->withInput();
             }

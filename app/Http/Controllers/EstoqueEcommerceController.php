@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 use App\Services\EstoqueService;
 use Illuminate\Support\Facades\Auth;
+use App\Services\SetupService;
 
 class EstoqueEcommerceController extends Controller
 {
     protected $pedidoService;
     protected $estoqueService;
-
-    protected $grupos;
+    protected $setupService;
 
     
-    public function __construct( EstoqueService $estoque)
+    public function __construct( EstoqueService $estoque, SetupService $setup)
     {
         
         
         $this->estoqueService = $estoque;
-
+        $this->setupService   = $setup;
 
         
     }
@@ -25,7 +25,7 @@ class EstoqueEcommerceController extends Controller
     public function index()
     {
 
-
+        $setup = $this->setupService->find(1);
 
         $produtos = $this->estoqueService->findBy(
             [
@@ -35,7 +35,8 @@ class EstoqueEcommerceController extends Controller
         );
 
         return view('ecommerce.estoque.index', [
-            'produtos'     => $produtos
+            'produtos'       => $produtos,
+            'caminho_imagem' => $setup['caminho_imagen_produto']
         ]);
 
     }

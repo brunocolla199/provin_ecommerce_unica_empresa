@@ -74,7 +74,8 @@ class ProdutoEcommerceController extends Controller
 
         $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1);
         if($request->has('searchProduct')){
-            $produtos = $produtos->where('nome','ilike','%' . $request->query('searchProduct') . '%');
+            $produtos = $produtos->where('nome','ilike','%' . $request->query('searchProduct') . '%')
+            ->orwhere('produto_terceiro_id','ilike','%' . $request->query('searchProduct') . '%');
         }
 
         if($request->has('rangeMaximo') && $request->has('rangeMinimo')){

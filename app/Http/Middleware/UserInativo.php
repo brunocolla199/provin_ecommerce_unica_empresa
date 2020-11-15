@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserInativo
 {
@@ -17,7 +18,7 @@ class UserInativo
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = User::where("email","=",$request->email)->first();
+        $user = Auth::user();
        
         if( $user->inativo == 0) {
             return $next($request);

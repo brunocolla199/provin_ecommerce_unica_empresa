@@ -255,7 +255,21 @@
                                 </div>
                             </div>  
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('empresa_terceiro_id') ? ' has-error' : '' }}">
+                                    <label class="control-label">Código Empresa Sistema Terceiro</label>
+                                    <input type="number" min="1" max="1000" id="empresa_terceiro_id" name="empresa_terceiro_id" value="{{ old('empresa_terceiro_id') }}" class="form-control " required>
+                                    <small class="form-control-feedback"> Digite o código da empresa no sistema de terceiros. </small> 
 
+                                    @if ($errors->has('empresa_terceiro_id'))
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('empresa_terceiro_id') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                         
 
                     </div>
