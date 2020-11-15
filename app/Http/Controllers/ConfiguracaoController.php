@@ -256,4 +256,14 @@ class ConfiguracaoController extends Controller
 
         return $produto;
     }
+
+    public function importWebService()
+    {
+
+    }
+
+    public function atualizarEstoqueFranquia()
+    {
+        
+    }
 }

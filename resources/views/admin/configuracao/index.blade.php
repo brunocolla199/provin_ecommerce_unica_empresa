@@ -275,7 +275,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <legend>Importação</legend>
+                        <legend>Importação via Arquivo</legend>
                         <hr class="m-t-0 m-b-10">
                     </div>
                 </div>
@@ -301,6 +301,41 @@
                                     <button type="submit" class="btn btn-info " >Importar</button>
                                 </div>
                             </form>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <legend>Importação via Web Service</legend>
+                        <hr class="m-t-0 m-b-10">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <form method="POST" action="{{ route('configuracao.importarWebService') }}" name="arquivoImportacao" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Importação Produtos para Recompra</label><br>
+                                    <button type="submit" class="btn btn-info " >Importar</button>
+                                    
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <form method="POST" action="{{ route('configuracao.atualizarEstoqueFranquia') }}" name="arquivoImportacao" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Atualização Estoque da Franquiada</label><br>
+                                    <button type="submit" class="btn btn-info " >Atualizar</button>
+                                    
+                                </div>
+                            </div>
+                            
+                        </form>
                     </div>
                 </div>
 
