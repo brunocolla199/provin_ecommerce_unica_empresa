@@ -37,10 +37,10 @@ class CheckoutEcommerceController extends Controller
 
         $ultimoPedido = $this->pedidoService->buscaUltimoPedidoNormalProcessado();
         
-        $dataProximaLiberacao = $ultimoPedido->count() > 0? date ('Y-m-d h:i:s',strtotime('+'.$setup->tempo_liberacao_pedido.' days', strtotime($ultimoPedido[0]['created_at']))) : date('Y-m-d h:i:s');
+        $dataProximaLiberacao = $ultimoPedido->count() > 0? date ('Y-m-d h:i:s',strtotime('+'.$setup->tempo_liberacao_pedido.' days', strtotime($ultimoPedido[0]['data_envio_pedido']))) : date('Y-m-d h:i:s');
         
         if(strtotime($dataProximaLiberacao) - strtotime(date('Y-m-d H:i:s')) > 0 && $pedido->tipo_pedido_id == 2){
-            Helper::setNotify("Pedido não esta liberado.", 'danger|close-circle');
+            Helper::setNotify("O Pedido não esta liberado.", 'danger|close-circle');
             return redirect()->back()->withInput();
         }
         
