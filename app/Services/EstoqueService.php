@@ -48,4 +48,6 @@ class EstoqueService
         return $this->findBy($where, $with)->first();
     }
 
+    
+
 }

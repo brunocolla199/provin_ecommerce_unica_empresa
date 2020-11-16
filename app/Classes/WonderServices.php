@@ -167,40 +167,7 @@ class WonderServices
         return $request;
     }
 
-    public function consultaEstoque($empresa_id,$id_produto)
-    {
-        $buscaEmpresa = $this->empresaService->find($empresa_id);
-
-        $this->usuarioWebService = $buscaEmpresa->usuario_sistema_terceiros;
-        $this->senhaWebService   = $buscaEmpresa->senha_sistema_terceiros;
-
-        self::login();
-        try {
-            $this->HTTP_CLIENT = new Client(
-                [
-                    'headers' => [
-                        'content-type'  => 'application/json',
-                        'authorization' => $this->token    
-                    ]
-                ]
-            );
-        
-            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/produtos/'.$id_produto.'/estoque';
-            
-            $response = $this->HTTP_CLIENT->get($url);
-            dd($response);
-            $body = $response->getBody()->getContents();
-            $result = json_decode($body);
-            dd($result);
-        } catch (RequestException $e) {
-            dd($e);
-            return ['error' => true, 'response' => $e->getMessage()];
-        }
-
-    }
-
-
-    public function consultaProduto($inicio, $fim)
+    public function consultaProduto($empresa)
     {
 
         $this->usuarioWebService = $this->buscaSetup->usuario_sistema_terceiros;
@@ -218,15 +185,15 @@ class WonderServices
                 ]
             );
         
-            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/produtos?first='.$inicio.'&max='.$fim;
+            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/produtos?empresa='.$empresa.'&first=1&max=10';
             
             $response = $this->HTTP_CLIENT->get($url);
-            dd($response);
+            
             $body = $response->getBody()->getContents();
-            $result = json_decode($body);
-            dd($result);
+            return json_decode($body);
+               
         } catch (RequestException $e) {
-            dd($e);
+            
             return ['error' => true, 'response' => $e->getMessage()];
         }
     }

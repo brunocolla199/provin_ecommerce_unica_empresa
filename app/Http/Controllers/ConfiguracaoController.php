@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\{Validator, DB};
 use function GuzzleHttp\json_encode;
 use App\Services\GrupoProdutoService;
 use App\Services\ProdutoService;
+use App\Services\EmpresaService;
+use App\Classes\WonderServices;
+use App\Services\EstoqueService;
 
 class ConfiguracaoController extends Controller
 {
@@ -16,13 +19,19 @@ class ConfiguracaoController extends Controller
     protected $setupService;
     protected $grupoService;
     protected $produtoService;
+    protected $empresaService;
+    protected $wonderService;
+    protected $estoqueService;
 
-    public function __construct(SetupService $setup, GrupoProdutoService $grupoProduto, ProdutoService $produto)
+    public function __construct(SetupService $setup, GrupoProdutoService $grupoProduto, ProdutoService $produto, EmpresaService $empresaService, WonderServices $wonderService, EstoqueService $estoqueService)
     {
         $this->middleware('auth');
         $this->setupService = $setup;
         $this->grupoService = $grupoProduto;
         $this->produtoService = $produto;
+        $this->empresaService = $empresaService;
+        $this->wonderService = $wonderService;
+        $this->estoqueService = $estoqueService;
     }
     
     public function index()
@@ -129,25 +138,8 @@ class ConfiguracaoController extends Controller
         try {
             if ($request->importacao_produto)
             {
-                //busca produtos que q estejam ativos cadastrados
-                $produtosAtivos = $this->produtoService->findBy(
-                    [
-                        [
-                            'inativo', '=' , 0
-                        ]
-                    ]
-                );
-
-                DB::transaction(function () use ($produtosAtivos) {
-                    //Inativa todos os produtos
-                    foreach ($produtosAtivos as $key => $valueProdutosAtivos) {
-                       
-
-                        $this->produtoService->update(
-                            ['inativo'=>'1'],
-                            $valueProdutosAtivos->id
-                        );
-                    }
+                DB::transaction(function () {
+                    $this->produtoService->inativarTodosProdutos();
 
                     $arquivo = $_FILES['importacao_produto'];
                     $file = fopen($arquivo['tmp_name'], 'r');
@@ -171,7 +163,7 @@ class ConfiguracaoController extends Controller
 
                             
                             if($codigo != '' && !empty($codigo)){
-                                self::processaImportacao($codigo,$variacao,$preco,$peso,$grupo,$descricao,$estoque);
+                                $this->produtoService->processaImportacao($codigo,$variacao,$preco,$peso,$grupo,$descricao,$estoque,0);
                             }
                     } 
                     
@@ -188,82 +180,86 @@ class ConfiguracaoController extends Controller
         }
     }
 
-    public function processaImportacao($codigo,$variacao,$preco,$peso,$grupo,$descricao,$estoque)
-    {
-        
-        //Verifica Existencia do grupo
-        $buscaGrupo = $this->grupoService->findBy(
-            [
-                ['nome','=',$grupo]
-            ],
-        );
-        
-        if(!empty($buscaGrupo[0])){
-            $idGrupo = $buscaGrupo[0]->id;
-        }else{
-            //cadastra
-            $retornoCreateGrupo = $this->grupoService->create(
-                [
-                'nome'    =>$grupo,
-                'inativo' => 0
-                ]
-            );
-            $idGrupo = $retornoCreateGrupo->id;
-        }
-
-        //verifica Existencia do produto
-        $buscaProduto = $this->produtoService->findBy(
-            [
-                ['produto_terceiro_id','=',$codigo]
-            ],
-        );
-
-        if(!empty($buscaProduto[0])){
-            //ativa produto
-            $update = self::montaRequestImportProduto($codigo,$variacao,$preco,$peso,$idGrupo,$descricao,$estoque);
-            
-            $this->produtoService->update(
-                $update,
-                $buscaProduto[0]->id
-            );
-        }else{
-            
-            //cadastra produto
-            $cadastro = self::montaRequestImportProduto($codigo,$variacao,$preco,$peso,$idGrupo,$descricao,$estoque);
-            
-            $retornoCreateProduto = $this->produtoService->create(
-               $cadastro
-            );
-            
-        }
-
-
-    }
-
-    public function montaRequestImportProduto($codigo,$variacao,$preco,$peso,$idGrupo,$descricao,$estoque)
-    {
-        $produto = [
-            'nome'               => $descricao,
-            'produto_terceiro_id'=> $codigo,
-            'inativo'            => 0,
-            'grupo_produto_id'   => $idGrupo,
-            'variacao'           => $variacao ?? 0,
-            'peso'               => $peso ?? 0,
-            'quantidade_estoque' => $estoque,
-            'valor'              => str_replace(',','.',$preco),
-            'tamanho'            => ''
-        ];
-
-        return $produto;
-    }
+    
 
     public function importWebService()
     {
-
+        //feito fixo temporariamente info vai vir do setup
+        $empresaPadrao = 10;
+        try {
+            DB::transaction(function () use ($empresaPadrao) {
+                $this->produtoService->inativarTodosProdutos();
+                $produtos = $this->wonderService->consultaProduto($empresaPadrao);
+            
+                foreach ($produtos as $key => $valueProdutos) {
+                    $this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$valueProdutos->descricaocategoria,$valueProdutos->descricao,$valueProdutos->qtddisponivel,1);            
+                }
+            });
+            Helper::setNotify('Produtos atualozados com sucesso!', 'success|check-circle');
+            return redirect()->back()->withInput();
+        } catch (\Throwable $th) {
+            dd($th);
+            Helper::setNotify("Erro ao atualizar os produtos", 'danger|close-circle');
+            return redirect()->back()->withInput();
+        }
+        
     }
 
     public function atualizarEstoqueFranquia()
     {
+        try {
+            $buscaEmpresas = $this->empresaService->findBy(
+                [
+                    ['inativo','=',0],
+                    ['empresa_terceiro_id','!=',0,"AND"]
+                ]
+            );
+            
+            foreach ($buscaEmpresas as $key => $value) {
+               $produtos = $this->wonderService->consultaProduto($value->empresa_terceiro_id);
+    
+               foreach ($produtos as $key => $valueProdutos) {
+                   
+                    DB::transaction(function () use ($valueProdutos, $value) {
+                        $this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$valueProdutos->descricaocategoria,$valueProdutos->descricao,0,1);
+                        
+                        $buscaProdutoInterno = $this->produtoService->findOneBy(
+                            [
+                                ['produto_terceiro_id','=',$valueProdutos->codigo]
+                            ]
+                        );
+                        $buscaEstoque = $this->estoqueService->findBy(
+                            [
+                                ['empresa_id','=',$value->empresa_terceiro_id],
+                                ['produto_id','=',$buscaProdutoInterno->id,"AND"]
+                            ]
+                        );
+                        if($buscaEstoque->count() > 0){
+                            $this->estoqueService->update(
+                                ['quantidade_estoque' => $valueProdutos->qtddisponivel],
+                                $buscaEstoque->id
+                            );
+                        }else{
+                            $this->estoqueService->create(
+                                [
+                                    'empresa_id'  => $value->id,
+                                    'produto_id'  => $buscaProdutoInterno->id ,
+                                    'quantidade_estoque' => $valueProdutos->qtddisponivel
+                                ]
+                            );
+                        }
+                        
+                    });
+                    
+               }
+            }
+            Helper::setNotify('Estoque atualizado com sucesso!', 'success|check-circle');
+            return redirect()->back()->withInput();
+        } catch (\Throwable $th) {
+            dd($th);
+            Helper::setNotify("Erro ao atualizar os estoques", 'danger|close-circle');
+            return redirect()->back()->withInput();
+        }
         
     }
 }

@@ -168,11 +168,11 @@ Route::group(['middleware' => ['auth','userInativo']], function() {
                 * CONFIGURACAO
                 */
                 Route::group(['prefix' => 'configuracao'], function () {
-                    Route::get('',                  ['as' => 'configuracao',                 'uses'  => 'ConfiguracaoController@index']);
-                    Route::post('alterar',          ['as' => 'configuracao.alterar',         'uses'  => 'ConfiguracaoController@update']);
-                    Route::post('importar',         ['as' => 'configuracao.importar',        'uses'  => 'ConfiguracaoController@import']);
+                    Route::get('',                            ['as' => 'configuracao',                 'uses'  => 'ConfiguracaoController@index']);
+                    Route::post('alterar',                    ['as' => 'configuracao.alterar',         'uses'  => 'ConfiguracaoController@update']);
+                    Route::post('importar',                   ['as' => 'configuracao.importar',        'uses'  => 'ConfiguracaoController@import']);
                     Route::post('importarWebService',         ['as' => 'configuracao.importarWebService',        'uses'  => 'ConfiguracaoController@importWebService']);
-                    Route::post('atualizarEstoqueFranquia',         ['as' => 'configuracao.atualizarEstoqueFranquia',        'uses'  => 'ConfiguracaoController@atualizarEstoqueFranquia']);
+                    Route::post('atualizarEstoqueFranquia',   ['as' => 'configuracao.atualizarEstoqueFranquia',        'uses'  => 'ConfiguracaoController@atualizarEstoqueFranquia']);
                     
                 });
             });    
