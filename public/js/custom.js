@@ -159,6 +159,16 @@ function swal2_alert_error_support(text) {
     });
 }
 
+function swal2_alert_error_not_support(text) {
+    swal({
+        title: "Ops!",   
+        text: text ,
+        type: "warning"
+    }, function(){   
+        
+    });
+}
+
 /**
  * Error Message and not Page Reload
  */

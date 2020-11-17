@@ -211,10 +211,11 @@ class ConfiguracaoController extends Controller
             $buscaEmpresas = $this->empresaService->findBy(
                 [
                     ['inativo','=',0],
-                    ['empresa_terceiro_id','!=',0,"AND"]
+                    ['empresa_terceiro_id','!=',0,"AND"],
+                    ['empresa_terceiro_id','!=',null,"AND"]
                 ]
             );
-            
+
             foreach ($buscaEmpresas as $key => $value) {
                $produtos = $this->wonderService->consultaProduto($value->empresa_terceiro_id);
     

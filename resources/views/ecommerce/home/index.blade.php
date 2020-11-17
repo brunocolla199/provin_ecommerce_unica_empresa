@@ -147,7 +147,7 @@
     let pedidoLiberado = swal2_alert_question("Pedido Liberado","Deseja acessa-lo ?","Sim!");
     pedidoLiberado.then(resolvedValue => {
       if(!$('#pedidoNormal').val()){
-        swal2_alert_error_support("O carrinho esta vazio.");
+        swal2_alert_error_not_support("O carrinho esta vazio.");
       }else{
         let rota = "../ecommerce/carrinho/detalhe/"+$('#pedidoNormal').val();
         window.location = rota;

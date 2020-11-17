@@ -312,26 +312,31 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-6">
-                        <form method="POST" action="{{ route('configuracao.importarWebService') }}" name="arquivoImportacao" enctype="multipart/form-data">
+                        <form method="POST" id="atualizaProduto"  name="atualizaProduto" >
                             {{ csrf_field() }}
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Importação Produtos para Recompra</label><br>
-                                    <button type="submit" class="btn btn-info " >Importar</button>
-                                    
+                                    <button type="submit" id="btn-atualizaProduto" class="btn btn-info " >
+                                        <span  id="spinerBtnRecompra" role="status" aria-hidden="true"></span>
+                                        Importar
+                                    </button>
                                 </div>
                             </div>
                             
                         </form>
                     </div>
                     <div class="col-md-6">
-                        <form method="POST" action="{{ route('configuracao.atualizarEstoqueFranquia') }}" name="arquivoImportacao" enctype="multipart/form-data">
+                        <form method="POST" id="atualizacaoEstoqueFranquia" name="atualizacaoEstoqueFranquia" >
                             {{ csrf_field() }}
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Atualização Estoque da Franquiada</label><br>
-                                    <button type="submit" class="btn btn-info " >Atualizar</button>
                                     
+                                    <button class="btn btn-info" id="btn-atualizaFranquia" type="submit" >
+                                        <span  id="spinerBtn" role="status" aria-hidden="true"></span>
+                                        Atualizar
+                                    </button>
                                 </div>
                             </div>
                             
@@ -347,7 +352,7 @@
 
 @section('footer')
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    
     <script>
         $(document).ready(function(){
 
@@ -358,6 +363,24 @@
             $("#logo_sistema").change(function(){
                 readURL(this, 'img_logo_sistema');
             });
+
+            $('#btn-atualizaFranquia').on('click',function(){
+                $(this).attr('disabled',true);
+                $('#spinerBtn').attr('class','spinner-border spinner-border-sm');
+
+                document.atualizacaoEstoqueFranquia.action = '{{ route('configuracao.atualizarEstoqueFranquia') }}'
+                $('#atualizacaoEstoqueFranquia').submit();
+            });
+
+            $('#btn-atualizaProduto').on('click',function(){
+                $(this).attr('disabled',true);
+                $('#spinerBtnRecompra').attr('class','spinner-border spinner-border-sm');
+                
+                document.atualizaProduto.action = '{{ route('configuracao.importarWebService') }}'
+                $('#atualizaProduto').submit();
+            });
+
+
         });
 
         function readURL(input, id) {

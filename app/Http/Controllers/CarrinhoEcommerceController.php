@@ -49,6 +49,7 @@ class CarrinhoEcommerceController extends Controller
         if($itens->count() == 0){
             Helper::setNotify("O carrinho esta vazio.", 'danger|close-circle');
             return redirect()->route('ecommerce.produto');
+            
         }
         
         return view('ecommerce.carrinho.index',

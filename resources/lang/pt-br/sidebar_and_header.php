@@ -78,6 +78,7 @@ return [
 
 
     'ecommerce'         => [
+        'menu'          => 'Menu',
         'pages'         => 'Páginas',
         'product'       => 'Produtos',
         'search_for_product' => 'Buscar por produtos',

@@ -241,7 +241,7 @@
                                                                 <!-- Home Section -->
                                                                 <li class="u-has-submenu u-header-collapse__submenu">
                                                                     <a class="u-header-collapse__nav-link u-header-collapse__nav-pointer" href="javascript:;" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="headerSidebarHomeCollapse" data-target="#headerSidebarHomeCollapse">
-                                                                        {{__('sidebar_and_header.ecommerce.pages')}}
+                                                                        {{__('sidebar_and_header.ecommerce.menu')}}
                                                                     </a>
     
                                                                     <div id="headerSidebarHomeCollapse" class="collapse" data-parent="#headerSidebarContent">
@@ -255,7 +255,7 @@
                                                                 </li>
 
                                                                 <li>
-                                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" >
+                                                                <form id="logout-form" style="margin-left:-10px" action="{{ route('logout') }}" method="POST" >
                                                                     @csrf
                                                                     <button type="submit" class="dropdown-item active">Sair</button>
                                                                 </form>
