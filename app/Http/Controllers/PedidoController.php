@@ -36,13 +36,24 @@ class PedidoController extends Controller
             [
             'excluido','=',0
             ],
-            ['status_pedido_id','<>',1]
+            ['status_pedido_id','<>',1,"AND"]
         ],[],
         [
             ['status_pedido_id','asc']
         ]
         );
-        return view('admin.pedido.index', compact('pedidos'));
+
+        $pedidoParaHoje = $this->pedidoService->findBy(
+            [
+                [
+                    'excluido','=',0
+                ],
+                ['status_pedido_id','<>',1,"AND"],
+                ['previsao_entrega','=',date('Y-m-d'),"AND"]
+            ]
+        )->count();
+
+        return view('admin.pedido.index', compact('pedidos', 'pedidoParaHoje'));
 
     }
 

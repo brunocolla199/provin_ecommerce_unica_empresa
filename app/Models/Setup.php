@@ -25,6 +25,7 @@ class Setup extends Model
         'usuario_sistema_terceiros',
         'senha_sistema_terceiros',
         'telefone_proprietaria',
-        'email_proprietaria'
+        'email_proprietaria',
+        'empresa_default_sistema_terceiros'
     ];
 }

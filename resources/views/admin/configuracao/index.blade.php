@@ -219,6 +219,22 @@
                             </div>
                         </div>
                         <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group{{ $errors->has('empresa_default_sistema_terceiros') ? ' has-error' : '' }}">
+                                        <label class="control-label">Empresa padrão sitema de terceiros</label>
+                                        <input type="text"  id="empresa_default_sistema_terceiros" name="empresa_default_sistema_terceiros" value="{{ $configuracao->empresa_default_sistema_terceiros }}" class="form-control integer" required autofocus>
+                                        <small class="form-control-feedback"> Digite o usuário para acessar o sistema de terceiros. </small> 
+
+                                        @if ($errors->has('empresa_default_sistema_terceiros'))
+                                            <br/>    
+                                            <span class="help-block text-danger">
+                                                <strong>{{ $errors->first('empresa_default_sistema_terceiros') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('link_sistema_terceiros') ? ' has-error' : '' }}">
                                     <label class="control-label">Link de acesso ao sitema de terceiros</label>

@@ -70,14 +70,16 @@ class CarrinhoEcommerceController extends Controller
 
         $buscaItem = $this->itemPedidoService->find($id);
 
-        $verificaEstoque = $this->produtoService->verificaEstoque($buscaItem->produto->id,$qtd);
-        if(!$verificaEstoque){
-            return response()->json([
-                'response' => 'erro',
-                'msg'      => 'Estoque insuficiente.'
-            ]);
+        if($qtd > $buscaItem->quantidade){
+            $verificaEstoque = $this->produtoService->verificaEstoque($buscaItem->produto->id,$qtd);
+            if(!$verificaEstoque){
+                return response()->json([
+                    'response' => 'erro',
+                    'msg'      => 'Estoque insuficiente.'
+                ]);
+            }
         }
-
+        
         try {
             DB::transaction(function () use ($buscaItem,$id,$qtd,$tamanho) {
                 $this->itemPedidoService->update($id,$buscaItem['pedido_id'],$buscaItem['produto_id'],$qtd,$buscaItem['valor_unitario'],$buscaItem['valor_total'],$tamanho);

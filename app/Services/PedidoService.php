@@ -153,10 +153,11 @@ class PedidoService
                 ['excluido','=',0],
                 ['status_pedido_id','>',1,"AND"],
                 ['status_pedido_id','!=',6,"AND"],
+                ['pedido_terceiro_id','!=',null,"AND"],
                 ['user_id','',$usuariosIn,"IN"]
             ],[],
             [
-                ['created_at','desc']
+                ['pedido_terceiro_id','desc']
             ],[],
             [1]
         );

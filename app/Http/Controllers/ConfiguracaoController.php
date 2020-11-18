@@ -84,7 +84,8 @@ class ConfiguracaoController extends Controller
             'usuario_sistema_terceiros'    => 'required|string',
             'senha_sistema_terceiros'      => 'required|string',
             'telefone_proprietaria'        => 'required|string',
-            'email_proprietaria'           => 'required|email:rfc,dns'
+            'email_proprietaria'           => 'required|email:rfc,dns',
+            'empresa_default_sistema_terceiros' => 'required|string'
             
 
         ]);
@@ -111,7 +112,8 @@ class ConfiguracaoController extends Controller
             'usuario_sistema_terceiros'             => $request->usuario_sistema_terceiros,
             'senha_sistema_terceiros'               => $request->senha_sistema_terceiros,
             'telefone_proprietaria'                 => $request->telefone_proprietaria,
-            'email_proprietaria'                    => $request->email_proprietaria
+            'email_proprietaria'                    => $request->email_proprietaria,
+            'empresa_default_sistema_terceiros'     => $request->empresa_default_sistema_terceiros
         ];
 
         if ($request->logo_login) {
@@ -185,7 +187,7 @@ class ConfiguracaoController extends Controller
     public function importWebService()
     {
         //feito fixo temporariamente info vai vir do setup
-        $empresaPadrao = 10;
+        $empresaPadrao = $this->setupService->find(1)->empresa_default_sistema_terceiros;
         try {
             DB::transaction(function () use ($empresaPadrao) {
                 $this->produtoService->inativarTodosProdutos();

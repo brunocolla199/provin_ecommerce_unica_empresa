@@ -72,7 +72,7 @@ class CheckoutEcommerceController extends Controller
                 DB::transaction(function () use ($retorno, $buscaPedido) {
                     $this->pedidoService->update($buscaPedido->id,$buscaPedido->tipo_pedido_id,2,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$buscaPedido->previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$buscaPedido->link_rastreamento,$retorno, date('Y-m-d H:i:s'));
                 });
-                Helper::setNotify('Pedido '.$retorno.' criado com sucesso!', 'success|check-circle');
+                Helper::setNotify('Pedido '.$buscaPedido->id.' criado com sucesso!', 'success|check-circle');
                 
                 return redirect()->route('ecommerce.produto');
             } catch (\Throwable $th) {
