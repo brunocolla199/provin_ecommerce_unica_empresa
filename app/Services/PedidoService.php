@@ -113,17 +113,7 @@ class PedidoService
 
     public function buscaPedidoCarrinho($tipo_pedido)
     {
-        $empresa = Auth::user()->empresa_id;
-        $buscaUsuario = $this->userService->findBy(
-            [
-                ['empresa_id','=',$empresa]
-            ]
-        );
-
-        $usuariosIn = [];
-        foreach ($buscaUsuario as $key => $value) {
-            array_push($usuariosIn,$value->id);
-        }
+        $usuariosIn = $this->userService->buscaUsuariosMesmaEmpresa();
     
         return $this->pedidoRepository->findBy(
             [
@@ -137,17 +127,7 @@ class PedidoService
 
     public function buscaUltimoPedidoNormalProcessado()
     {
-        $empresa = Auth::user()->empresa_id;
-        $buscaUsuario = $this->userService->findBy(
-            [
-                ['empresa_id','=',$empresa]
-            ]
-        );
-
-        $usuariosIn = [];
-        foreach ($buscaUsuario as $key => $value) {
-            array_push($usuariosIn,$value->id);
-        }
+        $usuariosIn = $this->userService->buscaUsuariosMesmaEmpresa();
         return $this->pedidoRepository->findBy(
             [
                 ['excluido','=',0],

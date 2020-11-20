@@ -11,6 +11,7 @@ use App\Services\ItemPedidoService;
 use App\Services\ObsPedidoService;
 use App\Services\StatusPedidoService;
 use App\Services\SetupService;
+use App\Services\UserService;
 
 class PedidoEcommerceController extends Controller
 {
@@ -21,9 +22,10 @@ class PedidoEcommerceController extends Controller
     protected $obsPedidoService;
     protected $statusPedidoService;
     protected $setupService;
+    protected $userService;
 
 
-    public function __construct(PedidoService $pedido, ItemPedidoService $itemPedido, ObsPedidoService $obsPedido, StatusPedidoService $statusPedido, SetupService $setup)
+    public function __construct(UserService $userService, PedidoService $pedido, ItemPedidoService $itemPedido, ObsPedidoService $obsPedido, StatusPedidoService $statusPedido, SetupService $setup)
     {
         $this->middleware('auth');
         $this->pedidoService = $pedido;
@@ -31,21 +33,19 @@ class PedidoEcommerceController extends Controller
         $this->obsPedidoService = $obsPedido;
         $this->statusPedidoService = $statusPedido;
         $this->setupService = $setup;
-
-        
-
-       
-
+        $this->userService = $userService;
+    
     }
 
     public function index(){
 
+        $usuariosIn = $this->userService->buscaUsuariosMesmaEmpresa();
+        
         $pedidos = $this->pedidoService->findBy(
             [
-                [
-                'excluido','=',0
-                ],
-                ['status_pedido_id','!=',1]
+                ['excluido','=',0],
+                ['status_pedido_id','!=',1,"AND"],
+                ['user_id','',$usuariosIn,"IN"]
             ],[],
             [
                 [
@@ -53,8 +53,6 @@ class PedidoEcommerceController extends Controller
                 ]
             ]
         );
-
-       
 
         return view('ecommerce.pedido.index', [
             'pedidos' => $pedidos,

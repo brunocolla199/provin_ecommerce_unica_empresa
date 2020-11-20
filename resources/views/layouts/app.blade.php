@@ -55,8 +55,6 @@
                 array_push($usuariosIn,$value->id);
             }
 
-
-
             $buscaUltimoPedidoNormalProcessado = \App\Models\Pedido::where('excluido','=',0)
                     ->where('status_pedido_id','>',1)
                     ->where('status_pedido_id','!=',6)

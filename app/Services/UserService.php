@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
 
 class UserService 
 {
@@ -46,5 +47,21 @@ class UserService
     public function findOneBy(array $where, array $with = [])
     {
         return $this->findBy($where, $with)->first();
+    }
+
+    public function buscaUsuariosMesmaEmpresa()
+    {
+        $empresa = Auth::user()->empresa_id;
+        $buscaUsuario = self::findBy(
+            [
+                ['empresa_id','=',$empresa]
+            ]
+        );
+
+        $usuariosIn = [];
+        foreach ($buscaUsuario as $key => $value) {
+            array_push($usuariosIn,$value->id);
+        }
+        return $usuariosIn;
     }
 }
