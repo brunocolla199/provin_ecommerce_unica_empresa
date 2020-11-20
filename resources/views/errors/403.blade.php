@@ -42,7 +42,7 @@
                         
                         <h3 style="display: flex; justify-content: center" class=" m-t-30 m-b-30">VOCÊ NÃO TEM PERMISSÃO PARA ACESSAR ESSA PÁGINA.</h3>
                         <div class="row" style="display: flex;justify-content: center">
-                            <a  href="{{ route('home') }}" class="btn btn-primary btn-rounded waves-effect waves-light m-b-40 ">Página inicial</a> </div>
+                            <a  href="javascript:history.back()" class="btn btn-primary btn-rounded waves-effect waves-light m-b-40 ">Página inicial</a> </div>
                         </div>
                         <footer class="footer text-center">© {{ date('Y') }} - {{ env('APP_PUBLISHER') }}.</footer>
                     </div>

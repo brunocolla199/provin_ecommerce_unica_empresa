@@ -200,7 +200,7 @@ Route::group(['middleware' => ['auth','userInativo']], function() {
 
             Route::group(['prefix' => 'pedido'], function () {
                 Route::get('',              ['as' => 'ecommerce.pedido', 'uses' => 'PedidoEcommerceController@index']);
-                Route::get('detalhe/{id}',   ['as' => 'ecommerce.pedido.detalhe', 'uses' => 'PedidoEcommerceController@detalhe']);
+                Route::get('detalhe/{id}',   ['as' => 'ecommerce.pedido.detalhe', 'uses' => 'PedidoEcommerceController@detalhe'])->middleware('carrinhoEmpresa');
                 Route::post('obs',  ['as' => 'ecommerce.pedido.obs', 'uses' => 'PedidoEcommerceController@novaObs']);    
                 
             });
