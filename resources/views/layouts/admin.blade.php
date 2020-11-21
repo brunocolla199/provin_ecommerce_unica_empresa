@@ -514,7 +514,7 @@
                 <div class="bg-gray-14 py-2 mt-5">
                     <div class="container">
                         <div class="flex-center-between d-block d-md-flex">
-                            <div class="mb-3 mb-md-0">© <a href="#" class="font-weight-bold text-gray-90">CEU Sistemas </a> - Todos Direitos Reservados</div>
+                            <div class="mb-3 mb-md-0 font-size-12">© <a href="#" class="font-weight-bold text-gray-90">CEU Sistemas </a> - Todos Direitos Reservados</div>
                             <div class="text-md-right">
                                 
                             </div>
