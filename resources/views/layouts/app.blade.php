@@ -85,7 +85,7 @@
         <input type="hidden" name="pedidoNormal" id="pedidoNormal" value="{{$pedidoNormal->count() > 0 ? $pedidoNormal[0]->id : ''}}">
         <input type="hidden" name="proximaLiberacao" id="proximaLiberacao" value="{{$dataProximaLiberacao}}">
             <!-- ========== HEADER ========== -->
-            <header id="header" class="u-header u-header-left-aligned-nav">
+            <header id="header" class="u-header u-header-left-aligned-nav" >
                 <div class="u-header__section">
                     
     
@@ -725,7 +725,7 @@
                 <div class="bg-gray-14 py-2">
                     <div class="container">
                         <div class="flex-center-between d-block d-md-flex">
-                            <div class="mb-3 mb-md-0">© <a href="#" class="font-weight-bold text-gray-90">Ceu Sistemas</a> - Todos Direitos Reservados</div>
+                            <div class="mb-3 mb-md-0 font-size-12">© <a href="#" class="font-weight-bold text-gray-90">Ceu Sistemas</a> - Todos Direitos Reservados</div>
                             <!--<div class="text-md-right">
                                 <span class="d-inline-block bg-white border rounded p-1">
                                     <img class="max-width-5" src="{{asset('ecommerce/assets/img/100X60/img1.jpg')}}" alt="Image Description">
