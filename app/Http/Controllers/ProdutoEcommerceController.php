@@ -13,6 +13,7 @@ use App\Services\SetupService;
 use App\Services\CarrinhoService;
 use Illuminate\Support\Facades\Auth;
 use function GuzzleHttp\json_decode;
+use App\Services\PedidoService;
 
 class ProdutoEcommerceController extends Controller
 {
@@ -20,6 +21,7 @@ class ProdutoEcommerceController extends Controller
     protected $produtoService;
     protected $setupService;
     protected $carrinhoService;
+    protected $pedidoService;
 
     protected $itemPedidoService;
     protected $userService;
@@ -31,7 +33,7 @@ class ProdutoEcommerceController extends Controller
     public $caminhoImagens;
     public $tamanhosStr;
 
-    public function __construct(GrupoProdutoService $grupoProduto, ProdutoService $produto, SetupService $setup, ItemPedidoService $itemPedidoService, UserService $userService, CarrinhoService $carrinho)
+    public function __construct(GrupoProdutoService $grupoProduto, ProdutoService $produto, SetupService $setup, ItemPedidoService $itemPedidoService, UserService $userService, CarrinhoService $carrinho, PedidoService $pedidoService)
     {
         $this->middleware('auth');
         $this->grupoProdutoService = $grupoProduto;
@@ -40,6 +42,7 @@ class ProdutoEcommerceController extends Controller
         $this->itemPedidoService = $itemPedidoService;
         $this->userService = $userService;
         $this->carrinhoService = $carrinho;
+        $this->pedidoService = $pedidoService;
 
         $this->grupos = $this->grupoProdutoService->findBy([
             [
@@ -49,7 +52,7 @@ class ProdutoEcommerceController extends Controller
 
         $setup= $this->setupService->find(1);
 
-        
+       
 
         $this->tamanhos = $setup->tamanhos;
         $this->tamanho_padrao = $setup->tamanho_padrao;
@@ -102,12 +105,18 @@ class ProdutoEcommerceController extends Controller
             ->appends(['rangeMinimo'=>$rangeMinimo])
             ->appends(['rangeMaximo'=>$rangeMaximo])
             ->appends(['ordenacao'=>$request->query('ordenacao')]);
+
+        $pedidoNormal = $this->pedidoService->buscaPedidoCarrinho(2);
+        $pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
+        
             
         return view('ecommerce.produto.index',
             [
                 'grupos'=> $this->grupos,
                 'produtos' => $produtos,
                 'caminho_imagem' => $this->caminhoImagens,
+                'pedidoNormal'  => $pedidoNormal[0]->id,
+                'pedidoExpresso'  => $pedidoExpress[0]->id,
                 'tamanhos' => $this->tamanhos,
                 'tamanho_padrao' => $this->tamanho_padrao,
                 'grupos_necessita_tamanho' => $this->grupos_necessita_tamanho,
@@ -150,6 +159,9 @@ class ProdutoEcommerceController extends Controller
             }
         }
 
+        $pedidoNormal = $this->pedidoService->buscaPedidoCarrinho(2);
+        $pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
+
         $produtos = $produtos->paginate($registroPPagina)
             ->appends(['regPorPage'=>$registroPPagina])
             ->appends(['ordenacao'=>$request->query('ordenacao')]);
@@ -159,6 +171,8 @@ class ProdutoEcommerceController extends Controller
                 'produtos' => $produtos,
                 'grupos' => $this->grupos,
                 'caminho_imagem' => $this->caminhoImagens,
+                'pedidoNormal'  => $pedidoNormal[0]->id,
+                'pedidoExpresso'  => $pedidoExpress[0]->id,
                 'tamanhos' => $this->tamanhos,
                 'tamanho_padrao' => $this->tamanho_padrao,
                 'grupos_necessita_tamanho' => $this->grupos_necessita_tamanho,

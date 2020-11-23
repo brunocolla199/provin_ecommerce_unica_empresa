@@ -9,6 +9,7 @@
 @endsection
 
 @section('content')
+
     <div class="row mb-8">
         <div class="d-none d-xl-block col-xl-3 col-wd-2gdot5">
             <div class="mb-8 border border-width-2 border-color-3 borders-radius-6">
@@ -445,7 +446,13 @@
                         @if ($produtos->count() == 0)
                             <h5>Nenhum produto encontrado</h5>
                         @endif
+                        
                         @foreach ($produtos as $produto)
+                            @php
+                                
+                                $produtoPedidoNormal = DB::select('select sum(quantidade) as total from item_pedido as i inner join pedido as p ON (i.pedido_id = p.id) where i.produto_id = :idProduto and i.pedido_id = :idPedido', ['idProduto'=>$produto->id,'idPedido'=>$pedidoNormal]);
+                                $produtoPedidoExpresso = DB::select('select sum(quantidade) as total from item_pedido as i inner join pedido as p ON (i.pedido_id = p.id) where i.produto_id = :idProduto and i.pedido_id = :idPedido', ['idProduto'=>$produto->id,'idPedido'=>$pedidoExpresso]);
+                            @endphp
                             <li class="col-6 col-md-3 col-wd-2gdot4 product-item">
                                 <div class="product-item__outer h-100">
                                     <div class="product-item__inner px-xl-4 p-3">
@@ -464,7 +471,7 @@
                                             </div>
                                             <div class="flex-center-between mb-1">
                                                 <div class=" d-xl-block prodcut-add-cart">
-                                                    <a class="btn-add-cart CartNormal btn-info transition-3d-hover" style="background-color: #00dffc" data-tipo="normal" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i></a>
+                                                    <a class="btn-add-cart CartNormal btn-info transition-3d-hover" style="background-color: #00dffc" data-tipo="normal" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i><b>{{$produtoPedidoNormal[0]->total}}</b></a>
                                                 </div>
                                                 @if (in_array($produto->grupo_produto_id,json_decode($grupos_necessita_tamanho)))
                                                 <div class=" d-xl-block prodcut-add-cart">
@@ -477,7 +484,7 @@
                                                 </div>
                                                 @endif
                                                 <div class=" d-xl-block prodcut-add-cart">
-                                                    <a class="btn-add-cart btn-primary transition-3d-hover" style="background-color: #fed700" data-tipo="express" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i></a>
+                                                    <a class="btn-add-cart btn-primary transition-3d-hover" style="background-color: #fed700" data-tipo="express" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i><b>{{$produtoPedidoExpresso[0]->total}}</b></a>
                                                 </div>
                                                 
                                             </div>
@@ -623,7 +630,7 @@
                 url: 'produto/adicionarCarinho',
                 data: { id: id, tipo: tipo, tamanho:tamanho,quantidade:1, _token: '{{csrf_token()}}' },
                 success: function (data) {
-                    
+                    location.reload();
                     // if(data.response != 'erro') {
                     //     swal2_success("Adicionado !", "Produto adicionado com sucesso.");
                     // } else {

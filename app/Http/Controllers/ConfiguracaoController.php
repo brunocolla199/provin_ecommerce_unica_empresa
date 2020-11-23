@@ -194,7 +194,9 @@ class ConfiguracaoController extends Controller
                 $produtos = $this->wonderService->consultaProduto($empresaPadrao);
             
                 foreach ($produtos as $key => $valueProdutos) {
-                    $this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$valueProdutos->descricaocategoria,$valueProdutos->descricao,$valueProdutos->qtddisponivel,1);            
+                    if($valueProdutos->qtddisponivel > 0){
+                        $this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$valueProdutos->descricaocategoria,$valueProdutos->descricao,$valueProdutos->qtddisponivel,1);            
+                    }
                 }
             });
             Helper::setNotify('Produtos atualozados com sucesso!', 'success|check-circle');
@@ -222,39 +224,39 @@ class ConfiguracaoController extends Controller
                $produtos = $this->wonderService->consultaProduto($value->empresa_terceiro_id);
     
                foreach ($produtos as $key => $valueProdutos) {
-                   
-                    DB::transaction(function () use ($valueProdutos, $value) {
-                        $this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$valueProdutos->descricaocategoria,$valueProdutos->descricao,0,1);
-                        
-                        $buscaProdutoInterno = $this->produtoService->findOneBy(
-                            [
-                                ['produto_terceiro_id','=',$valueProdutos->codigo]
-                            ]
-                        );
-                        $buscaEstoque = $this->estoqueService->findBy(
-                            [
-                                ['empresa_id','=',$value->empresa_terceiro_id],
-                                ['produto_id','=',$buscaProdutoInterno->id,"AND"]
-                            ]
-                        );
-                        if($buscaEstoque->count() > 0){
-                            $this->estoqueService->update(
-                                ['quantidade_estoque' => $valueProdutos->qtddisponivel],
-                                $buscaEstoque->id
-                            );
-                        }else{
-                            $this->estoqueService->create(
+                    if($valueProdutos->qtddisponivel > 0){
+                        DB::transaction(function () use ($valueProdutos, $value) {
+                            $this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$valueProdutos->descricaocategoria,$valueProdutos->descricao,0,1);
+                            
+                            $buscaProdutoInterno = $this->produtoService->findOneBy(
                                 [
-                                    'empresa_id'  => $value->id,
-                                    'produto_id'  => $buscaProdutoInterno->id ,
-                                    'quantidade_estoque' => $valueProdutos->qtddisponivel
+                                    ['produto_terceiro_id','=',$valueProdutos->codigo]
                                 ]
                             );
-                        }
-                        
-                    });
-                    
-               }
+                            $buscaEstoque = $this->estoqueService->findBy(
+                                [
+                                    ['empresa_id','=',$value->empresa_terceiro_id],
+                                    ['produto_id','=',$buscaProdutoInterno->id,"AND"]
+                                ]
+                            );
+                            if($buscaEstoque->count() > 0){
+                                $this->estoqueService->update(
+                                    ['quantidade_estoque' => $valueProdutos->qtddisponivel],
+                                    $buscaEstoque->id
+                                );
+                            }else{
+                                $this->estoqueService->create(
+                                    [
+                                        'empresa_id'  => $value->id,
+                                        'produto_id'  => $buscaProdutoInterno->id ,
+                                        'quantidade_estoque' => $valueProdutos->qtddisponivel
+                                    ]
+                                );
+                            }
+                            
+                        });
+                    }  
+                }
             }
             Helper::setNotify('Estoque atualizado com sucesso!', 'success|check-circle');
             return redirect()->back()->withInput();

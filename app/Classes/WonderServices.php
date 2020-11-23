@@ -185,7 +185,7 @@ class WonderServices
                 ]
             );
         
-            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/produtos?empresa='.$empresa.'&first=1&max=10';
+            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/produtos?empresa='.$empresa;
             
             $response = $this->HTTP_CLIENT->get($url);
             
