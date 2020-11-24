@@ -12,7 +12,7 @@
 @section('content')
 
     <div class="card">
-        <div class="card-body">
+        <div class="card-body" style="margin-bottom: 20px">
             <h3 class="box-title">@lang('page_titles.pedido.index')</h3>
             <hr class="m-t-0 m-b-10">
             <div class="tab-content" id="pills-tabContent">
@@ -47,6 +47,8 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-12"><br></div>
     </div>
   
 @endsection
+
