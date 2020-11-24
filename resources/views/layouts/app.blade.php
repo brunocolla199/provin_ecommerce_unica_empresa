@@ -718,7 +718,7 @@
             <!-- ========== END MAIN CONTENT ========== -->
 
              <!-- ========== FOOTER ========== -->
-            <footer style="margin-top:-50px">
+            <footer >
                 <!-- Footer-copy-right -->
                 <div class="bg-gray-14 py-2">
                     <div class="container">

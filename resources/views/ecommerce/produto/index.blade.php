@@ -506,7 +506,7 @@
             <!-- End Shop Body -->
             <!-- Shop Pagination -->
             <!-- Shop Pagination -->
-            <nav class="d-md-flex justify-content-between align-items-center border-top pt-3" aria-label="Page navigation example">
+            <nav class="d-md-flex justify-content-between align-items-center border-top pt-3" aria-label="Page navigation example" style="margin-bottom: -40px">
                     @if ($produtos->hasPages())
                         <ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start">
                             {{-- Previous Page Link --}}
