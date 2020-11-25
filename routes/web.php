@@ -196,6 +196,8 @@ Route::group(['middleware' => ['auth','userInativo']], function() {
                 Route::get('detalhe/{id}',   ['as' => 'ecommerce.produto.detalhe', 'uses' => 'ProdutoEcommerceController@detalhe']);
                 Route::get('search/grupo/{id}',   ['as' => 'ecommerce.produto.search.grupo', 'uses' => 'ProdutoEcommerceController@searchGrupo']);
                 Route::post('adicionarCarinho',  ['as' => 'ecommerce.produto.adicionarCarinho', 'uses' => 'ProdutoEcommerceController@addCarrinho']);    
+                Route::get('buscaProduto/{id}',   ['as' => 'ecommerce.produto.buscaProduto', 'uses' => 'ProdutoEcommerceController@buscaProduto']);
+                Route::post('updateEstoque',  ['as' => 'ecommerce.produto.updateEstoque', 'uses' => 'ProdutoEcommerceController@updateEstoque']);
             });
 
             Route::group(['prefix' => 'pedido'], function () {

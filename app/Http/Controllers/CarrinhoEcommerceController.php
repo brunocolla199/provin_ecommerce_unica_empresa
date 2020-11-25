@@ -70,8 +70,8 @@ class CarrinhoEcommerceController extends Controller
 
         $buscaItem = $this->itemPedidoService->find($id);
 
-        if($qtd > $buscaItem->quantidade){
-            $verificaEstoque = $this->produtoService->verificaEstoque($buscaItem->produto->id,$qtd);
+        if($qtd >= $buscaItem->quantidade){
+            $verificaEstoque = $this->produtoService->verificaEstoque($buscaItem->produto->id,$qtd - $buscaItem->quantidade);
             if(!$verificaEstoque){
                 return response()->json([
                     'response' => 'erro',

@@ -203,7 +203,7 @@ class ProdutoEcommerceController extends Controller
     public function addCarrinho(Request $request){
         $id_produto  = $request->id;
         $tipo_pedido = $request->tipo == 'express' ? 1: 2;
-        $tamanho     = $request->tamanho ?? '';
+        $tamanho     = $request->tamanho ?? null;
         $quantidade  = $request->quantidade ?? 1;
         
         $add = $this->carrinhoService->addCarrinho($id_produto,$tipo_pedido,$tamanho, $quantidade);
@@ -213,6 +213,50 @@ class ProdutoEcommerceController extends Controller
            return response()->json(['response' => 'erro']);
         }
         
+    }
+
+    public function buscaProduto($idProduto)
+    {
+        $produto = $this->produtoService->find($idProduto);
+        return response()->json(
+            [
+                'response' => 'successo',
+                'data' => [
+                    'quantidade_estoque' => $produto->quantidade_estoque,
+                    'preco' => $produto->valor
+                ]
+            ]
+        );
+
+    }
+
+    public function updateEstoque(Request $request)
+    {
+        $idProduto  = $request->id;
+        $quantidade = $request->quantidade;
+        $operacao   = $request->operacao;
+        $retorno = '';
+        try {
+            
+            $buscaProduto = $this->produtoService->find($idProduto);
+            $update = $this->produtoService->update(
+            [
+                "quantidade_estoque" => $operacao == 'A' ? $buscaProduto->quantidade_estoque +$quantidade : $buscaProduto->quantidade_estoque - $quantidade
+            ],
+            $idProduto);
+            
+            $retorno = 'successo';
+        } catch (\Throwable $th) {
+            $retorno = 'erro';
+        }
+
+        return response()->json(
+            [
+                'response' => $retorno
+            ]
+        );
+        
+            
     }
     
 }

@@ -38,7 +38,7 @@
                         
                     @endif
                     @foreach ($itens as $item)
-                        <input type="hidden" id="estoque-{{$item->id}}" value="{{$item->produto->quantidade_estoque}}">
+                        
                         <tr class="">
                             <td class="text-center row">
                                 <button  title="Remover" style="color: white;border-radius: 5px;width: 20px;height: 20px;display: flex;align-items: center;justify-content: center" class="btn btn-danger text-gray-32 font-size-26 remove" data-id="{{$item->id}}">×</button>
@@ -72,13 +72,13 @@
                                 <div class="border rounded-pill py-1 width-122 w-xl-70 px-3 border-color-1">
                                     <div class="js-quantity row align-items-center">
                                         <div class="col">
-                                            <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none" disabled type="text" value="{{$item->quantidade}}" id="qtd-{{$item->id}}">
+                                            <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none qtd" data-id="{{$item->id}}" data-quantidade="{{$item->quantidade}}" data-produto="{{$item->produto->id}}"   type="text" value="{{$item->quantidade}}" id="qtd-{{$item->id}}">
                                         </div>
                                         <div class="col-auto pr-1">
-                                            <a class=" btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 remove-btn" data-id="{{$item->id}}" >
+                                            <a class=" btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 remove-btn" data-id="{{$item->id}}" data-produto="{{$item->produto->id}}" >
                                                 <small class="fas fa-minus btn-icon__inner"></small>
                                             </a>
-                                            <a class=" btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 add-btn" data-id="{{$item->id}}">
+                                            <a class=" btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 add-btn" data-id="{{$item->id}}" data-produto="{{$item->produto->id}}">
                                                 <small class="fas fa-plus btn-icon__inner"></small>
                                             </a>
                                         </div>
@@ -193,7 +193,6 @@
     var now = new Date().getTime();
     var deadline = new Date(document.getElementById("proximaLiberacao").value).getTime(); 
     var t = deadline - now;
-    console.log(t);
     if(tipoPedido == 2 &&  t > 0 ){
         $('#btn-enviar').attr('disabled',true);
         $('#btn-enviar-mob').attr('disabled',true);
@@ -237,6 +236,26 @@
                 type: "POST",
                 url: '../update',
                 data: { id: id,tamanho: tamanho,quantidade: quantidade, _token: '{{csrf_token()}}' },
+                success: function (data) {
+                    if(data.response == 'erro') {
+                        reject(data.msg);
+                    }
+                    resolve(true);
+                },
+                error: function (data, textStatus, errorThrown) {
+                    reject("Tivemos um problema ao atualizar o item.");
+                },
+            });
+        });
+    }
+
+    function alteraProduto(id, qtd, operacao)
+    {
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                type: "POST",
+                url: '../../produto/updateEstoque',
+                data: { id: id,quantidade: qtd,operacao:operacao, _token: '{{csrf_token()}}' },
                 success: function (data) {
                     if(data.response == 'erro') {
                         reject(data.msg);
