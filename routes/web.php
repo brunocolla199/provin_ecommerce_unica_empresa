@@ -212,6 +212,7 @@ Route::group(['middleware' => ['auth','userInativo']], function() {
                 Route::get('detalhe/{id}',   ['as' => 'ecommerce.carrinho.detalhe', 'uses' => 'CarrinhoEcommerceController@index'])->middleware('carrinhoEmpresa');
                 Route::post('remover',  ['as' => 'ecommerce.carrinho.remover', 'uses' => 'CarrinhoEcommerceController@remove']);    
                 Route::post('update',  ['as' => 'ecommerce.carrinho.update', 'uses' => 'CarrinhoEcommerceController@update']);    
+                Route::get('buscaItem/{id}',   ['as' => 'ecommerce.carrinho.buscaItem', 'uses' => 'CarrinhoEcommerceController@buscaItem']);
                 
             });
 

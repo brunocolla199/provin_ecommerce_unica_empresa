@@ -105,4 +105,16 @@ class CarrinhoEcommerceController extends Controller
             return response()->json(['response' => 'erro']);
         }   
     }
+
+    public function buscaItem($id){
+        $item = $this->itemPedidoService->find($id);
+        return response()->json(
+            [
+                'response' => 'successo',
+                'data' => [
+                    'quantidade' => $item->quantidade,
+                ]
+            ]
+        );
+    }
 }

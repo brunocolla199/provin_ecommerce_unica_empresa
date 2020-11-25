@@ -72,7 +72,7 @@
                                 <div class="border rounded-pill py-1 width-122 w-xl-70 px-3 border-color-1">
                                     <div class="js-quantity row align-items-center">
                                         <div class="col">
-                                            <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none qtd" data-id="{{$item->id}}" data-quantidade="{{$item->quantidade}}" data-produto="{{$item->produto->id}}"   type="text" value="{{$item->quantidade}}" id="qtd-{{$item->id}}">
+                                            <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none qtd" data-id="{{$item->id}}"  data-produto="{{$item->produto->id}}"   type="text" value="{{$item->quantidade}}" id="qtd-{{$item->id}}">
                                         </div>
                                         <div class="col-auto pr-1">
                                             <a class=" btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 remove-btn" data-id="{{$item->id}}" data-produto="{{$item->produto->id}}" >
