@@ -48,6 +48,16 @@ class EstoqueService
         return $this->findBy($where, $with)->first();
     }
 
-    
+    public function zeraEstoqueEmpresa($empresa)
+    {
+        $produtos = self::findBy(
+            [
+                ['empresa_id','=',$empresa]
+            ]
+        );
+        foreach ($produtos as $key => $value) {
+            self::update(["quantidade_estoque" => 0],$value->id);
+        }
+    }
 
 }

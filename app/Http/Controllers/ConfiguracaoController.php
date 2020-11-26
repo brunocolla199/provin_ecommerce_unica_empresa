@@ -199,10 +199,9 @@ class ConfiguracaoController extends Controller
                     }
                 }
             });
-            Helper::setNotify('Produtos atualozados com sucesso!', 'success|check-circle');
+            Helper::setNotify('Produtos atualizados com sucesso!', 'success|check-circle');
             return redirect()->back()->withInput();
         } catch (\Throwable $th) {
-            dd($th);
             Helper::setNotify("Erro ao atualizar os produtos", 'danger|close-circle');
             return redirect()->back()->withInput();
         }
@@ -212,20 +211,27 @@ class ConfiguracaoController extends Controller
     public function atualizarEstoqueFranquia()
     {
         try {
-            $buscaEmpresas = $this->empresaService->findBy(
-                [
-                    ['inativo','=',0],
-                    ['empresa_terceiro_id','!=',0,"AND"],
-                    ['empresa_terceiro_id','!=',null,"AND"]
-                ]
-            );
 
-            foreach ($buscaEmpresas as $key => $value) {
-               $produtos = $this->wonderService->consultaProduto($value->empresa_terceiro_id);
-    
-               foreach ($produtos as $key => $valueProdutos) {
-                    if($valueProdutos->qtddisponivel > 0){
-                        DB::transaction(function () use ($valueProdutos, $value) {
+            DB::transaction(function () {
+                $buscaEmpresas = $this->empresaService->findBy(
+                    [
+                        ['inativo','=',0],
+                        ['empresa_terceiro_id','!=',0,"AND"],
+                        ['empresa_terceiro_id','!=',null,"AND"]
+                    ]
+                );
+
+                foreach ($buscaEmpresas as $key => $value) {
+
+                    //zera estoque de todos produtos
+                    $buscaProduto = $this->estoqueService->zeraEstoqueEmpresa($value->id);
+                    //busca Produto Franqueada
+                    $produtos = $this->wonderService->consultaProduto($value->empresa_terceiro_id);
+        
+                    foreach ($produtos as $key => $valueProdutos) {
+                    //atualiza produto q tiverem estoque
+                        if($valueProdutos->qtddisponivel > 0){
+                            
                             $this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$valueProdutos->descricaocategoria,$valueProdutos->descricao,0,1);
                             
                             $buscaProdutoInterno = $this->produtoService->findOneBy(
@@ -233,9 +239,9 @@ class ConfiguracaoController extends Controller
                                     ['produto_terceiro_id','=',$valueProdutos->codigo]
                                 ]
                             );
-                            $buscaEstoque = $this->estoqueService->findBy(
+                            $buscaEstoque = $this->estoqueService->findOneBy(
                                 [
-                                    ['empresa_id','=',$value->empresa_terceiro_id],
+                                    ['empresa_id','=',$value->id],
                                     ['produto_id','=',$buscaProdutoInterno->id,"AND"]
                                 ]
                             );
@@ -252,12 +258,11 @@ class ConfiguracaoController extends Controller
                                         'quantidade_estoque' => $valueProdutos->qtddisponivel
                                     ]
                                 );
-                            }
-                            
-                        });
-                    }  
+                            } 
+                        }  
+                    }
                 }
-            }
+            });
             Helper::setNotify('Estoque atualizado com sucesso!', 'success|check-circle');
             return redirect()->back()->withInput();
         } catch (\Throwable $th) {
