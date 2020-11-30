@@ -37479,3 +37479,8 @@ blockquote:not(.blockquote) p {
 /*------------------------------------
   File for your custom SCSS style
 ------------------------------------*/
+
+
+.btn-add-cart {
+  cursor:pointer
+}

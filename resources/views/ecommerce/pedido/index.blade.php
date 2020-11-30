@@ -19,7 +19,7 @@
                 <div class="tab-pane fade pt-2 show active" id="pills-one-example1" role="tabpanel" aria-labelledby="pills-one-example1-tab" data-target-group="groups">
                     <ul class="row list-unstyled products-group no-gutters">
                         @foreach ($pedidos as $pedido)
-                        <li class="col-6 col-md-2 col-wd-2gdot4 product-item">
+                        <li class="col-6 col-md-2 col-wd-2gdot4 product-item mb-3" @if ($pedidos->count() == 1) style="height: 100px" @endif>
                             <div class="product-item__outer h-100">
                                 <div class="product-item__inner px-xl-4 p-3">
                                     <div class="product-item__body pb-xl-2">
@@ -33,12 +33,12 @@
                                     <h5 class="mb-1 product-item__title" class="font-size-14 text-gray-5">Status: <b>{{$pedido->statusPedido->nome}}</b></h5>
                                     <h5 class="mb-1 product-item__title" class="font-size-14 text-gray-5">Total de Itens: <b>{{$pedido->numero_itens}}</b></h5>
                                     <div class="mb-2"><a href="{{ route('ecommerce.pedido.detalhe', ['id' => $pedido->id ]) }}" class="text-blue font-weight-bold">{{__('page_titles.ecommerce.detalhePedido.index')}}</a></div>
-                                    <div class="product-item__footer">
+                                    <!--<div class="product-item__footer">
                                         <div class="border-top pt-2 flex-center-between flex-wrap">
-                                            <!--<a href="../shop/compare.html" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> Compare</a>
-                                            <a href="../shop/wishlist.html" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>-->
+                                            <a href="../shop/compare.html" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> Compare</a>
+                                            <a href="../shop/wishlist.html" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
                                         </div>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                         </li>

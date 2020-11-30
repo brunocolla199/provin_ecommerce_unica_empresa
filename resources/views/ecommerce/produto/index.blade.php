@@ -453,48 +453,48 @@
                                 $produtoPedidoNormal = DB::select('select sum(quantidade) as total from item_pedido as i inner join pedido as p ON (i.pedido_id = p.id) where i.produto_id = :idProduto and i.pedido_id = :idPedido', ['idProduto'=>$produto->id,'idPedido'=>$pedidoNormal]);
                                 $produtoPedidoExpresso = DB::select('select sum(quantidade) as total from item_pedido as i inner join pedido as p ON (i.pedido_id = p.id) where i.produto_id = :idProduto and i.pedido_id = :idPedido', ['idProduto'=>$produto->id,'idPedido'=>$pedidoExpresso]);
                             @endphp
-                            <li class="col-6 col-md-3 col-wd-2gdot4 product-item">
-                                <div class="product-item__outer h-100">
+                            <li class="col-6 col-md-3 col-wd-2gdot4 product-item " @if ($produtos->count() == 1) style="height: 100px" @endif >
+                                <div class="product-item__outer h-100" >
                                     <div class="product-item__inner px-xl-4 p-3">
                                         <div class="product-item__body pb-xl-2">
-                                        <div class="mb-2"><a href="{{ route('ecommerce.produto.detalhe', ['id' => $produto->id ]) }}" class="font-size-12 text-gray-5">{{$produto->produto_terceiro_id}}</a></div>
-                                        <h5 class="mb-1 product-item__title"><a href="{{ route('ecommerce.produto.detalhe', ['id' => $produto->id ]) }}" class="text-blue font-weight-bold">{{$produto->nome}}</a></h5>
-                                            <div class="mb-2">
+                                            <div class="mb-2"><a href="{{ route('ecommerce.produto.detalhe', ['id' => $produto->id ]) }}" class="font-size-12 text-gray-5">{{$produto->produto_terceiro_id}}</a></div>
+                                            <h5 class="mb-1 product-item__title"><a href="{{ route('ecommerce.produto.detalhe', ['id' => $produto->id ]) }}" class="text-blue font-weight-bold">{{$produto->nome}}</a></h5>
+                                                <div class="mb-2">
+                                                        
+                                                <a href="{{ route('ecommerce.produto.detalhe', ['id' => $produto->id ]) }}" class="d-block text-center"><img style="border-radius: 10px;width: 150px;height: 140px" class="img-fluid" src="@if (file_exists(public_path($caminho_imagem.$produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img9.jpg')}} @endif" alt="Image Description"></a>
+                                                </div>
+                                                <div class="flex-center-between mb-1">
+                                                    <div class="prodcut-price">
+                                                        <div class="text-gray-100">R${{number_format($produto->valor, 2, ',', '.')}}</div>
+                                                    </div>
                                                     
-                                            <a href="{{ route('ecommerce.produto.detalhe', ['id' => $produto->id ]) }}" class="d-block text-center"><img style="border-radius: 10px;width: 150px;height: 140px" class="img-fluid" src="@if (file_exists(public_path($caminho_imagem.$produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img9.jpg')}} @endif" alt="Image Description"></a>
-                                            </div>
-                                            <div class="flex-center-between mb-1">
-                                                <div class="prodcut-price">
-                                                    <div class="text-gray-100">R${{number_format($produto->valor, 2, ',', '.')}}</div>
                                                 </div>
-                                                
-                                            </div>
-                                            <div class="flex-center-between mb-1">
-                                                <div class=" d-xl-block prodcut-add-cart">
-                                                    <a class="btn-add-cart CartNormal btn-info transition-3d-hover" style="background-color: #00dffc" data-tipo="normal" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i><b>{{$produtoPedidoNormal[0]->total}}</b></a>
+                                                <div class="flex-center-between mb-1">
+                                                    <div class=" d-xl-block prodcut-add-cart">
+                                                        <a class="btn-add-cart CartNormal btn-info transition-3d-hover" style="background-color: #00dffc" data-tipo="normal" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i><b>{{$produtoPedidoNormal[0]->total}}</b></a>
+                                                    </div>
+                                                    @if (in_array($produto->grupo_produto_id,json_decode($grupos_necessita_tamanho)))
+                                                    <div class=" d-xl-block prodcut-add-cart">
+                                                        <select style="border-radius: 15px;text-align-last: center; " id="tamanho-{{$produto->id}}">
+                                                            <option value="" disabled>Tam.</option>
+                                                            @foreach (json_decode($tamanhos) as $key)
+                                                                <option  @if ($key == $tamanho_padrao) selected @endif value="{{$key}}">{{$key}}</option>
+                                                            @endforeach
+                                                        <select>
+                                                    </div>
+                                                    @endif
+                                                    <div class=" d-xl-block prodcut-add-cart">
+                                                        <a class="btn-add-cart btn-primary transition-3d-hover" style="background-color: #fed700" data-tipo="express" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i><b>{{$produtoPedidoExpresso[0]->total}}</b></a>
+                                                    </div>
+                                                    
                                                 </div>
-                                                @if (in_array($produto->grupo_produto_id,json_decode($grupos_necessita_tamanho)))
-                                                <div class=" d-xl-block prodcut-add-cart">
-                                                    <select style="border-radius: 15px;text-align-last: center; " id="tamanho-{{$produto->id}}">
-                                                        <option value="" disabled>Tam.</option>
-                                                        @foreach (json_decode($tamanhos) as $key)
-                                                            <option  @if ($key == $tamanho_padrao) selected @endif value="{{$key}}">{{$key}}</option>
-                                                        @endforeach
-                                                    <select>
-                                                </div>
-                                                @endif
-                                                <div class=" d-xl-block prodcut-add-cart">
-                                                    <a class="btn-add-cart btn-primary transition-3d-hover" style="background-color: #fed700" data-tipo="express" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i><b>{{$produtoPedidoExpresso[0]->total}}</b></a>
-                                                </div>
-                                                
-                                            </div>
                                         </div>
-                                        <div class="product-item__footer">
+                                        <!--<div class="product-item__footer">
                                             <div class="border-top pt-2 flex-center-between flex-wrap">
-                                                <!--<a href="../shop/compare.html" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> Compare</a>
-                                                <a href="../shop/wishlist.html" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>-->
+                                                <a href="../shop/compare.html" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> Compare</a>
+                                                <a href="../shop/wishlist.html" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
                             </li>
@@ -613,6 +613,7 @@
 @endsection
 
 @section('footer')
+
 <script src="{{ asset('controllers/produto.js') }}"></script>
 <script>
     $('.btn-add-cart').on('click',function(){

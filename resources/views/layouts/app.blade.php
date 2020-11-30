@@ -694,7 +694,7 @@
             <!-- ========== END HEADER ========== -->
 
             <!-- ========== MAIN CONTENT ========== -->
-            <main id="content" role="main">
+            <main id="content" role="main" style="margin-bottom: 70px">
                 <!-- breadcrumb -->
                 <div class="bg-gray-13 bg-md-transparent">
                         <div class="container">
