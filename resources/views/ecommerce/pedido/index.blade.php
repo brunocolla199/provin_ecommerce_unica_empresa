@@ -19,7 +19,7 @@
                 <div class="tab-pane fade pt-2 show active" id="pills-one-example1" role="tabpanel" aria-labelledby="pills-one-example1-tab" data-target-group="groups">
                     <ul class="row list-unstyled products-group no-gutters">
                         @foreach ($pedidos as $pedido)
-                        <li class="col-6 col-md-2 col-wd-2gdot4 product-item mb-3" @if ($pedidos->count() == 1) style="height: 100px" @endif>
+                        <li class="col-6 col-md-2 col-wd-2gdot4 @if ($pedidos->count() > 1) product-item @endif mb-3" >
                             <div class="product-item__outer h-100">
                                 <div class="product-item__inner px-xl-4 p-3">
                                     <div class="product-item__body pb-xl-2">

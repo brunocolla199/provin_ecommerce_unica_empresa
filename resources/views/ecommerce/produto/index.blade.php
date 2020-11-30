@@ -453,7 +453,7 @@
                                 $produtoPedidoNormal = DB::select('select sum(quantidade) as total from item_pedido as i inner join pedido as p ON (i.pedido_id = p.id) where i.produto_id = :idProduto and i.pedido_id = :idPedido', ['idProduto'=>$produto->id,'idPedido'=>$pedidoNormal]);
                                 $produtoPedidoExpresso = DB::select('select sum(quantidade) as total from item_pedido as i inner join pedido as p ON (i.pedido_id = p.id) where i.produto_id = :idProduto and i.pedido_id = :idPedido', ['idProduto'=>$produto->id,'idPedido'=>$pedidoExpresso]);
                             @endphp
-                            <li class="col-6 col-md-3 col-wd-2gdot4 product-item " @if ($produtos->count() == 1) style="height: 100px" @endif >
+                            <li class="col-6 col-md-3 col-wd-2gdot4 @if ($produtos->count() > 1) product-item @endif "  >
                                 <div class="product-item__outer h-100" >
                                     <div class="product-item__inner px-xl-4 p-3">
                                         <div class="product-item__body pb-xl-2">
