@@ -76,10 +76,12 @@ class ProdutoEcommerceController extends Controller
         $registroPPagina = session()->get('regPorPage') ?? 20;
 
         $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1);
+        
         if($request->has('searchProduct')){
             $produtos = $produtos->where('nome','ilike','%' . $request->query('searchProduct') . '%')
             ->orwhere('produto_terceiro_id','ilike','%' . $request->query('searchProduct') . '%');
         }
+        
 
         if($request->has('rangeMaximo') && $request->has('rangeMinimo')){
             $produtos = $produtos->whereBetween('valor', [$rangeMinimo, $rangeMaximo]);
@@ -98,8 +100,8 @@ class ProdutoEcommerceController extends Controller
 
             }
         }
-
-        $produtos = $produtos->paginate($registroPPagina)
+        
+        $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1)->paginate($registroPPagina)
             ->appends(['searchProduct'=>$request->query('searchProduct')])
             ->appends(['regPorPage'=>$registroPPagina])
             ->appends(['rangeMinimo'=>$rangeMinimo])
@@ -109,7 +111,7 @@ class ProdutoEcommerceController extends Controller
         $pedidoNormal = $this->pedidoService->buscaPedidoCarrinho(2);
         $pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
         
-            
+     
         return view('ecommerce.produto.index',
             [
                 'grupos'=> $this->grupos,
@@ -162,7 +164,7 @@ class ProdutoEcommerceController extends Controller
         $pedidoNormal = $this->pedidoService->buscaPedidoCarrinho(2);
         $pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
 
-        $produtos = $produtos->paginate($registroPPagina)
+        $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1)->paginate($registroPPagina)
             ->appends(['regPorPage'=>$registroPPagina])
             ->appends(['ordenacao'=>$request->query('ordenacao')]);
          
