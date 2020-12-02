@@ -328,7 +328,7 @@
                                 </div>
                                 <!-- End Primary Menu -->
                                 <!-- Customer Care -->
-                                <div class="d-none d-xl-block col-md-4">
+                                <!--<div class="d-none d-xl-block col-md-4">
                                     <div class="d-flex">
                                         <i class="ec ec-support font-size-50 text-primary"></i>
                                         <div class="ml-2">
@@ -340,7 +340,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <!-- Topbar -->
                                 <div class="u-header-topbar d-none d-xl-block">
@@ -366,13 +366,13 @@
                                                                     data-unfold-animation-in="slideInUp"
                                                                     data-unfold-animation-out="fadeOut">
                                                                     <span class="d-inline-block d-sm-none">US</span>
-                                                                    <span class="d-none d-sm-inline-flex align-items-center"><i class="ec ec-user mr-1"></i> {{Auth::user()->name}}</span>
+                                                                    <span class="d-none d-sm-inline-flex align-items-center" style="font-size: 14px"><i class="ec ec-user mr-1"></i> {{Auth::user()->name}}</span>
                                                                 </a>
                                                                 
                                                                 <div id="languageDropdown" class="dropdown-menu dropdown-unfold" aria-labelledby="languageDropdownInvoker">
                                                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" >
                                                                         @csrf
-                                                                        <button type="submit" class="dropdown-item active" ><i class="fas fa-sign-out-alt"></i> Sair</button>
+                                                                        <button type="submit" class="dropdown-item active" style="font-size: 14px"><i class="fas fa-sign-out-alt"></i> Sair</button>
                                                                     </form>
                                                                     
                                                                 </div>
@@ -515,8 +515,9 @@
                     <div class="container">
                         <div class="flex-center-between d-block d-md-flex">
                             <div class="mb-3 mb-md-0 font-size-12">© <a href="#" class="font-weight-bold text-gray-90">CEU Sistemas </a> - Todos Direitos Reservados</div>
-                            <div class="text-md-right">
-                                
+                            <div class="mb-3 mb-md-0 font-size-12">
+                                    <b>Fone: </b>{{App\Models\Setup::first()->telefone_proprietaria}}
+                                    <b>  E-mail:</b> <a href="mailto:{{App\Models\Setup::first()->email_proprietaria}}?subject=Preciso de Ajuda" class="text-gray-90">{{App\Models\Setup::first()->email_proprietaria}}</a>
                             </div>
                         </div>
                     </div>
