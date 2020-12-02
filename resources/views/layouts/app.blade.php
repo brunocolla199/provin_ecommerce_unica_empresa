@@ -1605,8 +1605,8 @@
                 document.getElementById("secondMob").innerHTML =seconds;
                 if (t < 0) { 
                         clearInterval(x); 
-                        document.getElementById("demo").innerHTML = "Sacola Liberado";
-                        document.getElementById("demoMob").innerHTML = "Sacola Liberado"; 
+                        document.getElementById("demo").innerHTML = "Liberado";
+                        document.getElementById("demoMob").innerHTML = "Liberado"; 
                         document.getElementById("day").innerHTML ='0';
                         document.getElementById("dayMob").innerHTML ='0'; 
                         document.getElementById("hour").innerHTML ='0';
