@@ -76,8 +76,9 @@
                         "sSortDescending": ": Ordenar colunas de forma descendente"
                     }
                 },
-                dom: 'frtip',
+                dom: 'frtBip',
                 buttons: [
+                    { extend: 'excel',  text: 'Excel' },
                     { extend: 'pdf',    text: 'PDF' },
                     { extend: 'print',  text: 'Imprimir' }
                 ],
