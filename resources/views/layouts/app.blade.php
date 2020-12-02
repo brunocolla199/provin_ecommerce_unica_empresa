@@ -74,8 +74,10 @@
                 
                 return \App\Models\Pedido::where('excluido','=',0)
                     ->where('status_pedido_id','=',1)
+                    ->where('numero_itens','>',0)
                     ->where('tipo_pedido_id','=',$tipo_pedido)
-                    ->whereIn('user_id', $usuariosIn)->get();       
+                    ->whereIn('user_id', $usuariosIn)
+                    ->get();       
             }
 
         @endphp

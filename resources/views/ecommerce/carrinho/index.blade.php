@@ -41,7 +41,7 @@
                         
                         <tr class="">
                             <td class="text-center row">
-                                <button  title="Remover" style="color: white;border-radius: 5px;width: 20px;height: 20px;display: flex;align-items: center;justify-content: center" class="btn btn-danger text-gray-32 font-size-26 remove" data-id="{{$item->id}}">×</button>
+                                <button  title="Remover" style="color: white;border-radius: 5px;width: 20px;height: 20px;display: flex;align-items: center;justify-content: center;cursor:pointer" class="btn btn-danger text-gray-32 font-size-26 remove"  data-id="{{$item->id}}">×</button>
                             </td>
                             <td data-title="{{__('sidebar_and_header.ecommerce.produto')}}">
                                 <a class="d-none d-md-table-cell" href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}"><img style="width: 100px;height: 100px;border-radius: 10px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img6.jpg')}} @endif" alt="Image Description"></a>
@@ -207,7 +207,7 @@
         removeCarinho.then(resolvedValue => {
             $.ajax({
                 type: "POST",
-                url: '../remover',
+                url: '{{route("ecommerce.carrinho.remover")}}',
                 data: { id: id, _token: '{{csrf_token()}}' },
                 success: function (data) {
                     if(data.response != 'erro') {
@@ -234,7 +234,7 @@
         return new Promise((resolve,reject)=>{
             $.ajax({
                 type: "POST",
-                url: '../update',
+                url: '{{route("ecommerce.carrinho.update")}}',
                 data: { id: id,tamanho: tamanho,quantidade: quantidade, _token: '{{csrf_token()}}' },
                 success: function (data) {
                     if(data.response == 'erro') {
@@ -254,7 +254,7 @@
         return new Promise((resolve,reject)=>{
             $.ajax({
                 type: "POST",
-                url: '../../produto/updateEstoque',
+                url: '{{route("ecommerce.produto.updateEstoque")}}',
                 data: { id: id,quantidade: qtd,operacao:operacao, _token: '{{csrf_token()}}' },
                 success: function (data) {
                     if(data.response == 'erro') {

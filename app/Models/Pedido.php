@@ -38,5 +38,10 @@ class Pedido extends Model
         return $this->hasOne('App\Models\User','id','user_id');
     }
 
+    public function itens()
+    {
+        return $this->hasMany('App\Models\ItemPedido','pedido_id','id');
+    }
+
     
 }

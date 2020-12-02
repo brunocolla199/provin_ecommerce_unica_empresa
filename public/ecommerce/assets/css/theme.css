@@ -37484,3 +37484,6 @@ blockquote:not(.blockquote) p {
 .btn-add-cart {
   cursor:pointer
 }
+.remove {
+  cursor: pointer;
+}
