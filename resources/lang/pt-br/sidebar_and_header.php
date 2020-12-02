@@ -84,8 +84,8 @@ return [
         'search_for_product' => 'Buscar por produtos',
         'search'        => 'Buscar',
         'all_categories'=> 'Todos grupos',
-        'cart'          => 'Carrinho',
-        'cart2'         => 'Carrinho Expresso',
+        'cart'          => 'Sacola',
+        'cart2'         => 'Sacola Expressa',
         'show_all_categories' => 'Mostrar todos grupos',
         'filters' => 'Filtros',
         'price'   => 'Preço',
@@ -109,7 +109,8 @@ return [
         'your_orden'  => 'Meu Pedido',
         'place_orden' => 'Finalizar Pedido',
         'produto'    => 'Produto',
-        'continuar_comprando' => 'Continuar Comprando'
+        'continuar_comprando' => 'Continuar Comprando',
+        'time' => 'Tempo para Liberação do Pedido'
 
 
         

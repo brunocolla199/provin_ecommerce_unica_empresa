@@ -366,38 +366,7 @@
                                                                 <!-- End Blog Pages -->
                                                             </ul>
                                                             <!-- End List -->
-                                                            <div class=" d-xl-block col-md-auto mt-3">
-                                                                <div class="d-flex">
-                                                                    <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path class="text-primary" fill-rule="evenodd" d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
-                                                                    </svg>
-                                                                    <div class="ml-2">
-                                                                        <div id="clockdiv" style="display: flex"> 
-                                                                            <div style="mb-1"> 
-                                                                                <b><span class="days" id="dayMob"></span></b>&nbsp;<span style="font-size:10px">Dias</span>&nbsp; 
-                                                                                    
-                                                                            </div> 
-                                                                            <div style="mb-1"> 
-                                                                                <b><span class="hours" id="hourMob"></span></b>:
-                                                                                
-                                                                            </div> 
-                                                                            <div style="mb-1"> 
-                                                                                <b><span class="minutes" id="minuteMob"></span></b>: 
-                                                                                    
-                                                                            </div> 
-                                                                            <div> 
-                                                                                <b><span class="seconds" id="secondMob"></span></b>&nbsp;<span style="font-size:10px">Horas</span>
-                                                                                
-                                                                            </div> 
-                                                                        </div> 
-                                                                        <div id="clockdiv" style="display: flex;height: 10px">
-                                                                            <div style="mb-1">
-                                                                                <b id="demoMob" style="font-size:14px"></b>
-                                                                            </div>
-                                                                        </div>          
-                                                                    </div> 
-                                                                </div>           
-                                                            </div>
+                                                            
 
                                                         </div>
                                                     </div>
@@ -448,42 +417,11 @@
                                     <!-- End Nav -->
                                 </div>
 
-                                <div class="d-none d-xl-block col-md-auto">
-                                    <div class="d-flex">
-                                        <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path class="text-primary" fill-rule="evenodd" d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
-                                        </svg>
-                                        <div class="ml-2">
-                                                <div id="clockdiv" style="display: flex"> 
-                                                    <div style="mb-1"> 
-                                                        <b><span class="days" id="day"></span></b>&nbsp;<span style="font-size:10px">Dias</span>&nbsp; 
-                                                         
-                                                    </div> 
-                                                    <div style="mb-1"> 
-                                                        <b><span class="hours" id="hour"></span></b>:
-                                                        
-                                                    </div> 
-                                                    <div style="mb-1"> 
-                                                        <b><span class="minutes" id="minute"></span></b>: 
-                                                         
-                                                    </div> 
-                                                    <div> 
-                                                        <b><span class="seconds" id="second"></span></b>&nbsp;<span style="font-size:10px">Horas</span>
-                                                        
-                                                    </div> 
-                                                </div> 
-                                                <div id="clockdiv" style="display: flex;height: 10px">
-                                                    <div style="mb-1">
-                                                        <b id="demo" style="font-size:14px"></b>
-                                                    </div>
-                                                </div>    
-                                        </div> 
-                                    </div>           
-                                </div>
+                                
 
                                 <!-- End Primary Menu -->
                                 <!-- Customer Care -->
-                                <div class="d-none d-xl-block col-md-auto">
+                                <!--<div class="d-none d-xl-block col-md-auto">
                                     <div class="d-flex">
                                         <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-telephone-forward " fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path class="text-primary" fill-rule="evenodd" d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511zm10.762.135a.5.5 0 0 1 .708 0l2.5 2.5a.5.5 0 0 1 0 .708l-2.5 2.5a.5.5 0 0 1-.708-.708L14.293 4H9.5a.5.5 0 0 1 0-1h4.793l-1.647-1.646a.5.5 0 0 1 0-.708z"/>
@@ -497,7 +435,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <!-- Topbar -->
                                 <div class="u-header-topbar py-2 d-none d-xl-block">
@@ -529,13 +467,13 @@
                                                                     data-unfold-animation-in="slideInUp"
                                                                     data-unfold-animation-out="fadeOut">
                                                                     <span class="d-inline-block d-sm-none">US</span>
-                                                                    <span class="d-none d-sm-inline-flex align-items-center"><i class="ec ec-user mr-1"></i> {{Auth::user()->name}}</span>
+                                                                    <span class="d-none d-sm-inline-flex align-items-center" style="font-size: 14px"><i class="ec ec-user mr-1"></i> {{Auth::user()->name}}</span>
                                                                 </a>
                 
                                                                 <div id="languageDropdown" class="dropdown-menu dropdown-unfold" aria-labelledby="languageDropdownInvoker">
                                                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" >
                                                                         @csrf
-                                                                        <button type="submit" class="dropdown-item active"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                                                                        <button type="submit" class="dropdown-item active" style="font-size: 14px"><i class="fas fa-sign-out-alt"></i> Sair</button>
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -570,7 +508,7 @@
                                                     data-unfold-hide-on-scroll="true"
                                                     data-unfold-animation-in="slideInUp"
                                                     data-unfold-animation-out="fadeOut">
-                                                    <span class="ec ec-search"></span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
                                                 </a>
     
                                                 <!-- Input -->
@@ -590,8 +528,43 @@
                                             <!--<li class="col d-xl-none px-2 px-sm-3"><a href="../shop/my-account.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.my_account')}}"><i class="font-size-22 ec ec-user"></i></a></li>-->
                                             
                                             <li class="col pr-xl-0 px-2 px-sm-3">
+                                                <a  class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.time')}}">
+                                                    <div class=" d-xl-block col-md-auto mt-3">
+                                                        <div class="d-flex">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>	    
+                                                            <div class="ml-2">
+                                                                <div id="clockdiv" style="display: flex;"> 
+                                                                    <div style="mb-1"> 
+                                                                        <b><span class="days" id="dayMob"></span></b>&nbsp;<span style="font-size:10px">Dias</span>&nbsp; 
+                                                                            
+                                                                    </div> 
+                                                                    <div style="mb-1"> 
+                                                                        <b><span class="hours" id="hourMob"></span></b>:
+                                                                        
+                                                                    </div> 
+                                                                    <div style="mb-1"> 
+                                                                        <b><span class="minutes" id="minuteMob"></span></b>: 
+                                                                            
+                                                                    </div> 
+                                                                    <div> 
+                                                                        <b><span class="seconds" id="secondMob"></span></b>&nbsp;<span style="font-size:10px">Horas</span>
+                                                                        
+                                                                    </div> 
+                                                                </div> 
+                                                                <div id="clockdiv" style="display: flex;height: 10px">
+                                                                    <div style="mb-1">
+                                                                        <b id="demoMob" style="font-size:14px"></b>
+                                                                    </div>
+                                                                </div>          
+                                                            </div>
+                                                        </div>
+                                                    </div>     
+                                                        
+                                                </a>
+                                            </li>
+                                            <li class="col pr-xl-0 px-2 px-sm-3">
                                                 <a href="@if (!empty($pedidoNormal[0])){{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }} @else #  @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
-                                                    <i class="font-size-22 ec ec-shopping-bag"></i>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 6h-3V4c0-1.11-.89-2-2-2H9c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z"/></svg>
                                                     @if (!empty($pedidoNormal[0]))
                                                         <span href="{{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoNormal[0]->numero_itens ?? ''}}</span>
                                                         <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoNormal[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
@@ -600,7 +573,7 @@
                                             </li>
                                             <li class="col pr-xl-0 px-2 px-sm-3">
                                                 <a href="@if (!empty($pedidoExpress[0])) {{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }} @else # @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart2')}}">
-                                                    <i class="font-size-22 ec ec-shopping-bag"></i>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 6h-3V4c0-1.11-.89-2-2-2H9c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z"/></svg>
                                                     @if (!empty($pedidoExpress[0]))
                                                         <span href="{{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoExpress[0]->numero_itens ?? ''}}</span>
                                                         <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoExpress[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
@@ -666,8 +639,40 @@
                                             <!--<li class="col"><a href="../shop/compare.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Compare"><i class="font-size-22 ec ec-compare"></i></a></li>-->
                                             <!--<li class="col"><a href="../shop/wishlist.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorites"><i class="font-size-22 ec ec-favorites"></i></a></li>-->
                                             <li class="col pr-0">
+                                                <a  class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.time')}}">
+                                                    
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>								
+                                                    <div class="ml-2">
+                                                            <div id="clockdiv" style="display: flex"> 
+                                                                <div style="mb-1"> 
+                                                                    <b><span class="days" id="day"></span></b>&nbsp;<span style="font-size:10px">Dias</span>&nbsp; 
+                                                                        
+                                                                </div> 
+                                                                <div style="mb-1"> 
+                                                                    <b><span class="hours" id="hour"></span></b>:
+                                                                    
+                                                                </div> 
+                                                                <div style="mb-1"> 
+                                                                    <b><span class="minutes" id="minute"></span></b>: 
+                                                                        
+                                                                </div> 
+                                                                <div> 
+                                                                    <b><span class="seconds" id="second"></span></b>&nbsp;<span style="font-size:10px">Horas</span>
+                                                                    
+                                                                </div> 
+                                                            </div> 
+                                                            <div id="clockdiv" style="display: flex;height: 10px">
+                                                                <div style="mb-1">
+                                                                    <b id="demo" style="font-size:14px"></b>
+                                                                </div>
+                                                            </div>    
+                                                    </div>
+                                                         
+                                                </a>
+                                            </li>
+                                            <li class="col pr-0">
                                                 <a href="@if (!empty($pedidoNormal[0])){{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }} @else #  @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
-                                                    <i class="font-size-22 ec ec-shopping-bag"></i>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 6h-3V4c0-1.11-.89-2-2-2H9c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z"/></svg>
                                                     @if (!empty($pedidoNormal[0]))
                                                         <span href="{{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoNormal[0]->numero_itens ?? ''}}</span>
                                                         <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoNormal[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
@@ -676,7 +681,7 @@
                                             </li>
                                             <li class="col pr-0">
                                                 <a href="@if (!empty($pedidoExpress[0])) {{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }} @else # @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart2')}}">
-                                                    <i class="font-size-22 ec ec-shopping-bag"></i>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 6h-3V4c0-1.11-.89-2-2-2H9c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z"/></svg>
                                                     @if (!empty($pedidoExpress[0]))
                                                         <span href="{{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white">{{$pedidoExpress[0]->numero_itens ?? ''}}</span>
                                                         <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoExpress[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
@@ -725,7 +730,13 @@
                 <div class="bg-gray-14 py-2">
                     <div class="container">
                         <div class="flex-center-between d-block d-md-flex">
-                            <div class="mb-3 mb-md-0 font-size-12">© <a href="#" class="font-weight-bold text-gray-90">Ceu Sistemas</a> - Todos Direitos Reservados</div>
+                            <div class="mb-3 mb-md-0 font-size-12">
+                                © <a href="#" class="font-weight-bold text-gray-90">Ceu Sistemas</a> - Todos Direitos Reservados
+                            </div>
+                            <div class="mb-3 mb-md-0 font-size-12">
+                                    <b>Fone: </b>{{App\Models\Setup::first()->telefone_proprietaria}}
+                                    <b>  E-mail:</b> <a href="mailto:{{App\Models\Setup::first()->email_proprietaria}}?subject=Preciso de Ajuda" class="text-gray-90">{{App\Models\Setup::first()->email_proprietaria}}</a>
+                            </div>
                             <!--<div class="text-md-right">
                                 <span class="d-inline-block bg-white border rounded p-1">
                                     <img class="max-width-5" src="{{asset('ecommerce/assets/img/100X60/img1.jpg')}}" alt="Image Description">
@@ -1594,8 +1605,8 @@
                 document.getElementById("secondMob").innerHTML =seconds;
                 if (t < 0) { 
                         clearInterval(x); 
-                        document.getElementById("demo").innerHTML = "Carrinho Liberado";
-                        document.getElementById("demoMob").innerHTML = "Carrinho Liberado"; 
+                        document.getElementById("demo").innerHTML = "Sacola Liberado";
+                        document.getElementById("demoMob").innerHTML = "Sacola Liberado"; 
                         document.getElementById("day").innerHTML ='0';
                         document.getElementById("dayMob").innerHTML ='0'; 
                         document.getElementById("hour").innerHTML ='0';
@@ -1616,3 +1627,5 @@
     </body>
     
 </html>
+
+
