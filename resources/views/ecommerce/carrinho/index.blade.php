@@ -45,7 +45,7 @@
                             </td>
                             <td data-title="{{__('sidebar_and_header.ecommerce.produto')}}">
                                 <a class="d-none d-md-table-cell" href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}"><img style="width: 100px;height: 100px;border-radius: 10px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img6.jpg')}} @endif" alt="Image Description"></a>
-                                <a href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}" class="text-gray-90">{{$item->produto->produto_terceiro_id}} - {{$item->produto->nome}}</a>
+                                <a href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}" class="text-gray-90 btn ">{{$item->produto->produto_terceiro_id}} - {{$item->produto->nome}}</a>
                             </td>
                             
                             <td data-title="Tamanho">
@@ -212,7 +212,7 @@
                 success: function (data) {
                     if(data.response != 'erro') {
                         swal2_success("Sucesso !", "Produto removido com sucesso.");
-                        location.reload();
+                        window.location.reload()
                     } else {
                         swal2_alert_error_support("Tivemos um problema ao remover o produto.");
                     }
@@ -268,6 +268,45 @@
             });
         });
     }
+
+    function consultaProduto(id)
+{
+    return new Promise((resolve,reject)=>{
+        $.ajax({
+            type: "GET",
+            url: '{{route("ecommerce.produto.buscaProduto",["id" => '+id+' ])}}',
+            success: function (retorno) {
+                if(retorno.response == 'erro') {
+                    reject(data.msg);
+                }
+                resolve(retorno.data);
+            },
+            error: function (retorno, textStatus, errorThrown) {
+                reject("Tivemos um problema ao consultar o produto item.");
+            },
+        });
+    });
+}
+
+function consultaItemCarrinho(id)
+{
+    return new Promise((resolve,reject)=>{
+        $.ajax({
+            type: "GET",
+            url: '{{route("ecommerce.carrinho.buscaItem",["id" => '+id+' ])}}',
+            success: function (retorno) {
+                if(retorno.response == 'erro') {
+                    reject(data.msg);
+                }
+                resolve(retorno.data);
+            },
+            error: function (retorno, textStatus, errorThrown) {
+                reject("Tivemos um problema ao consultar o produto item.");
+            },
+        });
+    });
+}
+
 
 </script>
 

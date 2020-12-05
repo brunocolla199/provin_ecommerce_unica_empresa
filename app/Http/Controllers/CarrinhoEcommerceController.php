@@ -96,7 +96,7 @@ class CarrinhoEcommerceController extends Controller
     }
 
     public function remove(Request $request){
-        $id = trim($request->id);
+        $id = $request->id;
     
         if($this->carrinhoService->removerCarrinho($id))
         {

@@ -217,7 +217,7 @@ class ProdutoEcommerceController extends Controller
         
     }
 
-    public function buscaProduto($idProduto)
+    public function buscaProduto($id)
     {
         $produto = $this->produtoService->find($idProduto);
         return response()->json(

@@ -1,5 +1,3 @@
-
-
 $(document).on("click",'.add-btn',function(){
     var id  = $(this).data('id');
     var qtdAtual = $('#qtd-'+id).val();
@@ -23,16 +21,19 @@ $(document).on("change",'.qtd',function(){
     var id  = $(this).data('id');
     var qtdNova = $('#qtd-'+id).val();
     var produto = $(this).data('produto');
+    console.log(qtdNova);
     if(qtdNova <= 0){
         swal2_alert_error_support('Quantidade inválida.');
+    }else{
+        consultaItemCarrinho(id).then(function(retorno){
+            if(retorno.quantidade > qtdNova){
+                removeCarrinho(id,produto,retorno.quantidade,parseInt(retorno.quantidade) - parseInt(qtdNova));
+            }else{
+                adicionaCarrinho(id,produto,retorno.quantidade, parseInt(qtdNova) - parseInt(retorno.quantidade)); 
+            }
+        });
     }
-    consultaItemCarrinho(id).then(function(retorno){
-        if(retorno.quantidade > qtdNova){
-            removeCarrinho(id,produto,retorno.quantidade,parseInt(retorno.quantidade) - parseInt(qtdNova));
-        }else{
-            adicionaCarrinho(id,produto,retorno.quantidade, parseInt(qtdNova) - parseInt(retorno.quantidade)); 
-        }
-    });
+    
     
     
     
@@ -75,43 +76,6 @@ function removeCarrinho(id, produto, qtdAtual, qtdRemovida)
 }
 
 
-function consultaProduto(id)
-{
-    return new Promise((resolve,reject)=>{
-        $.ajax({
-            type: "GET",
-            url: '../../produto/buscaProduto/'+id,
-            success: function (retorno) {
-                if(retorno.response == 'erro') {
-                    reject(data.msg);
-                }
-                resolve(retorno.data);
-            },
-            error: function (retorno, textStatus, errorThrown) {
-                reject("Tivemos um problema ao consultar o produto item.");
-            },
-        });
-    });
-}
-
-function consultaItemCarrinho(id)
-{
-    return new Promise((resolve,reject)=>{
-        $.ajax({
-            type: "GET",
-            url: '../../carrinho/buscaItem/'+id,
-            success: function (retorno) {
-                if(retorno.response == 'erro') {
-                    reject(data.msg);
-                }
-                resolve(retorno.data);
-            },
-            error: function (retorno, textStatus, errorThrown) {
-                reject("Tivemos um problema ao consultar o produto item.");
-            },
-        });
-    });
-}
 
 
 

@@ -255,7 +255,7 @@
         add_carrinho.then(resolvedValue => {
             $.ajax({
                 type: "POST",
-                url: '../adicionarCarinho',
+                url: '{{route("ecommerce.produto.adicionarCarinho")}}',
                 data: { id: id, tipo: tipo, tamanho:tamanho, quantidade:quantidade, _token: '{{csrf_token()}}' },
                 success: function (data) {
                     if(data.response != 'erro') {
