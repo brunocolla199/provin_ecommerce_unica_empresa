@@ -196,7 +196,7 @@ Route::group(['middleware' => ['auth','userInativo']], function() {
                 Route::get('detalhe/{id}',   ['as' => 'ecommerce.produto.detalhe', 'uses' => 'ProdutoEcommerceController@detalhe']);
                 Route::get('search/grupo/{id}',   ['as' => 'ecommerce.produto.search.grupo', 'uses' => 'ProdutoEcommerceController@searchGrupo']);
                 Route::post('adicionarCarinho',  ['as' => 'ecommerce.produto.adicionarCarinho', 'uses' => 'ProdutoEcommerceController@addCarrinho']);    
-                Route::get('buscaProduto/{id}',   ['as' => 'ecommerce.produto.buscaProduto', 'uses' => 'ProdutoEcommerceController@buscaProduto']);
+                Route::post('buscaProduto',   ['as' => 'ecommerce.produto.buscaProduto', 'uses' => 'ProdutoEcommerceController@buscaProduto']);
                 Route::post('updateEstoque',  ['as' => 'ecommerce.produto.updateEstoque', 'uses' => 'ProdutoEcommerceController@updateEstoque']);
             });
 
@@ -212,8 +212,8 @@ Route::group(['middleware' => ['auth','userInativo']], function() {
                 Route::get('detalhe/{id}',   ['as' => 'ecommerce.carrinho.detalhe', 'uses' => 'CarrinhoEcommerceController@index'])->middleware('carrinhoEmpresa');
                 Route::post('remover',  ['as' => 'ecommerce.carrinho.remover', 'uses' => 'CarrinhoEcommerceController@remove']);    
                 Route::post('update',  ['as' => 'ecommerce.carrinho.update', 'uses' => 'CarrinhoEcommerceController@update']);    
-                Route::get('buscaItem/{id}',   ['as' => 'ecommerce.carrinho.buscaItem', 'uses' => 'CarrinhoEcommerceController@buscaItem']);
-                
+                Route::post('buscaItem',   ['as' => 'ecommerce.carrinho.buscaItem', 'uses' => 'CarrinhoEcommerceController@buscaItem']);
+                Route::get('detalhe/{id_pedido}/item/{id_item}',   ['as' => 'ecommerce.carrinho.detalhe.item', 'uses' => 'CarrinhoEcommerceController@detalheItem']);
             });
 
             Route::group(['prefix' => 'checkout'], function () {

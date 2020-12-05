@@ -452,13 +452,13 @@
                                                     </li>-->
                                                     <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border u-header-topbar__nav-item-no-border u-header-topbar__nav-item-border-single">
                                                         <div class="d-flex align-items-center">
-                                                            <!-- Language -->
+                                                            
                                                             <div class="position-relative">
                                                                 <a id="languageDropdownInvoker" class="dropdown-nav-link dropdown-toggle d-flex align-items-center u-header-topbar__nav-link font-weight-normal" href="javascript:;" role="button"
                                                                     aria-controls="languageDropdown"
                                                                     aria-haspopup="true"
                                                                     aria-expanded="false"
-                                                                    data-unfold-event="hover"
+                                                                    data-unfold-event="click"
                                                                     data-unfold-target="#languageDropdown"
                                                                     data-unfold-type="css-animation"
                                                                     data-unfold-duration="300"
@@ -477,7 +477,8 @@
                                                                     </form>
                                                                 </div>
                                                             </div>
-                                                            <!-- End Language -->
+                                                            
+                                                            
                                                         </div>
                                                     </li>
                                                     

@@ -26,6 +26,7 @@
                 <thead>
                     <tr>
                         <th class="product-remove">&nbsp;</th>
+                        <th class="product-name"></th>
                         <th class="product-name">{{__('sidebar_and_header.ecommerce.product')}}</th>
                         <th class="product-name">{{__('sidebar_and_header.ecommerce.tamanho')}}</th>
                         <th class="product-price">{{__('sidebar_and_header.ecommerce.price')}}</th>
@@ -43,11 +44,13 @@
                             <td class="text-center row">
                                 <button  title="Remover" style="color: white;border-radius: 5px;width: 20px;height: 20px;display: flex;align-items: center;justify-content: center;cursor:pointer" class="btn btn-danger text-gray-32 font-size-26 remove"  data-id="{{$item->id}}">×</button>
                             </td>
-                            <td data-title="{{__('sidebar_and_header.ecommerce.produto')}}">
-                                <a class="d-none d-md-table-cell" href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}"><img style="width: 100px;height: 100px;border-radius: 10px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img6.jpg')}} @endif" alt="Image Description"></a>
-                                <a href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}" class="text-gray-90 btn ">{{$item->produto->produto_terceiro_id}} - {{$item->produto->nome}}</a>
+                            <td data-title="{{__('sidebar_and_header.ecommerce.img')}}">
+                                <a class=" d-md-table-cell" href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}"><img style="width: 100px;height: 100px;border-radius: 10px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img6.jpg')}} @endif" alt="Image Description"></a>
                             </td>
-                            
+
+                            <td data-title="{{__('sidebar_and_header.ecommerce.produto')}}">
+                                <a href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}" class="text-gray-90 btn ">{{$item->produto->produto_terceiro_id}} - {{$item->produto->nome}}</a>
+                            </td>
                             <td data-title="Tamanho">
                                     @if (in_array($item->produto->grupo_produto_id,json_decode($grupos_necessita_tamanho)))
                                         <select name="tamanho" id="tamanho-{{$item->id}}" data-id="{{$item->id}}" class="border rounded-pill py-1 width-122 w-xl-80 px-3 border-color-1 tamanho">
@@ -270,44 +273,44 @@
     }
 
     function consultaProduto(id)
-{
-    return new Promise((resolve,reject)=>{
-        $.ajax({
-            type: "GET",
-            url: '{{route("ecommerce.produto.buscaProduto",["id" => '+id+' ])}}',
-            success: function (retorno) {
-                if(retorno.response == 'erro') {
-                    reject(data.msg);
-                }
-                resolve(retorno.data);
-            },
-            error: function (retorno, textStatus, errorThrown) {
-                reject("Tivemos um problema ao consultar o produto item.");
-            },
+    {
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                type: "POST",
+                url: '{{route("ecommerce.produto.buscaProduto")}}',
+                data: { id: id, _token: '{{csrf_token()}}' },
+                success: function (retorno) {
+                    if(retorno.response == 'erro') {
+                        reject(data.msg);
+                    }
+                    resolve(retorno.data);
+                },
+                error: function (retorno, textStatus, errorThrown) {
+                    reject("Tivemos um problema ao consultar o produto item.");
+                },
+            });
         });
-    });
-}
+    }
 
-function consultaItemCarrinho(id)
-{
-    return new Promise((resolve,reject)=>{
-        $.ajax({
-            type: "GET",
-            url: '{{route("ecommerce.carrinho.buscaItem",["id" => '+id+' ])}}',
-            success: function (retorno) {
-                if(retorno.response == 'erro') {
-                    reject(data.msg);
-                }
-                resolve(retorno.data);
-            },
-            error: function (retorno, textStatus, errorThrown) {
-                reject("Tivemos um problema ao consultar o produto item.");
-            },
+    function consultaItemCarrinho(id)
+    {
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                type: "POST",
+                url: '{{route("ecommerce.carrinho.buscaItem")}}',
+                data: { id: id, _token: '{{csrf_token()}}' },
+                success: function (retorno) {
+                    if(retorno.response == 'erro') {
+                        reject(data.msg);
+                    }
+                    resolve(retorno.data);
+                },
+                error: function (retorno, textStatus, errorThrown) {
+                    reject("Tivemos um problema ao consultar o produto item.");
+                },
+            });
         });
-    });
-}
-
-
+    }
 </script>
 
 @endsection

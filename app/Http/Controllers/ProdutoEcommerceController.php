@@ -75,7 +75,7 @@ class ProdutoEcommerceController extends Controller
 
         $registroPPagina = session()->get('regPorPage') ?? 20;
 
-        $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1);
+        $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1)->where('valor','>',0);
         
         if($request->has('searchProduct')){
             $produtos = $produtos->where('nome','ilike','%' . $request->query('searchProduct') . '%')
@@ -101,7 +101,7 @@ class ProdutoEcommerceController extends Controller
             }
         }
         
-        $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1)->paginate($registroPPagina)
+        $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1)->where('valor','>',0)->paginate($registroPPagina)
             ->appends(['searchProduct'=>$request->query('searchProduct')])
             ->appends(['regPorPage'=>$registroPPagina])
             ->appends(['rangeMinimo'=>$rangeMinimo])
@@ -142,7 +142,7 @@ class ProdutoEcommerceController extends Controller
 
         $registroPPagina = session()->get('regPorPage') ?? 20;
 
-        $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1);
+        $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1)->where('valor','>',0);
         if($id){
             $produtos = $produtos->where('grupo_produto_id','=',$id);
         }
@@ -164,7 +164,7 @@ class ProdutoEcommerceController extends Controller
         $pedidoNormal = $this->pedidoService->buscaPedidoCarrinho(2);
         $pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
 
-        $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1)->paginate($registroPPagina)
+        $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1)->where('valor','>',0)->paginate($registroPPagina)
             ->appends(['regPorPage'=>$registroPPagina])
             ->appends(['ordenacao'=>$request->query('ordenacao')]);
          
@@ -217,8 +217,9 @@ class ProdutoEcommerceController extends Controller
         
     }
 
-    public function buscaProduto($id)
+    public function buscaProduto(Request $request)
     {
+        $idProduto = $request->id;
         $produto = $this->produtoService->find($idProduto);
         return response()->json(
             [

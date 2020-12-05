@@ -106,7 +106,8 @@ class CarrinhoEcommerceController extends Controller
         }   
     }
 
-    public function buscaItem($id){
+    public function buscaItem(Request $request){
+        $id = $request->id;
         $item = $this->itemPedidoService->find($id);
         return response()->json(
             [
@@ -114,6 +115,24 @@ class CarrinhoEcommerceController extends Controller
                 'data' => [
                     'quantidade' => $item->quantidade,
                 ]
+            ]
+        );
+    }
+
+    public function detalheItem($id_pedido, $id_item)
+    {
+        $item = $this->itemPedidoService->find($id_item);
+        $setup= $this->setupService->find(1);
+
+       
+        return view('ecommerce.detalheProdutoCarrinho.index', 
+            [
+                'item' => $item,
+                'tamanhos' => json_decode($setup->tamanhos),
+                'tamanhosStr' => $this->setupService->tamanhosToString(json_decode($setup->tamanhos)),
+                'tamanhoDefault' => $setup->tamanho_padrao,
+                'grupos_necessita_tamanho' => $setup->grupos,
+                'caminho_imagem' => $setup->caminho_imagen_produto
             ]
         );
     }

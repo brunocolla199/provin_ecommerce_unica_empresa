@@ -104,13 +104,15 @@ return [
         'total' => 'Total',
         'checkout' => 'Enviar pedido',
         'tamanho'  => 'Tamanho',
-        'card_total' => 'Total Carrinho',
-        'update_card' => 'Alterar Carrinho',
+        'card_total' => 'Total Sacolla',
+        'update_card' => 'Alterar Sacola',
         'your_orden'  => 'Meu Pedido',
         'place_orden' => 'Finalizar Pedido',
         'produto'    => 'Produto',
         'continuar_comprando' => 'Continuar Comprando',
-        'time' => 'Tempo para Liberação do Pedido'
+        'time' => 'Tempo para Liberação do Pedido',
+        'img' => 'Imagem',
+        'valor_unitario' =>'Valor Unitário'
 
 
         

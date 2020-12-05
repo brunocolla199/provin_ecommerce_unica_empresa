@@ -58,9 +58,9 @@
     }
 
     @media only screen and (max-width: 700px){
-    .modal-content {
-        width: 100%;
-    }
+        .modal-content {
+            width: 100%;
+        }
     }
 </style>
 
@@ -249,7 +249,6 @@
                 tamanho = $('#'+id).text();
             }
         });
-        
         var descricaoCarrinho = tipo == 'express' ? ' expresso' : ' de compras';
         let add_carrinho = swal2_warning("Essa ação irá adicionar o produto ao carrinho"+descricaoCarrinho ,"Sim!");
         add_carrinho.then(resolvedValue => {

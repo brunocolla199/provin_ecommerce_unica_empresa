@@ -32,7 +32,7 @@ var valorFloat = parseFloat($('#valorProduto').text().substr(2).replace(',','.')
 $('.tamanho').on('click',function(){
     var tamanho = $(this).text();
     $(".tamanho").each(function(index, value){
-        $('#'+value.id).removeAttr('class').attr('class','page-link tamanho');
+        $('#'+value.id).removeAttr('class').attr('class','page-link tamanho').attr('data-selected',true);
     });
     $('#tamanho-'+tamanho).attr('data-selected',true).attr('class','page-link current tamanho');
 });

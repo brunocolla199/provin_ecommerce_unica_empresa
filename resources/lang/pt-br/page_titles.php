@@ -172,5 +172,8 @@ return [
         'dashboard'     => [
             'index'  => 'Dashboards'
         ],
+        'detalheCarrinho'     => [
+            'index'  => 'Detalhe do item da Sacola'
+        ]
     ]
 ];

@@ -523,7 +523,7 @@
                                 <li class="disabled hidden-xs page-link"><span>...</span></li>
                             @endif
                             @foreach(range(1, $produtos->lastPage()) as $i)
-                                @if($i >= $produtos->currentPage() - 2 && $i <= $produtos->currentPage() + 2)
+                                @if($i >= $produtos->currentPage() - 1 && $i <= $produtos->currentPage() + 1)
                                     @if ($i == $produtos->currentPage())
                                         <li class="active page-link current"><span>{{ $i }}</span></li>
                                     @else
@@ -631,14 +631,14 @@
                 url: 'produto/adicionarCarinho',
                 data: { id: id, tipo: tipo, tamanho:tamanho,quantidade:1, _token: '{{csrf_token()}}' },
                 success: function (data) {
-                    location.reload();
-                    // if(data.response != 'erro') {
+                     if(data.response == 'erro') {
+                        swal2_alert_error_support("Tivemos um problema ao adicionar o produto.");
+                     }
+                     location.reload();
                     //     swal2_success("Adicionado !", "Produto adicionado com sucesso.");
                     // } else {
                     //     swal2_alert_error_support("Tivemos um problema ao adicionar o produto.");
-                    // }
-                    
-                    
+                    // }   
                 },
                 error: function (data, textStatus, errorThrown) {
                     console.log(data);
