@@ -35,7 +35,7 @@
                         @foreach ($produtos as $produto)
                             <tr>
                                 <td>{{$produto->produto->produto_terceiro_id}}</td>
-                                <td><img style="width: 100px;height: 100px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists($caminho_imagem.$produto->produto->produto_terceiro_id.'.jpg')) {{$caminho_imagem.$produto->produto->produto_terceiro_id.'.jpg'}}  @else {{asset('ecommerce/assets/img/300X300/img6.jpg')}} @endif" alt="Image Description"></td>
+                                <td><img style="width: 100px;height: 100px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.$produto->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$produto->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img6.jpg')}} @endif" alt="Image Description"></td>
                                 <td>{{$produto->produto->nome}}</td>
                                 <td>{{$produto->quantidade_estoque}}</td>
                                 
