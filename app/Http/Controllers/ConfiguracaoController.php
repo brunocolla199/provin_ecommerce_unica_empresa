@@ -245,7 +245,7 @@ class ConfiguracaoController extends Controller
                                     ['produto_id','=',$buscaProdutoInterno->id,"AND"]
                                 ]
                             );
-                            if($buscaEstoque->count() > 0){
+                            if($buscaEstoque){
                                 $this->estoqueService->update(
                                     ['quantidade_estoque' => $valueProdutos->qtddisponivel],
                                     $buscaEstoque->id
