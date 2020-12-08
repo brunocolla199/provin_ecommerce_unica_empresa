@@ -90,16 +90,16 @@
                         <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                     <div class="js-slide">
-                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'_2.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'_2.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                     <div class="js-slide">
-                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'_3.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'_3.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                     <div class="js-slide">
-                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'_4.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'_4.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                     <div class="js-slide">
-                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'_5.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'_5.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                 </div>
 
@@ -113,19 +113,19 @@
                     </div>
                     
                     <div class="js-slide" style="cursor: pointer;">
-                        <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'_1.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'_1.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
-                    </div>
-                
-                    <div class="js-slide" style="cursor: pointer;">
-                        <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'_2.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'_2.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'_2.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'_3.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                 
                     <div class="js-slide" style="cursor: pointer;">
                         <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'_3.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'_3.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
-                    
+                
                     <div class="js-slide" style="cursor: pointer;">
                         <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'_4.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'_4.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                    </div>
+                    
+                    <div class="js-slide" style="cursor: pointer;">
+                        <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.$item->produto->produto_terceiro_id.'_5.jpg'))) {{asset($caminho_imagem.$item->produto->produto_terceiro_id.'_5.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                 </div>
             </div>
