@@ -186,18 +186,24 @@ class ConfiguracaoController extends Controller
 
     public function importWebService()
     {
-        //feito fixo temporariamente info vai vir do setup
         $empresaPadrao = $this->setupService->find(1)->empresa_default_sistema_terceiros;
         try {
             DB::transaction(function () use ($empresaPadrao) {
                 $this->produtoService->inativarTodosProdutos();
                 $produtos = $this->wonderService->consultaProduto($empresaPadrao);
-            
+                
+
                 foreach ($produtos as $key => $valueProdutos) {
+                    
+                    echo $valueProdutos->codigo."<br>";
                     if($valueProdutos->qtddisponivel > 0){
-                        $this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$valueProdutos->descricaocategoria,$valueProdutos->descricao,$valueProdutos->qtddisponivel,1);            
+                        
+                        //$this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$valueProdutos->descricaocategoria,$valueProdutos->descricao,$valueProdutos->qtddisponivel,1);            
                     }
+                    
+                    
                 }
+                die();
             });
             Helper::setNotify('Produtos atualizados com sucesso!', 'success|check-circle');
             return redirect()->back()->withInput();

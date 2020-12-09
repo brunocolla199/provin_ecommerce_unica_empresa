@@ -357,7 +357,7 @@
                                                                     aria-controls="languageDropdown"
                                                                     aria-haspopup="true"
                                                                     aria-expanded="false"
-                                                                    data-unfold-event="hover"
+                                                                    data-unfold-event="click"
                                                                     data-unfold-target="#languageDropdown"
                                                                     data-unfold-type="css-animation"
                                                                     data-unfold-duration="300"

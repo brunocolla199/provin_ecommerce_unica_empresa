@@ -173,7 +173,10 @@ return [
             'index'  => 'Dashboards'
         ],
         'detalheCarrinho'     => [
-            'index'  => 'Detalhe do item da Sacola'
+            'index'  => [
+                'normal'  => 'Detalhe do item da Sacola',
+                'express' => 'Detalhe do item da Sacola Expressa'
+            ]
         ]
     ]
 ];
