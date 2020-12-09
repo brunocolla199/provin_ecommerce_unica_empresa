@@ -99,6 +99,8 @@ class ProdutoEcommerceController extends Controller
                     break;
 
             }
+        }else{
+            $produtos = $produtos->orderBy('produto_terceiro_id', 'asc');
         }
         
         $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1)->where('valor','>',0)->paginate($registroPPagina)
@@ -159,6 +161,8 @@ class ProdutoEcommerceController extends Controller
                     break;
 
             }
+        }else{
+            $produtos = $produtos->orderBy('produto_terceiro_id', 'asc');
         }
 
         $pedidoNormal = $this->pedidoService->buscaPedidoCarrinho(2);
