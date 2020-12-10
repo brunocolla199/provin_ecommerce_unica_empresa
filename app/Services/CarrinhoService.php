@@ -65,7 +65,8 @@ class CarrinhoService
                 }); 
                  
                 Helper::setNotify('Produto adicionado com sucesso!', 'success|check-circle');
-                return $buscaExistItem->count() > 0 ? $buscaExistItem[0]->quantidade : 0  + 1;
+                
+                return ($buscaExistItem->count() > 0 ? $buscaExistItem[0]->quantidade : 0)  + $quantidade;
 
             } catch (\Throwable $th) {
                 
