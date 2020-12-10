@@ -213,8 +213,8 @@ class ProdutoEcommerceController extends Controller
         $quantidade  = $request->quantidade ?? 1;
         
         $add = $this->carrinhoService->addCarrinho($id_produto,$tipo_pedido,$tamanho, $quantidade);
-        if($add){
-            return response()->json(['response' => 'successo']);
+        if($add != false){
+            return response()->json(['response' => 'successo', 'data'=> $add]);
         }else{
            return response()->json(['response' => 'erro']);
         }

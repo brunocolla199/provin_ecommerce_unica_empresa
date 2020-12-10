@@ -470,7 +470,7 @@
                                                 </div>
                                                 <div class="flex-center-between mb-1">
                                                     <div class=" d-xl-block prodcut-add-cart">
-                                                        <a class="btn-add-cart CartNormal btn-info transition-3d-hover" style="background-color: #00dffc" data-tipo="normal" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i><b>{{$produtoPedidoNormal[0]->total}}</b></a>
+                                                    <a class="btn-add-cart CartNormal btn-info transition-3d-hover" style="background-color: #00dffc" data-tipo="normal" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i><b id="normal-{{$produto->id}}">{{$produtoPedidoNormal[0]->total}}</b></a>
                                                     </div>
                                                     @if (in_array($produto->grupo_produto_id,json_decode($grupos_necessita_tamanho)))
                                                     <div class=" d-xl-block prodcut-add-cart">
@@ -483,7 +483,7 @@
                                                     </div>
                                                     @endif
                                                     <div class=" d-xl-block prodcut-add-cart">
-                                                        <a class="btn-add-cart btn-primary transition-3d-hover" style="background-color: #fed700" data-tipo="express" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i><b>{{$produtoPedidoExpresso[0]->total}}</b></a>
+                                                        <a class="btn-add-cart btn-primary transition-3d-hover" style="background-color: #fed700" data-tipo="express" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i><b id="express-{{$produto->id}}">{{$produtoPedidoExpresso[0]->total}}</b></a>
                                                     </div>
                                                     
                                                 </div>
@@ -629,15 +629,39 @@
                 type: "POST",
                 url: 'produto/adicionarCarinho',
                 data: { id: id, tipo: tipo, tamanho:tamanho,quantidade:1, _token: '{{csrf_token()}}' },
-                success: function (data) {
-                     if(data.response == 'erro') {
+                success: function (ret) {
+                    console.log(ret);
+                    let qtd = ret['data'];
+                    if(ret['response'] == 'erro') {
                         swal2_alert_error_support("Tivemos um problema ao adicionar o produto.");
-                     }
-                     location.reload();
-                    //     swal2_success("Adicionado !", "Produto adicionado com sucesso.");
-                    // } else {
-                    //     swal2_alert_error_support("Tivemos um problema ao adicionar o produto.");
-                    // }   
+                    }
+                    if(tipo == 'express'){
+                        
+                        if(!document.getElementById('pedidoExpressHidden')){
+                            location.reload();
+                        }else{
+                            let qtd_express = document.querySelector('.pedidoExpress').textContent;
+                            $('#express-'+id).text(qtd);
+                            
+                            $('.pedidoExpress').text(parseInt(qtd_express) + parseInt(1));
+                        }
+                        
+                    }else{
+                        
+                        if(!document.getElementById('pedidoNormalHidden')){
+                            location.reload();
+                        }else{
+                            let qtd_normal = document.querySelector('.pedidoNormal').textContent;
+                            $('#normal-'+id).text(qtd);
+                            console.log(parseInt(qtd_normal) + parseInt(1));
+                            $('.pedidoNormal').text(parseInt(qtd_normal) + parseInt(1));
+                        }
+                        
+                    }
+                    
+                    
+                     
+                       
                 },
                 error: function (data, textStatus, errorThrown) {
                     console.log(data);
