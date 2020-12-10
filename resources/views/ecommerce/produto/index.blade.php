@@ -657,11 +657,7 @@
                             $('.pedidoNormal').text(parseInt(qtd_normal) + parseInt(1));
                         }
                         
-                    }
-                    
-                    
-                     
-                       
+                    }       
                 },
                 error: function (data, textStatus, errorThrown) {
                     console.log(data);
