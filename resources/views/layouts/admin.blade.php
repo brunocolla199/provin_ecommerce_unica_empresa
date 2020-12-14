@@ -1037,7 +1037,7 @@
                                                 <div class="row">
                                                     <div class="col-auto">
                                                         <a href="../shop/single-product-fullwidth.html" class="d-block width-75">
-                                                            <img class="img-fluid" src="{{asset('ecommerce/assets/img/300X300/img3.jpg')}}" alt="Image Description">
+                                                            <img class="img-fluid" src="{{asset('ecommerce/assets/img/300X300/img1.jpg')}}" alt="Image Description">
                                                         </a>
                                                     </div>
                                                     <div class="col">
@@ -1059,7 +1059,7 @@
                                                 <div class="row">
                                                     <div class="col-auto">
                                                         <a href="../shop/single-product-fullwidth.html" class="d-block width-75">
-                                                            <img class="img-fluid" src="{{asset('ecommerce/assets/img/300X300/img5.jpg')}}" alt="Image Description">
+                                                            <img class="img-fluid" src="{{asset('ecommerce/assets/img/300X300/img1.jpg')}}" alt="Image Description">
                                                         </a>
                                                     </div>
                                                     <div class="col">
@@ -1081,7 +1081,7 @@
                                                 <div class="row">
                                                     <div class="col-auto">
                                                         <a href="../shop/single-product-fullwidth.html" class="d-block width-75">
-                                                            <img class="img-fluid" src="{{asset('ecommerce/assets/img/300X300/img6.jpg')}}" alt="Image Description">
+                                                            <img class="img-fluid" src="{{asset('ecommerce/assets/img/300X300/img1.jpg')}}" alt="Image Description">
                                                         </a>
                                                     </div>
                                                     <div class="col">
@@ -1104,7 +1104,7 @@
                                                 <div class="row">
                                                     <div class="col-auto">
                                                         <a href="../shop/single-product-fullwidth.html" class="d-block width-75">
-                                                            <img class="img-fluid" src="{{asset('ecommerce/assets/img/300X300/img10.png')}}" alt="Image Description">
+                                                            <img class="img-fluid" src="{{asset('ecommerce/assets/img/300X300/img1.png')}}" alt="Image Description">
                                                         </a>
                                                     </div>
                                                     <div class="col">
