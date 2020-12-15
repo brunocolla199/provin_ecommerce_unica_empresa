@@ -195,10 +195,10 @@ class ConfiguracaoController extends Controller
 
                 foreach ($produtos as $key => $valueProdutos) {
                     
-                    echo $valueProdutos->codigo."<br>";
+                    
                     if($valueProdutos->qtddisponivel > 0){
                         
-                        //$this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$valueProdutos->descricaocategoria,$valueProdutos->descricao,$valueProdutos->qtddisponivel,1);            
+                        $this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$valueProdutos->descricaocategoria,$valueProdutos->descricao,$valueProdutos->qtddisponivel,1);            
                     }
                     
                     
