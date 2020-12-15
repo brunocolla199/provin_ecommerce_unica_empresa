@@ -203,7 +203,7 @@ class ConfiguracaoController extends Controller
                     
                     
                 }
-                die();
+                
             });
             Helper::setNotify('Produtos atualizados com sucesso!', 'success|check-circle');
             return redirect()->back()->withInput();
