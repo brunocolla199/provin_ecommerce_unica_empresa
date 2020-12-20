@@ -45,7 +45,7 @@
                     <!-- End Topbar -->
     
                     <!-- Logo and Menu -->
-                    <div class="py-2 py-xl-4 bg-primary-down-lg">
+                    <div class="py-2 py-xl-4 bg-primary">
                         <div class="container my-0dot5 my-xl-0">
                             <div class="row align-items-center">
                                 <!-- Logo-offcanvas-menu -->
@@ -100,7 +100,7 @@
                                         <!-- End Logo -->
     
                                         <!-- Fullscreen Toggle Button -->
-                                        <button id="sidebarHeaderInvokerMenu" type="button" class="navbar-toggler d-block btn u-hamburger mr-3 mr-xl-0"
+                                        <button id="sidebarHeaderInvokerMenu"  type="button"  class=" navbar-toggler d-block btn u-hamburger mr-3 mr-xl-0"
                                             aria-controls="sidebarHeader"
                                             aria-haspopup="true"
                                             aria-expanded="false"

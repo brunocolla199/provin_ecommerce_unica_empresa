@@ -193,6 +193,10 @@ class ProdutoEcommerceController extends Controller
     public function detalhe($id)
     {
         $produto = $this->produtoService->find($id);
+        
+        $pedidoNormal = $this->pedidoService->buscaPedidoCarrinho(2);
+        $pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
+
         return view('ecommerce.detalheProduto.index', 
             [
                 'grupos' => $this->grupos,
@@ -201,7 +205,9 @@ class ProdutoEcommerceController extends Controller
                 'tamanhosStr' => $this->tamanhosStr,
                 'tamanhoDefault' => $this->tamanho_padrao,
                 'grupos_necessita_tamanho' => $this->grupos_necessita_tamanho,
-                'caminho_imagem' => $this->caminhoImagens
+                'caminho_imagem' => $this->caminhoImagens,
+                'pedidoNormal'  => $pedidoNormal[0]->id ?? 0,
+                'pedidoExpresso'  => $pedidoExpress[0]->id ?? 0,
             ]
         );
     }

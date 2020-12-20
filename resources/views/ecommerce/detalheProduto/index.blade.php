@@ -84,21 +84,29 @@
                     data-arrow-left-classes="fas fa-arrow-left u-slick__arrow-classic-inner u-slick__arrow-classic-inner--left ml-lg-2 ml-xl-4"
                     data-arrow-right-classes="fas fa-arrow-right u-slick__arrow-classic-inner u-slick__arrow-classic-inner--right mr-lg-2 mr-xl-4"
                     data-nav-for="#sliderSyncingThumb">
-                    <div class="js-slide">
-                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
-                    </div>
-                    <div class="js-slide">
-                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
-                    </div>
-                    <div class="js-slide">
-                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
-                    </div>
-                    <div class="js-slide">
-                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
-                    </div>
-                    <div class="js-slide">
-                        <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
-                    </div>
+                        <div class="js-slide">
+                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                        </div>
+                    @if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg')))
+                        <div class="js-slide">
+                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                        </div>
+                    @endif
+                    @if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg')))
+                        <div class="js-slide">
+                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                        </div>
+                    @endif
+                    @if ((file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg'))))
+                        <div class="js-slide">
+                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                        </div>
+                    @endif
+                    @if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg')))
+                        <div class="js-slide">
+                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                        </div>
+                    @endif
                 </div>
 
                 <div id="sliderSyncingThumb" class="js-slick-carousel u-slick u-slick--slider-syncing u-slick--slider-syncing-size u-slick--gutters-1 u-slick--transform-off"
@@ -110,22 +118,30 @@
                         <img class="img-fluid" style="border-radius: 10px"  src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                     
+                    @if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg')))
+                        <div class="js-slide" style="cursor: pointer;">
+                            <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
+                        </div>
+                    @endif
                     
-                    <div class="js-slide" style="cursor: pointer;">
-                        <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
-                    </div>
-                
-                    <div class="js-slide" style="cursor: pointer;">
-                        <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
-                    </div>
-                
-                    <div class="js-slide" style="cursor: pointer;">
-                        <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
-                    </div>
+                    @if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg')))
+                        <div class="js-slide" style="cursor: pointer;">
+                            <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
+                        </div>
+                    @endif
                     
-                    <div class="js-slide" style="cursor: pointer;">
-                        <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
-                    </div>
+                    @if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg')))
+                        <div class="js-slide" style="cursor: pointer;">
+                            <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
+                        </div>
+                    @endif
+                    
+                    @if ((file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg'))))
+                        <div class="js-slide" style="cursor: pointer;">
+                            <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
+                        </div>
+                    @endif
+                    
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 col-xl-4 mb-md-6 mb-lg-0">
@@ -206,12 +222,16 @@
                                 </ul>
                             </div>
                         @endif
-                        
+                        @php
+                                
+                            $produtoPedidoNormal = DB::select('select sum(quantidade) as total from item_pedido as i inner join pedido as p ON (i.pedido_id = p.id) where i.produto_id = :idProduto and i.pedido_id = :idPedido', ['idProduto'=>$produto->id,'idPedido'=>$pedidoNormal]);
+                            $produtoPedidoExpresso = DB::select('select sum(quantidade) as total from item_pedido as i inner join pedido as p ON (i.pedido_id = p.id) where i.produto_id = :idProduto and i.pedido_id = :idPedido', ['idProduto'=>$produto->id,'idPedido'=>$pedidoExpresso]);
+                        @endphp
                         <div class="mb-2 pb-0dot5">
-                        <button type="button" class="btn btn-block btn-primary add-cart" data-tipo="express" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart mr-2 font-size-20"></i>Carrinho Expresso</button>
+                        <button type="button" class="btn btn-block  add-cart" style="background-color:yellow" data-tipo="express" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart mr-2 font-size-20"></i>Sacola Expressa <b id="totalItemCarrinhoExpresso">{{$produtoPedidoExpresso[0]->total}}</b></button>
                         </div>
                         <div class="mb-2 pb-0dot5">
-                        <button type="button" class="btn btn-block btn-info add-cart" data-tipo="normal" data-id="{{$produto->id}}" ><i class="ec ec-add-to-cart mr-2 font-size-20"></i>Carrinho</button>
+                        <button type="button" class="btn btn-block btn-info add-cart" data-tipo="normal" data-id="{{$produto->id}}" ><i class="ec ec-add-to-cart mr-2 font-size-20"></i>Sacola <b id="totalItemCarrinhoNormal">{{$produtoPedidoNormal[0]->total}}</b></button>
                         </div>
                         <div class="mb-3">
                             <a href="{{route('ecommerce.produto')}}" class="btn btn-block btn-dark">{{__('buttons.general.back')}}</a>
@@ -250,26 +270,52 @@
             }
         });
         var descricaoCarrinho = tipo == 'express' ? ' expresso' : ' de compras';
-        let add_carrinho = swal2_warning("Essa ação irá adicionar o produto ao carrinho"+descricaoCarrinho ,"Sim!");
-        add_carrinho.then(resolvedValue => {
+        //let add_carrinho = swal2_warning("Essa ação irá adicionar o produto ao carrinho"+descricaoCarrinho ,"Sim!");
+        //add_carrinho.then(resolvedValue => {
             $.ajax({
                 type: "POST",
                 url: '{{route("ecommerce.produto.adicionarCarinho")}}',
                 data: { id: id, tipo: tipo, tamanho:tamanho, quantidade:quantidade, _token: '{{csrf_token()}}' },
                 success: function (data) {
-                    if(data.response != 'erro') {
-                        swal2_success("Adicionado !", "Produto adicionado com sucesso.");
-                    } else {
+                    if(data.response == 'erro') {
                         swal2_alert_error_support("Tivemos um problema ao adicionar o produto.");
                     }
+                    if(tipo == 'express'){
+                        
+                        if(!document.getElementById('pedidoExpressHidden')){
+                            location.reload();
+                        }else{
+                            let qtd_express = document.querySelector('.pedidoExpress').textContent;
+                            let qtd_item_express = document.querySelector('#totalItemCarrinhoExpresso').textContent;
+                            $('#totalItemCarrinhoExpresso').text(parseInt(qtd_item_express) + parseInt(quantidade));
+                            
+                            $('.pedidoExpress').text(parseInt(qtd_express) + parseInt(quantidade));
+                        }
+                        
+                    }else{
+                        
+                        if(!document.getElementById('pedidoNormalHidden')){
+                            location.reload();
+                        }else{
+                            let qtd_normal = document.querySelector('.pedidoNormal').textContent;
+                            let qtd_item_normal = document.querySelector('#totalItemCarrinhoNormal').textContent;
+
+                            $('#totalItemCarrinhoNormal').text(parseInt(qtd_item_normal) + parseInt(quantidade));
+                            
+                            $('.pedidoNormal').text(parseInt(qtd_normal) + parseInt(quantidade));
+                        }
+                        
+                    } 
+
                 },
                 error: function (data, textStatus, errorThrown) {
                     console.log(data);
                 },
             });
-        }, error => {
+        /*}, error => {
             swal.close();
         });
+        */
     });
 </script>
 @endsection

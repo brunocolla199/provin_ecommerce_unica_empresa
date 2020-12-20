@@ -70,8 +70,8 @@
                                     <small class="form-control-feedback"> São permitidos os formatos jpeg, png e jpg </small> 
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <img name=img_logo_login id="img_logo_login" src="{{ $configuracao->logo_login}}" align="center" style=" margin-top: 20px; margin-left: 20px; width: 150px">
+                            <div class="col-md-6" >
+                                <img name=img_logo_login id="img_logo_login" src="{{ $configuracao->logo_login}}" align="center" style=" margin-top: 20px; margin-left: 20px; width: 150px; background-color: darkgrey">
                             </div>
                         </div>
                         <div class="row">
@@ -82,8 +82,8 @@
                                     <small class="form-control-feedback"> São permitidos os formatos jpeg, png e jpg </small> 
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <img name=img_logo_sistema id="img_logo_sistema" src="{{$configuracao->logo_sistema}}" align="center" style=" margin-top: 20px; margin-left: 20px; width: 150px">
+                            <div class="col-md-6" >
+                                <img name=img_logo_sistema id="img_logo_sistema" src="{{$configuracao->logo_sistema}}" align="center" style=" margin-top: 20px; margin-left: 20px; width: 150px;background-color: darkgrey">
                             </div>
                         </div>
 

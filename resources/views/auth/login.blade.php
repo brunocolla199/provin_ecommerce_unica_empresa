@@ -13,7 +13,7 @@
      <!-- CSS Electro Template -->
      <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/theme.css') }}">
  </head>
- <body>
+ <body class="imgLogin">
     <div class="container">
         <div class="row justify-content-center mb-3" style="margin-top:5%">
             <!-- Logo -->

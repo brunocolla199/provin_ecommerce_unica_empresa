@@ -90,7 +90,7 @@
                     
     
                     <!-- Logo and Menu -->
-                    <div class="py-2 py-xl-4 bg-primary-down-lg">
+                    <div class="py-2 py-xl-4 bg-primary">
                         <div class="container my-0dot5 my-xl-0">
                             <div class="row align-items-center">
                                 <!-- Logo-offcanvas-menu -->
@@ -145,6 +145,7 @@
                                         <!-- End Logo -->
     
                                         <!-- Fullscreen Toggle Button -->
+                                        <!--
                                         <button id="sidebarHeaderInvokerMenu" type="button" class="navbar-toggler d-block btn u-hamburger mr-3 mr-xl-0"
                                             aria-controls="sidebarHeader"
                                             aria-haspopup="true"
@@ -160,12 +161,14 @@
                                                 <span class="u-hamburger__inner"></span>
                                             </span>
                                         </button>
+                                        -->
                                         <!-- End Fullscreen Toggle Button -->
                                     </nav>
                                     <!-- End Nav -->
     
                                     <!-- ========== HEADER SIDEBAR ========== -->
                                     <aside id="sidebarHeader1" class="u-sidebar u-sidebar--left" aria-labelledby="sidebarHeaderInvokerMenu">
+                                        
                                         <div class="u-sidebar__scroller">
                                             <div class="u-sidebar__container">
                                                 <div class="u-header-sidebar__footer-offset pb-0">
@@ -377,6 +380,23 @@
                                     </aside>
                                     <!-- ========== END HEADER SIDEBAR ========== -->
                                 </div>
+                                <div class="d-none d-sm-inline-flex align-items-center col align-self-center mt-2">
+                                    <!-- Search-Form -->
+                                    <form class="js-focus-state "  method="GET"  id="buscaPorName" name="buscaPorName" action="{{route('ecommerce.produto')}}" >
+                                        
+                                        <label class="sr-only" for="searchProduct">{{__('sidebar_and_header.ecommerce.search')}}</label>
+                                        <div class="input-group">
+                                        <input type="text" class="form-control py-2 pl-5 font-size-15 border-0 height-40 rounded-left-pill" name="searchProduct" id="searchProduct" placeholder="{{__('sidebar_and_header.ecommerce.search_for_product')}}" aria-label="{{__('sidebar_and_header.ecommerce.search_for_product')}}" aria-describedby="searchProduct1"  value="{{$_GET['searchProduct'] ?? ''}}">
+                                            <div class="input-group-append">
+                                            
+                                                <button type="submit" class="btn btn-dark height-40 py-2 px-3 rounded-right-pill" type="button" id="searchProduct1">
+                                                    <span class="ec ec-search font-size-24"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!-- End Search-Form -->
+                                </div>
                                 <!-- End Logo-offcanvas-menu -->
                                 <!-- Primary Menu -->
                                 <div class="col d-none d-xl-block">
@@ -438,7 +458,7 @@
                                 </div>-->
 
                                 <!-- Topbar -->
-                                <div class="u-header-topbar py-2 d-none d-xl-block">
+                                <div class=" py-2 d-none d-xl-block">
                                     <div class="container">
                                         <div class="d-flex align-items-center">
                                             <div class="topbar-right ml-auto">
@@ -452,7 +472,64 @@
                                                     </li>-->
                                                     <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border u-header-topbar__nav-item-no-border u-header-topbar__nav-item-border-single">
                                                         <div class="d-flex align-items-center">
-                                                            
+                                                            <div class="col-md-auto align-self-center">
+                                                                <div class="d-flex">
+                                                                    <ul class="d-flex list-unstyled mb-0">
+                                                                        <!--<li class="col"><a href="../shop/compare.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Compare"><i class="font-size-22 ec ec-compare"></i></a></li>-->
+                                                                        <!--<li class="col"><a href="../shop/wishlist.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorites"><i class="font-size-22 ec ec-favorites"></i></a></li>-->
+                                                                        <li class="col pr-0">
+                                                                            <a  class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.time')}}">
+                                                                                
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>								
+                                                                                <div class="ml-2">
+                                                                                        <div id="clockdiv" style="display: flex;color:white"> 
+                                                                                            <div style="mb-1"> 
+                                                                                                <b><span class="days" id="day"></span></b>&nbsp;<span style="font-size:10px">Dias</span>&nbsp; 
+                                                                                                    
+                                                                                            </div> 
+                                                                                            <div style="mb-1"> 
+                                                                                                <b><span class="hours" id="hour"></span></b>:
+                                                                                                
+                                                                                            </div> 
+                                                                                            <div style="mb-1"> 
+                                                                                                <b><span class="minutes" id="minute"></span></b>: 
+                                                                                                    
+                                                                                            </div> 
+                                                                                            <div> 
+                                                                                                <b><span class="seconds" id="second"></span></b>&nbsp;<span style="font-size:10px">Horas</span>
+                                                                                                
+                                                                                            </div> 
+                                                                                        </div> 
+                                                                                        <div id="clockdiv" style="display: flex;height: 10px;color:white">
+                                                                                            <div style="mb-1">
+                                                                                                <b id="demo" style="font-size:14px"></b>
+                                                                                            </div>
+                                                                                        </div>    
+                                                                                </div>
+                                                                                        
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="col pr-0">
+                                                                            <a href="@if (!empty($pedidoNormal[0])){{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }} @else #  @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 6h-3V4c0-1.11-.89-2-2-2H9c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z"/></svg>
+                                                                                @if (!empty($pedidoNormal[0]))
+                                                                                    <span href="{{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white pedidoNormal">{{$pedidoNormal[0]->numero_itens ?? ''}}</span>
+                                                                                    <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoNormal[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
+                                                                                @endif 
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="col pr-0">
+                                                                            <a href="@if (!empty($pedidoExpress[0])) {{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }} @else # @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart2')}}">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 6h-3V4c0-1.11-.89-2-2-2H9c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z"/></svg>
+                                                                                @if (!empty($pedidoExpress[0]))
+                                                                                    <span href="{{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white pedidoExpress">{{$pedidoExpress[0]->numero_itens ?? ''}}</span>
+                                                                                    <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoExpress[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
+                                                                                @endif
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
                                                             <div class="position-relative">
                                                                 <a id="languageDropdownInvoker" class="dropdown-nav-link dropdown-toggle d-flex align-items-center u-header-topbar__nav-link font-weight-normal" href="javascript:;" role="button"
                                                                     aria-controls="languageDropdown"
@@ -477,8 +554,6 @@
                                                                     </form>
                                                                 </div>
                                                             </div>
-                                                            
-                                                            
                                                         </div>
                                                     </li>
                                                     
@@ -593,108 +668,31 @@
                     <!-- End Logo and Menu -->
     
                     <!-- Vertical-and-Search-Bar -->
-                    <div class="d-none d-xl-block bg-primary" style="height: 60px">
+                    <div class="d-none d-xl-block bg-primary" style="height: 35px;border-top: 1px solid white">
                         <div class="container">
-                            <div class="row align-items-stretch min-height-50">
-                                <!-- Vertical Menu -->
-                                <div class="col-md-auto d-none d-xl-flex align-items-end">
-                                    <div class="max-width-270 min-width-270">
-                                        <!-- Basics Accordion -->
-                                        <div id="basicsAccordion">
-                                            
-                                            
-                                        </div>
-                                        <!-- End Basics Accordion -->
-                                    </div>
-                                </div>
-                                <!-- End Vertical Menu -->
-                                <!-- Search bar -->
-                                <div class="col align-self-center mt-2">
-                                    <!-- Search-Form -->
-                                    <form class="js-focus-state "  method="GET"  id="buscaPorName" name="buscaPorName" action="{{route('ecommerce.produto')}}" >
-                                        
-                                        <label class="sr-only" for="searchProduct">{{__('sidebar_and_header.ecommerce.search')}}</label>
-                                        <div class="input-group">
-                                        <input type="text" class="form-control py-2 pl-5 font-size-15 border-0 height-40 rounded-left-pill" name="searchProduct" id="searchProduct" placeholder="{{__('sidebar_and_header.ecommerce.search_for_product')}}" aria-label="{{__('sidebar_and_header.ecommerce.search_for_product')}}" aria-describedby="searchProduct1"  value="{{$_GET['searchProduct'] ?? ''}}">
-                                            <div class="input-group-append">
-                                            <!-- 
-                                                <select class="js-select selectpicker dropdown-select custom-search-categories-select"
-                                                    data-style="btn height-40 text-gray-60 font-weight-normal border-0 rounded-0 bg-white px-5 py-2">
-                                                    <option value="" selected>{{__('sidebar_and_header.ecommerce.all_categories')}}</option>
-                                                    @foreach ($grupos as $grupo)
-                                                        <option value="{{ $grupo->id }}" > {{ $grupo->nome }} </option>
-                                                    @endforeach
-                                                </select>
-                                            -->
-                                                <button type="submit" class="btn btn-dark height-40 py-2 px-3 rounded-right-pill" type="button" id="searchProduct1">
-                                                    <span class="ec ec-search font-size-24"></span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <!-- End Search-Form -->
-                                </div>
-                                <!-- End Search bar -->
-                                <!-- Header Icons -->
-                                <div class="col-md-auto align-self-center">
-                                    <div class="d-flex">
-                                        <ul class="d-flex list-unstyled mb-0">
-                                            <!--<li class="col"><a href="../shop/compare.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Compare"><i class="font-size-22 ec ec-compare"></i></a></li>-->
-                                            <!--<li class="col"><a href="../shop/wishlist.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorites"><i class="font-size-22 ec ec-favorites"></i></a></li>-->
-                                            <li class="col pr-0">
-                                                <a  class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.time')}}">
-                                                    
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>								
-                                                    <div class="ml-2">
-                                                            <div id="clockdiv" style="display: flex"> 
-                                                                <div style="mb-1"> 
-                                                                    <b><span class="days" id="day"></span></b>&nbsp;<span style="font-size:10px">Dias</span>&nbsp; 
-                                                                        
-                                                                </div> 
-                                                                <div style="mb-1"> 
-                                                                    <b><span class="hours" id="hour"></span></b>:
+                            <div class="row align-items-stretch " style="display: flex;justify-content: center">
+                                <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar u-header__navbar--no-space" >
+                                        <!-- Navigation -->
+                                        <div id="navBar" class="collapse navbar-collapse u-header__navbar-collapse">
+                                            <ul class="navbar-nav u-header__navbar-nav">
+                                                <li class="nav-item u-header__nav-item">
+                                                    <a class="nav-link u-header__nav-link" style="color: white" href="{{route('ecommerce.home')}}">Início</a>
+                                                </li>
+                                                <li class="nav-item u-header__nav-item">
+                                                    <a class="nav-link u-header__nav-link" style="color: white" href="{{route('ecommerce.produto')}}">{{__('sidebar_and_header.ecommerce.product')}}</a>
+                                                </li>
+                                                <li class="nav-item u-header__nav-item">
+                                                    <a class="nav-link u-header__nav-link" style="color: white" href="{{route('ecommerce.pedido')}}">Pedidos</a>
+                                                </li>
+                                                <li class="nav-item u-header__nav-item">
+                                                    <a class="nav-link u-header__nav-link" style="color: white" href="{{route('ecommerce.estoque')}}">Estoque</a>
+                                                </li>
                                                                     
-                                                                </div> 
-                                                                <div style="mb-1"> 
-                                                                    <b><span class="minutes" id="minute"></span></b>: 
-                                                                        
-                                                                </div> 
-                                                                <div> 
-                                                                    <b><span class="seconds" id="second"></span></b>&nbsp;<span style="font-size:10px">Horas</span>
-                                                                    
-                                                                </div> 
-                                                            </div> 
-                                                            <div id="clockdiv" style="display: flex;height: 10px">
-                                                                <div style="mb-1">
-                                                                    <b id="demo" style="font-size:14px"></b>
-                                                                </div>
-                                                            </div>    
-                                                    </div>
-                                                         
-                                                </a>
-                                            </li>
-                                            <li class="col pr-0">
-                                                <a href="@if (!empty($pedidoNormal[0])){{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }} @else #  @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 6h-3V4c0-1.11-.89-2-2-2H9c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z"/></svg>
-                                                    @if (!empty($pedidoNormal[0]))
-                                                        <span href="{{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white pedidoNormal">{{$pedidoNormal[0]->numero_itens ?? ''}}</span>
-                                                        <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoNormal[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
-                                                    @endif 
-                                                </a>
-                                            </li>
-                                            <li class="col pr-0">
-                                                <a href="@if (!empty($pedidoExpress[0])) {{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }} @else # @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart2')}}">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 6h-3V4c0-1.11-.89-2-2-2H9c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z"/></svg>
-                                                    @if (!empty($pedidoExpress[0]))
-                                                        <span href="{{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white pedidoExpress">{{$pedidoExpress[0]->numero_itens ?? ''}}</span>
-                                                        <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoExpress[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
-                                                    @endif
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- End Header Icons -->
+                                            </ul>
+                                        </div>
+                                </nav>
+
+                                
                             </div>
                         </div>
                     </div>
