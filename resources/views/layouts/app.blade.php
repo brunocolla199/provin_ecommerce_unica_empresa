@@ -676,16 +676,16 @@
                                         <div id="navBar" class="collapse navbar-collapse u-header__navbar-collapse">
                                             <ul class="navbar-nav u-header__navbar-nav">
                                                 <li class="nav-item u-header__nav-item">
-                                                    <a class="nav-link u-header__nav-link" style="color: white" href="{{route('ecommerce.home')}}">Início</a>
+                                                    <a class="nav-link u-header__nav-link"  href="{{route('ecommerce.home')}}">Início</a>
                                                 </li>
                                                 <li class="nav-item u-header__nav-item">
-                                                    <a class="nav-link u-header__nav-link" style="color: white" href="{{route('ecommerce.produto')}}">{{__('sidebar_and_header.ecommerce.product')}}</a>
+                                                    <a class="nav-link u-header__nav-link"  href="{{route('ecommerce.produto')}}">{{__('sidebar_and_header.ecommerce.product')}}</a>
                                                 </li>
                                                 <li class="nav-item u-header__nav-item">
-                                                    <a class="nav-link u-header__nav-link" style="color: white" href="{{route('ecommerce.pedido')}}">Pedidos</a>
+                                                    <a class="nav-link u-header__nav-link"  href="{{route('ecommerce.pedido')}}">Pedidos</a>
                                                 </li>
                                                 <li class="nav-item u-header__nav-item">
-                                                    <a class="nav-link u-header__nav-link" style="color: white" href="{{route('ecommerce.estoque')}}">Estoque</a>
+                                                    <a class="nav-link u-header__nav-link"  href="{{route('ecommerce.estoque')}}">Estoque</a>
                                                 </li>
                                                                     
                                             </ul>

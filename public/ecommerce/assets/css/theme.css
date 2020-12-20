@@ -20951,7 +20951,7 @@ button:focus {
 }
 
 .u-header__nav-item:hover .u-header__nav-link, .u-header__nav-item:focus .u-header__nav-link {
-  color: #000000;
+  color: #f89963;
 }
 
 /* Nav Link */
@@ -33100,7 +33100,7 @@ blockquote:not(.blockquote) p {
 /* Header-Menu */
 .u-header__navbar-nav .u-header__nav-link {
   font-weight: 700;
-  color: #333e48;
+  color: #FFFFFF;
 }
 
 .u-header__navbar-nav .u-header__sub-menu-nav-link {
