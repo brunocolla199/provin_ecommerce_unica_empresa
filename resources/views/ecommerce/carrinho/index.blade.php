@@ -22,7 +22,72 @@
         @endif
         <form class="mb-4" action="#" method="post">
         <input type="hidden" id="tipoPedido" value="{{$itens[0]->pedido->tipo_pedido_id}}">
-            <table class="table" cellspacing="0">
+        <div class="cart block">
+            <div class="container">
+               <table class="cart__table cart-table">
+                  <thead class="cart-table__head">
+                     <tr class="cart-table__row">
+                        <th class="cart-table__column cart-table__column--image">Imagem</th>
+                        <th class="cart-table__column cart-table__column--product">Produto</th>
+                        <th class="cart-table__column cart-table__column--tamanho">Tamanho</th>
+                        <th class="cart-table__column cart-table__column--price">Preço</th>
+                        <th class="cart-table__column cart-table__column--quantity">Quantidade</th>
+                        <th class="cart-table__column cart-table__column--total">Total</th>
+                        <th class="cart-table__column cart-table__column--remove"></th>
+                     </tr>
+                  </thead>    
+                  <tbody class="cart-table__body">
+                        @foreach ($itens as $item)
+                            <tr class="cart-table__row">
+                                <td class="cart-table__column cart-table__column--image"><a href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}"><img src="@if (file_exists(public_path($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif" style="width: 160px;height: 160px" alt=""></a></td>
+                                
+                                <td class="cart-table__column cart-table__column--product">
+                                    <a href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}" class="cart-table__product-name text-gray-90 btn">{{$item->produto->produto_terceiro_id}} - {{$item->produto->nome}}</a>
+                                    <!--<ul class="cart-table__options">
+                                        <li>Color: Yellow</li>
+                                        <li>Material: Aluminium</li>
+                                    </ul>-->
+                                </td>
+                                <td class="cart-table__column cart-table__column--tamanho" data-title="Tamanho">
+                                    @if (in_array($item->produto->grupo_produto_id,json_decode($grupos_necessita_tamanho)))
+                                        <select name="tamanho" id="tamanho-{{$item->id}}" data-id="{{$item->id}}" class="border rounded-pill py-1 width-122 w-xl-80 px-3 border-color-1 tamanho">
+                                            <option value="" disabled>Selecione</option>
+                                            @foreach (json_decode($tamanhos) as $key)
+                                                <option @if ((int)$key == (int)$item->tamanho) selected @endif value="{{$key}}">{{$key}}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
+                                </td>
+                                <td class="cart-table__column cart-table__column--price" class="" id="preco-{{$item->id}}" data-title="Preço">{{number_format($item->valor_unitario, 2, ',', '.')}}</td>
+                                <td class="cart-table__column cart-table__column--quantity" data-title="Quantidade">
+                                    <div class="border rounded-pill py-1 width-122 w-xl-70 px-3 border-color-1">
+                                        <div class="js-quantity row align-items-center">
+                                            <div class="col">
+                                                <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none qtd" data-id="{{$item->id}}"  data-produto="{{$item->produto->id}}"   type="text" value="{{$item->quantidade}}" id="qtd-{{$item->id}}">
+                                            </div>
+                                            <div class="col-auto pr-1">
+                                                <a class=" btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 remove-btn" data-id="{{$item->id}}" data-produto="{{$item->produto->id}}" >
+                                                    <small class="fas fa-minus btn-icon__inner"></small>
+                                                </a>
+                                                <a class=" btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 add-btn" data-id="{{$item->id}}" data-produto="{{$item->produto->id}}">
+                                                    <small class="fas fa-plus btn-icon__inner"></small>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="cart-table__column cart-table__column--total total"  id="total-{{$item->id}}" data-title="Total">{{number_format($item->valor_total, 2, ',', '.')}}</td>
+                                
+                                <td class="cart-table__column cart-table__column--remove">
+                                    <button  title="Remover" style="color: white;border-radius: 5px;width: 20px;height: 20px;display: flex;align-items: center;justify-content: center;cursor:pointer" class="btn btn-danger text-gray-32 font-size-26 remove"  data-id="{{$item->id}}">×</button>
+                                </td>
+                            </tr>
+                        @endforeach
+                 </tbody>
+               </table>
+            </div>
+        </div>
+            <!--<table class="table" cellspacing="0">
                 <thead>
                     <tr>
                         <th class="product-remove">&nbsp;</th>
@@ -44,14 +109,14 @@
                             <td class="text-center row">
                                 <button  title="Remover" style="color: white;border-radius: 5px;width: 20px;height: 20px;display: flex;align-items: center;justify-content: center;cursor:pointer" class="btn btn-danger text-gray-32 font-size-26 remove"  data-id="{{$item->id}}">×</button>
                             </td>
-                            <td data-title="{{__('sidebar_and_header.ecommerce.img')}}">
+                            <td>
                                 <a class=" d-md-table-cell" href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}"><img style="width: 150px;height:150px;border-radius: 10px" class="img-fluid max-width-150 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif" alt="Image Description"></a>
                             </td>
 
-                            <td data-title="{{__('sidebar_and_header.ecommerce.produto')}}">
+                            <td  data-title="{{__('sidebar_and_header.ecommerce.produto')}}:">
                                 <a href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}" class="text-gray-90 btn ">{{$item->produto->produto_terceiro_id}} - {{$item->produto->nome}}</a>
                             </td>
-                            <td data-title="Tamanho">
+                            <td  data-title="Tamanho:">
                                     @if (in_array($item->produto->grupo_produto_id,json_decode($grupos_necessita_tamanho)))
                                         <select name="tamanho" id="tamanho-{{$item->id}}" data-id="{{$item->id}}" class="border rounded-pill py-1 width-122 w-xl-80 px-3 border-color-1 tamanho">
                                             <option value="" disabled>Selecione</option>
@@ -62,13 +127,13 @@
                                     @endif
                             </td>
     
-                            <td data-title="{{__('sidebar_and_header.ecommerce.price')}}">
+                            <td  data-title="{{__('sidebar_and_header.ecommerce.price')}}:">
                                 <span class="" id="preco-{{$item->id}}">{{number_format($item->valor_unitario, 2, ',', '.')}}</span>
                             </td>
     
-                            <td data-title="{{__('sidebar_and_header.ecommerce.quantidade')}}">
+                            <td  data-title="{{__('sidebar_and_header.ecommerce.quantidade')}}:">
                                 <span class="sr-only">{{__('sidebar_and_header.ecommerce.quantidade')}}</span>
-                                <!-- Quantity -->
+                                
                                 <div class="border rounded-pill py-1 width-122 w-xl-70 px-3 border-color-1">
                                     <div class="js-quantity row align-items-center">
                                         <div class="col">
@@ -84,10 +149,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End Quantity -->
+                                
                             </td>
     
-                            <td data-title="Total">
+                            <td  data-title="Total:">
                                 <span class="total" id="total-{{$item->id}}">{{number_format($item->valor_total, 2, ',', '.')}}</span>
                             </td>
                         </tr>
@@ -98,19 +163,8 @@
                             <div class="pt-md-3">
                                 <div class="d-block d-md-flex flex-center-between">
                                     <div class="mb-3 mb-md-0 w-xl-40">
-                                        <!-- Apply coupon Form -->
-                                        <!--
-                                        <form class="js-focus-state">
-                                            <label class="sr-only" for="subscribeSrEmailExample1">Coupon code</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" name="text" id="subscribeSrEmailExample1" placeholder="Coupon code" aria-label="Coupon code" aria-describedby="subscribeButtonExample2" required>
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-block btn-dark px-4" type="button" id="subscribeButtonExample2"><i class="fas fa-tags d-md-none"></i><span class="d-none d-md-inline">Apply coupon</span></button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        -->
-                                        <!-- End Apply coupon Form -->
+                                        
+                                        
                                     </div>
                                     <div class="d-md-flex ">
                                         
@@ -124,7 +178,7 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table>-->
         </form>
     </div>
     <div class="mb-8 cart-total">
