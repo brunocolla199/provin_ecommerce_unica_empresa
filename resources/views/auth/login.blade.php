@@ -17,9 +17,9 @@
     <div class="container">
         <div class="row justify-content-center mb-3" style="margin-top:5%">
             <!-- Logo -->
-            <a class="order-1 order-xl-0 navbar-brand u-header__navbar-brand u-header__navbar-brand-center" href="../home/index.html" aria-label="Electro">
+        <a class="order-1 order-xl-0 navbar-brand  u-header__navbar-brand-center" href="{{route('login')}}" aria-label="Electro">
                 
-                <img src="{{App\Models\Setup::first()->logo_login}}" style="width:175.748px;height:42.52px ; " alt="">
+                <img class="logoLogin" src="{{App\Models\Setup::first()->logo_login}}" style="width:175.748px;height:42.52px ; " alt="">
                 
                 
             </a>

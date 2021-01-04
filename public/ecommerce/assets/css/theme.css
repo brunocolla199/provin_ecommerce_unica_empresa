@@ -606,10 +606,16 @@ pre code {
   
 }
 
+@media (max-width: 1280px) {
+  .logoLogin {
+    background-color: #DCDCDC
+  }
+}
 @media (min-width: 1280px) {
   .imgLogin {
     background: url('../../../img/fundo/p1.png');
-  } 
+  }
+  
 }
 
 @media (min-width: 1480px) {
@@ -3131,7 +3137,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary {
-  color: #1e2022;
+  color: #ffffff;
   background-color: #000000;
   border-color: #000000;
 }
@@ -3155,8 +3161,8 @@ fieldset:disabled a.btn {
 .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
   color: #1e2022;
-  background-color: #cbac00;
-  border-color: #bea100;
+  background-color: #f89963;
+  border-color: #f89963;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
@@ -7116,7 +7122,7 @@ a.badge:hover, a.badge:focus {
 
 a.badge-primary:hover, a.badge-primary:focus {
   color: #1e2022;
-  background-color: #cbac00;
+  background-color: #f89963;
 }
 
 a.badge-primary:focus, a.badge-primary.focus {
@@ -9673,7 +9679,7 @@ a.close.disabled {
 a.bg-primary:hover, a.bg-primary:focus,
 button.bg-primary:hover,
 button.bg-primary:focus {
-  background-color: #cbac00 !important;
+  background-color: #f89963 !important;
 }
 
 .bg-secondary {
