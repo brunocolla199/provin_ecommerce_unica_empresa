@@ -29067,7 +29067,7 @@ label.btn {
 }
 
 .u-hamburger:hover .u-hamburger__inner, .u-hamburger:hover .u-hamburger__inner::before, .u-hamburger:hover .u-hamburger__inner::after {
-  background-color: #000000;
+  background-color: #ffffff;
 }
 
 .u-hamburger__box {
@@ -29086,7 +29086,7 @@ label.btn {
 .u-hamburger__inner, .u-hamburger__inner::before, .u-hamburger__inner::after {
   width: 1.4rem;
   height: 0.125rem;
-  background-color: #000000;
+  background-color: #ffffff;
   position: absolute;
   transition-property: -webkit-transform;
   transition-property: transform;
