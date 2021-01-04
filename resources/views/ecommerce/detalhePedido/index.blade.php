@@ -74,19 +74,19 @@
                                     <div id="timeline"></div>
                                     
                                     <div title="Em Análise" class="marker mfirst timeline-icon one status" data-status='12' style="background-color:@if($pedido->status_pedido_id >= 2 && $pedido->status_pedido_id != 6) black @endif !important">
-                                            <img class="provin-icons" src="{{asset('img/icones/Arquivo.png')}}"></img>
+                                            <img class="provin-icons" style="margin-top:8px" src="{{asset('img/icones/Arquivo.png')}}"></img>
                                     </div>
                                     
                                     <div title="Emitido NFe" class="marker m2 timeline-icon two status" data-classe="two" data-status='3' style="background-color:@if($pedido->status_pedido_id >= 3 && $pedido->status_pedido_id != 6) black @endif !important">
-                                        <img class="provin-icons" src="{{asset('img/icones/Dinheiro.png')}}"></img>
+                                        <img class="provin-icons" style="margin-top:8px" src="{{asset('img/icones/Dinheiro.png')}}"></img>
                                     </div>
                                     
                                     <div title="Em Transporte" class="marker m3 timeline-icon three status" data-status='4' data-classe="three" style="background-color:@if($pedido->status_pedido_id >= 4 && $pedido->status_pedido_id != 5) black @endif !important">
-                                        <img class="provin-icons" src="{{asset('img/icones/Caminhão.png')}}"></img>
+                                        <img class="provin-icons" style="margin-top:8px" src="{{asset('img/icones/Caminhão.png')}}"></img>
                                     </div>
                                     
                                     <div title="Concluído" class="marker mlast timeline-icon four "   style="background-color:@if($pedido->status_pedido_id >= 5 && $pedido->status_pedido_id != 6) black @endif !important">
-                                        <img class="provin-icons" src="{{asset('img/icones/Check.png')}}"></img>
+                                        <img class="provin-icons" style="margin-top:8px" src="{{asset('img/icones/Check.png')}}"></img>
                                     </div>
                                 </div>  
                         </div>

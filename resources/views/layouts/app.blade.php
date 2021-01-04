@@ -585,7 +585,7 @@
                                                     data-unfold-hide-on-scroll="true"
                                                     data-unfold-animation-in="slideInUp"
                                                     data-unfold-animation-out="fadeOut">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                                                    <img class="provin-icons" style="width: 24px;height: 24px" src="{{asset('img/icones/search.png')}}"></img>
                                                 </a>
     
                                                 <!-- Input -->
@@ -593,7 +593,7 @@
                                                     <form class="js-focus-state input-group px-3" method="GET" action="{{route('ecommerce.produto')}}">
                                                         <input class="form-control" name="searchProduct" id="searchProduct" type="search" placeholder="{{__('sidebar_and_header.ecommerce.search_for_product')}}" value="{{$_GET['searchProduct'] ?? ''}}">
                                                         <div class="input-group-append">
-                                                            <button class="btn btn-primary px-3" type="submit"><i class="font-size-18 ec ec-search"></i></button>
+                                                            <button class="btn btn-primary px-3" type="submit"><img class="provin-icons" style="width: 18px;height: 18px" src="{{asset('img/icones/search.png')}}"></img></button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -604,13 +604,13 @@
                                             <!--<li class="col d-none d-xl-block"><a href="../shop/wishlist.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorites"><i class="font-size-22 ec ec-favorites"></i></a></li>-->
                                             <!--<li class="col d-xl-none px-2 px-sm-3"><a href="../shop/my-account.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.my_account')}}"><i class="font-size-22 ec ec-user"></i></a></li>-->
                                             
-                                            <li class="col pr-xl-0 px-2 px-sm-3">
+                                            <li class="col pr-xl-0 px-2 px-sm-3" style="margin-top:-10px">
                                                 <a  class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.time')}}">
                                                     <div class=" d-xl-block col-md-auto mt-3">
                                                         <div class="d-flex">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>	    
+                                                            <img class="provin-icons" src="{{asset('img/icones/Relógio.png')}}"></img>
                                                             <div class="ml-2">
-                                                                <div id="clockdiv" style="display: flex;"> 
+                                                                <div id="clockdiv" style="display: flex;color: #ff9a60"> 
                                                                     <div style="mb-1"> 
                                                                         <b><span class="days" id="dayMob"></span></b>&nbsp;<span style="font-size:10px">Dias</span>&nbsp; 
                                                                             
@@ -624,13 +624,13 @@
                                                                             
                                                                     </div> 
                                                                     <div> 
-                                                                        <b><span class="seconds" id="secondMob"></span></b>&nbsp;<span style="font-size:10px">Horas</span>
+                                                                        <b><span class="seconds" id="secondMob"></span></b>&nbsp;<span style="font-size:10px ">Horas</span>
                                                                         
                                                                     </div> 
                                                                 </div> 
                                                                 <div id="clockdiv" style="display: flex;height: 10px">
                                                                     <div style="mb-1">
-                                                                        <b id="demoMob" style="font-size:14px"></b>
+                                                                        <b id="demoMob" style="font-size:14px;color: #ff9a60"></b>
                                                                     </div>
                                                                 </div>          
                                                             </div>
@@ -641,7 +641,7 @@
                                             </li>
                                             <li class="col pr-xl-0 px-2 px-sm-3">
                                                 <a href="@if (!empty($pedidoNormal[0])){{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }} @else #  @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 6h-3V4c0-1.11-.89-2-2-2H9c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z"/></svg>
+                                                    <img class="provin-icons" src="{{asset('img/icones/Sacola.png')}}"></img>
                                                     @if (!empty($pedidoNormal[0]))
                                                         <span href="{{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white pedidoNormal"   >{{$pedidoNormal[0]->numero_itens ?? ''}}</span>
                                                         <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoNormal[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
@@ -651,7 +651,7 @@
                                             </li>
                                             <li class="col pr-xl-0 px-2 px-sm-3">
                                                 <a href="@if (!empty($pedidoExpress[0])) {{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }} @else # @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart2')}}">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 6h-3V4c0-1.11-.89-2-2-2H9c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z"/></svg>
+                                                    <img class="provin-icons" src="{{asset('img/icones/Sacola-expressa.png')}}"></img>
                                                     @if (!empty($pedidoExpress[0]))
                                                         <span href="{{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white pedidoExpress"   >{{$pedidoExpress[0]->numero_itens ?? ''}}</span>
                                                         <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoExpress[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
