@@ -231,7 +231,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <button  onclick="window.location.href='{{route('ecommerce.checkout.detalhe',['id' => $itens[0]->pedido_id])}}'" type="button" id="btn-enviar-mob" class="btn btn-primary-dark-w ml-md-2 px-5 px-md-4 px-lg-5 w-100 w-md-auto d-md-none">{{__('sidebar_and_header.ecommerce.checkout')}}</button>
+                <button  onclick="window.location.href='{{route('ecommerce.checkout.detalhe',['id' => $itens[0]->pedido_id])}}'" type="button" id="btn-enviar-mob" class="btn btn-primary-dark-w ml-md-2 px-5 px-md-4 px-lg-5 w-100 w-md-auto ">{{__('sidebar_and_header.ecommerce.checkout')}}</button>
             </div>
         </div>
     </div>
