@@ -17,8 +17,8 @@
         <!-- CSS Implementing Plugins -->
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/font-awesome/css/fontawesome-all.min.css') }}">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/font-electro.css') }}">
-        
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/animate.css/animate.min.css') }}">
+        <link href="{{ asset('css/icons.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/hs-megamenu/src/hs.megamenu.css') }}">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/ion-rangeslider/css/ion.rangeSlider.css') }}">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') }}">
@@ -477,12 +477,11 @@
                                                                     <ul class="d-flex list-unstyled mb-0">
                                                                         <!--<li class="col"><a href="../shop/compare.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Compare"><i class="font-size-22 ec ec-compare"></i></a></li>-->
                                                                         <!--<li class="col"><a href="../shop/wishlist.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorites"><i class="font-size-22 ec ec-favorites"></i></a></li>-->
+                                                                        <img class="provin-clock" src="{{asset('img/icones/Relógio.png')}}"></img>
                                                                         <li class="col pr-0">
                                                                             <a  class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.time')}}">
-                                                                                
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>								
                                                                                 <div class="ml-2">
-                                                                                        <div id="clockdiv" style="display: flex;color:white"> 
+                                                                                        <div id="clockdiv" style="display: flex;color: #ff9a60"> 
                                                                                             <div style="mb-1"> 
                                                                                                 <b><span class="days" id="day"></span></b>&nbsp;<span style="font-size:10px">Dias</span>&nbsp; 
                                                                                                     
@@ -500,7 +499,7 @@
                                                                                                 
                                                                                             </div> 
                                                                                         </div> 
-                                                                                        <div id="clockdiv" style="display: flex;height: 10px;color:white">
+                                                                                        <div id="clockdiv" style="display: flex;height: 10px;color:#ff9a60">
                                                                                             <div style="mb-1">
                                                                                                 <b id="demo" style="font-size:14px"></b>
                                                                                             </div>
@@ -511,7 +510,7 @@
                                                                         </li>
                                                                         <li class="col pr-0">
                                                                             <a href="@if (!empty($pedidoNormal[0])){{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }} @else #  @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 6h-3V4c0-1.11-.89-2-2-2H9c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z"/></svg>
+                                                                                <img class="provin-icons" src="{{asset('img/icones/Sacola.png')}}"></img>
                                                                                 @if (!empty($pedidoNormal[0]))
                                                                                     <span href="{{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white pedidoNormal">{{$pedidoNormal[0]->numero_itens ?? ''}}</span>
                                                                                     <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoNormal[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
@@ -520,7 +519,7 @@
                                                                         </li>
                                                                         <li class="col pr-0">
                                                                             <a href="@if (!empty($pedidoExpress[0])) {{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }} @else # @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart2')}}">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 6h-3V4c0-1.11-.89-2-2-2H9c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z"/></svg>
+                                                                                <img class="provin-icons" src="{{asset('img/icones/Sacola-expressa.png')}}"></img>
                                                                                 @if (!empty($pedidoExpress[0]))
                                                                                     <span href="{{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white pedidoExpress">{{$pedidoExpress[0]->numero_itens ?? ''}}</span>
                                                                                     <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoExpress[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
@@ -544,7 +543,9 @@
                                                                     data-unfold-animation-in="slideInUp"
                                                                     data-unfold-animation-out="fadeOut">
                                                                     <span class="d-inline-block d-sm-none">US</span>
-                                                                    <span class="d-none d-sm-inline-flex align-items-center" style="font-size: 14px"><i class="ec ec-user mr-1"></i> {{Auth::user()->name}}</span>
+                                                                    <span class="d-none d-sm-inline-flex align-items-center" style="font-size: 14px">
+                                                                    <img class="provin-icons" src="{{asset('img/icones/User.png')}}"></img>
+                                                                     {{Auth::user()->name}}</span>
                                                                 </a>
                 
                                                                 <div id="languageDropdown" class="dropdown-menu dropdown-unfold" aria-labelledby="languageDropdownInvoker">

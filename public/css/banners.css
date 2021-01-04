@@ -1,0 +1,31 @@
+#provin-maia{
+    width:250px;
+    height:200px;
+    float:left;
+    background-color:#ff1;  
+    display: initial;
+    margin: auto;
+    z-index: 6;
+    overflow: hidden;
+}
+
+#provin-maia > img {
+    width: 100%;
+    height: 100%;
+}
+
+#provin-banner{
+    width:250px;
+    height:600px;
+    float:left;
+    background-color:#ff1;  
+    display: initial;
+    margin: auto;
+    z-index: 6;
+    overflow: hidden;
+}
+
+#provin-banner > img {
+    width: 100%;
+    height: 100%;
+}

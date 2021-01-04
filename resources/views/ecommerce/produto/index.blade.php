@@ -8,13 +8,23 @@
     
 @endsection
 
+<link href="{{ asset('css/banners.css') }}" rel="stylesheet">
+<link href="{{ asset('css/icons.css') }}" rel="stylesheet">
+
 @section('content')
 
     <div class="row mb-8">
         <div class="d-none d-xl-block col-xl-3 col-wd-2gdot5">
-            <div class="mb-8 border border-width-2 border-color-3 borders-radius-6">
+            <div class="mb-2" id='provin-maia'>
+                <img src="{{asset('img/banners/p2.png')}}"></img>
+            </div>
+
+            <div class="mb-2" id='provin-banner'>
+                <img src="{{asset('img/banners/p3.png')}}"></img>
+            </div>
+            <!-- <div class="mb-8 border border-width-2 border-color-3 borders-radius-6"> -->
                 <!-- List -->
-                <ul id="sidebarNav" class="list-unstyled mb-0 sidebar-navbar">
+                <!-- <ul id="sidebarNav" class="list-unstyled mb-0 sidebar-navbar">
                     <li>
                         <a class="dropdown-toggle dropdown-toggle-collapse dropdown-title" href="javascript:;" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="sidebarNav1Collapse" data-target="#sidebarNav1Collapse">
                             {{__('sidebar_and_header.ecommerce.show_all_categories')}}
@@ -28,7 +38,7 @@
                             </ul>
                         </div>
                     </li>
-                    <!--<li>
+                    <li>
                         <a class="dropdown-current active" href="#">Smart Phones & Tablets <span class="text-gray-25 font-size-12 font-weight-normal"> (50)</span></a>
 
                         <ul class="list-unstyled dropdown-list">
@@ -37,14 +47,14 @@
                             
                         </ul>
                     </li>-->
-                </ul>
+                <!-- </ul> --> 
                 <!-- End List -->
-            </div>
-            <div class="mb-6">
+            <!-- </div> -->
+            <!-- <div class="mb-6">
                 <div class="border-bottom border-color-1 mb-5">
                     <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">{{__('sidebar_and_header.ecommerce.filters')}}</h3>
                 </div>
-                <!--
+                
                 <div class="border-bottom pb-4 mb-4">
                     <h4 class="font-size-14 mb-3 font-weight-bold">Brands</h4>
 
@@ -183,12 +193,12 @@
                     </a>
                     
                 </div>
-            -->
-                <div class="range-slider">
+             -->
+                <!-- <div class="range-slider">
                     <form action="{{ route('ecommerce.produto') }}" name="filtroValor" id="filtroValor" method="GET" onsubmit="verificavalore()">
                        
                         <h4 class="font-size-14 mb-3 font-weight-bold">{{__('sidebar_and_header.ecommerce.price')}}</h4>
-                        <!-- Range Slider -->
+                         Range Slider 
                         <input class="js-range-slider" type="text"
                         data-extra-classes="u-range-slider u-range-slider-indicator u-range-slider-grid"
                         data-type="double"
@@ -201,7 +211,7 @@
                         data-to="{{$_GET['rangeMaximo'] ?? 3000}}"
                         data-result-min=".rangeMinimo"
                         data-result-max=".rangeMaximo">
-                        <!-- End Range Slider -->
+                         End Range Slider 
                         <div class="mt-1 text-gray-111 d-flex mb-4">
                             <span class="mr-0dot5">{{__('sidebar_and_header.ecommerce.price')}}: </span>
                             <span>R$</span>
@@ -217,7 +227,7 @@
                     
                     </form>    
                 </div>
-            </div>
+            </div> -->
             <!--
             <div class="mb-8">
                 <div class="border-bottom border-color-1 mb-5">
@@ -469,8 +479,13 @@
                                                     
                                                 </div>
                                                 <div class="flex-center-between mb-1">
-                                                    <div class=" d-xl-block prodcut-add-cart">
-                                                    <a class="btn-add-cart CartNormal btn-info transition-3d-hover" style="background-color: #00dffc" data-tipo="normal" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i><b id="normal-{{$produto->id}}">{{$produtoPedidoNormal[0]->total}}</b></a>
+                                                    <div class=" d-xl-block prodcut-add-cart" >
+                                                        <a class="btn-add-cart transition-3d-hover" data-tipo="normal" data-id="{{$produto->id}}">
+                                                            <i id="sacola-normal" class="provin-cart">
+                                                                <b id="normal-{{$produto->id}}" class="borda_texto" style="float: right; color: white; font-size: 14px;">{{$produtoPedidoNormal[0]->total}}</b>
+                                                            </i>
+                                                            <!--  -->
+                                                        </a>
                                                     </div>
                                                     @if (in_array($produto->grupo_produto_id,json_decode($grupos_necessita_tamanho)))
                                                     <div class=" d-xl-block prodcut-add-cart">
@@ -483,7 +498,11 @@
                                                     </div>
                                                     @endif
                                                     <div class=" d-xl-block prodcut-add-cart">
-                                                        <a class="btn-add-cart btn-primary transition-3d-hover" style="background-color: #fed700" data-tipo="express" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart"></i><b id="express-{{$produto->id}}">{{$produtoPedidoExpresso[0]->total}}</b></a>
+                                                        <a class="btn-add-cart transition-3d-hover" data-tipo="express" data-id="{{$produto->id}}">
+                                                            <i id="sacola-expressa" class="provin-cart">
+                                                                <b id="express-{{$produto->id}}" class="borda_texto" style="float: right; font-size: 14px;">{{$produtoPedidoExpresso[0]->total}}</b>
+                                                            </i>
+                                                        </a>
                                                     </div>
                                                     
                                                 </div>

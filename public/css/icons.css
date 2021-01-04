@@ -1,0 +1,54 @@
+.provin-icons{
+    width: 100%;
+    height: 100%;
+    max-width:33px;
+    max-height:33px;
+}
+
+.provin-clock{
+    width: 100%;
+    height: 100%;
+    max-width:25px;
+    max-height:25px;
+}
+
+.provin-cart{
+    width: 100%;
+    height: 100%;
+    max-width:40px;
+    max-height:40px;
+}
+
+.borda_texto{
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: rgb(0, 0, 0);
+    font-size: 3em; color: #000000;
+}
+
+#sacola-expressa {
+    background-image: url('../img/icones/Sacola-ec.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+ 
+#sacola-expressa:hover {
+    background-image: url('../img/icones/Sacola-eca.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#sacola-normal {
+    background-image: url('../img/icones/Sacola-nc.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+ 
+#sacola-normal:hover {
+    background-image: url('../img/icones/Sacola-nca.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
