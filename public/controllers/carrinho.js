@@ -82,15 +82,24 @@ function calculaValorProduto(id,valor, qtd) {
 
 function calculaValorTotal(){
     var subTotal = 0;
+    var qtd = 0;
     $('.total').each(function(index,value){
         var id = value.id;
+        var dataId = $('#'+id).attr('data-id');
+        qtd += parseInt($('#qtd-'+dataId).val());
         subTotal += parseFloat($('#'+id).text().replace(',', '.'));
     });
     var subTotalAux = subTotal.toFixed(2).toString().replace('.', ',');
     var acrescimos  = parseFloat($('#adicional').text().substr(2).replace(',', '.'));
     $('#subTotal').html("R$ "+subTotalAux);
     var totalGeral = (subTotal + acrescimos).toFixed(2).toString().replace('.', ',');
-    $('#total').html("R$ "+subTotalAux)
+    $('#total').html("R$ "+subTotalAux);
+
+    if(tipoPedido == 1){
+        $('.pedidoExpress').text(qtd);
+    }else{
+        $('.pedidoNormal').text(qtd);
+    }
 }
 
 

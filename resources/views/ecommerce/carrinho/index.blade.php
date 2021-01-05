@@ -38,7 +38,7 @@
                   </thead>    
                   <tbody class="cart-table__body">
                         @foreach ($itens as $item)
-                            <tr class="cart-table__row">
+                            <tr class="cart-table__row" id="row{{$item->id}}">
                                 <td class="cart-table__column cart-table__column--image"><a href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}"><img src="@if (file_exists(public_path($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif" style="width: 160px;height: 160px" alt=""></a></td>
                                 
                                 <td class="cart-table__column cart-table__column--product">
@@ -76,7 +76,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="cart-table__column cart-table__column--total total"  id="total-{{$item->id}}" data-title="Total">{{number_format($item->valor_total, 2, ',', '.')}}</td>
+                                <td class="cart-table__column cart-table__column--total total" data-id="{{$item->id}}"  id="total-{{$item->id}}" data-title="Total">{{number_format($item->valor_total, 2, ',', '.')}}</td>
                                 
                                 <td class="cart-table__column cart-table__column--remove">
                                     <button  title="Remover" style="color: white;border-radius: 5px;width: 20px;height: 20px;display: flex;align-items: center;justify-content: center;cursor:pointer" class="btn btn-danger text-gray-32 font-size-26 remove"  data-id="{{$item->id}}">×</button>
@@ -264,10 +264,10 @@
                 url: '{{route("ecommerce.carrinho.remover")}}',
                 data: { id: id, _token: '{{csrf_token()}}' },
                 success: function (data) {
-                    if(data.response != 'erro') {
-                        swal2_success("Sucesso !", "Produto removido com sucesso.");
-                        window.location.reload()
-                    } else {
+                    $('#row'+id).remove();
+                    calculaValorTotal();
+                    swal.close();
+                    if(data.response == 'erro') {
                         swal2_alert_error_support("Tivemos um problema ao remover o produto.");
                     }
                 },
