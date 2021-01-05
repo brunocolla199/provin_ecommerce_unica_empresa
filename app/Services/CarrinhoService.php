@@ -107,7 +107,7 @@ class CarrinhoService
                 $this->pedidoService->recalcular($buscaItem->pedido->id);
             });
             
-            Helper::setNotify('Produto removido com sucesso!', 'success|check-circle');
+            //Helper::setNotify('Produto removido com sucesso!', 'success|check-circle');
             return true;
 
         } catch (\Throwable $th) {
