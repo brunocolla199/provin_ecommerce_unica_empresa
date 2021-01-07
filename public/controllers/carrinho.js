@@ -84,6 +84,7 @@ function calculaValorTotal(){
     var subTotal = 0;
     var qtd = 0;
     var valorAcrescimos = 0;
+    var tipo = $('#tipoPedido').val();
     var porcentagemAcrescimos = $('#porcentagemAcrescimos').val();
     $('.total').each(function(index,value){
         var id = value.id;
@@ -91,7 +92,7 @@ function calculaValorTotal(){
         qtd += parseInt($('#qtd-'+dataId).val());
         subTotal += parseFloat($('#'+id).text().replace(',', '.'));
     });
-    valorAcrescimos = (porcentagemAcrescimos/100)*subTotal;
+    valorAcrescimos = tipo == 1 ?(porcentagemAcrescimos/100)*subTotal: 0;
     
     var subTotalAux = subTotal.toFixed(2).toString().replace('.', ',');
     var acrescimos  = valorAcrescimos.toFixed(2).toString().replace('.', ',');
