@@ -22,6 +22,7 @@
         @endif
         <form class="mb-4" action="#" method="post">
         <input type="hidden" id="tipoPedido" value="{{$itens[0]->pedido->tipo_pedido_id}}">
+        <input type="hidden" id="porcentagemAcrescimos" value="{{$porcentagemAcrescimos}}">
         <div class="cart block">
             <div class="container">
                <table class="cart__table cart-table">
