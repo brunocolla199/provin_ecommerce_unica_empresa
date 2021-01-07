@@ -68,7 +68,7 @@
             $dataProximaLiberacao = $buscaUltimoPedidoNormalProcessado->count() > 0? date ('Y-m-d h:i:s',strtotime('+'.$setup->tempo_liberacao_pedido.' days', strtotime($buscaUltimoPedidoNormalProcessado[0]['data_envio_pedido']))) : date('Y-m-d h:i:s');
             $pedidoNormal  = buscaPedidoCarrinho(2, $usuariosIn);
             $pedidoExpress = buscaPedidoCarrinho(1, $usuariosIn);
-
+            
             function buscaPedidoCarrinho($tipo_pedido, $usuariosIn)
             {
                 
@@ -77,6 +77,8 @@
                     ->where('numero_itens','>',0)
                     ->where('tipo_pedido_id','=',$tipo_pedido)
                     ->whereIn('user_id', $usuariosIn)
+                    ->orderBy('id','desc')
+                    ->take(1)
                     ->get();       
             }
 

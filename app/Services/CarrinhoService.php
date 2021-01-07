@@ -38,7 +38,6 @@ class CarrinhoService
         
         $buscaPedido =$this->pedidoService->buscaPedidoCarrinho($tipo_pedido);
         
-
         $buscaSetup = $this->setupService->find(1);
         $valorAdicional = 0;
         //Se achou pedido da empresa ALTERA caso contrario CRIA
