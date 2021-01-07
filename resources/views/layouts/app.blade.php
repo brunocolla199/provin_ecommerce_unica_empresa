@@ -19,6 +19,11 @@
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/font-electro.css') }}">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/animate.css/animate.min.css') }}">
         <link href="{{ asset('css/icons.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/slick/slick.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/slick/slick-theme.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/carossel.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/banners.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/icons.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/hs-megamenu/src/hs.megamenu.css') }}">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/ion-rangeslider/css/ion.rangeSlider.css') }}">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') }}">
@@ -1431,10 +1436,70 @@
             <!--chart.js-->
             <script type="text/javascript" src="{{ asset('js/chart.js/dist/Chart.min.js') }}"></script>
 
+            <!-- slick.js -->
+            <script type="text/javascript" src="{{ asset('js/slick/slick.js') }}"></script>                                
             
 
             <!-- jQuery Mask -->
             <script src="{{ asset('plugins/jquery-mask/jquery.mask.min.js') }}"></script>
+
+            <script src="{{ asset('controllers/produto.js') }}"></script>
+
+            <script type="text/javascript">
+                $(document).on('ready', function() {
+                $(".regular").slick({
+                    infinite: false,
+                    speed: 300,
+                    slidesToShow: 7, //set default for 1200px onward
+                    slidesToScroll: 7,
+                    responsive: [
+                    {
+                    breakpoint: 1920, //for desktop width 992px
+                    settings: {
+                        slidesToShow: 7,
+                        slidesToScroll: 7,
+                        infinite: true,
+                        dots: true
+                    }
+                    },
+                    {
+                    breakpoint: 1376, //for desktop width 992px
+                    settings: {
+                        slidesToShow: 7,
+                        slidesToScroll: 7,
+                        dots: false
+                    }
+                    },
+                    {
+                    breakpoint: 1024, //for desktop width 992px
+                    settings: {
+                        slidesToShow: 5,
+                        slidesToScroll: 5,
+                        dots: false
+                    }
+                    },
+                    {
+                    breakpoint: 600, //for tablet
+                    settings: {
+                        slidesToShow: 5,
+                        slidesToScroll: 5,
+                        dots: false,
+                        arrows : false
+                    }
+                    },
+                    {
+                    breakpoint: 480, //here's your mobile
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4,
+                        dots: false,
+                        arrows : false
+                    }
+                    }]
+                });
+                });
+            </script>
+
             <script>
                 $(document).ready(function(){
                     $('.date').mask('00/00/0000');

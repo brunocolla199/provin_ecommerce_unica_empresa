@@ -7,8 +7,6 @@
     <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page"> {{__('page_titles.ecommerce.pedido.index')}}</li>
 @endsection
 
-<link href="{{ asset('css/banners.css') }}" rel="stylesheet">
-
 @section('content')
     <div class="row mb-8">
         <div class="d-none d-xl-block col-xl-3 col-wd-2gdot5">
@@ -21,6 +19,32 @@
             </div>
         </div>
         <div class="col-xl-9 col-wd-9gdot5">
+            <div class="regular slider">
+                <div>
+                    <a href="{{route('ecommerce.home')}}">
+                        <img src="{{asset('img/icones/s1.png')}}">
+                    </a>
+                    <p> Inicio </p>
+                </div>
+                <div>
+                    <a href="{{route('ecommerce.produto')}}">
+                        <img src="{{asset('img/icones/s2.png')}}">
+                    </a>
+                    <p> Produtos </p>
+                </div>
+                <div>
+                    <a href="{{route('ecommerce.pedido')}}">
+                        <img src="{{asset('img/icones/s3.png')}}">
+                    </a>
+                    <p> Pedidos </p>
+                </div>
+                <div>
+                    <a href="{{route('ecommerce.estoque')}}">
+                        <img src="{{asset('img/icones/s4.png')}}">
+                    </a>
+                    <p> Estoque </p>
+                </div>
+            </div> 
             <div class="card">
                 <div class="card-body" style="margin-bottom: 20px">
                     <h3 class="box-title">@lang('page_titles.pedido.index')</h3>

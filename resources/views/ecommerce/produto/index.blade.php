@@ -8,8 +8,6 @@
     
 @endsection
 
-<link href="{{ asset('css/banners.css') }}" rel="stylesheet">
-<link href="{{ asset('css/icons.css') }}" rel="stylesheet">
 
 @section('content')
 
@@ -351,6 +349,36 @@
             -->
         </div>
         <div class="col-xl-9 col-wd-9gdot5">
+            <div class="regular slider">
+                <div>
+                    <img src="{{asset('img/icones/s5.png')}}">
+                    <p> Anel </p>
+                </div>
+                <div>
+                    <img src="{{asset('img/icones/s6.png')}}">
+                    <p> Brinco </p>
+                </div>
+                <div>
+                    <img src="{{asset('img/icones/s7.png')}}">
+                    <p> Conjunto </p>
+                </div>
+                <div>
+                    <img src="{{asset('img/icones/s8.png')}}">
+                    <p> Pingente </p>
+                </div>
+                <div>
+                    <img src="{{asset('img/icones/s9.png')}}">
+                    <p> Pulseira </p>
+                </div>
+                <div>
+                    <img src="{{asset('img/icones/s10.png')}}">
+                    <p> Gargantilha </p>
+                </div>
+                <div>
+                    <img src="{{asset('img/icones/s11.png')}}">
+                    <p> Embalagem </p>
+                </div>
+            </div> 
             <!-- Shop-control-bar Title -->
             @if(Session::has('message'))
                 @component('componentes.alert')
@@ -622,8 +650,6 @@
 @endsection
 
 @section('footer')
-
-<script src="{{ asset('controllers/produto.js') }}"></script>
 <script>
     $('.btn-add-cart').on('click',function(){
         var id   = $(this).data('id');
