@@ -46,6 +46,8 @@ class CarrinhoEcommerceController extends Controller
         $grupos_necessita_tamanho = $buscaSetup['grupos'];
         $caminho_imagem = $buscaSetup['caminho_imagen_produto'];
 
+        $porcentagemAcrescimos = $buscaSetup['valor_adicional_pedido'];
+
         if($itens->count() == 0){
             Helper::setNotify("O carrinho esta vazio.", 'danger|close-circle');
             return redirect()->route('ecommerce.produto');
@@ -58,7 +60,8 @@ class CarrinhoEcommerceController extends Controller
                 'tamanho_padrao'           => $tamanho_padrao,
                 'grupos_necessita_tamanho' => $grupos_necessita_tamanho,
                 'caminho_imagem'           => $caminho_imagem,
-                'itens'                    => $itens
+                'itens'                    => $itens,
+                'porcentagemAcrescimos'    => $porcentagemAcrescimos
             ]
         );
     }

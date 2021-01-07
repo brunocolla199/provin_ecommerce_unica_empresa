@@ -121,7 +121,13 @@ class PedidoService
                 ['status_pedido_id','=',1,"AND"],
                 ['tipo_pedido_id','=',$tipo_pedido,"AND"],
                 ['user_id','',$usuariosIn,"IN"]
-            ]
+            ],
+            [],
+            [
+                ['id', 'desc']
+            ],
+            [],
+            1
         );
     }
 

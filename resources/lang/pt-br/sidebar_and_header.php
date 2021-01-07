@@ -30,7 +30,7 @@ return [
            
             'item1'         => 'Perfil',
             'item2'         => 'Grupo',
-            'item3'         => 'Usuario',
+            'item3'         => 'Usuário',
             'item4'         => 'Empresa',
             'item5'         => 'Cidade',
             'item6'         => 'Tipo Pedido',
