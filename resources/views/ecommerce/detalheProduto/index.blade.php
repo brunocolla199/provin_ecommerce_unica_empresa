@@ -187,13 +187,13 @@
                             <div class="border rounded-pill py-1 w-md-70 height-35 px-3 border-color-1">
                                 <div class="js-quantity row align-items-center">
                                     <div class="col">
-                                    <input id="quantidadeProduto" readonly class="js-result form-control h-auto border-0 rounded p-0 shadow-none" type="number" value="1" min="1" max="{{$produto->quantidade_estoque}}">
+                                    <input id="quantidadeProduto"  class="js-result form-control h-auto border-0 rounded p-0 shadow-none qtd" data-produto="{{$produto->id}}" type="number" value="1" min="1" max="{{$produto->quantidade_estoque}}">
                                     </div>
                                     <div class="col-auto pr-1">
-                                        <a class="btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 qtd" id="remove-btn" href="javascript:;">
+                                        <a class="btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 " id="remove-btn" href="javascript:;">
                                             <small class="fas fa-minus btn-icon__inner"></small>
                                         </a>
-                                        <a class="btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 qtd" id="add-btn" href="javascript:;">
+                                        <a class="btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 " id="add-btn" href="javascript:;">
                                             <small class="fas fa-plus btn-icon__inner"></small>
                                         </a>
                                     </div>
@@ -272,50 +272,94 @@
         var descricaoCarrinho = tipo == 'express' ? ' expresso' : ' de compras';
         //let add_carrinho = swal2_warning("Essa ação irá adicionar o produto ao carrinho"+descricaoCarrinho ,"Sim!");
         //add_carrinho.then(resolvedValue => {
-            $.ajax({
-                type: "POST",
-                url: '{{route("ecommerce.produto.adicionarCarinho")}}',
-                data: { id: id, tipo: tipo, tamanho:tamanho, quantidade:quantidade, _token: '{{csrf_token()}}' },
-                success: function (data) {
-                    if(data.response == 'erro') {
-                        swal2_alert_error_support("Tivemos um problema ao adicionar o produto.");
-                    }
-                    if(tipo == 'express'){
-                        
-                        if(!document.getElementById('pedidoExpressHidden')){
-                            location.reload();
-                        }else{
-                            let qtd_express = document.querySelector('.pedidoExpress').textContent;
-                            let qtd_item_express = document.querySelector('#totalItemCarrinhoExpresso').textContent;
-                            $('#totalItemCarrinhoExpresso').text(parseInt(qtd_item_express) + parseInt(quantidade));
-                            
-                            $('.pedidoExpress').text(parseInt(qtd_express) + parseInt(quantidade));
-                        }
-                        
-                    }else{
-                        
-                        if(!document.getElementById('pedidoNormalHidden')){
-                            location.reload();
-                        }else{
-                            let qtd_normal = document.querySelector('.pedidoNormal').textContent;
-                            let qtd_item_normal = document.querySelector('#totalItemCarrinhoNormal').textContent;
-
-                            $('#totalItemCarrinhoNormal').text(parseInt(qtd_item_normal) + parseInt(quantidade));
-                            
-                            $('.pedidoNormal').text(parseInt(qtd_normal) + parseInt(quantidade));
-                        }
-                        
-                    } 
-
-                },
-                error: function (data, textStatus, errorThrown) {
-                    console.log(data);
-                },
-            });
+            adicionaCarrinho(id, tipo, tamanho, quantidade);
         /*}, error => {
             swal.close();
         });
         */
     });
+
+    $(document).on("change",'.qtd',function(){
+        var id  = $(this).data('id');
+        var qtdNova = $('#quantidadeProduto').val();
+        var produto = $(this).data('produto');
+        if(qtdNova <= 0){
+            swal2_alert_error_support('Quantidade inválida.');
+        }else{
+            consultaProduto(produto).then(function(retorno){
+                let estoque = retorno.quantidade_estoque;
+                if(parseInt(qtdNova) > estoque)
+                {
+                    swal2_alert_error_not_support('Estoque indisponível.');
+                    $('#quantidadeProduto').val(parseInt(qtdNova));
+                }
+            });
+        } 
+    });
+
+    function adicionaCarrinho(id,tipo, tamanho, quantidade)
+    {
+        $.ajax({
+            type: "POST",
+            url: '{{route("ecommerce.produto.adicionarCarinho")}}',
+            data: { id: id, tipo: tipo, tamanho:tamanho, quantidade:quantidade, _token: '{{csrf_token()}}' },
+            success: function (data) {
+                if(data.response == 'erro') {
+                    swal2_alert_error_support("Tivemos um problema ao adicionar o produto.");
+                }
+                if(tipo == 'express'){
+                    
+                    if(!document.getElementById('pedidoExpressHidden')){
+                        location.reload();
+                    }else{
+                        let qtd_express = document.querySelector('.pedidoExpress').textContent;
+                        let qtd_item_express = document.querySelector('#totalItemCarrinhoExpresso').textContent != '' ? document.querySelector('#totalItemCarrinhoExpresso').textContent : 0;
+                        
+                        $('#totalItemCarrinhoExpresso').text(parseInt(qtd_item_express) + parseInt(quantidade));
+                        
+                        $('.pedidoExpress').text(parseInt(qtd_express) + parseInt(quantidade));
+                    }
+                    
+                }else{
+                    
+                    if(!document.getElementById('pedidoNormalHidden')){
+                        location.reload();
+                    }else{
+                        let qtd_normal = document.querySelector('.pedidoNormal').textContent;
+                        let qtd_item_normal = document.querySelector('#totalItemCarrinhoNormal').textContent != '' ? document.querySelector('#totalItemCarrinhoNormal').textContent : 0;
+                        
+                        $('#totalItemCarrinhoNormal').text(parseInt(qtd_item_normal) + parseInt(quantidade));
+                        
+                        $('.pedidoNormal').text(parseInt(qtd_normal) + parseInt(quantidade));
+                    }
+                    
+                } 
+
+            },
+            error: function (data, textStatus, errorThrown) {
+                console.log(data);
+            },
+        });
+    }
+
+    function consultaProduto(id)
+    {
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                type: "POST",
+                url: '{{route("ecommerce.produto.buscaProduto")}}',
+                data: { id: id, _token: '{{csrf_token()}}' },
+                success: function (retorno) {
+                    if(retorno.response == 'erro') {
+                        reject(data.msg);
+                    }
+                    resolve(retorno.data);
+                },
+                error: function (retorno, textStatus, errorThrown) {
+                    reject("Tivemos um problema ao consultar o produto item.");
+                },
+            });
+        });
+    }
 </script>
 @endsection
