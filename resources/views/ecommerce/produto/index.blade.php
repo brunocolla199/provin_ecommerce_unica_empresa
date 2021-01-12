@@ -350,34 +350,16 @@
         </div>
         <div class="col-xl-9 col-wd-9gdot5">
             <div class="regular slider">
-                <div>
-                    <img src="{{asset('img/icones/s5.png')}}">
-                    <p> Anel </p>
-                </div>
-                <div>
-                    <img src="{{asset('img/icones/s6.png')}}">
-                    <p> Brinco </p>
-                </div>
-                <div>
-                    <img src="{{asset('img/icones/s7.png')}}">
-                    <p> Conjunto </p>
-                </div>
-                <div>
-                    <img src="{{asset('img/icones/s8.png')}}">
-                    <p> Pingente </p>
-                </div>
-                <div>
-                    <img src="{{asset('img/icones/s9.png')}}">
-                    <p> Pulseira </p>
-                </div>
-                <div>
-                    <img src="{{asset('img/icones/s10.png')}}">
-                    <p> Gargantilha </p>
-                </div>
-                <div>
-                    <img src="{{asset('img/icones/s11.png')}}">
-                    <p> Embalagem </p>
-                </div>
+                
+                @foreach ($grupos as $grupo)
+                    @if ($grupo->caminho_img && file_exists(public_path($grupo->caminho_img)))
+                    '   <div>
+                            <a href="{{route('ecommerce.produto.search.grupo', ['id' => $grupo->id] )}}"><img src="{{asset($grupo->caminho_img)}}"></a>
+                            <p> {{$grupo->nome}} </p>
+                        </div>
+                    @endif
+                   
+                @endforeach
             </div> 
             <!-- Shop-control-bar Title -->
             @if(Session::has('message'))

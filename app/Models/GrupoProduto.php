@@ -9,7 +9,7 @@ class GrupoProduto extends Model
     public $table = 'grupo_produto';
 
     protected $fillable = [
-        'id', 'nome', 'inativo'
+        'id', 'nome', 'inativo', 'caminho_img'
     ];
 
     /**

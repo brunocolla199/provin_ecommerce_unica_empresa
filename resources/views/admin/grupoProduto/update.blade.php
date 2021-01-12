@@ -50,6 +50,20 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('caminhoImagem') ? ' has-error' : '' }}">
+                                    <label class="control-label">Caminho Icone</label>
+                                    <input type="text" id="caminhoImagem" name="caminhoImagem" value="{{ $grupo->caminho_img }}" class="form-control" required autofocus>
+                                    <small class="form-control-feedback"> Digite o novo caminho do icone para o grupo de produto. </small> 
+
+                                    @if ($errors->has('caminhoImagem'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('caminhoImagem') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
                             
                         </div>
                     </div>

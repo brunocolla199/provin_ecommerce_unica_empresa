@@ -103,6 +103,7 @@ class GrupoProdutoController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nome'          => 'required|string|max:50|min:3',
+            
         ]);
 
         if ($validator->fails()) {
@@ -117,6 +118,7 @@ class GrupoProdutoController extends Controller
         $create = [
             'nome'                           => $request->nome,
             'inativo'                        => 0,
+            'caminho_img'                    => $request->caminhoImagem
         ];
 
 
