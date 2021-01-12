@@ -9,32 +9,34 @@
 
 @section('content')
 <div class="card">
-    <div class="regular slider">
-        <div>
-            <a href="{{route('ecommerce.home')}}">
-                <img src="{{asset('img/icones/s1.png')}}">
-            </a>
-            <p> Inicio </p>
-        </div>
-        <div>
-            <a href="{{route('ecommerce.produto')}}">
-                <img src="{{asset('img/icones/s2.png')}}">
-            </a>
-            <p> Produto </p>
-        </div>
-        <div>
-            <a href="{{route('ecommerce.pedido')}}">
-                <img src="{{asset('img/icones/s3.png')}}">
-            </a>
-            <p> Pedido </p>
-        </div>
-        <div>
-            <a href="{{route('ecommerce.estoque')}}">
-                <img src="{{asset('img/icones/s4.png')}}">
-            </a>
-            <p> Estoque </p>
-        </div>
-    </div> 
+    <div class="row mb-8">
+        <div class="regular slider">
+            <div>
+                <a href="{{route('ecommerce.home')}}">
+                    <img src="{{asset('img/icones/s1.png')}}">
+                </a>
+                <p> Inicio </p>
+            </div>
+            <div>
+                <a href="{{route('ecommerce.produto')}}">
+                    <img src="{{asset('img/icones/s2.png')}}">
+                </a>
+                <p> Produto </p>
+            </div>
+            <div>
+                <a href="{{route('ecommerce.pedido')}}">
+                    <img src="{{asset('img/icones/s3.png')}}">
+                </a>
+                <p> Pedido </p>
+            </div>
+            <div>
+                <a href="{{route('ecommerce.estoque')}}">
+                    <img src="{{asset('img/icones/s4.png')}}">
+                </a>
+                <p> Estoque </p>
+            </div>
+        </div> 
+    </div>
     <div class="card-body">
         
         

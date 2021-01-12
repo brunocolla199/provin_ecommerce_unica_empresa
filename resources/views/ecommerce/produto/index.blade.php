@@ -492,7 +492,9 @@
                                                     <div class=" d-xl-block prodcut-add-cart" >
                                                         <a class="btn-add-cart transition-3d-hover" data-tipo="normal" data-id="{{$produto->id}}">
                                                             <i id="sacola-normal" class="provin-cart">
-                                                                <b id="normal-{{$produto->id}}" class="borda_texto" style="float: right; color: white; font-size: 14px;">{{$produtoPedidoNormal[0]->total}}</b>
+                                                                @if (!empty($produtoPedidoNormal[0]->total))
+                                                                    <span id="normal-{{$produto->id}}" class="width-22 margem-balao cor-balao position-absolute d-flex align-items-center justify-content-center rounded-circle font-weight-bold font-size-12 text-black">{{$produtoPedidoNormal[0]->total}}</span>
+                                                                @endif
                                                             </i>
                                                             <!--  -->
                                                         </a>
@@ -510,7 +512,9 @@
                                                     <div class=" d-xl-block prodcut-add-cart">
                                                         <a class="btn-add-cart transition-3d-hover" data-tipo="express" data-id="{{$produto->id}}">
                                                             <i id="sacola-expressa" class="provin-cart">
-                                                                <b id="express-{{$produto->id}}" class="borda_texto" style="float: right; font-size: 14px;">{{$produtoPedidoExpresso[0]->total}}</b>
+                                                                @if (!empty($produtoPedidoExpresso[0]->total))
+                                                                    <span id="express-{{$produto->id}}" class="width-22 margem-balao cor-balao position-absolute d-flex align-items-center justify-content-center rounded-circle font-weight-bold font-size-12 text-black">{{$produtoPedidoExpresso[0]->total}}</span>
+                                                                @endif
                                                             </i>
                                                         </a>
                                                     </div>

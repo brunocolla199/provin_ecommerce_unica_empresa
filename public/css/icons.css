@@ -19,12 +19,6 @@
     max-height:40px;
 }
 
-.borda_texto{
-    -webkit-text-stroke-width: 0.5px;
-    -webkit-text-stroke-color: rgb(0, 0, 0);
-    font-size: 3em; color: #000000;
-}
-
 #sacola-expressa {
     background-image: url('../img/icones/Sacola-ec.png');
     background-repeat: no-repeat;
@@ -51,4 +45,12 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+}
+
+.cor-balao {
+    background-color: #ff9a60;
+}
+
+.margem-balao {
+    margin-left: 25px;
 }
