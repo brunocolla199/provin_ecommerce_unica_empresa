@@ -232,6 +232,7 @@
                         </tr>
                     </tbody>
                 </table>
+                
                 <button  onclick="window.location.href='{{route('ecommerce.checkout.detalhe',['id' => $itens[0]->pedido_id])}}'" type="button" id="btn-enviar-mob" class="btn btn-primary-dark-w ml-md-2 px-5 px-md-4 px-lg-5 w-100 w-md-auto ">{{__('sidebar_and_header.ecommerce.checkout')}}</button>
             </div>
         </div>
@@ -249,9 +250,9 @@
     var deadline = new Date(document.getElementById("proximaLiberacao").value).getTime(); 
     var t = deadline - now;
     if(tipoPedido == 2 &&  t > 0 ){
-        $('#btn-enviar').attr('disabled',true);
+        
         $('#btn-enviar-mob').attr('disabled',true);
-        document.getElementById("btn-enviar").style.cursor = 'not-allowed';
+        
         document.getElementById("btn-enviar-mob").style.cursor = 'not-allowed';
     }
 
