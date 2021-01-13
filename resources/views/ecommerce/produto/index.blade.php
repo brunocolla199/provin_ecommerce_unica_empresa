@@ -491,7 +491,7 @@
                                                 <div class="flex-center-between mb-1">
                                                     <div class=" d-xl-block prodcut-add-cart" >
                                                         <a class="btn-add-cart transition-3d-hover" data-tipo="normal" data-id="{{$produto->id}}">
-                                                            <i id="sacola-normal" class="provin-cart">
+                                                            <i id="sacola-normal" class="provin-cart" title="Sacola">
                                                                 <span id="normal-{{$produto->id}}" class="width-22 margem-balao cor-balao position-absolute d-flex align-items-center justify-content-center rounded-circle font-weight-bold font-size-12 text-black">{{$produtoPedidoNormal[0]->total}}</span>
                                                             </i>
                                                             <!--  -->
@@ -509,7 +509,7 @@
                                                     @endif
                                                     <div class=" d-xl-block prodcut-add-cart">
                                                         <a class="btn-add-cart transition-3d-hover" data-tipo="express" data-id="{{$produto->id}}">
-                                                            <i id="sacola-expressa" class="provin-cart">
+                                                            <i id="sacola-expressa" class="provin-cart" title="Sacola Expressa">
                                                                
                                                                 <span id="express-{{$produto->id}}" class="width-22 margem-balao cor-balao position-absolute d-flex align-items-center justify-content-center rounded-circle font-weight-bold font-size-12 text-black">{{$produtoPedidoExpresso[0]->total}}</span>
                                                                 

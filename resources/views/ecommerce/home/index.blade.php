@@ -21,13 +21,13 @@
                 <a href="{{route('ecommerce.produto')}}">
                     <img src="{{asset('img/icones/s2.png')}}">
                 </a>
-                <p> Produto </p>
+                <p> Produtos </p>
             </div>
             <div>
                 <a href="{{route('ecommerce.pedido')}}">
                     <img src="{{asset('img/icones/s3.png')}}">
                 </a>
-                <p> Pedido </p>
+                <p> Pedidos </p>
             </div>
             <div>
                 <a href="{{route('ecommerce.estoque')}}">

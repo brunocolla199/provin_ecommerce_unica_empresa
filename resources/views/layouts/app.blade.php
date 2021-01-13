@@ -710,7 +710,7 @@
             <!-- ========== END HEADER ========== -->
 
             <!-- ========== MAIN CONTENT ========== -->
-            <main id="content" role="main" style="margin-bottom: 70px">
+            <main id="content" role="main" style="margin-bottom: 70px;height: 100%">
                 <!-- breadcrumb -->
                 <div class="bg-gray-13 bg-md-transparent">
                         <div class="container">
@@ -1689,7 +1689,7 @@
             </script>
 
              <!-- ========== FOOTER ========== -->
-             <footer>
+             <footer class="footer">
                 @yield('footer')
             </footer>
         </body>        

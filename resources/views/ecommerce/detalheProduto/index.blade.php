@@ -217,7 +217,7 @@
                             <div class="mb-2 pb-0dot5">
                                 <ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start row">
                                     @foreach ($tamanhos as $tamanho)
-                                    <li class="page-link tamanho @if ($tamanhoDefault == $tamanho) current @endif " @if ($tamanhoDefault == $tamanho)data-selected="true" @else data-selected="false" @endif  id="tamanho-{{$tamanho}}" >{{ $tamanho }}</li>
+                                    <li  class="page-link tamanho @if ($tamanhoDefault == $tamanho) current @endif " @if ($tamanhoDefault == $tamanho)  data-selected="true" @else data-selected="false" @endif  id="tamanho-{{$tamanho}}" >{{ $tamanho }}</li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -228,11 +228,12 @@
                             $produtoPedidoExpresso = DB::select('select sum(quantidade) as total from item_pedido as i inner join pedido as p ON (i.pedido_id = p.id) where i.produto_id = :idProduto and i.pedido_id = :idPedido', ['idProduto'=>$produto->id,'idPedido'=>$pedidoExpresso]);
                         @endphp
                         <div class="mb-2 pb-0dot5">
-                        <button type="button" class="btn btn-block  add-cart" style="background-color:yellow" data-tipo="express" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart mr-2 font-size-20"></i>Sacola Expressa <b id="totalItemCarrinhoExpresso">{{$produtoPedidoExpresso[0]->total}}</b></button>
+                        <button type="button" style="background-color:black;color:white"  class="btn btn-block add-cart" data-tipo="normal" data-id="{{$produto->id}}" ><i class="ec ec-add-to-cart mr-2 font-size-20"></i>Sacola <b id="totalItemCarrinhoNormal">{{$produtoPedidoNormal[0]->total}}</b></button>
                         </div>
                         <div class="mb-2 pb-0dot5">
-                        <button type="button" class="btn btn-block btn-info add-cart" data-tipo="normal" data-id="{{$produto->id}}" ><i class="ec ec-add-to-cart mr-2 font-size-20"></i>Sacola <b id="totalItemCarrinhoNormal">{{$produtoPedidoNormal[0]->total}}</b></button>
+                        <button type="button" class="btn btn-block  add-cart" style="border-color: black" data-tipo="express" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart mr-2 font-size-20"></i>Sacola Expressa <b id="totalItemCarrinhoExpresso">{{$produtoPedidoExpresso[0]->total}}</b></button>
                         </div>
+                        
                         <div class="mb-3">
                             <a href="{{route('ecommerce.produto')}}" class="btn btn-block btn-dark">{{__('buttons.general.back')}}</a>
                         </div>

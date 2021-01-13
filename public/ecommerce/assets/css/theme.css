@@ -34129,7 +34129,7 @@ blockquote:not(.blockquote) p {
 
 .pagination-shop .page-link.current {
   font-weight: 700;
-  color: #262626;
+  color: #ffffff;
   background-color: #000000;
   border-color: #000000;
 }
@@ -37819,4 +37819,9 @@ blockquote:not(.blockquote) p {
   font-size:15px;
   color:#999;
   margin-top:5px
+}
+.footer {
+  position:absolute;
+  bottom:0;
+  width:100%;
 }
