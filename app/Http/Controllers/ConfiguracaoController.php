@@ -165,7 +165,8 @@ class ConfiguracaoController extends Controller
 
                             
                             if($codigo != '' && !empty($codigo)){
-                                $this->produtoService->processaImportacao($codigo,$variacao,$preco,$peso,$grupo,$descricao,$estoque,0);
+                                $grupoNew = explode(' ',$descricao)[0];
+                                $this->produtoService->processaImportacao($codigo,$variacao,$preco,$peso,$grupoNew,$descricao,$estoque,0);
                             }
                     } 
                     
@@ -192,13 +193,13 @@ class ConfiguracaoController extends Controller
                 $this->produtoService->inativarTodosProdutos();
                 $produtos = $this->wonderService->consultaProduto($empresaPadrao);
                 
-
                 foreach ($produtos as $key => $valueProdutos) {
                     
                     
                     if($valueProdutos->qtddisponivel > 0){
+                        $grupoNew = explode(' ',$valueProdutos->descricao)[0];
                         
-                        $this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$valueProdutos->descricaocategoria,$valueProdutos->descricao,$valueProdutos->qtddisponivel,1);            
+                        $this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$grupoNew,$valueProdutos->descricao,$valueProdutos->qtddisponivel,1);            
                     }
                     
                     
@@ -237,8 +238,9 @@ class ConfiguracaoController extends Controller
                     foreach ($produtos as $key => $valueProdutos) {
                     //atualiza produto q tiverem estoque
                         if($valueProdutos->qtddisponivel > 0){
-                            
-                            $this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$valueProdutos->descricaocategoria,$valueProdutos->descricao,0,1);
+                            $grupoNew = explode(' ',$valueProdutos->descricao)[0];
+                        
+                            $this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$grupoNew,$valueProdutos->descricao,0,1);
                             
                             $buscaProdutoInterno = $this->produtoService->findOneBy(
                                 [
