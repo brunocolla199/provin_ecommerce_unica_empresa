@@ -635,7 +635,6 @@
 
 @section('footer')
 <script>
-    lazyload();
     
     $('.btn-add-cart').on('click',function(){
         var id   = $(this).data('id');
