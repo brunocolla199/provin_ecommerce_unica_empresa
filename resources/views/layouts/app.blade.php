@@ -1439,7 +1439,10 @@
             <script type="text/javascript" src="{{ asset('js/chart.js/dist/Chart.min.js') }}"></script>
 
             <!-- slick.js -->
-            <script type="text/javascript" src="{{ asset('js/slick/slick.js') }}"></script>                                
+            <script type="text/javascript" src="{{ asset('js/slick/slick.js') }}"></script>    
+            
+            <!--lazyload-->
+            <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
             
 
             <!-- jQuery Mask -->
