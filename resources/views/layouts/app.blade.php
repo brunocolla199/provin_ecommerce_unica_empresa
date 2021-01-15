@@ -1442,6 +1442,7 @@
             <script type="text/javascript" src="{{ asset('js/slick/slick.js') }}"></script>    
             
             <!--lazyload-->
+            <script type="text/javascript" src="{{ asset('js/lazyload.js')}}"></script>
             
 
             <!-- jQuery Mask -->
