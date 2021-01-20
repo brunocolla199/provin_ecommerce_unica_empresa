@@ -354,7 +354,7 @@
                 @foreach ($grupos as $grupo)
                     @if ($grupo->caminho_img && file_exists(public_path($grupo->caminho_img)))
                     '   <div>
-                            <a href="{{route('ecommerce.produto.search.grupo', ['id' => $grupo->id] )}}"><img src="{{asset($grupo->caminho_img)}}"></a>
+                            <a href="{{route('ecommerce.produto.search.grupo', ['id' => $grupo->id] )}}"><img class="@if (in_array($grupo->id, $filtrosSelecionados)) borda @endif" style="max-height: 100px;max-width: 100px" src="{{asset($grupo->caminho_img)}}"></a>
                             <p> {{$grupo->nome}} </p>
                         </div>
                     @endif
@@ -377,29 +377,17 @@
             <div class="bg-gray-1 flex-center-between borders-radius-9 py-1">
                 <div class="d-xl-none">
                     <!-- Account Sidebar Toggle Button -->
-                    <a id="sidebarNavToggler1" class="btn btn-sm py-1 font-weight-normal" href="javascript:;" role="button"
-                        aria-controls="sidebarContent1"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                        data-unfold-event="click"
-                        data-unfold-hide-on-scroll="false"
-                        data-unfold-target="#sidebarContent1"
-                        data-unfold-type="css-animation"
-                        data-unfold-animation-in="fadeInLeft"
-                        data-unfold-animation-out="fadeOutLeft"
-                        data-unfold-duration="500">
-                        <i class="fas fa-sliders-h"></i> <span class="ml-1">{{__('sidebar_and_header.ecommerce.filters')}}</span>
+                    <a href="{{route('ecommerce.produto')}}">
+                        <i class="fa fa-trash"></i> <span class="ml-1">{{__('sidebar_and_header.ecommerce.clear')}}</span>
                     </a>
                     <!-- End Account Sidebar Toggle Button -->
                 </div>
                 <div class="px-3 d-none d-xl-block">
                     <ul class="nav nav-tab-shop" id="pills-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="pills-one-example1-tab" data-toggle="pill" href="#pills-one-example1" role="tab" aria-controls="pills-one-example1" aria-selected="false">
-                                <div class="d-md-flex justify-content-md-center align-items-md-center">
-                                    <i class="fa fa-th"></i>
-                                </div>
-                            </a>
+                                <a href="{{route('ecommerce.produto')}}">
+                                        <i class="fa fa-trash"></i> <span class="ml-1">{{__('sidebar_and_header.ecommerce.clear')}}</span>
+                                    </a>
                         </li>
                         <!--<li class="nav-item">
                             <a class="nav-link" id="pills-two-example1-tab" data-toggle="pill" href="#pills-two-example1" role="tab" aria-controls="pills-two-example1" aria-selected="false">

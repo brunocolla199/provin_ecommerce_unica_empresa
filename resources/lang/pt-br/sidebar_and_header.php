@@ -112,7 +112,8 @@ return [
         'continuar_comprando' => 'Continuar Comprando',
         'time' => 'Tempo para Liberação do Pedido',
         'img' => 'Imagem',
-        'valor_unitario' =>'Valor Unitário'
+        'valor_unitario' =>'Valor Unitário',
+        'clear' => 'Limpar'
 
 
         

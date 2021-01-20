@@ -103,6 +103,11 @@ class ProdutoEcommerceController extends Controller
             $produtos = $produtos->orderBy('produto_terceiro_id', 'asc');
         }
         
+        $filtrosSelecionados = [];
+        foreach ($this->grupos as $key => $value) {
+            array_push($filtrosSelecionados, $value->id);
+        }
+
         $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1)->where('valor','>',0)->paginate($registroPPagina)
             ->appends(['searchProduct'=>$request->query('searchProduct')])
             ->appends(['regPorPage'=>$registroPPagina])
@@ -113,9 +118,10 @@ class ProdutoEcommerceController extends Controller
         $pedidoNormal = $this->pedidoService->buscaPedidoCarrinho(2);
         $pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
         
-     
+        
         return view('ecommerce.produto.index',
             [
+                'filtrosSelecionados' => $filtrosSelecionados,
                 'grupos'=> $this->grupos,
                 'produtos' => $produtos,
                 'caminho_imagem' => $this->caminhoImagens,
@@ -165,6 +171,9 @@ class ProdutoEcommerceController extends Controller
             $produtos = $produtos->orderBy('produto_terceiro_id', 'asc');
         }
 
+        $filtrosSelecionados = [$id];
+
+
         $pedidoNormal = $this->pedidoService->buscaPedidoCarrinho(2);
         $pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
 
@@ -176,6 +185,7 @@ class ProdutoEcommerceController extends Controller
             [
                 'produtos' => $produtos,
                 'grupos' => $this->grupos,
+                'filtrosSelecionados' => $filtrosSelecionados,
                 'caminho_imagem' => $this->caminhoImagens,
                 'pedidoNormal'  => $pedidoNormal[0]->id ?? 0,
                 'pedidoExpresso'  => $pedidoExpress[0]->id ?? 0,
