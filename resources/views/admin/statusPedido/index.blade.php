@@ -45,7 +45,7 @@
                             @foreach ($status as $statu)
                                 <tr>
                                     <td>{{ $statu->nome }}</td>
-                                    <td>{{ date('d-m-Y',strtotime($statu->created_at)) }}</td>
+                                    <td>{{ date('d/m/Y',strtotime($statu->created_at)) }}</td>
                                     <td>@if ($statu->inativo == 0) Ativo @else Inativo @endif</td>                                      
                                     
                                     <td>

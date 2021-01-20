@@ -29,7 +29,7 @@
                     <input type="hidden" name="link" id="link" value="{{$pedido->link_rastreamento}}">
                     <input type="hidden" name="ultStatus" id="ultStatus" value="{{$pedido->status_pedido_id}}">
                     <div class="form-body">
-                        <div class="row p-t-20">
+                        <div class="row col-md-12">
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('id') ? ' has-error' : '' }}">
                                     <label class="control-label">ID</label>
@@ -55,6 +55,101 @@
                                         </span>
                                     @endif
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" row col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group{{ $errors->has('dataCriacao') ? ' has-error' : '' }}">
+                                <label class="control-label">Data Criação</label>
+                                <input type="text" readonly id="dataCriacao" name="id" value="{{ date('d/m/Y',strtotime($pedido->data_envio_pedido)) }}" class="form-control"  >
+                                <small class="form-control-feedback"> Digite a data de criação do pedido. </small> 
+                                @if ($errors->has('dataCriacao'))
+                                    <br/>    
+                                    <span class="help-block text-danger">
+                                        <strong>{{ $errors->first('dataCriacao') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group{{ $errors->has('usuarioCriacao') ? ' has-error' : '' }}">
+                                <label class="control-label">Usuário Criação</label>
+                                <input type="text" readonly id="usuarioCriacao" name="id" value="{{ $pedido->usuario->username }}" class="form-control"  >
+                                <small class="form-control-feedback"> Digite o usuário da criação do pedido. </small> 
+                                @if ($errors->has('usuarioCriacao'))
+                                    <br/>    
+                                    <span class="help-block text-danger">
+                                        <strong>{{ $errors->first('usuarioCriacao') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <h5 class="box-title">Dados do Cliente</h5>
+                    <hr class="m-t-0 m-b-10">
+                    <div class="row col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('nomeFantasia') ? ' has-error' : '' }}">
+                                    <label class="control-label">Nome Fantasia</label>
+                                    <input type="text" readonly   id="nomeFantasia" name="nomeFantasia" value="{{ $pedido->usuario->empresa->nome_fantasia}}" class="form-control"  >
+                                    <small class="form-control-feedback"> Digite o nome fantasia. </small> 
+                                    @if ($errors->has('nomeFantasia'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('nomeFantasia') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('cpfCnpj') ? ' has-error' : '' }}">
+                                    <label class="control-label"> @if ($pedido->usuario->empresa->tipo_pessoa == 'F')
+                                        CPF
+                                    @else
+                                        CNPJ
+                                    @endif    
+                                    </label>
+                                    <input type="text" readonly   id="cpfCnpj" name="cpfCnpj" value="{{ $pedido->usuario->empresa->cpf_cnpj}}" class="form-control"  >
+                                    <small class="form-control-feedback"> Digite o @if ($pedido->usuario->empresa->tipo_pessoa == 'F')
+                                            CPF
+                                        @else
+                                            CNPJ
+                                        @endif. </small> 
+                                    @if ($errors->has('cpfCnpj'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('cpfCnpj') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group{{ $errors->has('cidade') ? ' has-error' : '' }}">
+                                <label class="control-label">Cidade</label>
+                                <input type="text" readonly   id="cidade" name="cidade" value="{{ $pedido->usuario->empresa->cidade->nome .' - '. $pedido->usuario->empresa->cidade->sigla_estado}}" class="form-control"  >
+                                <small class="form-control-feedback"> Digite o da cidade. </small> 
+                                @if ($errors->has('cidade'))
+                                    <br/>    
+                                    <span class="help-block text-danger">
+                                        <strong>{{ $errors->first('cidade') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group{{ $errors->has('fone') ? ' has-error' : '' }}">
+                                <label class="control-label">Telefone</label>
+                                <input type="text" readonly   id="fone" name="fone" value="{{ $pedido->usuario->empresa->telefone}}" class="form-control"  >
+                                <small class="form-control-feedback"> Digite o da telefone. </small> 
+                                @if ($errors->has('fone'))
+                                    <br/>    
+                                    <span class="help-block text-danger">
+                                        <strong>{{ $errors->first('fone') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                     </div>

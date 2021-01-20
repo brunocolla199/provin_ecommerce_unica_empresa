@@ -43,7 +43,7 @@
                             @foreach ($tipos as $tipo)
                                 <tr>
                                     <td>{{ $tipo->nome }}</td>
-                                    <td>{{ date('d-m-Y',strtotime($tipo->created_at)) }}</td>
+                                    <td>{{ date('d/m/Y',strtotime($tipo->created_at)) }}</td>
                                     <td>@if ($tipo->inativo == 0) Ativo @else Inativo @endif</td>                                      
                                     <td>
                                         @if ($tipo->inativo == 0)

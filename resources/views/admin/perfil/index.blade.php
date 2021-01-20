@@ -39,7 +39,7 @@
                                 <tr>
                                     <td>{{ $perfil->nome }}</td>
                                     <td>{{ $perfil->users->count() }}</td>
-                                    <td>{{ date('d-m-Y',strtotime($perfil->created_at)) }}</td>
+                                    <td>{{ date('d/m/Y',strtotime($perfil->created_at)) }}</td>
                                     <td>@if ($perfil->inativo == 0) Ativo @else Inativo @endif</td>
                                     <td>
                                         @if ($perfil->inativo == 0)

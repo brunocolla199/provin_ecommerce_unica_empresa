@@ -48,7 +48,7 @@
                                         <td>{{ $grupo->nome }}</td>
                                         <td>{{ $grupo->descricao }}</td>
                                         <td>{{ $grupo->users->count() }}</td>
-                                        <td>{{ date('d-m-Y',strtotime($grupo->created_at)) }}</td>
+                                        <td>{{ date('d/m/Y',strtotime($grupo->created_at)) }}</td>
                                         <td>@if ($grupo->inativo == 0) Ativo @else Inativo @endif</td>
                                         <td>
                                             

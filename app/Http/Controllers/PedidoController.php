@@ -39,7 +39,7 @@ class PedidoController extends Controller
             ['status_pedido_id','<>',1,"AND"]
         ],[],
         [
-            ['status_pedido_id','asc']
+            ['id','desc']
         ]
         );
 
