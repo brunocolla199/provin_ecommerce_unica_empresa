@@ -648,9 +648,9 @@
                                             </li>
                                             <li class="col pr-xl-0 px-2 px-sm-3">
                                                 <a href="@if (!empty($pedidoNormal[0])){{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }} @else #  @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
-                                                    <img class="provin-icons" src="{{asset('img/icones/Sacola.png')}}"></img>
+                                                    <img  class="provin-icons" src="{{asset('img/icones/Sacola.png')}}"></img>
                                                     @if (!empty($pedidoNormal[0]))
-                                                        <span href="{{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white pedidoNormal"   >{{$pedidoNormal[0]->numero_itens ?? ''}}</span>
+                                                        <span style="left: 18px;top: 18px" href="{{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white pedidoNormal"   >{{$pedidoNormal[0]->numero_itens ?? ''}}</span>
                                                         <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoNormal[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
                                                         <input type="hidden" id="pedidoNormalHidden" value="{{$pedidoNormal[0]->id}}">
                                                     @endif 
@@ -658,9 +658,9 @@
                                             </li>
                                             <li class="col pr-xl-0 px-2 px-sm-3">
                                                 <a href="@if (!empty($pedidoExpress[0])) {{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }} @else # @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart2')}}">
-                                                    <img class="provin-icons" src="{{asset('img/icones/Sacola-expressa.png')}}"></img>
+                                                    <img  class="provin-icons" src="{{asset('img/icones/Sacola-expressa.png')}}"></img>
                                                     @if (!empty($pedidoExpress[0]))
-                                                        <span href="{{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white pedidoExpress"   >{{$pedidoExpress[0]->numero_itens ?? ''}}</span>
+                                                        <span style="left: 18px;top: 18px" href="{{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }}" class="width-22 height-22 bg-dark position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-white pedidoExpress"   >{{$pedidoExpress[0]->numero_itens ?? ''}}</span>
                                                         <!--<span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3" style="font-size: 14px">R$ {{number_format($pedidoExpress[0]->total_pedido, 2, ',', '.') ?? ''}}</span>-->
                                                         <input type="hidden" id="pedidoExpressHidden" value="{{$pedidoExpress[0]->id}}">
                                                     @endif
