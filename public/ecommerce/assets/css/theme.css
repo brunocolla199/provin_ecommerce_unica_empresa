@@ -37827,8 +37827,26 @@ blockquote:not(.blockquote) p {
 }
 
 .borda {
-  width: 100%;
-  height: 100%;
   background: linear-gradient(45deg, #ff0, #f00, #90c) ;;
   border-radius: 50%;
+  }
+
+  .iconeHome:hover{
+    background: linear-gradient(45deg, #ff0, #f00, #90c) ;;
+    border-radius: 50%;
+  }
+
+  .iconeProduto:hover{
+    background: linear-gradient(45deg, #ff0, #f00, #90c) ;;
+    border-radius: 50%;
+  }
+
+  .iconePedido:hover{
+    background: linear-gradient(45deg, #ff0, #f00, #90c) ;;
+    border-radius: 50%;
+  }
+
+  .iconeEstoque:hover{
+    background: linear-gradient(45deg, #ff0, #f00, #90c) ;;
+    border-radius: 50%;
   }

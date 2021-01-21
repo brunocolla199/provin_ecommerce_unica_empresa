@@ -19,27 +19,31 @@
     </div>
     <div class="col-xl-9 col-wd-9gdot5">
         <div class="regular slider">
+                @php
+                $url = $_SERVER["REQUEST_URI"];
+                $explode = explode('/',$url);
+            @endphp
             <div>
                 <a href="{{route('ecommerce.home')}}">
-                    <img src="{{asset('img/icones/s1.png')}}">
+                    <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'home') borda @endif iconeHome" src="{{asset('img/icones/s1.1.png')}}">
                 </a>
                 <p> Inicio </p>
             </div>
             <div>
                 <a href="{{route('ecommerce.produto')}}">
-                    <img src="{{asset('img/icones/s2.png')}}">
+                    <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'produto') borda @endif iconeProduto" src="{{asset('img/icones/s2.2.png')}}">
                 </a>
                 <p> Produtos </p>
             </div>
             <div>
                 <a href="{{route('ecommerce.pedido')}}">
-                    <img src="{{asset('img/icones/s3.png')}}">
+                    <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'pedido') borda @endif iconePedido" src="{{asset('img/icones/s3.3.png')}}">
                 </a>
                 <p> Pedidos </p>
             </div>
             <div>
                 <a href="{{route('ecommerce.estoque')}}">
-                    <img src="{{asset('img/icones/s4.png')}}">
+                    <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'estoque') borda @endif iconeEstoque" src="{{asset('img/icones/s4.4.png')}}">
                 </a>
                 <p> Estoque </p>
             </div>
