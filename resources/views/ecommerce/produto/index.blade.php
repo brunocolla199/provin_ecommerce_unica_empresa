@@ -377,17 +377,17 @@
             <div class="bg-gray-1 flex-center-between borders-radius-9 py-1">
                 <div class="d-xl-none">
                     <!-- Account Sidebar Toggle Button -->
-                    <a href="{{route('ecommerce.produto')}}">
-                        <i class="fa fa-trash"></i> <span class="ml-1">{{__('sidebar_and_header.ecommerce.clear')}}</span>
+                    <a href="{{route('ecommerce.produto')}}" >
+                        <b>{{__('sidebar_and_header.ecommerce.clear')}}</b>
                     </a>
-                    <!-- End Account Sidebar Toggle Button -->
+                    
                 </div>
                 <div class="px-3 d-none d-xl-block">
                     <ul class="nav nav-tab-shop" id="pills-tab" role="tablist">
                         <li class="nav-item">
-                                <a href="{{route('ecommerce.produto')}}">
-                                        <i class="fa fa-trash"></i> <span class="ml-1">{{__('sidebar_and_header.ecommerce.clear')}}</span>
-                                    </a>
+                            <a href="{{route('ecommerce.produto')}}" >
+                                <b>{{__('sidebar_and_header.ecommerce.clear')}}</b>
+                            </a>
                         </li>
                         <!--<li class="nav-item">
                             <a class="nav-link" id="pills-two-example1-tab" data-toggle="pill" href="#pills-two-example1" role="tab" aria-controls="pills-two-example1" aria-selected="false">
@@ -411,6 +411,21 @@
                             </a>
                         </li>-->
                     </ul>
+                </div>
+                <div class="d-flex">
+                    <form class="js-focus-state d-none d-xl-block"  method="GET"  id="buscaPorName" name="buscaPorName" action="{{route('ecommerce.produto')}}" >
+                            
+                        <label class="sr-only" for="searchProduct">{{__('sidebar_and_header.ecommerce.search')}}</label>
+                        <div class="input-group ">
+                            <input type="text" class="form-control  py-2 pl-5 font-size-15 border-0 height-40 rounded-left-pill" name="searchProduct" id="searchProduct" placeholder="{{__('sidebar_and_header.ecommerce.search_for_product')}}" aria-label="{{__('sidebar_and_header.ecommerce.search_for_product')}}" aria-describedby="searchProduct1"  value="{{$_GET['searchProduct'] ?? ''}}">
+                            <div class="input-group-append">
+                            
+                                <button type="submit" class="btn btn-dark height-40 py-2 px-3 rounded-right-pill" type="button" id="searchProduct1">
+                                    <span class="ec ec-search font-size-24"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="d-flex">
                     

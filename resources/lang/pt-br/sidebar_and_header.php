@@ -113,7 +113,7 @@ return [
         'time' => 'Tempo para Liberação do Pedido',
         'img' => 'Imagem',
         'valor_unitario' =>'Valor Unitário',
-        'clear' => 'Limpar'
+        'clear' => 'Limpar filtros'
 
 
         
