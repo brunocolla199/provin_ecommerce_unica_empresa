@@ -611,15 +611,15 @@
                                             <!--<li class="col d-none d-xl-block"><a href="../shop/wishlist.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorites"><i class="font-size-22 ec ec-favorites"></i></a></li>-->
                                             <!--<li class="col d-xl-none px-2 px-sm-3"><a href="../shop/my-account.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.my_account')}}"><i class="font-size-22 ec ec-user"></i></a></li>-->
                                             
-                                            <li class="col pr-xl-0 px-2 px-sm-3" style="margin-top:-10px">
+                                            <li class="col pr-xl-0 px-2 px-sm-3" style="margin-left:-20px; margin-top:-10px;font-size:10px">
                                                 <a  class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.time')}}">
                                                     <div class=" d-xl-block col-md-auto mt-3">
                                                         <div class="d-flex">
                                                             <img class="provin-icons" src="{{asset('img/icones/Relógio.png')}}"></img>
                                                             <div class="ml-2">
-                                                                <div id="clockdiv" style="display: flex;color: #ff9a60"> 
+                                                                <div id="clockdiv" style="display: flex;color: #ff9a60;margin-right: 10px;"> 
                                                                     <div style="mb-1"> 
-                                                                        <b><span class="days" id="dayMob"></span></b>&nbsp;<span style="font-size:10px">Dias</span>&nbsp; 
+                                                                        <b><span class="days" id="dayMob"></span></b>&nbsp;<span >Dias</span>&nbsp; 
                                                                             
                                                                     </div> 
                                                                     <div style="mb-1"> 
@@ -631,22 +631,21 @@
                                                                             
                                                                     </div> 
                                                                     <div> 
-                                                                        <b><span class="seconds" id="secondMob"></span></b>&nbsp;<span style="font-size:10px ">Horas</span>
+                                                                        <b><span class="seconds" id="secondMob"></span></b>&nbsp;<span >Horas</span>
                                                                         
                                                                     </div> 
                                                                 </div> 
                                                                 <div id="clockdiv" style="display: flex;height: 10px">
                                                                     <div style="mb-1">
-                                                                        <b id="demoMob" style="font-size:14px;color: #ff9a60"></b>
+                                                                        <b id="demoMob" style="font-size:10px;color: #ff9a60"></b>
                                                                     </div>
                                                                 </div>          
                                                             </div>
                                                         </div>
-                                                    </div>     
-                                                        
+                                                    </div>      
                                                 </a>
                                             </li>
-                                            <li class="col pr-xl-0 px-2 px-sm-3">
+                                            <li class="">
                                                 <a href="@if (!empty($pedidoNormal[0])){{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }} @else #  @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart')}}">
                                                     <img  class="provin-icons" src="{{asset('img/icones/Sacola.png')}}"></img>
                                                     @if (!empty($pedidoNormal[0]))
@@ -656,7 +655,7 @@
                                                     @endif 
                                                 </a>
                                             </li>
-                                            <li class="col pr-xl-0 px-2 px-sm-3">
+                                            <li class="">
                                                 <a href="@if (!empty($pedidoExpress[0])) {{ route('ecommerce.carrinho.detalhe', ['id' => $pedidoExpress[0]->id]) }} @else # @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="{{__('sidebar_and_header.ecommerce.cart2')}}">
                                                     <img  class="provin-icons" src="{{asset('img/icones/Sacola-expressa.png')}}"></img>
                                                     @if (!empty($pedidoExpress[0]))
