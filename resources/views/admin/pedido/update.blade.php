@@ -46,7 +46,7 @@
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('previsao_entrega') ? ' has-error' : '' }}">
                                     <label class="control-label">Previsão de Entrega</label>
-                                    <input type="date"   id="previsao_entrega" name="previsao_entrega" value="{{ $pedido->previsao_entrega ? date('Y-m-d', strtotime($pedido->previsao_entrega)) : '' }}" class="form-control" required >
+                                    <input type="date"   id="previsao_entrega" name="previsao_entrega" value="{{ $pedido->previsao_entrega ? date('Y-m-d', strtotime($pedido->previsao_entrega)) : '' }}" class="form-control"  >
                                     <small class="form-control-feedback"> Digite a data de previsão de entrega. </small> 
                                     @if ($errors->has('previsao_entrega'))
                                         <br/>    

@@ -413,7 +413,7 @@
                     </ul>
                 </div>
                 <div class="d-flex">
-                    <form class="js-focus-state d-none d-xl-block"  method="GET"  id="buscaPorName" name="buscaPorName" action="{{route('ecommerce.produto')}}" >
+                    <form class="js-focus-state  d-xl-block"  method="GET"  id="buscaPorName" name="buscaPorName" action="{{route('ecommerce.produto')}}" >
                             
                         <label class="sr-only" for="searchProduct">{{__('sidebar_and_header.ecommerce.search')}}</label>
                         <div class="input-group ">

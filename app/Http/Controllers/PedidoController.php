@@ -101,7 +101,7 @@ class PedidoController extends Controller
         $link = $_request->link;
         $status= $_request->ultStatus;
         $id = $_request->get('idPedido');
-        $previsao_entrega = date('Y-m-d',strtotime($_request->get('previsao_entrega')));
+        $previsao_entrega = $_request->get('previsao_entrega') ? date('Y-m-d',strtotime($_request->get('previsao_entrega'))) : null;
         $nova_obs = $_request->nova_obs ? $_request->nova_obs : '';
 
         $buscaStatus = $this->statusPedidoService->find($_request->ultStatus);
