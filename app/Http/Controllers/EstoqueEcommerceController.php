@@ -36,7 +36,7 @@ class EstoqueEcommerceController extends Controller
 
         return view('ecommerce.estoque.index', [
             'produtos'       => $produtos,
-            'caminho_imagem' => $setup['caminho_imagen_produto']
+            'caminho_imagem' => $setup->caminho_imagen_produto
         ]);
 
     }
