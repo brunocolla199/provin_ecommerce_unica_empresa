@@ -34,7 +34,7 @@
                                 <div class="form-group{{ $errors->has('id') ? ' has-error' : '' }}">
                                     <label class="control-label">ID</label>
                                     <input type="text" readonly id="id" name="id" value="{{ $pedido->id }}" class="form-control" required >
-                                    <small class="form-control-feedback"> Digite o número do pedido. </small> 
+                                     
                                     @if ($errors->has('id'))
                                         <br/>    
                                         <span class="help-block text-danger">
@@ -63,7 +63,7 @@
                             <div class="form-group{{ $errors->has('dataCriacao') ? ' has-error' : '' }}">
                                 <label class="control-label">Data Criação</label>
                                 <input type="text" readonly id="dataCriacao" name="id" value="{{ date('d/m/Y',strtotime($pedido->data_envio_pedido)) }}" class="form-control"  >
-                                <small class="form-control-feedback"> Digite a data de criação do pedido. </small> 
+                                
                                 @if ($errors->has('dataCriacao'))
                                     <br/>    
                                     <span class="help-block text-danger">
@@ -76,7 +76,7 @@
                             <div class="form-group{{ $errors->has('usuarioCriacao') ? ' has-error' : '' }}">
                                 <label class="control-label">Usuário Criação</label>
                                 <input type="text" readonly id="usuarioCriacao" name="id" value="{{ $pedido->usuario->username }}" class="form-control"  >
-                                <small class="form-control-feedback"> Digite o usuário da criação do pedido. </small> 
+                                
                                 @if ($errors->has('usuarioCriacao'))
                                     <br/>    
                                     <span class="help-block text-danger">
@@ -93,7 +93,7 @@
                                 <div class="form-group{{ $errors->has('nomeFantasia') ? ' has-error' : '' }}">
                                     <label class="control-label">Nome Fantasia</label>
                                     <input type="text" readonly   id="nomeFantasia" name="nomeFantasia" value="{{ $pedido->usuario->empresa->nome_fantasia}}" class="form-control"  >
-                                    <small class="form-control-feedback"> Digite o nome fantasia. </small> 
+                                    
                                     @if ($errors->has('nomeFantasia'))
                                         <br/>    
                                         <span class="help-block text-danger">
@@ -111,11 +111,7 @@
                                     @endif    
                                     </label>
                                     <input type="text" readonly   id="cpfCnpj" name="cpfCnpj" value="{{ $pedido->usuario->empresa->cpf_cnpj}}" class="form-control"  >
-                                    <small class="form-control-feedback"> Digite o @if ($pedido->usuario->empresa->tipo_pessoa == 'F')
-                                            CPF
-                                        @else
-                                            CNPJ
-                                        @endif. </small> 
+                                   
                                     @if ($errors->has('cpfCnpj'))
                                         <br/>    
                                         <span class="help-block text-danger">
@@ -130,7 +126,7 @@
                             <div class="form-group{{ $errors->has('cidade') ? ' has-error' : '' }}">
                                 <label class="control-label">Cidade</label>
                                 <input type="text" readonly   id="cidade" name="cidade" value="{{ $pedido->usuario->empresa->cidade->nome .' - '. $pedido->usuario->empresa->cidade->sigla_estado}}" class="form-control"  >
-                                <small class="form-control-feedback"> Digite o da cidade. </small> 
+                                
                                 @if ($errors->has('cidade'))
                                     <br/>    
                                     <span class="help-block text-danger">
@@ -143,7 +139,7 @@
                             <div class="form-group{{ $errors->has('fone') ? ' has-error' : '' }}">
                                 <label class="control-label">Telefone</label>
                                 <input type="text" readonly   id="fone" name="fone" value="{{ $pedido->usuario->empresa->telefone}}" class="form-control"  >
-                                <small class="form-control-feedback"> Digite o da telefone. </small> 
+                                
                                 @if ($errors->has('fone'))
                                     <br/>    
                                     <span class="help-block text-danger">
