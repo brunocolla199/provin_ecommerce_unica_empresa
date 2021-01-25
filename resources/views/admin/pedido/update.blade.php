@@ -212,7 +212,7 @@
                                             <!--<a href="#" class="text-gray-32 font-size-26">×</a>-->
                                         </td>
                                         <td class="d-none d-md-table-cell">
-                                            <a href="#"><img class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.substr($item->produto_terceiro_id,0,2).'/'.substr($item->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($item->produto_terceiro_id,0,2).'/'.substr($item->produto_terceiro_id,0,-1).'.jpg')}} @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif alt="Image Description"></a>
+                                            <a href="#"><img class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg')}} @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif alt="Image Description"></a>
                                         </td>
     
                                         <td data-title="Product">
