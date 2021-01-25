@@ -66,6 +66,7 @@ class PedidoController extends Controller
      */
     public function edit($id)
     {
+        $setup = $this->setupService->find(1);
         $pedido = $this->pedidoService->find($id);
         $itens  = $this->itemPedidoService->findBy([
             [
@@ -80,8 +81,9 @@ class PedidoController extends Controller
             [
             'pedido_id','=',$id,'AND'
             ]
-        ]);        
-        return view('admin.pedido.update', compact('pedido','itens','observacoes'));
+        ]);   
+        $caminho_imagem = $setup->caminho_imagen_produto;   
+        return view('admin.pedido.update', compact('pedido','itens','observacoes', 'caminho_imagem'));
     }
 
     /**
