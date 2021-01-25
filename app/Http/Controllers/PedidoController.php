@@ -19,14 +19,16 @@ class PedidoController extends Controller
     protected $produtoService;
     protected $statusPedidoService;
     protected $obsPedidoService;
+    protected $setupService;
 
-    public function __construct(PedidoService $pedido, ItemPedidoService $itemPedido, StatusPedidoService $statusPedido, ObsPedidoService $obsPedidoServico)
+    public function __construct(PedidoService $pedido, ItemPedidoService $itemPedido, StatusPedidoService $statusPedido, ObsPedidoService $obsPedidoServico, SetupService $setup)
     {
         $this->middleware('auth');
         $this->pedidoService = $pedido;
         $this->itemPedidoService = $itemPedido;
         $this->statusPedidoService = $statusPedido;
         $this->obsPedidoService = $obsPedidoServico;
+        $this->setupService   = $setup;
     }
 
     public function index(){
