@@ -10,6 +10,7 @@ use App\Services\PedidoService;
 use App\Services\ItemPedidoService;
 use App\Services\StatusPedidoService;
 use App\Services\ObsPedidoService;
+use App\Services\SetupService;
 
 class PedidoController extends Controller
 {
