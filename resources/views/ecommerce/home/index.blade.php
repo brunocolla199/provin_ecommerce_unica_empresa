@@ -46,7 +46,7 @@
         
         <div class="row">
                 <div class="col-xl pr-xl-2 mb-4 mb-xl-0">
-                        <div class="bg-img-hero mr-xl-1 height-610-xl max-width-1060-wd max-width-1060-xl overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_1.png')}});border-radius:5px">
+                        <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_1.png')}});border-radius:5px">
                             
                             <div class="js-slick-carousel u-slick"
                                 data-autoplay="true"
