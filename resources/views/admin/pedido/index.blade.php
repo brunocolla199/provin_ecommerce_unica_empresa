@@ -150,30 +150,33 @@
                 "order": [[ 0, "desc" ]]
             });
 
-            $('.sa-danger').click(function(){
-                let id = $(this).data('id');
-                let inativar = swal2_warning("Essa ação é irreversível!","Sim, cancelar!");
-                let obj = {'id': id};
+           
+        });
 
-                inativar.then(resolvedValue => {
-                    $.ajax({
-                        type: "POST",
-                        url: '{{route("pedido.cancelar")}}',
-                        data: { id: id, _token: '{{csrf_token()}}' },
-                        success: function (data) {
-                            if(data.response != 'erro') {
-                                swal2_success("Cancelado!", "Pedido cancelado com sucesso.");
-                            } else {
-                                swal2_alert_error_support("Tivemos um problema ao cancelar o pedido.");
-                            }
-                        },
-                        error: function (data, textStatus, errorThrown) {
-                            console.log(data);
-                        },
-                    });
-                }, error => {
-                    swal.close();
+
+        $(document).on("click",".sa-danger", function() {
+            let id = $(this).data('id');
+            let inativar = swal2_warning("Essa ação é irreversível!","Sim, cancelar!");
+            let obj = {'id': id};
+
+            inativar.then(resolvedValue => {
+                $.ajax({
+                    type: "POST",
+                    url: '{{route("pedido.cancelar")}}',
+                    data: { id: id, _token: '{{csrf_token()}}' },
+                    success: function (data) {
+                        if(data.response != 'erro') {
+                            swal2_success("Cancelado!", "Pedido cancelado com sucesso.");
+                        } else {
+                            swal2_alert_error_support("Tivemos um problema ao cancelar o pedido.");
+                        }
+                    },
+                    error: function (data, textStatus, errorThrown) {
+                        console.log(data);
+                    },
                 });
+            }, error => {
+                swal.close();
             });
         });
 
