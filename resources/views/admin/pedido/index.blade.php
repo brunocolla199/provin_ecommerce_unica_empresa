@@ -158,7 +158,7 @@
                 inativar.then(resolvedValue => {
                     $.ajax({
                         type: "POST",
-                        url: 'pedido/cancelar',
+                        url: '{{route("pedido.cancelar")}}',
                         data: { id: id, _token: '{{csrf_token()}}' },
                         success: function (data) {
                             if(data.response != 'erro') {
