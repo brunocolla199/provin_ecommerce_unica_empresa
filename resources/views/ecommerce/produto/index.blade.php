@@ -542,27 +542,28 @@
                 @if ($produtos->hasPages())
                     <ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start" >
                         {{-- Previous Page Link --}}
-                        <li class="" style="display: flex;justify-content: center;flex-direction: column"><a class="mr-2" href="{{ $produtos->url(1) }}" style="color: blue;font-size: 12px"><img style="width: 35px;height: 35px"  src="{{asset('img/icones/Arrow-circle-2.png')}}"></a></li>
+                        <li class="" style="display: flex;justify-content: center;flex-direction: column"><a  href="{{ $produtos->url(1) }}" style="color: blue;font-size: 12px"><img style="width: 35px;height: 35px" src="{{asset('img/icones/Arrow-circle-2.png')}}"></a></li>
                     
                         @if ($produtos->onFirstPage())
                             
-                            <li class="disabled mr-2"><span ><b style=""><img style="width: 35px;height: 35px"  src="{{asset('img/icones/Arrow-circle-1.png')}}"></b></span></li>
+                            <li class="disabled "><span ><b style=""><img style="width: 35px;height: 35px"  class="mr-4 ml-5" src="{{asset('img/icones/Arrow-circle-1.png')}}"></b></span></li>
                         @else
-                            <li class=""><a class="mr-2"  href="{{ $produtos->previousPageUrl() }}" rel="prev"><b style=""><img style="width: 35px;height: 35px"  src="{{asset('img/icones/Arrow-circle-1.png')}}"></b></a></li>
+                            <li class=""><a class=""  href="{{ $produtos->previousPageUrl() }}" rel="prev"><b style=""><img style="width: 35px;height: 35px" class="mr-4 ml-5"  src="{{asset('img/icones/Arrow-circle-1.png')}}"></b></a></li>
                         @endif
                         
-                        <li class="active  current" style="font-size: 20px"><b>{{ $produtos->currentPage()}}</b></li><span style="font-size: 20px">/</span>
-                        <li class="hidden-xs " style="font-size: 20px"><b class="mr-2">{{ $produtos->lastPage() }}</b></li>
+                        <li><span><b style="font-size: 20px" >{{ $produtos->currentPage()}} / {{ $produtos->lastPage() }}</b></span></li>
+                        <!--<li class="active  current" style="font-size: 20px"><b></b></li><span style="font-size: 20px">/</span>
+                        <li class="hidden-xs " style="font-size: 20px"><b class="mr-2"></b></li>-->
                     
                         
                         {{-- Next Page Link --}}
                         @if ($produtos->hasMorePages())
-                            <li class=""><a class="mr-2"  href="{{ $produtos->nextPageUrl() }}" rel="next"><b style=""><img style="width: 35px;height: 35px"  src="{{asset('img/icones/Arrow-circle-1.1.png')}}"></b></a></li>
+                            <li class=""><a class=""  href="{{ $produtos->nextPageUrl() }}" rel="next"><b style=""><img style="width: 35px;height: 35px" class="mr-5 ml-4"  src="{{asset('img/icones/Arrow-circle-1.1.png')}}"></b></a></li>
                         @else
-                            <li class="disabled mr-2"><span ><b style=""><img style="width: 35px;height: 35px"  src="{{asset('img/icones/Arrow-circle-1.1.png')}}"></b></span></li>
+                            <li class="disabled "><span ><b style=""><img style="width: 35px;height: 35px" class="mr-5 ml-4"  src="{{asset('img/icones/Arrow-circle-1.1.png')}}"></b></span></li>
                         @endif
 
-                        <li class="" style="display: flex;justify-content: center;flex-direction: column"><a class="" href="{{ $produtos->url($produtos->lastPage()) }}" style="color: blue; font-size: 12px"><img style="width: 35px;height: 35px" src="{{asset('img/icones/Arrow-circle-2.2.png')}}"></li>
+                        <li class="" style="display: flex;justify-content: center;flex-direction: column"><a  href="{{ $produtos->url($produtos->lastPage()) }}" style="color: blue; font-size: 12px"><img style="width: 35px;height: 35px"  src="{{asset('img/icones/Arrow-circle-2.2.png')}}"></li>
                     
                     </ul>
                 @endif
