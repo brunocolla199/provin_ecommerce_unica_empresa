@@ -52,11 +52,25 @@ class PedidoController extends Controller
                     'excluido','=',0
                 ],
                 ['status_pedido_id','<>',1,"AND"],
+                ['status_pedido_id','<>',5,"AND"],
+                ['status_pedido_id','<>',6,"AND"],
                 ['previsao_entrega','=',date('Y-m-d'),"AND"]
             ]
         )->count();
 
-        return view('admin.pedido.index', compact('pedidos', 'pedidoParaHoje'));
+        $pedidoAtrasado = $this->pedidoService->findBy(
+            [
+                [
+                    'excluido','=',0
+                ],
+                ['status_pedido_id','<>',1,"AND"],
+                ['status_pedido_id','<>',5,"AND"],
+                ['status_pedido_id','<>',6,"AND"],
+                ['previsao_entrega','<',date('Y-m-d'),"AND"]
+            ]
+        )->count();
+
+        return view('admin.pedido.index', compact('pedidos', 'pedidoParaHoje', 'pedidoAtrasado'));
 
     }
 
@@ -152,6 +166,35 @@ class PedidoController extends Controller
         } 
     }
 
+    public function entregaAtrasada()
+    {
+        $pedidos = $this->pedidoService->findBy(
+            [
+                [
+                    'excluido','=',0
+                ],
+                ['status_pedido_id','<>',1,"AND"],
+                ['status_pedido_id','<>',5,"AND"],
+                ['status_pedido_id','<>',6,"AND"],
+                ['previsao_entrega','<',date('Y-m-d'),"AND"]
+            ]
+        );
+    
+        $pedidoParaHoje = $this->pedidoService->findBy(
+            [
+                [
+                    'excluido','=',0
+                ],
+                ['status_pedido_id','<>',1,"AND"],
+                ['status_pedido_id','<>',5,"AND"],
+                ['status_pedido_id','<>',6,"AND"],
+                ['previsao_entrega','=',date('Y-m-d'),"AND"]
+            ]
+        )->count();
+    
+        $pedidoAtrasado = $pedidos->count();
+        return view('admin.pedido.index', compact('pedidos', 'pedidoParaHoje', 'pedidoAtrasado'));
+    }
    
 
 }

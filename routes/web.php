@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth','userInativo']], function() {
                 Route::get('editar/{id}',   ['as' => 'pedido.editar', 'uses' => 'PedidoController@edit']);
                 Route::post('alterar',      ['as' => 'pedido.alterar', 'uses' => 'PedidoController@update']);
                 Route::post('cancelar',     ['as' => 'pedido.cancelar', 'uses' => 'PedidoController@cancelar']);
+                Route::get('entrega-atrasada',     ['as' => 'pedido.entrega-atrasada', 'uses' => 'PedidoController@entregaAtrasada']);
             });
             
 
