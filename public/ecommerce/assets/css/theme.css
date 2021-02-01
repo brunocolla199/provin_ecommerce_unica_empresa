@@ -622,7 +622,6 @@ pre code {
   .container {
     max-width: 1430px;
   }
-  
 }
 
 .container-fluid {
@@ -37850,3 +37849,4 @@ blockquote:not(.blockquote) p {
     background: linear-gradient(45deg, #ff0, #f00, #90c) ;;
     border-radius: 50%;
   }
+

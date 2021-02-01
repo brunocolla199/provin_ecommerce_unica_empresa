@@ -46,31 +46,13 @@ class PedidoController extends Controller
         ]
         );
 
-        $pedidoParaHoje = $this->pedidoService->findBy(
-            [
-                [
-                    'excluido','=',0
-                ],
-                ['status_pedido_id','<>',1,"AND"],
-                ['status_pedido_id','<>',5,"AND"],
-                ['status_pedido_id','<>',6,"AND"],
-                ['previsao_entrega','=',date('Y-m-d'),"AND"]
-            ]
-        )->count();
+        $pedidoParaHoje = $this->pedidosParaHoje()->count();
 
-        $pedidoAtrasado = $this->pedidoService->findBy(
-            [
-                [
-                    'excluido','=',0
-                ],
-                ['status_pedido_id','<>',1,"AND"],
-                ['status_pedido_id','<>',5,"AND"],
-                ['status_pedido_id','<>',6,"AND"],
-                ['previsao_entrega','<',date('Y-m-d'),"AND"]
-            ]
-        )->count();
+        $pedidoAtrasado = $this->pedidoAtrasado()->count();
 
-        return view('admin.pedido.index', compact('pedidos', 'pedidoParaHoje', 'pedidoAtrasado'));
+        $pedidoComObs   = $this->pedidoComObs()->count();
+
+        return view('admin.pedido.index', compact('pedidos', 'pedidoParaHoje', 'pedidoAtrasado', 'pedidoComObs'));
 
     }
 
@@ -168,7 +150,49 @@ class PedidoController extends Controller
 
     public function entregaAtrasada()
     {
-        $pedidos = $this->pedidoService->findBy(
+        $pedidos = $this->pedidoAtrasado();
+        $pedidoParaHoje = $this->pedidosParaHoje()->count();
+        $pedidoAtrasado = $pedidos->count();
+        $pedidoComObs   = $this->pedidoComObs()->count();
+        return view('admin.pedido.index', compact('pedidos', 'pedidoParaHoje', 'pedidoAtrasado', 'pedidoComObs'));
+    }
+
+    public function entregaHoje()
+    {
+        $pedidos =$this->pedidosParaHoje();
+        $pedidoParaHoje = $this->pedidosParaHoje()->count();
+        $pedidoAtrasado = $this->pedidoAtrasado()->count();
+        $pedidoComObs   = $this->pedidoComObs()->count();
+        return view('admin.pedido.index', compact('pedidos', 'pedidoParaHoje', 'pedidoAtrasado', 'pedidoComObs'));
+    }
+
+    public function obsCliente()
+    {
+        $pedidos =$this->pedidoComObs();
+        $pedidoParaHoje = $this->pedidosParaHoje()->count();
+        $pedidoAtrasado = $this->pedidoAtrasado()->count();
+        $pedidoComObs = $pedidos->count();
+        return view('admin.pedido.index', compact('pedidos', 'pedidoParaHoje', 'pedidoAtrasado', 'pedidoComObs'));
+    }
+
+    public function pedidosParaHoje()
+    {
+        return $this->pedidoService->findBy(
+            [
+                [
+                    'excluido','=',0
+                ],
+                ['status_pedido_id','<>',1,"AND"],
+                ['status_pedido_id','<>',5,"AND"],
+                ['status_pedido_id','<>',6,"AND"],
+                ['previsao_entrega','=',date('Y-m-d'),"AND"]
+            ]
+        );
+    }
+
+    public function pedidoAtrasado()
+    {
+        return $this->pedidoService->findBy(
             [
                 [
                     'excluido','=',0
@@ -179,8 +203,11 @@ class PedidoController extends Controller
                 ['previsao_entrega','<',date('Y-m-d'),"AND"]
             ]
         );
-    
-        $pedidoParaHoje = $this->pedidoService->findBy(
+    }
+
+    public function pedidoComObs()
+    {
+        $todosPedidos = $this->pedidoService->findBy(
             [
                 [
                     'excluido','=',0
@@ -188,13 +215,35 @@ class PedidoController extends Controller
                 ['status_pedido_id','<>',1,"AND"],
                 ['status_pedido_id','<>',5,"AND"],
                 ['status_pedido_id','<>',6,"AND"],
-                ['previsao_entrega','=',date('Y-m-d'),"AND"]
             ]
-        )->count();
-    
-        $pedidoAtrasado = $pedidos->count();
-        return view('admin.pedido.index', compact('pedidos', 'pedidoParaHoje', 'pedidoAtrasado'));
+        );
+        $pedidosComObs = [];
+        foreach ($todosPedidos as $key => $value) {
+            
+            if($value->ultimaObs[0] ?? false){
+                if($value->ultimaObs[0]->usuario->perfil->admin_controle_geral == 0 && $value->ultimaObs[0]->usuario->perfil->area_admin == 0) {
+                    array_push($pedidosComObs, $value->id);
+                }
+            }
+            
+        }
+        
+        $pedidos = $this->pedidoService->findBy(
+            [
+                [
+                    'excluido','=',0
+                ],
+                ['status_pedido_id','<>',1,"AND"],
+                ['status_pedido_id','<>',5,"AND"],
+                ['status_pedido_id','<>',6,"AND"],
+                ['id', '', $pedidosComObs, "IN"]
+            ]
+        );
+
+        return $pedidos;
     }
+
+    
    
 
 }

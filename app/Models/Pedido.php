@@ -43,5 +43,9 @@ class Pedido extends Model
         return $this->hasMany('App\Models\ItemPedido','pedido_id','id');
     }
 
+    public function ultimaObs()
+    {
+        return $this->hasMany('\App\Models\ObsPedido','pedido_id','id')->orderBy('id', 'DESC')->limit(1);
+    }
     
 }

@@ -48,6 +48,8 @@ Route::group(['middleware' => ['auth','userInativo']], function() {
                 Route::post('alterar',      ['as' => 'pedido.alterar', 'uses' => 'PedidoController@update']);
                 Route::post('cancelar',     ['as' => 'pedido.cancelar', 'uses' => 'PedidoController@cancelar']);
                 Route::get('entrega-atrasada',     ['as' => 'pedido.entrega-atrasada', 'uses' => 'PedidoController@entregaAtrasada']);
+                Route::get('entrega-hoje',     ['as' => 'pedido.entrega-hoje', 'uses' => 'PedidoController@entregaHoje']);
+                Route::get('obs-cliente',     ['as' => 'pedido.obs-cliente', 'uses' => 'PedidoController@obsCliente']);
             });
             
 
