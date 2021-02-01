@@ -1428,7 +1428,7 @@
 
             
             
-            <script type="text/javascript" src="{{ asset('js/datatable/dataTables.rowReorder.min.js') }}"></script>
+            <!--<script type="text/javascript" src="{{ asset('js/datatable/dataTables.rowReorder.min.js') }}"></script>-->
             <script type="text/javascript" src="{{ asset('js/datatable/dataTables.responsive.min.js') }}"></script>
 
             <!--moment-->
