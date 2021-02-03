@@ -1691,9 +1691,9 @@
             </script>
 
              <!-- ========== FOOTER ========== -->
-             <footer class="footer">
-                @yield('footer')
-            </footer>
+             
+            @yield('footer')
+            
         </body>        
     </body>
     

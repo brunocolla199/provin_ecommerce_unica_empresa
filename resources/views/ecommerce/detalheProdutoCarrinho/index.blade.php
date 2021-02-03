@@ -73,7 +73,7 @@
 @endsection
 
 @section('content')
-<div class="container">
+
     <!-- Single Product Body -->
     <input type="hidden" id="idItemCarrinho" value="{{$item->id}}">
     
@@ -216,7 +216,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 <div id="myModal" class="modal">
     <span class="close" style="font-size: 40px;color: red"  id="fechar">&times;</span>

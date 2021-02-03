@@ -73,8 +73,8 @@
 @endsection
 
 @section('content')
-<div class="container">
-    <!-- Single Product Body -->
+
+ 
     <div class="mb-14">
         <div class="row">
             <div class="col-md-6 col-lg-4 col-xl-5 mb-4 mb-md-0">
@@ -246,8 +246,7 @@
             </div>
         </div>
     </div>
-    <!-- End Single Product Body -->
-</div>
+    
 
 <div id="myModal" class="modal">
     <span class="close" style="font-size: 40px;color: red"  id="fechar">&times;</span>
