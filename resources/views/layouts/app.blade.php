@@ -1449,56 +1449,56 @@
 
             <script type="text/javascript">
                 $(document).on('ready', function() {
-                $(".regular").slick({
-                    infinite: false,
-                    speed: 300,
-                    slidesToShow: 7, //set default for 1200px onward
-                    slidesToScroll: 7,
-                    responsive: [
-                    {
-                    breakpoint: 1920, //for desktop width 992px
-                    settings: {
-                        slidesToShow: 7,
+                    $(".regular").slick({
+                        infinite: false,
+                        speed:100,
+                        slidesToShow: 7, //set default for 1200px onward
                         slidesToScroll: 7,
-                        infinite: true,
-                        dots: true
-                    }
-                    },
-                    {
-                    breakpoint: 1376, //for desktop width 992px
-                    settings: {
-                        slidesToShow: 7,
-                        slidesToScroll: 7,
-                        dots: false
-                    }
-                    },
-                    {
-                    breakpoint: 1024, //for desktop width 992px
-                    settings: {
-                        slidesToShow: 5,
-                        slidesToScroll: 5,
-                        dots: false
-                    }
-                    },
-                    {
-                    breakpoint: 600, //for tablet
-                    settings: {
-                        slidesToShow: 5,
-                        slidesToScroll: 5,
-                        dots: false,
-                        arrows : false
-                    }
-                    },
-                    {
-                    breakpoint: 480, //here's your mobile
-                    settings: {
-                        slidesToShow: 4,
-                        slidesToScroll: 4,
-                        dots: false,
-                        arrows : false
-                    }
-                    }]
-                });
+                        responsive: [
+                        {
+                        breakpoint: 1920, //for desktop width 992px
+                        settings: {
+                            slidesToShow: 7,
+                            slidesToScroll: 7,
+                            infinite: true,
+                            dots: true
+                        }
+                        },
+                        {
+                        breakpoint: 1376, //for desktop width 992px
+                        settings: {
+                            slidesToShow: 7,
+                            slidesToScroll: 7,
+                            dots: false
+                        }
+                        },
+                        {
+                        breakpoint: 1024, //for desktop width 992px
+                        settings: {
+                            slidesToShow: 5,
+                            slidesToScroll: 5,
+                            dots: false
+                        }
+                        },
+                        {
+                        breakpoint: 600, //for tablet
+                        settings: {
+                            slidesToShow: 5,
+                            slidesToScroll: 5,
+                            dots: false,
+                            arrows : false
+                        }
+                        },
+                        {
+                        breakpoint: 480, //here's your mobile
+                        settings: {
+                            slidesToShow: 4,
+                            slidesToScroll: 4,
+                            dots: false,
+                            arrows : false
+                        }
+                        }]
+                    });
                 });
             </script>
 
