@@ -345,7 +345,7 @@
             -->
         </div>
         <div class="col-xl-9 col-wd-9gdot5">
-            <div class="regular slider">
+            <div class="regular slider" style="margin: 0;">
                 
                 @foreach ($grupos as $grupo)
                     @if ($grupo->caminho_img && file_exists(public_path($grupo->caminho_img)))
