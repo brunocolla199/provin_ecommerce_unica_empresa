@@ -37851,3 +37851,9 @@ blockquote:not(.blockquote) p {
     border-radius: 50%;
   }
 
+.slick-prev{
+    display: none !important;
+}
+.slick-next {
+    display: none !important;
+}
