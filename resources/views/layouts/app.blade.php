@@ -18,9 +18,8 @@
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/font-awesome/css/fontawesome-all.min.css') }}">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/font-electro.css') }}">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/animate.css/animate.min.css') }}">
-        <link href="{{ asset('css/icons.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/slick/slick.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/slick/slick-theme.css') }}" rel="stylesheet">
+        
+        
         <link href="{{ asset('css/carossel.css') }}" rel="stylesheet">
         <link href="{{ asset('css/banners.css') }}" rel="stylesheet">
         <link href="{{ asset('css/icons.css') }}" rel="stylesheet">
@@ -577,7 +576,7 @@
                                     <div class="d-inline-flex">
                                         <ul class="d-flex list-unstyled mb-0 align-items-center">
                                             <!-- Search -->
-                                            <li class="col d-xl-none px-2 px-sm-3 position-static">
+                                            <!--<li class="col d-xl-none px-2 px-sm-3 position-static">
                                                 <a id="searchClassicInvoker" class="font-size-22 text-gray-90 text-lh-1 btn-text-secondary" href="javascript:;" role="button"
                                                     data-toggle="tooltip"
                                                     data-placement="top"
@@ -595,7 +594,7 @@
                                                     <img class="provin-icons" style="width: 24px;height: 24px" src="{{asset('img/icones/search.png')}}"></img>
                                                 </a>
     
-                                                <!-- Input -->
+                                                
                                                 <div id="searchClassic" class="dropdown-menu dropdown-unfold dropdown-menu-right left-0 mx-2" aria-labelledby="searchClassicInvoker">
                                                     <form class="js-focus-state input-group px-3" method="GET" action="{{route('ecommerce.produto')}}">
                                                         <input class="form-control" name="searchProduct" id="searchProduct" type="search" placeholder="{{__('sidebar_and_header.ecommerce.search_for_product')}}" value="{{$_GET['searchProduct'] ?? ''}}">
@@ -604,8 +603,8 @@
                                                         </div>
                                                     </form>
                                                 </div>
-                                                <!-- End Input -->
-                                            </li>
+                                                
+                                            </li>-->
                                             <!-- End Search -->
                                             <!--<li class="col d-none d-xl-block"><a href="../shop/compare.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Compare"><i class="font-size-22 ec ec-compare"></i></a></li>-->
                                             <!--<li class="col d-none d-xl-block"><a href="../shop/wishlist.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorites"><i class="font-size-22 ec ec-favorites"></i></a></li>-->
@@ -667,7 +666,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div>-->
                                 <!-- End Header Icons -->
                             </div>
                         </div>
@@ -1437,8 +1436,7 @@
             <!--chart.js-->
             <script type="text/javascript" src="{{ asset('js/chart.js/dist/Chart.min.js') }}"></script>
 
-            <!-- slick.js -->
-            <script type="text/javascript" src="{{ asset('js/slick/slick.js') }}"></script>    
+               
             
             <!--lazyload-->
             <script type="text/javascript" src="{{ asset('js/lazyload.js')}}"></script>

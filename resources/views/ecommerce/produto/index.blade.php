@@ -345,11 +345,11 @@
             -->
         </div>
         <div class="col-xl-9 col-wd-9gdot5">
-            <div class="regular slider" style="margin: 0;">
+            <div class="regular slider" style="margin: 0;display: none" id="iconesCarrossel">
                 
                 @foreach ($grupos as $grupo)
                     @if ($grupo->caminho_img && file_exists(public_path($grupo->caminho_img)))
-                    '   <div>
+                       <div>
                             <a href="{{route('ecommerce.produto.search.grupo', ['id' => $grupo->id] )}}"><img class="@if (in_array($grupo->id, $filtrosSelecionados)) borda @endif" style="max-height: 100px;max-width: 100px" src="{{asset($grupo->caminho_img)}}"></a>
                             <p> {{$grupo->nome}} </p>
                         </div>
@@ -364,20 +364,14 @@
     
                 {{ Session::forget('message') }}
             @endif
-            <div class="d-block d-md-flex flex-center-between mb-3">
+            <div class="d-block d-md-flex flex-center-between mb-3 ">
                 <h3 class="font-size-25 mb-2 mb-md-0">{{__('sidebar_and_header.ecommerce.product')}}</h3>
-            <p class="font-size-14 text-gray-90 mb-0">{{__('sidebar_and_header.ecommerce.showing')}} {{$paginaAtual*$registroPorPagina-($registroPorPagina -1)}}–{{$paginaAtual*$registroPorPagina-($registroPorPagina -1) + $totalRegistroPaginaAtual -1}} de {{$totalRegistros}} {{__('sidebar_and_header.ecommerce.results_found')}}</p>
+            <p class="font-size-14 text-gray-90 mb-0 d-none ">{{__('sidebar_and_header.ecommerce.showing')}} {{$paginaAtual*$registroPorPagina-($registroPorPagina -1)}}–{{$paginaAtual*$registroPorPagina-($registroPorPagina -1) + $totalRegistroPaginaAtual -1}} de {{$totalRegistros}} {{__('sidebar_and_header.ecommerce.results_found')}}</p>
             </div>
             <!-- End shop-control-bar Title -->
             <!-- Shop-control-bar -->
+            
             <div class="bg-gray-1 flex-center-between borders-radius-9 py-1">
-                <div class="d-xl-none">
-                    <!-- Account Sidebar Toggle Button -->
-                    <a href="{{route('ecommerce.produto')}}" >
-                        <b>{{__('sidebar_and_header.ecommerce.clear')}}</b>
-                    </a>
-                    
-                </div>
                 <div class="px-3 d-none d-xl-block">
                     <ul class="nav nav-tab-shop" id="pills-tab" role="tablist">
                         <li class="nav-item">
@@ -449,6 +443,7 @@
                         <input type="hidden" id="rangeMaximo" name="rangeMaximo" value="{{$_GET['rangeMaximo'] ?? ''}}">
                     </form>
                 </div>
+                
                 <!--<nav class="px-3 flex-horizontal-center text-gray-20 d-none d-xl-flex">
                     <form method="post" class="min-width-50 mr-1">
                         <input size="2" min="1" max="3" step="1" type="number" class="form-control text-center px-2 height-35" value="1">
@@ -456,6 +451,17 @@
                     <a class="text-gray-30 font-size-20 ml-2" href="#">→</a>
                 </nav>-->
             </div>
+            <div class="bg-gray-1 flex-center-between borders-radius-9 py-1 mt-1" >
+                <div class="d-xl-none ml-2" style="display: flex;flex-direction: row;flex: 1;justify-content: inherit" >
+                    <!-- Account Sidebar Toggle Button -->
+                    <span >{{$totalRegistros}} Produtos</span>
+                    <a href="{{route('ecommerce.produto')}}"  >
+                        <b>{{__('sidebar_and_header.ecommerce.clear')}}</b>
+                    </a>
+                    
+                </div>
+            </div>
+            
             <!-- End Shop-control-bar -->
             <!-- Shop Body -->
             <!-- Tab Content -->
@@ -635,6 +641,9 @@
 
 @section('footer')
 <script>
+    $(window).load(function() {
+        $('#iconesCarrossel').css('display', 'block');
+    })
     lazyload();
     $('.btn-add-cart').on('click',function(){
         var id   = $(this).data('id');

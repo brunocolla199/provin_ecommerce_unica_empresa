@@ -8,9 +8,10 @@
 @endsection
 
 @section('content')
-<div class="card">
-    <div class="row mb-8">
-        <div class="regular slider">
+
+<div class="card" >
+    <div class="row ">
+        <div class="regular slider" style="display: none" id="iconesCarrossel">
             @php
                 $url = $_SERVER["REQUEST_URI"];
                 $explode = explode('/',$url);
@@ -42,66 +43,69 @@
         </div> 
     </div>
     <div class="card-body">
-        
-        
         <div class="row">
-                <div class="col-xl pr-xl-2 mb-4 mb-xl-0">
-                        <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_1.png')}});border-radius:5px">
-                            
-                            <div class="js-slick-carousel u-slick"
-                                data-autoplay="true"
-                                data-speed="7000"
-                                data-pagi-classes="text-center position-absolute right-0 bottom-0 left-0 u-slick__pagination u-slick__pagination--long justify-content-start ml-9 mb-3 mb-md-5">
-                                
-                                <div class="js-slide bg-img-hero-center">
-                                    <div class="row height-410-xl py-7 py-md-0 mx-0">
-                                        <div class="d-none d-wd-block offset-1"></div>
-                                        <div class="col-xl col-6 col-md-6 mt-md-8">
-                                            <!--
-                                            <h1 class="font-size-64 text-lh-57 font-weight-light"
-                                                data-scs-animation-in="fadeInUp">
-                                                Nova <span class="d-block font-size-55">Coleção</span>
-                                            </h1>
-                                            
-                                            <h6 class="font-size-15 font-weight-bold mb-3"
-                                                data-scs-animation-in="fadeInUp"
-                                                data-scs-animation-delay="200">UNDER FAVORABLE SMARTWATCHES
-                                            </h6>
-                                            <div class="mb-4"
-                                                data-scs-animation-in="fadeInUp"
-                                                data-scs-animation-delay="300">
-                                                <span class="font-size-13">FROM</span>
-                                                <div class="font-size-50 font-weight-bold text-lh-45">
-                                                    <sup class="">$</sup>749<sup class="">99</sup>
-                                                </div>
-                                            </div>
-                                        
-                                            <a href="{{route('ecommerce.produto')}}" class="btn btn-primary transition-3d-hover rounded-lg font-weight-normal py-2 px-md-7 px-3 font-size-16"
-                                                data-scs-animation-in="fadeInUp"
-                                                data-scs-animation-delay="400"
-                                                style="margin-top: -3px"
-                                            >
-                                                Confira
-                                            </a>
-                                        </div>
-                                        <div class="col-xl-7 col-6 d-flex align-items-center ml-auto ml-md-0"
-                                            data-scs-animation-in="zoomIn"
-                                            data-scs-animation-delay="500">
-                                            <img class="img-fluid" src="{{asset('img/fundo-home/img_fundo_home_2.png')}}" alt="Image Description">
-                                        </div>-->
-                                    </div>
-                                </div>
-                                
+            <div class="col-xl pr-xl-2 mb-4 mb-xl-0">
+                <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_1.png')}});border-radius:5px">
+                    <div class="js-slick-carousel u-slick"
+                        data-autoplay="true"
+                        data-speed="7000"
+                        >
+                        <div class="js-slide bg-img-hero-center">
+                            <div class="row height-410-xl py-7 py-md-0 mx-0">
+                                <div class="d-none d-wd-block offset-1"></div>
+                                <div class="col-xl col-6 col-md-6 mt-md-8">
+                                </div> 
                             </div>
-                            
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2 d-xl-none">
+            <div class="col-xl pr-xl-2 mb-4 mb-xl-0">
+                <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_1.png')}});border-radius:5px">
+                    <div class="js-slick-carousel u-slick"
+                        data-autoplay="true"
+                        data-speed="7000"
+                        >
+                        <div class="js-slide bg-img-hero-center">
+                            <div class="row height-410-xl py-7 py-md-0 mx-0">
+                                <div class="d-none d-wd-block offset-1"></div>
+                                <div class="col-xl col-6 col-md-6 mt-md-8">
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2 d-xl-none">
+            <div class="col-xl pr-xl-2 mb-4 mb-xl-0">
+                <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_1.png')}});border-radius:5px">
+                    <div class="js-slick-carousel u-slick"
+                        data-autoplay="true"
+                        data-speed="7000"
+                        >
+                        <div class="js-slide bg-img-hero-center">
+                            <div class="row height-410-xl py-7 py-md-0 mx-0">
+                                <div class="d-none d-wd-block offset-1"></div>
+                                <div class="col-xl col-6 col-md-6 mt-md-8">
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
 
 @section('footer')
 <script type="text/javascript" >
+
+    $(window).load(function() {
+        $('#iconesCarrossel').css('display', 'block');
+    })
 
   //verificacao pedido  liberado
   var deadline = new Date(document.getElementById("proximaLiberacao").value).getTime(); 
