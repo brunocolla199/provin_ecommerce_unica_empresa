@@ -75,7 +75,7 @@
                                 @foreach ($produtos as $produto)
                                     <tr>
                                         <td>{{$produto->produto->produto_terceiro_id}}</td>
-                                        <td><img style="width: 100px;height: 100px" class="img-fluid max-width-100 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto->produto_terceiro_id,0,2).'/'.substr($produto->produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($produto->produto->produto_terceiro_id,0,2).'/'.substr($produto->produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif" alt="Image Description"></td>
+                                        <td><img style="width: 100px;height: 100px" class="img-fluid max-width-100 p-1 border border-color-1" data-src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto->produto_terceiro_id,0,2).'/'.substr($produto->produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($produto->produto->produto_terceiro_id,0,2).'/'.substr($produto->produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif" src="{{asset('ecommerce/assets/img/300X300/img1.jpg')}}" alt="Image Description"></td>
                                         <td>{{$produto->produto->nome}}</td>
                                         <td>{{$produto->quantidade_estoque}}</td>
                                         
@@ -131,7 +131,7 @@
                 
             
         });
-
+        lazyload();
         $(document).ready(function() {
             $('#dataTable-estoque').DataTable({
                 "language": {

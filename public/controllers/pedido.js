@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+    lazyload();
     var array = ["one","two","three","four"];
         
     $('.status').on('click',function(){

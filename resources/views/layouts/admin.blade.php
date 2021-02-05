@@ -1252,6 +1252,9 @@
             <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
             <script src="{{ asset('plugins/bootstrap-select/defaults-pt_BR.js') }}"></script>
 
+            <!--lazyload-->
+            <script type="text/javascript" src="{{ asset('js/lazyload.js')}}"></script>
+
              <!-- JS Plugins Init. -->
         <script>
                 $(window).on('load', function () {
