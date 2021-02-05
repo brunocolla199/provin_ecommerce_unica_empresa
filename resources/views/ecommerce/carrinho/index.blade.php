@@ -40,7 +40,7 @@
                   <tbody class="cart-table__body">
                         @foreach ($itens as $item)
                             <tr class="cart-table__row" id="row{{$item->id}}">
-                                <td class="cart-table__column cart-table__column--image"><a href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}"><img src="@if (file_exists(public_path($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif" style="width: 160px;height: 160px" alt=""></a></td>
+                                <td class="cart-table__column cart-table__column--image"><a href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}"><img class="lazyload" data-src="@if (file_exists(public_path($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif" src="{{asset('ecommerce/assets/img/300X300/img1.jpg')}}" style="width: 160px;height: 160px" alt=""></a></td>
                                 
                                 <td class="cart-table__column cart-table__column--product">
                                     <a href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}" class="cart-table__product-name text-gray-90 btn">{{$item->produto->produto_terceiro_id}} - {{$item->produto->nome}}</a>
@@ -245,6 +245,7 @@
 @section('footer')
 <script src="{{ asset('controllers/carrinho.js') }}"></script>
 <script>
+    lazyload();
     let tipoPedido = $('#tipoPedido').val();
     var now = new Date().getTime();
     var deadline = new Date(document.getElementById("proximaLiberacao").value).getTime(); 
