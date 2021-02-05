@@ -24,7 +24,7 @@
         <link href="{{ asset('css/banners.css') }}" rel="stylesheet">
         <link href="{{ asset('css/icons.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/hs-megamenu/src/hs.megamenu.css') }}">
-        <!--<link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/ion-rangeslider/css/ion.rangeSlider.css') }}">-->
+        <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/ion-rangeslider/css/ion.rangeSlider.css') }}">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') }}">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/fancybox/jquery.fancybox.css') }}">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/slick-carousel/slick/slick.css') }}">
@@ -1403,7 +1403,7 @@
             <script src="{{asset('ecommerce/assets/js/components/hs.validation.js') }}"></script>
             <script src="{{asset('ecommerce/assets/js/components/hs.fancybox.js') }}"></script>
             <script src="{{asset('ecommerce/assets/js/components/hs.onscroll-animation.js') }}"></script>
-            <script src="{{asset('ecommerce/assets/js/components/hs.slick-carousel.js') }}"></script>
+            <!--<script src="{{asset('ecommerce/assets/js/components/hs.slick-carousel.js') }}"></script>-->
             <script src="{{asset('ecommerce/assets/js/components/hs.quantity-counter.js') }}"></script>
             <script src="{{asset('ecommerce/assets/js/components/hs.range-slider.js') }}"></script>
             <script src="{{asset('ecommerce/assets/js/components/hs.show-animation.js') }}"></script>
@@ -1614,7 +1614,7 @@
                     $.HSCore.components.HSFancyBox.init('.js-fancybox');
     
                     // initialization of slick carousel
-                    $.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
+                    //$.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
     
                     // initialization of go to
                     $.HSCore.components.HSGoTo.init('.js-go-to');
