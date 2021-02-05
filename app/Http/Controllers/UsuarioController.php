@@ -152,7 +152,7 @@ class UsuarioController extends Controller
         if(empty($request->get('idUsuario'))){
             $validator = Validator::make($request->all(),
                 [
-                    'username' => 'required|string|max:20|unique:users',
+                    'username' => 'required|string|max:20',
                     'email'    => 'required|string|email|max:255|unique:users',
                     'name'     => 'required|string|max:255',
                     'password' => 'required|string|min:6|confirmed',

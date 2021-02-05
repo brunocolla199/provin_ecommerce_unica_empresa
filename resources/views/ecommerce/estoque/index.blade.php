@@ -164,7 +164,7 @@
                     { extend: 'print',  text: 'Imprimir' }
                 ],
                 
-                rowReorder: true,
+                rowReorder: false,
                 responsive: true
             });
         });

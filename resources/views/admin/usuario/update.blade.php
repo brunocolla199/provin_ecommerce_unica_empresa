@@ -68,7 +68,7 @@
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <label class="control-label">E-mail</label>
-                                    <input type="email" id="email" readonly name="email" value="{{ $usuario->email }}" class="form-control" required>
+                                    <input type="email" id="email"  name="email" value="{{ $usuario->email }}" class="form-control" required>
 
                                     @if ($errors->has('email'))
                                         <span class="help-block text-danger">
