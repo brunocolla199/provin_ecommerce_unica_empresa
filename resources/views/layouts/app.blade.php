@@ -1447,7 +1447,8 @@
 
             <script src="{{ asset('controllers/produto.js') }}"></script>
 
-            
+            <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/slick-carousel/slick/slick.css') }}">
+
             <script type="text/javascript">
                 $(document).on('ready', function() {
                     $(".regular").slick({
@@ -1615,7 +1616,7 @@
                     $.HSCore.components.HSFancyBox.init('.js-fancybox');
     
                     // initialization of slick carousel
-                    $.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
+                    //$.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
     
                     // initialization of go to
                     $.HSCore.components.HSGoTo.init('.js-go-to');
@@ -1690,8 +1691,7 @@
             </script>
 
              <!-- ========== FOOTER ========== -->
-             <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/slick-carousel/slick/slick.css') }}">
-
+             
             @yield('footer')
             
         </body>        
