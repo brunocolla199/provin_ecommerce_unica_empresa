@@ -27,7 +27,7 @@
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/ion-rangeslider/css/ion.rangeSlider.css') }}">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') }}">
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/fancybox/jquery.fancybox.css') }}">
-        <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/slick-carousel/slick/slick.css') }}">
+        
         <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}">
 
         <!-- SweetAlert2 -->
@@ -1446,6 +1446,8 @@
             <script src="{{ asset('plugins/jquery-mask/jquery.mask.min.js') }}"></script>
 
             <script src="{{ asset('controllers/produto.js') }}"></script>
+
+            <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/slick-carousel/slick/slick.css') }}">
 
             <script type="text/javascript">
                 $(document).on('ready', function() {

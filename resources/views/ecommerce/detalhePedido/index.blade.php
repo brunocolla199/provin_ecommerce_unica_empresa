@@ -21,8 +21,8 @@
                 <img src="{{asset('img/banners/p3.png')}}"></img>
             </div>
         </div>
-        <div class="col-xl-9 col-wd-9gdot5" style="display: none" id="iconesCarrossel">
-            <div class="regular slider" >
+        <div class="col-xl-9 col-wd-9gdot5" >
+            <div class="regular slider"  style="display: none" id="iconesCarrossel">
                     @php
                     $url = $_SERVER["REQUEST_URI"];
                     $explode = explode('/',$url);
