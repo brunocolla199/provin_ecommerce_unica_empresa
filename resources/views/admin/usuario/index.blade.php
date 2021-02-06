@@ -37,6 +37,7 @@
                         <thead>
                             <tr>
                                 <th>Nome</th>
+                                <th>Email</th>
                                 <th>Empresa</th>
                                 <th>Perfil</th>
                                 <th>Grupo</th>
@@ -48,6 +49,7 @@
                             @foreach ($usuarios as $usuario)
                                 <tr>
                                     <td>{{ $usuario->name }}</td>
+                                    <td>{{ $usuario->email }}</td>
                                     <td>{{ $usuario->empresa->nome_fantasia ?? "" }}</td>
                                     <td>{{ $usuario->perfil->nome ?? "" }}</td>
                                     <td>{{ $usuario->grupo->nome ?? "" }}</td>
