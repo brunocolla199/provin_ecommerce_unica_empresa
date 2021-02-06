@@ -27,32 +27,36 @@
                 <div>
                     <a href="{{route('ecommerce.home')}}">
                         <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'home') borda @endif iconeHome" src="{{asset('img/icones/s1.1.png')}}">
+                        <span style="display: flex;justify-content: center;font-size: 12px"> Início </span>
                     </a>
-                    <p> Inicio </p>
+                    
                 </div>
                 <div>
                     <a href="{{route('ecommerce.produto')}}">
                         <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'produto') borda @endif iconeProduto" src="{{asset('img/icones/s2.2.png')}}">
+                        <span style="display: flex;justify-content: center;font-size: 12px"> Produtos </span>
                     </a>
-                    <p> Produtos </p>
+                    
                 </div>
                 <div>
                     <a href="{{route('ecommerce.pedido')}}">
                         <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'pedido') borda @endif iconePedido" src="{{asset('img/icones/s3.3.png')}}">
+                        <span style="display: flex;justify-content: center;font-size: 12px"> Pedidos </span>
                     </a>
-                    <p> Pedidos </p>
+                    
                 </div>
                 <div>
                     <a href="{{route('ecommerce.estoque')}}">
                         <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'estoque') borda @endif iconeEstoque" src="{{asset('img/icones/s4.4.png')}}">
+                        <span style="display: flex;justify-content: center;font-size: 12px"> Estoque </span>
                     </a>
-                    <p> Estoque </p>
+                    
                 </div>
             </div> 
             <div class="card">
                 <div class="card-body" style="margin-bottom: 20px">
-                    <h3 class="box-title">@lang('page_titles.pedido.index')</h3>
-                    <hr class="m-t-0 m-b-10">
+                    <!--<h3 class="box-title">@lang('page_titles.pedido.index')</h3>
+                    <hr class="m-t-0 m-b-10">-->
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade pt-2 show active" id="pills-one-example1" role="tabpanel" aria-labelledby="pills-one-example1-tab" data-target-group="groups">
                             <ul class="row list-unstyled products-group no-gutters">

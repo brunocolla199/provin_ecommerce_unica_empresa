@@ -77,7 +77,7 @@
     <!-- Single Product Body -->
     <input type="hidden" id="idItemCarrinho" value="{{$item->id}}">
     
-    <div class="mb-14">
+    <div class="mb-14 mt-3">
         <div class="row">
             <div class="col-md-6 col-lg-4 col-xl-5 mb-4 mb-md-0">
                 <div id="sliderSyncingNav" class="js-slick-carousel u-slick mb-2"

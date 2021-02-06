@@ -144,7 +144,7 @@ return [
             'index'  => 'Produtos'
         ],
         'detalheProduto'     => [
-            'index'  => 'Detalhes do Produto',
+            'index'  => 'Det. do Produto',
             'descAneis' => 'Os anéis estão disponíveis nos tamanhos'
         ],
         'carrinho'     => [
@@ -161,7 +161,7 @@ return [
             'index'  => 'ver detalhes'
         ],
         'telaDetalhesPedido'     => [
-            'index'  => 'Detalhes do Pedido'
+            'index'  => 'Det. do Pedido'
         ],
         'checkout'     => [
             'index'  => 'Checkout de Compras'
@@ -174,8 +174,8 @@ return [
         ],
         'detalheCarrinho'     => [
             'index'  => [
-                'normal'  => 'Detalhe do item da Sacola',
-                'express' => 'Detalhe do item da Sacola Expressa'
+                'normal'  => 'Det. do item da Sacola',
+                'express' => 'Det. do item da Sacola Expressa'
             ]
         ]
     ]

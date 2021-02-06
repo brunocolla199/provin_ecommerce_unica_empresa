@@ -30,32 +30,36 @@
                 <div>
                     <a href="{{route('ecommerce.home')}}">
                         <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'home') borda @endif iconeHome" src="{{asset('img/icones/s1.1.png')}}">
+                        <span style="display: flex;justify-content: center;font-size: 12px"> Início </span>
                     </a>
-                    <p> Inicio </p>
+                    
                 </div>
                 <div>
                     <a href="{{route('ecommerce.produto')}}">
                         <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'produto') borda @endif iconeProduto" src="{{asset('img/icones/s2.2.png')}}">
+                        <span style="display: flex;justify-content: center;font-size: 12px"> Produtos </span>
                     </a>
-                    <p> Produtos </p>
+                    
                 </div>
                 <div>
                     <a href="{{route('ecommerce.pedido')}}">
                         <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'pedido') borda @endif iconePedido" src="{{asset('img/icones/s3.3.png')}}">
+                        <span style="display: flex;justify-content: center;font-size: 12px"> Pedidos </span>
                     </a>
-                    <p> Pedidos </p>
+                    
                 </div>
                 <div>
                     <a href="{{route('ecommerce.estoque')}}">
                         <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'estoque') borda @endif iconeEstoque" src="{{asset('img/icones/s4.4.png')}}">
+                        <span style="display: flex;justify-content: center;font-size: 12px"> Estoque </span>
                     </a>
-                    <p> Estoque </p>
+                    
                 </div>
             </div> 
             <div class="card">
                 <div class="card-body">
                     
-                    <h3 class="box-title">@lang('page_titles.ecommerce.telaDetalhesPedido.index')</h3>
+                    <!--<h3 class="box-title">@lang('page_titles.ecommerce.telaDetalhesPedido.index')</h3>-->
                     @if(Session::has('message'))
                         @component('componentes.alert') @endcomponent
                         {{ Session::forget('message') }}
@@ -145,7 +149,9 @@
                                                             {{$item->produto->produto_terceiro_id}}
                                                     </td>
                                                     <td style="width: 150px">
-                                                        <a href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}"><img style="width: 100px;height: 100px" class="img-fluid max-width-100 p-1 border border-color-1 lazyload" data-src="@if (file_exists(public_path($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif" src="{{asset('ecommerce/assets/img/300X300/img1.jpg')}}" alt="Image Description"></a>
+                                                        <!--<a href="{{ route('ecommerce.produto.detalhe', ['id' => $item->produto->id ]) }}"><img style="width: 100px;height: 100px" class="img-fluid max-width-100 p-1 border border-color-1 lazyload" data-src="@if (file_exists(public_path($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif" src="{{asset('ecommerce/assets/img/300X300/img1.jpg')}}" alt="Image Description"></a>-->
+                                                        <img style="width: 100px;height: 100px" class="img-fluid max-width-100 p-1 border border-color-1 lazyload" data-src="@if (file_exists(public_path($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif" src="{{asset('ecommerce/assets/img/300X300/img1.jpg')}}" alt="Image Description">
+                                                        
                                                     </td>
                                                     
                                                     <td>

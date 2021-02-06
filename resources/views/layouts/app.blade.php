@@ -714,8 +714,8 @@
                         <div class="container">
                             <!-- breadcrumb -->
                             <div class="my-md-3">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                                <nav aria-label="breadcrumb" style="height: 42px">
+                                    <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble" style="margin-top: -10px">
                                         @yield('breadcrumbs')
                                     </ol>
                                 </nav>
@@ -736,12 +736,11 @@
                 <!-- Footer-copy-right -->
                 <div class="bg-gray-14 py-2">
                     <div class="container">
-                        <div class="flex-center-between d-block d-md-flex">
+                        <div style="display: flex;justify-content: flex-end;height: 10px">
                             <div class="mb-3 mb-md-0 font-size-12">
-                                © <a href="#" class="font-weight-bold text-gray-90">Ceu Sistemas</a> - Todos Direitos Reservados
+                                © <a href="#" class="font-weight-bold text-gray-90">Ceu Sistemas</a>
                             </div>
-                            <div class="mb-3 mb-md-0 font-size-12">
-                                    <b>Fone: </b>{{App\Models\Setup::first()->telefone_proprietaria}}
+                            <div class="mb-3 mb-md-0 font-size-12 ml-2">
                                     <b>  E-mail:</b> <a href="mailto:{{App\Models\Setup::first()->email_proprietaria}}?subject=Preciso de Ajuda" class="text-gray-90">{{App\Models\Setup::first()->email_proprietaria}}</a>
                             </div>
                             <!--<div class="text-md-right">
@@ -1403,7 +1402,7 @@
             <script src="{{asset('ecommerce/assets/js/components/hs.validation.js') }}"></script>
             <script src="{{asset('ecommerce/assets/js/components/hs.fancybox.js') }}"></script>
             <script src="{{asset('ecommerce/assets/js/components/hs.onscroll-animation.js') }}"></script>
-            <!--<script src="{{asset('ecommerce/assets/js/components/hs.slick-carousel.js') }}"></script>-->
+            <script src="{{asset('ecommerce/assets/js/components/hs.slick-carousel.js') }}"></script>
             <script src="{{asset('ecommerce/assets/js/components/hs.quantity-counter.js') }}"></script>
             <script src="{{asset('ecommerce/assets/js/components/hs.range-slider.js') }}"></script>
             <script src="{{asset('ecommerce/assets/js/components/hs.show-animation.js') }}"></script>
@@ -1616,7 +1615,7 @@
                     $.HSCore.components.HSFancyBox.init('.js-fancybox');
     
                     // initialization of slick carousel
-                    //$.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
+                    $.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
     
                     // initialization of go to
                     $.HSCore.components.HSGoTo.init('.js-go-to');

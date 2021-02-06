@@ -26,32 +26,36 @@
             <div>
                 <a href="{{route('ecommerce.home')}}">
                     <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'home') borda @endif iconeHome" src="{{asset('img/icones/s1.1.png')}}">
+                    <span style="display: flex;justify-content: center;font-size: 12px"> Início </span>
                 </a>
-                <p> Inicio </p>
+                
             </div>
             <div>
                 <a href="{{route('ecommerce.produto')}}">
                     <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'produto') borda @endif iconeProduto" src="{{asset('img/icones/s2.2.png')}}">
+                    <span style="display: flex;justify-content: center;font-size: 12px"> Produtos </span>
                 </a>
-                <p> Produtos </p>
+                
             </div>
             <div>
                 <a href="{{route('ecommerce.pedido')}}">
                     <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'pedido') borda @endif iconePedido" src="{{asset('img/icones/s3.3.png')}}">
+                    <span style="display: flex;justify-content: center;font-size: 12px"> Pedidos </span>
                 </a>
-                <p> Pedidos </p>
+                
             </div>
             <div>
                 <a href="{{route('ecommerce.estoque')}}">
                     <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'estoque') borda @endif iconeEstoque" src="{{asset('img/icones/s4.4.png')}}">
+                    <span style="display: flex;justify-content: center;font-size: 12px"> Estoque </span>
                 </a>
-                <p> Estoque </p>
+                
             </div>
         </div> 
         <div class="card">
             <div class="card-body">
-                <h4 class="box-title">@lang('page_titles.ecommerce.estoque.index')</h4>
-                <hr class="m-t-0 m-b-10">
+                <!--<h4 class="box-title">@lang('page_titles.ecommerce.estoque.index')</h4>
+                <hr class="m-t-0 m-b-10">-->
                     @if(Session::has('message'))
                         @component('componentes.alert')
                         @endcomponent
@@ -66,8 +70,8 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Imagem</th>
-                                    <th>Produto</th>
                                     <th>Qtd</th>
+                                    <th>Produto</th>
                                     
                                 </tr>
                             </thead>
@@ -76,8 +80,9 @@
                                     <tr>
                                         <td>{{$produto->produto->produto_terceiro_id}}</td>
                                         <td><img style="width: 100px;height: 100px" class="img-fluid max-width-100 p-1 border border-color-1 lazyload" data-src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto->produto_terceiro_id,0,2).'/'.substr($produto->produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($produto->produto->produto_terceiro_id,0,2).'/'.substr($produto->produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif" src="{{asset('ecommerce/assets/img/300X300/img1.jpg')}}" alt="Image Description"></td>
-                                        <td>{{$produto->produto->nome}}</td>
+                                        
                                         <td>{{$produto->quantidade_estoque}}</td>
+                                        <td>{{$produto->produto->nome}}</td>
                                         
                                     </tr>
                                 @endforeach
