@@ -666,7 +666,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>-->
+                                </div>
                                 <!-- End Header Icons -->
                             </div>
                         </div>
