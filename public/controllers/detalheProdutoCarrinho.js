@@ -1,6 +1,14 @@
 var img = document.getElementById("imagem-produto");
 var modal = document.getElementById("myModal");
 
+var valorFloat = parseFloat($('#valorUnitario').text().substr(2).replace(',','.'));
+
+var span = document.getElementById("fechar");
+
+span.onclick = function() { 
+    modal.style.display = "none";
+}
+
 
 //MONTA MODAL
 $(document).on("click",'.img-fluid',function(){
@@ -16,18 +24,13 @@ $(document).on('keyup',function(evt) {
     }
 });
 
-$(Document).on('click','#myModal',function(){
+$(document).on('click','#myModal',function(){
     modal.style.display = "none";
 });
 
-var span = document.getElementById("fechar");
-
-span.onclick = function() { 
-    modal.style.display = "none";
-}
 
 //CALCULA VALOR
-var valorFloat = parseFloat($('#valorUnitario').text().substr(2).replace(',','.'));
+
 
 $(document).on("click",'.add-btn',function(){
     var id  = $(this).data('id');

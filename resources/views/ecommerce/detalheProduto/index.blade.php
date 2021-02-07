@@ -258,44 +258,47 @@
 <script src="https://cdnjs.com/libraries/jquery.mask"></script>
 <script src="{{ asset('controllers/detalheProduto.js') }}"></script>
 <script>
-    $('.add-cart').on('click',function(){
-        var id   = $(this).data('id');
-        var tipo = $(this).data('tipo');
-        var quantidade = $('#quantidadeProduto').val();
-        var tamanho = '';
-        $('.tamanho').each(function(index,value){
-            var id = value.id;
-            if($('#'+id).data('selected') == true){
-                tamanho = $('#'+id).text();
-            }
-        });
-        var descricaoCarrinho = tipo == 'express' ? ' expresso' : ' de compras';
-        //let add_carrinho = swal2_warning("Essa ação irá adicionar o produto ao carrinho"+descricaoCarrinho ,"Sim!");
-        //add_carrinho.then(resolvedValue => {
-            adicionaCarrinho(id, tipo, tamanho, quantidade);
-        /*}, error => {
-            swal.close();
-        });
-        */
-    });
-
-    $(document).on("change",'.qtd',function(){
-        var id  = $(this).data('id');
-        var qtdNova = $('#quantidadeProduto').val();
-        var produto = $(this).data('produto');
-        if(qtdNova <= 0){
-            swal2_alert_error_support('Quantidade inválida.');
-        }else{
-            consultaProduto(produto).then(function(retorno){
-                let estoque = retorno.quantidade_estoque;
-                if(parseInt(qtdNova) > estoque)
-                {
-                    swal2_alert_error_not_support('Estoque indisponível.');
-                    $('#quantidadeProduto').val(parseInt(qtdNova));
+    $(document).ready(function(){
+        $('.add-cart').on('click',function(){
+            var id   = $(this).data('id');
+            var tipo = $(this).data('tipo');
+            var quantidade = $('#quantidadeProduto').val();
+            var tamanho = '';
+            $('.tamanho').each(function(index,value){
+                var id = value.id;
+                if($('#'+id).data('selected') == true){
+                    tamanho = $('#'+id).text();
                 }
             });
-        } 
+            var descricaoCarrinho = tipo == 'express' ? ' expresso' : ' de compras';
+            //let add_carrinho = swal2_warning("Essa ação irá adicionar o produto ao carrinho"+descricaoCarrinho ,"Sim!");
+            //add_carrinho.then(resolvedValue => {
+                adicionaCarrinho(id, tipo, tamanho, quantidade);
+            /*}, error => {
+                swal.close();
+            });
+            */
+        });
+
+        $(document).on("change",'.qtd',function(){
+            var id  = $(this).data('id');
+            var qtdNova = $('#quantidadeProduto').val();
+            var produto = $(this).data('produto');
+            if(qtdNova <= 0){
+                swal2_alert_error_support('Quantidade inválida.');
+            }else{
+                consultaProduto(produto).then(function(retorno){
+                    let estoque = retorno.quantidade_estoque;
+                    if(parseInt(qtdNova) > estoque)
+                    {
+                        swal2_alert_error_not_support('Estoque indisponível.');
+                        $('#quantidadeProduto').val(parseInt(qtdNova));
+                    }
+                });
+            } 
+        });
     });
+    
 
     function adicionaCarrinho(id,tipo, tamanho, quantidade)
     {
@@ -361,5 +364,7 @@
             });
         });
     }
+
+    
 </script>
 @endsection
