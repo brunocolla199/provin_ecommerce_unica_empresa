@@ -345,7 +345,7 @@
             -->
         </div>
         <div class="col-xl-9 col-wd-9gdot5">
-            <div class="regular slider" style="margin: 0;display: none" id="iconesCarrossel">
+            <div class="regular slider mt-1" style="margin: 0;display: none" id="iconesCarrossel">
                 
                 @foreach ($grupos as $grupo)
                     @if ($grupo->caminho_img && file_exists(public_path($grupo->caminho_img)))
@@ -371,8 +371,8 @@
             <!-- End shop-control-bar Title -->
             <!-- Shop-control-bar -->
             
-            <div class="bg-gray-1 flex-center-between borders-radius-9 py-1">
-                <div class="px-3 d-none d-xl-block">
+            <div class="bg-gray-1 flex-center-between borders-radius-9 py-1" style="margin-top: -20px">
+                <div class="px-3 d-none d-xl-block" >
                     <ul class="nav nav-tab-shop" id="pills-tab" role="tablist">
                         <li class="nav-item">
                             <a href="{{route('ecommerce.produto')}}" >
@@ -417,7 +417,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="d-flex ">
+                <div class="d-flex " >
                     <form class="js-focus-state  d-xl-none"  method="GET"  id="buscaPorName" name="buscaPorName" action="{{route('ecommerce.produto')}}" >
                             
                         <label class="sr-only" for="searchProduct">{{__('sidebar_and_header.ecommerce.search')}}</label>
@@ -466,7 +466,7 @@
                     <a class="text-gray-30 font-size-20 ml-2" href="#">→</a>
                 </nav>-->
             </div>
-            <div class="bg-gray-1 flex-center-between borders-radius-9 py-1 mt-1" >
+            <div class="bg-gray-1 flex-center-between borders-radius-9 py-1 mt-1"  >
                 <div class="d-xl-none ml-2" style="display: flex;flex-direction: row;flex: 1;justify-content: inherit" >
                     <!-- Account Sidebar Toggle Button -->
                     <span >{{$totalRegistros}} Produtos</span>

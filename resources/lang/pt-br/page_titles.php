@@ -161,7 +161,7 @@ return [
             'index'  => 'ver detalhes'
         ],
         'telaDetalhesPedido'     => [
-            'index'  => 'Det. do Pedido'
+            'index'  => 'Det. Pedido'
         ],
         'checkout'     => [
             'index'  => 'Checkout de Compras'
@@ -174,8 +174,8 @@ return [
         ],
         'detalheCarrinho'     => [
             'index'  => [
-                'normal'  => 'Det. do item da Sacola',
-                'express' => 'Det. do item da Sacola Expressa'
+                'normal'  => 'Item Sacola',
+                'express' => 'Item Sacola Expressa'
             ]
         ]
     ]

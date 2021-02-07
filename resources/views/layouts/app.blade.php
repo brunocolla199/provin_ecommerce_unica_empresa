@@ -714,7 +714,7 @@
                         <div class="container">
                             <!-- breadcrumb -->
                             <div class="my-md-3">
-                                <nav aria-label="breadcrumb" style="height: 42px">
+                                <nav aria-label="breadcrumb" style="height: 35px">
                                     <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble" style="margin-top: -10px">
                                         @yield('breadcrumbs')
                                     </ol>
@@ -736,7 +736,7 @@
                 <!-- Footer-copy-right -->
                 <div class="bg-gray-14 py-2">
                     <div class="container">
-                        <div style="display: flex;justify-content: flex-end;height: 10px">
+                        <div style="display: flex;justify-content: space-between;height: 10px">
                             <div class="mb-3 mb-md-0 font-size-12">
                                 © <a href="#" class="font-weight-bold text-gray-90">Ceu Sistemas</a>
                             </div>
