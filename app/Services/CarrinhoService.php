@@ -63,7 +63,7 @@ class CarrinhoService
                     $this->pedidoService->recalcular($buscaPedido[0]->id);  
                 }); 
                  
-                Helper::setNotify('Produto adicionado com sucesso!', 'success|check-circle');
+                //Helper::setNotify('Produto adicionado com sucesso!', 'success|check-circle');
                 
                 return ($buscaExistItem->count() > 0 ? $buscaExistItem[0]->quantidade : 0)  + $quantidade;
 
@@ -83,7 +83,7 @@ class CarrinhoService
                     $this->pedidoService->recalcular($create->id);
                 });
                 
-                Helper::setNotify('Produto adicionado com sucesso!', 'success|check-circle');
+                //Helper::setNotify('Produto adicionado com sucesso!', 'success|check-circle');
                 return true;
 
             } catch (\Throwable $th) {
