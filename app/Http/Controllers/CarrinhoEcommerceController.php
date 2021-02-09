@@ -49,7 +49,7 @@ class CarrinhoEcommerceController extends Controller
         $porcentagemAcrescimos = $buscaSetup['valor_adicional_pedido'];
 
         if($itens->count() == 0){
-            Helper::setNotify("O carrinho esta vazio.", 'danger|close-circle');
+            //Helper::setNotify("O carrinho esta vazio.", 'danger|close-circle');
             return redirect()->route('ecommerce.produto');
             
         }
