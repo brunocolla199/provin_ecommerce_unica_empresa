@@ -51,7 +51,7 @@
                                 </td>
                                 <td class="cart-table__column cart-table__column--tamanho" data-title="Tamanho">
                                     @if (in_array($item->produto->grupo_produto_id,json_decode($grupos_necessita_tamanho)))
-                                        <select name="tamanho" id="tamanho-{{$item->id}}" data-id="{{$item->id}}" class="border rounded-pill py-1 width-122 w-xl-80 px-3 border-color-1 tamanho">
+                                        <select name="tamanho" id="tamanho-{{$item->id}}" data-id="{{$item->id}}" style="width: 130px !important "class="border rounded-pill py-1 w-xl-80 px-3 border-color-1 tamanho">
                                             <option value="" disabled>Selecione</option>
                                             @foreach (json_decode($tamanhos) as $key)
                                                 <option @if ((int)$key == (int)$item->tamanho) selected @endif value="{{$key}}">{{$key}}</option>
@@ -61,7 +61,7 @@
                                 </td>
                                 <td class="cart-table__column cart-table__column--price" class="" id="preco-{{$item->id}}" data-title="Preço">{{number_format($item->valor_unitario, 2, ',', '.')}}</td>
                                 <td class="cart-table__column cart-table__column--quantity" data-title="Quantidade">
-                                    <div class="border rounded-pill py-1 width-122 w-xl-70 px-3 border-color-1">
+                                    <div style="width: 130px !important" class="border rounded-pill py-1  w-xl-70 px-3 border-color-1">
                                         <div class="js-quantity row align-items-center">
                                             <div class="col">
                                                 <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none qtd" data-id="{{$item->id}}"  data-produto="{{$item->produto->id}}"   type="text" value="{{$item->quantidade}}" id="qtd-{{$item->id}}">
