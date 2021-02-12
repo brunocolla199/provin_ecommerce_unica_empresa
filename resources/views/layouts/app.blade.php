@@ -708,7 +708,7 @@
             <!-- ========== END HEADER ========== -->
 
             <!-- ========== MAIN CONTENT ========== -->
-            <main id="content" role="main" style="margin-bottom: 7%;height: 100%">
+            <main id="content" role="main" style="margin-bottom: 13%;height: 100%">
                 <!-- breadcrumb -->
                 <div class="bg-gray-13 bg-md-transparent">
                         <div class="container">
