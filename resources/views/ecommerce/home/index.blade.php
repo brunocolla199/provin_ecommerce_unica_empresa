@@ -9,92 +9,82 @@
 
 @section('content')
 
-<div class="col-md-12">
-    <div class="regular slider" style="display: none" id="iconesCarrossel">
-        @php
-            $url = $_SERVER["REQUEST_URI"];
-            $explode = explode('/',$url);
-        @endphp
-        <div>
-            <a href="{{route('ecommerce.home')}}">
-                <img  class="@if ($explode[2] == 'home') borda @endif iconeHome" src="{{asset('img/icones/s1.1.png')}}">
-                <span style="display: flex;justify-content: center;font-size: 12px"> Início </span>
-            </a>
-            
-        </div>
-        <div>
-            <a href="{{route('ecommerce.produto')}}">
-                <img  class="@if ($explode[2] == 'produto') borda @endif iconeProduto" src="{{asset('img/icones/s2.2.png')}}">
-                <span style="display: flex;justify-content: center;font-size: 12px"> Produtos </span>
-            </a>
-            
-        </div>
-        <div>
-            <a href="{{route('ecommerce.pedido')}}">
-                <img  class="@if ($explode[2] == 'pedido') borda @endif iconePedido" src="{{asset('img/icones/s3.3.png')}}">
-                <span style="display: flex;justify-content: center;font-size: 12px"> Pedidos </span>
-            </a>
-            
-        </div>
-        <div>
-            <a href="{{route('ecommerce.estoque')}}">
-                <img  class="@if ($explode[2] == 'estoque') borda @endif iconeEstoque" src="{{asset('img/icones/s4.4.png')}}">
-                <span style="display: flex;justify-content: center;font-size: 12px"> Estoque </span>
-            </a>
-            
-        </div>
-    </div> 
-</div>
-<div class="card" >
-    <div class="card-body">
-        <div class="row">
-            <div class="col-xl pr-xl-2 mb-4 mb-xl-0">
-                <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_1.png')}});border-radius:5px">
-                    <div class="js-slick-carousel "
-                        data-autoplay="true"
-                        data-speed="7000"
-                        >
-                        <div class="js-slide bg-img-hero-center">
-                            <div class="row height-410-xl py-7 py-md-0 mx-0">
-                                <div class="d-none d-wd-block offset-1"></div>
-                                <div class="col-xl col-6 col-md-6 mt-md-8">
-                                </div> 
+    <div class="col-xl-12 col-wd-12gdot5" style="margin-bottom: -2%;margin-top: -5%">
+    
+    @component('ecommerce.menu.menu-home') @endcomponent
+    </div>
+        
+   
+
+    <div <!--class="card"-- >
+        <div <!--class="card-body"-- >
+            <div class="row">
+                <div class="col-xl pr-xl-2 mb-1 mb-xl-0">
+                    <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_1.png')}});border-radius:5px">
+                        <div class="js-slick-carousel "
+                            data-autoplay="true"
+                            data-speed="7000"
+                            >
+                            <div class="js-slide bg-img-hero-center">
+                                <div class="row height-410-xl py-7 py-md-0 mx-0">
+                                    <div class="d-none d-wd-block offset-1"></div>
+                                    <div class="col-xl col-6 col-md-6 mt-md-8">
+                                    </div> 
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row mt-2 d-xl-none">
-            <div class="col-xl pr-xl-2 mb-4 mb-xl-0">
-                <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_2.png')}});border-radius:5px">
-                    <div class="js-slick-carousel "
-                        data-autoplay="true"
-                        data-speed="7000"
-                        >
-                        <div class="js-slide bg-img-hero-center">
-                            <div class="row height-410-xl py-7 py-md-0 mx-0">
-                                <div class="d-none d-wd-block offset-1"></div>
-                                <div class="col-xl col-6 col-md-6 mt-md-8">
-                                </div> 
+            <div class="row  d-xl-none">
+                <div class="col-xl pr-xl-2 mb-1 mb-xl-0">
+                    <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_2.png')}});border-radius:5px">
+                        <div class="js-slick-carousel "
+                            data-autoplay="true"
+                            data-speed="7000"
+                            >
+                            <div class="js-slide bg-img-hero-center">
+                                <div class="row height-410-xl py-7 py-md-0 mx-0">
+                                    <div class="d-none d-wd-block offset-1"></div>
+                                    <div class="col-xl col-6 col-md-6 mt-md-8">
+                                    </div> 
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row mt-2 d-xl-none">
-            <div class="col-xl pr-xl-2 mb-4 mb-xl-0">
-                <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_3.png')}});border-radius:5px">
-                    <div class="js-slick-carousel "
-                        data-autoplay="true"
-                        data-speed="7000"
-                        >
-                        <div class="js-slide bg-img-hero-center">
-                            <div class="row height-410-xl py-7 py-md-0 mx-0">
-                                <div class="d-none d-wd-block offset-1"></div>
-                                <div class="col-xl col-6 col-md-6 mt-md-8">
-                                </div> 
+            <div class="row  d-xl-none">
+                <div class="col-xl pr-xl-2  mb-1 mb-xl-0">
+                    <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_3.png')}});border-radius:5px">
+                        <div class="js-slick-carousel "
+                            data-autoplay="true"
+                            data-speed="7000"
+                            >
+                            <div class="js-slide bg-img-hero-center">
+                                <div class="row height-410-xl py-7 py-md-0 mx-0">
+                                    <div class="d-none d-wd-block offset-1"></div>
+                                    <div class="col-xl col-6 col-md-6 mt-md-8">
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row  d-xl-none">
+                <div class="col-xl pr-xl-2  mb-1 mb-xl-0">
+                    <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_4.png')}});border-radius:5px">
+                        <div class="js-slick-carousel "
+                            data-autoplay="true"
+                            data-speed="7000"
+                            >
+                            <div class="js-slide bg-img-hero-center">
+                                <div class="row height-410-xl py-7 py-md-0 mx-0">
+                                    <div class="d-none d-wd-block offset-1"></div>
+                                    <div class="col-xl col-6 col-md-6 mt-md-8">
+                                    </div> 
+                                </div>
                             </div>
                         </div>
                     </div>

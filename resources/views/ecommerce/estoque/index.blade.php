@@ -18,40 +18,7 @@
         </div>
     </div>
     <div class="col-xl-9 col-wd-9gdot5" >
-        <div class="regular slider" style="display: none" id="iconesCarrossel" >
-                @php
-                $url = $_SERVER["REQUEST_URI"];
-                $explode = explode('/',$url);
-            @endphp
-            <div>
-                <a href="{{route('ecommerce.home')}}">
-                    <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'home') borda @endif iconeHome" src="{{asset('img/icones/s1.1.png')}}">
-                    <span style="display: flex;justify-content: center;font-size: 12px"> Início </span>
-                </a>
-                
-            </div>
-            <div>
-                <a href="{{route('ecommerce.produto')}}">
-                    <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'produto') borda @endif iconeProduto" src="{{asset('img/icones/s2.2.png')}}">
-                    <span style="display: flex;justify-content: center;font-size: 12px"> Produtos </span>
-                </a>
-                
-            </div>
-            <div>
-                <a href="{{route('ecommerce.pedido')}}">
-                    <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'pedido') borda @endif iconePedido" src="{{asset('img/icones/s3.3.png')}}">
-                    <span style="display: flex;justify-content: center;font-size: 12px"> Pedidos </span>
-                </a>
-                
-            </div>
-            <div>
-                <a href="{{route('ecommerce.estoque')}}">
-                    <img style="max-height: 100px;max-width: 100px" class="@if ($explode[2] == 'estoque') borda @endif iconeEstoque" src="{{asset('img/icones/s4.4.png')}}">
-                    <span style="display: flex;justify-content: center;font-size: 12px"> Estoque </span>
-                </a>
-                
-            </div>
-        </div> 
+        @component('ecommerce.menu.menu-home') @endcomponent 
         <div class="card">
             <div class="card-body">
                 <!--<h4 class="box-title">@lang('page_titles.ecommerce.estoque.index')</h4>
