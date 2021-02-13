@@ -8,87 +8,34 @@
 @endsection
 
 @section('content')
+    <div id="loading" class="col-md-12" style="display:flex;justify-content: center;align-items: center">
+        <img class="img-responsive" src="{{asset('ecommerce/assets/img/loading/load.gif')}}" />
+    </div> 
+    <div id="conteudo" style="display: none">
+        <div class="col-xl-12 col-wd-12gdot5" style="margin-bottom: -2%;margin-top: -5%">
+        @component('ecommerce.menu.menu-home') @endcomponent
+        </div>
+            
+        <div <!--class="card"-- >
+            <div <!--class="card-body"-- >
+                <div class="row">
+                    <div class="col-xl pr-xl-2 mb-1 mb-xl-0">
+                        <img data-src="{{asset('img/fundo-home/img_fundo_home_1.png')}}"  src="{{asset('ecommerce/assets/img/1920X422/img1.jpg')}}" class="img-fluid lazyload" alt="Imagem responsiva" style="border-radius: 5px">
+                    </div>
+                </div>
+                <div class="row  d-xl-none">
+                    <div class="col-xl pr-xl-2 mb-1 mb-xl-0">
+                        <img data-src="{{asset('img/fundo-home/img_fundo_home_2.png')}}"  src="{{asset('ecommerce/assets/img/1920X422/img1.jpg')}}" class="img-fluid lazyload" alt="Imagem responsiva" style="border-radius: 5px">
+                    </div>
+                </div>
+                <div class="row  d-xl-none">
+                    <div class="col-xl pr-xl-2  mb-1 mb-xl-0">
+                        
+                        <img data-src="{{asset('img/fundo-home/img_fundo_home_3.png')}}"  src="{{asset('ecommerce/assets/img/1920X422/img1.jpg')}}" class="img-fluid lazyload" alt="Imagem responsiva" style="border-radius: 5px">
 
-    <div class="col-xl-12 col-wd-12gdot5" style="margin-bottom: -2%;margin-top: -5%">
-    
-    @component('ecommerce.menu.menu-home') @endcomponent
-    </div>
-        
-   
-
-    <div <!--class="card"-- >
-        <div <!--class="card-body"-- >
-            <div class="row">
-                <div class="col-xl pr-xl-2 mb-1 mb-xl-0">
-                    <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_1.png')}});border-radius:5px">
-                        <div class="js-slick-carousel "
-                            data-autoplay="true"
-                            data-speed="7000"
-                            >
-                            <div class="js-slide bg-img-hero-center">
-                                <div class="row height-410-xl py-7 py-md-0 mx-0">
-                                    <div class="d-none d-wd-block offset-1"></div>
-                                    <div class="col-xl col-6 col-md-6 mt-md-8">
-                                    </div> 
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row  d-xl-none">
-                <div class="col-xl pr-xl-2 mb-1 mb-xl-0">
-                    <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_2.png')}});border-radius:5px">
-                        <div class="js-slick-carousel "
-                            data-autoplay="true"
-                            data-speed="7000"
-                            >
-                            <div class="js-slide bg-img-hero-center">
-                                <div class="row height-410-xl py-7 py-md-0 mx-0">
-                                    <div class="d-none d-wd-block offset-1"></div>
-                                    <div class="col-xl col-6 col-md-6 mt-md-8">
-                                    </div> 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row  d-xl-none">
-                <div class="col-xl pr-xl-2  mb-1 mb-xl-0">
-                    <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_3.png')}});border-radius:5px">
-                        <div class="js-slick-carousel "
-                            data-autoplay="true"
-                            data-speed="7000"
-                            >
-                            <div class="js-slide bg-img-hero-center">
-                                <div class="row height-410-xl py-7 py-md-0 mx-0">
-                                    <div class="d-none d-wd-block offset-1"></div>
-                                    <div class="col-xl col-6 col-md-6 mt-md-8">
-                                    </div> 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row  d-xl-none">
-                <div class="col-xl pr-xl-2  mb-1 mb-xl-0">
-                    <div class="bg-img-hero mr-xl-1  overflow-hidden" style="background-image: url({{asset('img/fundo-home/img_fundo_home_4.png')}});border-radius:5px">
-                        <div class="js-slick-carousel "
-                            data-autoplay="true"
-                            data-speed="7000"
-                            >
-                            <div class="js-slide bg-img-hero-center">
-                                <div class="row height-410-xl py-7 py-md-0 mx-0">
-                                    <div class="d-none d-wd-block offset-1"></div>
-                                    <div class="col-xl col-6 col-md-6 mt-md-8">
-                                    </div> 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -96,7 +43,7 @@
 
 @section('footer')
 <script type="text/javascript" >
-
+    lazyload();
     $(window).load(function() {
         $('#iconesCarrossel').css('display', 'block');
     })
@@ -120,6 +67,9 @@
     });
   }
 
-    
+    $(window).load(function() {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("conteudo").style.display = "inline";
+    })
 </script>
 @endsection

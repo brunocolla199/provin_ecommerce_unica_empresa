@@ -466,8 +466,8 @@
                     <a class="text-gray-30 font-size-20 ml-2" href="#">→</a>
                 </nav>-->
             </div>
-            <div class="bg-gray-1 flex-center-between borders-radius-9 py-1 mt-1"  >
-                <div class="d-xl-none ml-2" style="display: flex;flex-direction: row;flex: 1;justify-content: inherit" >
+            <div class="bg-gray-1 flex-center-between borders-radius-9 py-1 mt-1 d-xl-none"  >
+                <div class=" ml-2" style="display: flex;flex-direction: row;flex: 1;justify-content: inherit" >
                     <!-- Account Sidebar Toggle Button -->
                     <span >{{$totalRegistros}} Produtos</span>
                     <a href="{{route('ecommerce.produto')}}"  >
