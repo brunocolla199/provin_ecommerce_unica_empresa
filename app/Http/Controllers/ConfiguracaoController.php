@@ -16,29 +16,20 @@ use App\Services\EstoqueService;
 class ConfiguracaoController extends Controller
 {
 
-    protected $setupService;
-    protected $grupoService;
-    protected $produtoService;
-    protected $empresaService;
-    protected $wonderService;
-    protected $estoqueService;
-
-    public function __construct(SetupService $setup, GrupoProdutoService $grupoProduto, ProdutoService $produto, EmpresaService $empresaService, WonderServices $wonderService, EstoqueService $estoqueService)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->setupService = $setup;
-        $this->grupoService = $grupoProduto;
-        $this->produtoService = $produto;
-        $this->empresaService = $empresaService;
-        $this->wonderService = $wonderService;
-        $this->estoqueService = $estoqueService;
+       
     }
     
     public function index()
     {
-        $configuracao = $this->setupService->findAll()->first();
+        $setupService = new SetupService();
+        $grupoService = new GrupoProdutoService();
+
+        $configuracao = $setupService->findAll()->first();
         $tamanhos     = [4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34];
-        $grupos       = $this->grupoService->findBy(
+        $grupos       = $grupoService->findBy(
             [
                 ['inativo','=',0]
             ]
@@ -57,7 +48,8 @@ class ConfiguracaoController extends Controller
         
         try {
             DB::transaction(function () use ($update, $id) {
-                $this->setupService->update(
+                $setupService = new SetupService();
+                $setupService->update(
                     $update
                     , $id);
             });
@@ -141,7 +133,8 @@ class ConfiguracaoController extends Controller
             if ($request->importacao_produto)
             {
                 DB::transaction(function () {
-                    $this->produtoService->inativarTodosProdutos();
+                    $produtoService = new ProdutoService();
+                    $produtoService->inativarTodosProdutos();
 
                     $arquivo = $_FILES['importacao_produto'];
                     $file = fopen($arquivo['tmp_name'], 'r');
@@ -166,7 +159,7 @@ class ConfiguracaoController extends Controller
                             
                             if($codigo != '' && !empty($codigo)){
                                 $grupoNew = explode(' ',$descricao)[0];
-                                $this->produtoService->processaImportacao($codigo,$variacao,$preco,$peso,$grupoNew,$descricao,$estoque,0);
+                                $produtoService->processaImportacao($codigo,$variacao,$preco,$peso,$grupoNew,$descricao,$estoque,0);
                             }
                     } 
                     
@@ -176,8 +169,6 @@ class ConfiguracaoController extends Controller
                 return redirect()->route('produto');
             }
         } catch (\Throwable $th) {
-            var_dump($th);
-            die();
             Helper::setNotify("Erro ao importar produtos", 'danger|close-circle');
             return redirect()->back()->withInput();
         }
@@ -187,11 +178,14 @@ class ConfiguracaoController extends Controller
 
     public function importWebService()
     {
-        $empresaPadrao = $this->setupService->find(1)->empresa_default_sistema_terceiros;
+        $setupService = new SetupService();
+        $empresaPadrao = $setupService->find(1)->empresa_default_sistema_terceiros;
         try {
             DB::transaction(function () use ($empresaPadrao) {
-                $this->produtoService->inativarTodosProdutos();
-                $produtos = $this->wonderService->consultaProduto($empresaPadrao);
+                $produtoService = new ProdutoService();
+                $wonderService = new WonderServices();
+                $produtoService->inativarTodosProdutos();
+                $produtos = $wonderService->consultaProduto($empresaPadrao);
                 
                 foreach ($produtos as $key => $valueProdutos) {
                     
@@ -199,7 +193,7 @@ class ConfiguracaoController extends Controller
                     if($valueProdutos->qtddisponivel > 0){
                         $grupoNew = explode(' ',$valueProdutos->descricao)[0];
                         
-                        $this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$grupoNew,$valueProdutos->descricao,$valueProdutos->qtddisponivel,1);            
+                        $produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$grupoNew,$valueProdutos->descricao,$valueProdutos->qtddisponivel,1);            
                     }
                     
                     
@@ -220,7 +214,11 @@ class ConfiguracaoController extends Controller
         try {
 
             DB::transaction(function () {
-                $buscaEmpresas = $this->empresaService->findBy(
+                $empresaService = new EmpresaService();
+                $estoqueService = new EstoqueService();
+                $wonderService = new WonderServices();
+                $produtoService = new ProdutoService();
+                $buscaEmpresas = $empresaService->findBy(
                     [
                         ['inativo','=',0],
                         ['empresa_terceiro_id','!=',0,"AND"],
@@ -231,35 +229,35 @@ class ConfiguracaoController extends Controller
                 foreach ($buscaEmpresas as $key => $value) {
 
                     //zera estoque de todos produtos
-                    $buscaProduto = $this->estoqueService->zeraEstoqueEmpresa($value->id);
+                    $buscaProduto = $estoqueService->zeraEstoqueEmpresa($value->id);
                     //busca Produto Franqueada
-                    $produtos = $this->wonderService->consultaProduto($value->empresa_terceiro_id);
+                    $produtos = $wonderService->consultaProduto($value->empresa_terceiro_id);
         
                     foreach ($produtos as $key => $valueProdutos) {
                     //atualiza produto q tiverem estoque
                         if($valueProdutos->qtddisponivel > 0){
                             $grupoNew = explode(' ',$valueProdutos->descricao)[0];
                         
-                            $this->produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$grupoNew,$valueProdutos->descricao,0,1);
+                            $produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$grupoNew,$valueProdutos->descricao,0,1);
                             
-                            $buscaProdutoInterno = $this->produtoService->findOneBy(
+                            $buscaProdutoInterno = $produtoService->findOneBy(
                                 [
                                     ['produto_terceiro_id','=',$valueProdutos->codigo]
                                 ]
                             );
-                            $buscaEstoque = $this->estoqueService->findOneBy(
+                            $buscaEstoque = $estoqueService->findOneBy(
                                 [
                                     ['empresa_id','=',$value->id],
                                     ['produto_id','=',$buscaProdutoInterno->id,"AND"]
                                 ]
                             );
                             if($buscaEstoque){
-                                $this->estoqueService->update(
+                                $estoqueService->update(
                                     ['quantidade_estoque' => $valueProdutos->qtddisponivel],
                                     $buscaEstoque->id
                                 );
                             }else{
-                                $this->estoqueService->create(
+                                $estoqueService->create(
                                     [
                                         'empresa_id'  => $value->id,
                                         'produto_id'  => $buscaProdutoInterno->id ,
@@ -274,7 +272,6 @@ class ConfiguracaoController extends Controller
             Helper::setNotify('Estoque atualizado com sucesso!', 'success|check-circle');
             return redirect()->back()->withInput();
         } catch (\Throwable $th) {
-            dd($th);
             Helper::setNotify("Erro ao atualizar os estoques", 'danger|close-circle');
             return redirect()->back()->withInput();
         }

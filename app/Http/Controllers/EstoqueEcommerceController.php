@@ -8,25 +8,16 @@ use App\Models\Estoque;
 
 class EstoqueEcommerceController extends Controller
 {
-    protected $pedidoService;
-    protected $estoqueService;
-    protected $setupService;
-
-    
-    public function __construct( EstoqueService $estoque, SetupService $setup)
+    public function __construct()
     {
         
-        
-        $this->estoqueService = $estoque;
-        $this->setupService   = $setup;
-
         
     }
 
     public function index()
     {
-
-        $setup = $this->setupService->find(1);
+        $setupService  = new SetupService();
+        $setup = $setupService->find(1);
 
         /*
         $produtos = $this->estoqueService->findBy(

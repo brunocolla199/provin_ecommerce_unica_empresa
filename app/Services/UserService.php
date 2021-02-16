@@ -9,9 +9,9 @@ class UserService
 {
     protected $userRepository;
 
-    public function __construct(UserRepository $user)
+    public function __construct()
     {
-        $this->userRepository = $user;
+        $this->userRepository = new UserRepository();
     }
 
     public function find($id, array $with = [])

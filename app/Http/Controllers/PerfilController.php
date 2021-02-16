@@ -9,14 +9,11 @@ use App\Services\{PerfilService, UserService};
 
 class PerfilController extends Controller
 {
-    protected $perfilService;
-    protected $usuarioService;
 
-    public function __construct(PerfilService $perfil, UserService $user)
+
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->perfilService = $perfil;
-        $this->usuarioService = $user;
     }
 
     /**
@@ -26,7 +23,8 @@ class PerfilController extends Controller
      */
     public function index()
     {
-        $perfis = $this->perfilService->findAll();
+        $perfilService = new PerfilService();
+        $perfis = $perfilService->findAll();
        
         return view('admin.perfil.index', compact('perfis'));
     }
@@ -55,8 +53,9 @@ class PerfilController extends Controller
             }
 
             DB::transaction(function () use ($_request) {
+                $perfilService = new PerfilService();
                 $create = self::montaRequest($_request);
-                $this->perfilService->create($create); 
+                $perfilService->create($create); 
             });
 
             Helper::setNotify('Novo perfil criado com sucesso!', 'success|check-circle');
@@ -75,7 +74,8 @@ class PerfilController extends Controller
      */
     public function edit($id)
     {
-        $perfil = $this->perfilService->find($id);
+        $perfilService = new PerfilService();
+        $perfil = $perfilService->find($id);
         return view('admin.perfil.update', compact('perfil'));
     }
 
@@ -93,9 +93,11 @@ class PerfilController extends Controller
         }
 
         $update = self::montaRequest($_request);
+        unset($update['inativo']);
         try {
             DB::transaction(function () use ($update, $id) {
-                $this->perfilService->update($update, $id);
+                $perfilService = new PerfilService();
+                $perfilService->update($update, $id);
             });
             Helper::setNotify('Perfil atualizado com sucesso!', 'success|check-circle');
             return redirect()->route('perfil');
@@ -113,8 +115,11 @@ class PerfilController extends Controller
      */
     public function ativar_inativar(Request $_request)
     {
-        $buscaPerfil = $this->perfilService->find($_request->id);
-        $usuarios = $this->usuarioService->findBy(
+
+        $perfilService = new PerfilService();
+        $usuarioService = new UserService();
+        $buscaPerfil = $perfilService->find($_request->id);
+        $usuarios = $usuarioService->findBy(
             [['perfil_id','=',$_request->id]],
             [],
             [],
@@ -130,8 +135,8 @@ class PerfilController extends Controller
                 throw new Exception("Error Processing Request", 1);
             }
             
-            DB::transaction(function () use ($_request, $ativo_inativo) {
-                $this->perfilService->update(['inativo' => $ativo_inativo], $_request->id);
+            DB::transaction(function () use ($perfilService, $_request, $ativo_inativo) {
+                $perfilService->update(['inativo' => $ativo_inativo], $_request->id);
             });
             Helper::setNotify('Perfil '.$nome_ativo_inativo.' com sucesso!', 'success|check-circle');
             return response()->json(['response' => 'sucesso']);

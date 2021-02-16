@@ -192,12 +192,12 @@
                     <tbody>
                         <tr class="cart-subtotal">
                             <th>Sub Total</th>
-                            <td data-title="Subtotal"><span class="amount" id="subTotal">R$ {{number_format(($itens[0]->pedido->total_pedido - $itens[0]->pedido->acrescimos), 2, ',', '.')}}</span></td>
+                            <td data-title="Subtotal">R$ <span class="amount " id="subTotal"> {{number_format(($itens[0]->pedido->total_pedido - $itens[0]->pedido->acrescimos), 2, ',', '.')}}</span></td>
                         </tr>
                         <tr class="shipping">
                             <th>Valor Adicional</th>
                             <td data-title="Shipping">
-                                <span class="amount" id="adicional">R$ {{number_format($itens[0]->pedido->acrescimos, 2, ',', '.')}}</span>
+                                R$ <span class="amount " id="adicional"> {{number_format($itens[0]->pedido->acrescimos, 2, ',', '.')}}</span>
                                 <!--
                                 <div class="mt-1">
                                     <a class="font-size-12 text-gray-90 text-decoration-on underline-on-hover font-weight-bold mb-3 d-inline-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -228,7 +228,7 @@
                         </tr>
                         <tr class="order-total">
                             <th>Total</th>
-                            <td data-title="Total"><strong><span class="amount" id="total">R$ {{number_format($itens[0]->pedido->total_pedido, 2, ',', '.')}}</span></strong></td>
+                            <td data-title="Total"><strong>R$ <span class="amount " id="total"> {{number_format($itens[0]->pedido->total_pedido, 2, ',', '.')}}</span></strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -282,7 +282,6 @@
             swal.close();
         });
     });
-
     
     function alteraCarinho(id)
     {

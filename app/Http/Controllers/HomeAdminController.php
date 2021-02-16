@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\SetupService;
 
 class HomeAdminController extends Controller
 {
@@ -14,6 +15,7 @@ class HomeAdminController extends Controller
     
     public function index()
     {
+        
         return view('admin.home.index');
     }
 }

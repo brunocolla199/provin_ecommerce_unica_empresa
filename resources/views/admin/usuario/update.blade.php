@@ -51,7 +51,7 @@
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                                     <label class="control-label">Nome de Usuário</label>
-                                    <input type="text" id="username" class="form-control" readonly name="username" value="{{ $usuario->username }}" required>
+                                    <input type="text" id="username" class="form-control"  name="username" value="{{ $usuario->username }}" required>
                                     <small class="form-control-feedback"> Esse valor poderá ser usado para realizar <i>login</i> no sistema. </small> 
 
                                     @if ($errors->has('username'))

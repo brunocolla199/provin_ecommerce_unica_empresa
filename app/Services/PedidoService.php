@@ -13,16 +13,10 @@ use Illuminate\Support\Facades\{Auth};
 class PedidoService
 {
     public $pedidoRepository;
-    public $itemPedidoService;
-    public $userService;
-    public $setupService;
 
-    public function __construct(PedidoRepository $pedido, ItemPedidoService $item, UserService $user, SetupService $setup)
+    public function __construct()
     {
-        $this->pedidoRepository = $pedido;
-        $this->itemPedidoService = $item;
-        $this->userService = $user;
-        $this->setupService = $setup;
+        $this->pedidoRepository = new PedidoRepository();
     }
 
 
@@ -85,13 +79,16 @@ class PedidoService
 
     public function recalcular($id)
     {   
+        $setupService = new SetupService();
+        $itemPedidoService = new ItemPedidoService();
+
         $total_itens = 0;
         $total_pedido = 0;
         $valor_adicional = 0;
 
-        $busca_porcentagem_setup = $this->setupService->find(1);
+        $busca_porcentagem_setup = $setupService->find(1);
 
-        $itens = $this->itemPedidoService->findBy(
+        $itens = $itemPedidoService->findBy(
             [
                 [
                     'pedido_id','=',$id
@@ -101,7 +98,7 @@ class PedidoService
         
         foreach ($itens as $key => $item) {
             $total_itens +=$item->quantidade;
-            $retorno = $this->itemPedidoService->recalcular($item->id,$item->produto_id,$item->quantidade);
+            $retorno = $itemPedidoService->recalcular($item->id,$item->produto_id,$item->quantidade);
             $total_pedido += $retorno;
         }
 
@@ -113,7 +110,8 @@ class PedidoService
 
     public function buscaPedidoCarrinho($tipo_pedido)
     {
-        $usuariosIn = $this->userService->buscaUsuariosMesmaEmpresa();
+        $userService = new UserService();
+        $usuariosIn = $userService->buscaUsuariosMesmaEmpresa();
     
         return $this->pedidoRepository->findBy(
             [
@@ -133,7 +131,8 @@ class PedidoService
 
     public function buscaUltimoPedidoNormalProcessado()
     {
-        $usuariosIn = $this->userService->buscaUsuariosMesmaEmpresa();
+        $userService = new UserService();
+        $usuariosIn = $userService->buscaUsuariosMesmaEmpresa();
         return $this->pedidoRepository->findBy(
             [
                 ['excluido','=',0],

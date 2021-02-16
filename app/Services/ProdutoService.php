@@ -7,13 +7,10 @@ use App\Repositories\ProdutoRepository;
 class ProdutoService 
 {
     protected $produtoRepository;
-    protected $grupoService;
 
-
-    public function __construct(ProdutoRepository $produto, GrupoProdutoService $grupoProduto)
+    public function __construct()
     {
-        $this->produtoRepository = $produto;
-        $this->grupoService = $grupoProduto;
+        $this->produtoRepository = new ProdutoRepository();
     }
 
     public function find($id, array $with = [])
@@ -59,9 +56,9 @@ class ProdutoService
 
     public function processaImportacao($codigo,$variacao,$preco,$peso,$grupo,$descricao,$estoque,$atualizar)
     {
-        
+        $grupoService = new GrupoProdutoService();
         //Verifica Existencia do grupo
-        $buscaGrupo = $this->grupoService->findBy(
+        $buscaGrupo = $grupoService->findBy(
             [
                 ['nome','=',$grupo]
             ],
@@ -71,7 +68,7 @@ class ProdutoService
             $idGrupo = $buscaGrupo[0]->id;
         }else{
             //cadastra
-            $retornoCreateGrupo = $this->grupoService->create(
+            $retornoCreateGrupo = $grupoService->create(
                 [
                 'nome'    =>$grupo,
                 'inativo' => 0

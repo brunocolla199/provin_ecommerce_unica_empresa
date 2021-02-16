@@ -9,33 +9,19 @@ use Illuminate\Support\Facades\DB;
 
 class CheckoutEcommerceController extends Controller
 {
-    protected $produtoService;
-    protected $pedidoService;
-    protected $itemPedidoService;
-    protected $wonderService;
-    protected $setupService;
-
-    public $grupos;
-
-
-    public function __construct( ProdutoService $produto,PedidoService $pedido,ItemPedidoService $item, SetupService $setup,WonderServices $wonder)
+    public function __construct()
     {
-        $this->middleware('auth');
-       
-        $this->produtoService = $produto;
-        $this->pedidoService = $pedido;
-        $this->itemPedidoService = $item;
-        $this->wonderService = $wonder;
-        $this->setupService = $setup;
-        
+        $this->middleware('auth');        
     }
 
     public function index($id)
     {
-        $pedido = $this->pedidoService->find($id);
-        $setup = $this->setupService->find(1);
+        $pedidoService = new PedidoService();
+        $setupService = new SetupService();
+        $pedido = $pedidoService->find($id);
+        $setup = $setupService->find(1);
 
-        $ultimoPedido = $this->pedidoService->buscaUltimoPedidoNormalProcessado();
+        $ultimoPedido = $pedidoService->buscaUltimoPedidoNormalProcessado();
         
         $dataProximaLiberacao = $ultimoPedido->count() > 0? date ('Y-m-d h:i:s',strtotime('+'.$setup->tempo_liberacao_pedido.' days', strtotime($ultimoPedido[0]['data_envio_pedido']))) : date('Y-m-d h:i:s');
         
@@ -46,8 +32,8 @@ class CheckoutEcommerceController extends Controller
         }
         */
         
-        
-        $itens = $this->itemPedidoService->findBy(
+        $itemPedidoService = new ItemPedidoService();
+        $itens = $itemPedidoService->findBy(
             [
                 [
                     'pedido_id','=',$id
@@ -67,12 +53,15 @@ class CheckoutEcommerceController extends Controller
 
     public function enviarPedido($id)
     {
-        $buscaPedido = $this->pedidoService->find($id);
-        $retorno = $this->wonderService->enviarPedido($id);
+        $pedidoService = new PedidoService();
+        $wonderService = new WonderServices();
+
+        $buscaPedido = $pedidoService->find($id);
+        $retorno = $wonderService->enviarPedido($id);
         if(is_numeric($retorno)){
             try{
-                DB::transaction(function () use ($retorno, $buscaPedido) {
-                    $this->pedidoService->update($buscaPedido->id,$buscaPedido->tipo_pedido_id,2,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$buscaPedido->previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$buscaPedido->link_rastreamento,$retorno, date('Y-m-d H:i:s'));
+                DB::transaction(function () use ($pedidoService, $retorno, $buscaPedido) {
+                    $pedidoService->update($buscaPedido->id,$buscaPedido->tipo_pedido_id,2,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$buscaPedido->previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$buscaPedido->link_rastreamento,$retorno, date('Y-m-d H:i:s'));
                 });
                 Helper::setNotify('Pedido '.$buscaPedido->id.' criado com sucesso!', 'success|check-circle');
                 

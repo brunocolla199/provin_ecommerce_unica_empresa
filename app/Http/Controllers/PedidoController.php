@@ -14,27 +14,15 @@ use App\Services\SetupService;
 
 class PedidoController extends Controller
 {
-    protected $pedidoService;
-
-    protected $itemPedidoService;
-    protected $produtoService;
-    protected $statusPedidoService;
-    protected $obsPedidoService;
-    protected $setupService;
-
-    public function __construct(PedidoService $pedido, ItemPedidoService $itemPedido, StatusPedidoService $statusPedido, ObsPedidoService $obsPedidoServico, SetupService $setup)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->pedidoService = $pedido;
-        $this->itemPedidoService = $itemPedido;
-        $this->statusPedidoService = $statusPedido;
-        $this->obsPedidoService = $obsPedidoServico;
-        $this->setupService   = $setup;
+        
     }
 
     public function index(){
-
-        $pedidos = $this->pedidoService->findBy(
+        $pedidoService = new PedidoService();
+        $pedidos = $pedidoService->findBy(
         [
             [
             'excluido','=',0
@@ -65,21 +53,20 @@ class PedidoController extends Controller
      */
     public function edit($id)
     {
-        $setup = $this->setupService->find(1);
-        $pedido = $this->pedidoService->find($id);
-        $itens  = $this->itemPedidoService->findBy([
-            [
-            'pedido_id','=',$id
-            ]
-        ]);
+        $setupService = new SetupService();
+        $pedidoService = new PedidoService();
+        $itemPedidoService = new ItemPedidoService();
 
-        $observacoes = $this->obsPedidoService->findBy([
-            [
-            'excluido','=',0
-            ],
-            [
-            'pedido_id','=',$id,'AND'
-            ]
+        $setup = $setupService->find(1);
+        $pedido = $pedidoService->find($id);
+        $itens  = $itemPedidoService->findBy([
+            ['pedido_id','=',$id]
+        ]);
+        
+        $obsPedidoService = new ObsPedidoService();
+        $observacoes = $obsPedidoService->findBy([
+            ['excluido','=',0],
+            ['pedido_id','=',$id,'AND']
         ]);   
         $caminho_imagem = $setup->caminho_imagen_produto;   
         return view('admin.pedido.update', compact('pedido','itens','observacoes', 'caminho_imagem'));
@@ -100,27 +87,31 @@ class PedidoController extends Controller
         $previsao_entrega = $_request->get('previsao_entrega') ? date('Y-m-d',strtotime($_request->get('previsao_entrega'))) : null;
         $nova_obs = $_request->nova_obs ? $_request->nova_obs : '';
 
-        $buscaStatus = $this->statusPedidoService->find($_request->ultStatus);
+        $statusPedidoService = new StatusPedidoService();
+        $buscaStatus = $statusPedidoService->find($_request->ultStatus);
         try {
             DB::transaction(function () use ($id,$status,$link, $buscaStatus,$previsao_entrega,$nova_obs) {
-                $buscaPedido = $this->pedidoService->find($id);
-                $this->pedidoService->update
+
+                $pedidoService = new PedidoService();
+                $buscaPedido = $pedidoService->find($id);
+                $pedidoService->update
                 (
                     $id,$buscaPedido->tipo_pedido_id,$status,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$link,$buscaPedido->pedido_terceiro_id
                 );
+                $obsPedidoService = new ObsPedidoService();
                 if($status != $buscaPedido['status_pedido_id']){
-                    $this->obsPedidoService->create($id,"O status do pedido foi alterado para ".$buscaStatus->nome, 0);
+                    
+                    $obsPedidoService->create($id,"O status do pedido foi alterado para ".$buscaStatus->nome, 0);
                 }
 
                 if($nova_obs != ''){
-                    $this->obsPedidoService->create($id,$nova_obs, 0);
+                    $obsPedidoService->create($id,$nova_obs, 0);
                 }
 
             });
             Helper::setNotify('Pedido atualizado com sucesso!', 'success|check-circle');
             return redirect()->route('pedido');
         } catch (\Throwable $th) {
-            var_dump($th);
             Helper::setNotify("Erro ao atualizar o pedido", 'danger|close-circle');
             return redirect()->back()->withInput();
         }
@@ -137,8 +128,10 @@ class PedidoController extends Controller
         try {
             
             DB::transaction(function () use ($_request) {
-                $buscaPedido = $this->pedidoService->find($_request->id);
-                $this->pedidoService->update($_request->id,$buscaPedido->tipo_pedido_id,6,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$buscaPedido->previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$buscaPedido->link_rastreamento,$buscaPedido->pedido_terceiro_id);
+                $pedidoService = new PedidoService();
+                $buscaPedido = $pedidoService->find($_request->id);
+                
+                $pedidoService->update($_request->id,$buscaPedido->tipo_pedido_id,6,$buscaPedido->user_id,$buscaPedido->total_pedido,$buscaPedido->numero_itens,$buscaPedido->previsao_entrega,$buscaPedido->acrescimos,$buscaPedido->excluido,$buscaPedido->link_rastreamento,$buscaPedido->pedido_terceiro_id);
             });
             Helper::setNotify('Pedido cancelado com sucesso!', 'success|check-circle');
             return response()->json(['response' => 'sucesso']);
@@ -177,11 +170,10 @@ class PedidoController extends Controller
 
     public function pedidosParaHoje()
     {
-        return $this->pedidoService->findBy(
+        $pedidoService = new PedidoService();
+        return $pedidoService->findBy(
             [
-                [
-                    'excluido','=',0
-                ],
+                ['excluido','=',0],
                 ['status_pedido_id','<>',1,"AND"],
                 ['status_pedido_id','<>',5,"AND"],
                 ['status_pedido_id','<>',6,"AND"],
@@ -192,11 +184,10 @@ class PedidoController extends Controller
 
     public function pedidoAtrasado()
     {
-        return $this->pedidoService->findBy(
+        $pedidoService = new PedidoService();
+        return $pedidoService->findBy(
             [
-                [
-                    'excluido','=',0
-                ],
+                ['excluido','=',0],
                 ['status_pedido_id','<>',1,"AND"],
                 ['status_pedido_id','<>',5,"AND"],
                 ['status_pedido_id','<>',6,"AND"],
@@ -207,11 +198,10 @@ class PedidoController extends Controller
 
     public function pedidoComObs()
     {
-        $todosPedidos = $this->pedidoService->findBy(
+        $pedidoService = new PedidoService();
+        $todosPedidos = $pedidoService->findBy(
             [
-                [
-                    'excluido','=',0
-                ],
+                ['excluido','=',0],
                 ['status_pedido_id','<>',1,"AND"],
                 ['status_pedido_id','<>',5,"AND"],
                 ['status_pedido_id','<>',6,"AND"],
@@ -228,22 +218,15 @@ class PedidoController extends Controller
             
         }
         
-        $pedidos = $this->pedidoService->findBy(
+        $pedidos = $pedidoService->findBy(
             [
-                [
-                    'excluido','=',0
-                ],
+                ['excluido','=',0],
                 ['status_pedido_id','<>',1,"AND"],
                 ['status_pedido_id','<>',5,"AND"],
                 ['status_pedido_id','<>',6,"AND"],
                 ['id', '', $pedidosComObs, "IN"]
             ]
         );
-
         return $pedidos;
     }
-
-    
-   
-
 }

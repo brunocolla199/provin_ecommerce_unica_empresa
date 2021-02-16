@@ -11,21 +11,18 @@ use App\Services\{EmpresaService, CidadeService};
 class EmpresaController extends Controller
 {
 
-    protected $empresaService ;
-    protected $cidadeService;
-
     /*
     * Construtor
     */
-    public function __construct(EmpresaService $empresa, CidadeService $cidade)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->empresaService = $empresa;
-        $this->cidadeService = $cidade;
+        
     }
     
     public function index() {
-        $empresas = $this->empresaService->findBy(
+        $empresaService = new EmpresaService();
+        $empresas = $empresaService->findBy(
             [],
             [],
             [['nome_fantasia','asc']]
@@ -35,7 +32,8 @@ class EmpresaController extends Controller
     
 
     public function create() {
-        $cidades = $this->cidadeService->findAll();
+        $cidadeService = new CidadeService();
+        $cidades = $cidadeService->findAll();
         return view('admin.empresa.create', compact('cidades'));
     }
     
@@ -47,7 +45,8 @@ class EmpresaController extends Controller
         try {
             DB::transaction(function () use ($_request) {
                 $create = self::montaRequest($_request);
-                $this->empresaService->create($create);    
+                $empresaService = new EmpresaService();
+                $empresaService->create($create);    
             });
             Helper::setNotify('Nova empresa criada com sucesso!', 'success|check-circle');
             return redirect()->route('empresa');
@@ -59,8 +58,11 @@ class EmpresaController extends Controller
 
 
     public function edit($_id) {
-        $cidades = $this->cidadeService->findAll();
-        $empresa = $this->empresaService->find($_id);
+        $empresaService = new EmpresaService();
+        $cidadeService = new CidadeService();
+
+        $cidades = $cidadeService->findAll();
+        $empresa = $empresaService->find($_id);
         return view('admin.empresa.update', compact('cidades', 'empresa'));
     }
 
@@ -73,10 +75,11 @@ class EmpresaController extends Controller
         $id = $request->get('idEmpresa');
         
         $update = self::montaRequest($request);
-      
+        unset($update['inativo']);
         try {
             DB::transaction(function () use ($update, $id) {
-                $this->empresaService->update(
+                $empresaService = new EmpresaService();
+                $empresaService->update(
                     $update,
                     $id);
             });
@@ -90,12 +93,13 @@ class EmpresaController extends Controller
 
     public function ativar_inativar(Request $_request)
     {
-        $buscaEmpresa = $this->empresaService->find($_request->id);
+        $empresaService = new EmpresaService();
+        $buscaEmpresa = $empresaService->find($_request->id);
         try {
             $ativo_inativo      = $buscaEmpresa->inativo == 0 ? 1: 0;
             $nome_ativo_inativo = $buscaEmpresa->inativo == 0 ? 'inativada' : 'ativada';
-            DB::transaction(function () use ($_request,  $ativo_inativo) {
-                $this->empresaService->update(['inativo' =>  $ativo_inativo], $_request->id);
+            DB::transaction(function () use ($empresaService, $_request,  $ativo_inativo) {
+                $empresaService->update(['inativo' =>  $ativo_inativo], $_request->id);
             });
             Helper::setNotify('Empresa '.$nome_ativo_inativo.' com sucesso!', 'success|check-circle');
             return response()->json(['response' => 'sucesso']);
@@ -154,12 +158,6 @@ class EmpresaController extends Controller
             'email'                                  => $request->email,
             'rg_inscricao_estadual'                  => $request->ie ?? $request->rg
         ];
-
-
         return $create;
     }
-
-
-    
-
 }

@@ -8,9 +8,9 @@ class PerfilService
 {
     protected $perfilRepository;
 
-    public function __construct(PerfilRepository $perfil)
+    public function __construct()
     {
-        $this->perfilRepository = $perfil;
+        $this->perfilRepository = new PerfilRepository();
     }
 
     public function find($id, array $with = [])

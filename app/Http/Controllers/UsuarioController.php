@@ -9,44 +9,37 @@ use App\Services\{UserService, PerfilService, GrupoService, EmpresaService};
 
 class UsuarioController extends Controller
 {
-    
-    protected $userService;
-    protected $perfilService;
-    protected $grupoService;
-    protected $empresaService;
 
-
-    public function __construct(UserService $user, PerfilService $perfil, GrupoService $grupo, EmpresaService $empresa)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->userService   = $user;
-        $this->perfilService = $perfil;
-        $this->grupoService  = $grupo;
-        $this->empresaService = $empresa;
     }
 
 
     public function index()
     {
-        $usuarios = $this->userService->findAll(
-        );
+        $userService = new UserService();
+        $usuarios = $userService->findAll();
         return view('admin.usuario.index', compact('usuarios'));
     }
 
     public function create() {
-        $perfis = $this->perfilService->findBy(
+        $perfilService = new PerfilService();
+        $perfis = $perfilService->findBy(
             [
                 ['inativo','=',0]
             ]
         );
 
-        $grupos = $this->grupoService->findBy(
+        $grupoService = new GrupoService();
+        $grupos = $grupoService->findBy(
             [
                 ['inativo','=',0]
             ]
         );
 
-        $empresas = $this->empresaService->findBy(
+        $empresaService = new EmpresaService();
+        $empresas = $empresaService->findBy(
             [
                 ['inativo','=',0]
             ]
@@ -62,10 +55,11 @@ class UsuarioController extends Controller
         }
         try {
             DB::transaction(function () use ($_request) {
+                $userService = new UserService();
                 $create = self::montaRequest($_request);
                 //event(new Registered($create));
                 //$this->registered($_request, $create);
-                $this->userService->create($create);    
+                $userService->create($create);    
             });
             Helper::setNotify('Novo usuário criado com sucesso!', 'success|check-circle');
             return redirect()->route('usuario');
@@ -79,25 +73,28 @@ class UsuarioController extends Controller
 
     public function edit($_id)
     {
-        $perfis = $this->perfilService->findBy(
+        $perfilService = new PerfilService();
+        $perfis = $perfilService->findBy(
             [
                 ['inativo','=',0]
             ]
         );
-        $grupos = $this->grupoService->findBy(
+        $grupoService = new GrupoService();
+        $grupos = $grupoService->findBy(
             [
                 ['inativo','=',0]
             ]
         );
 
-        $empresas = $this->empresaService->findBy(
+        $empresaService = new EmpresaService();
+        $empresas = $empresaService->findBy(
             [
                 ['inativo','=',0]
             ]
         );
 
-
-        $usuario = $this->userService->find($_id);
+        $userService = new UserService();
+        $usuario = $userService->find($_id);
         return view('admin.usuario.update', compact('usuario', 'perfis', 'grupos', 'empresas'));
     }
 
@@ -111,12 +108,10 @@ class UsuarioController extends Controller
         $id = $request->get('idUsuario');
         
         $update = self::montaRequest($request);
-
-       
-       
         try {
             DB::transaction(function () use ($update, $id) {
-                $this->userService->update(
+                $userService = new UserService();
+                $userService->update(
                     $update,
                     $id);
             });
@@ -131,13 +126,14 @@ class UsuarioController extends Controller
 
     public function ativar_inativar(Request $_request)
     {
-        $buscaUsuario = $this->userService->find($_request->id);
+        $userService = new UserService();
+        $buscaUsuario = $userService->find($_request->id);
         try {
             $ativo_inativo      = $buscaUsuario->inativo == 0 ? 1: 0;
             $nome_ativo_inativo = $buscaUsuario->inativo == 0 ? 'inativado' : 'ativado';
 
-            DB::transaction(function () use ($_request, $ativo_inativo) {
-                $this->userService->update(['inativo' => $ativo_inativo], $_request->id);
+            DB::transaction(function () use ($userService, $_request, $ativo_inativo) {
+                $userService->update(['inativo' => $ativo_inativo], $_request->id);
             });
             Helper::setNotify('Usuário '.$nome_ativo_inativo.' com sucesso!', 'success|check-circle');
             return response()->json(['response' => 'sucesso']);
@@ -187,7 +183,8 @@ class UsuarioController extends Controller
     {
         $senha_igual = false;
         if(!empty($request->get('idUsuario'))){
-            $buscaSenha = $this->userService->find($request->get('idUsuario'));
+            $userService = new UserService();
+            $buscaSenha = $userService->find($request->get('idUsuario'));
             if($buscaSenha->password == $request->password){
                 $senha_igual = true;
             }

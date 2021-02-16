@@ -5,7 +5,6 @@ namespace App\Classes;
 use App\Services\PedidoService;
 use App\Services\ItemPedidoService;
 use App\Services\SetupService;
-use App\Services\EmpresaService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Middleware;
@@ -23,7 +22,6 @@ class WonderServices
     protected $pedidoService;
     protected $itemPedidoService;
     protected $setupService;
-    protected $empresaService;
 
     public $buscaSetup;
 
@@ -32,14 +30,11 @@ class WonderServices
     /*
     * Construtor
     */
-    public function __construct(PedidoService $pedidoService, ItemPedidoService $itemPedidoService, SetupService $setupService, EmpresaService $empresaService)
+    public function __construct()
     {
-        $this->pedidoService     = $pedidoService;
-        $this->itemPedidoService = $itemPedidoService;
-        $this->setupService      = $setupService;
-        $this->empresaService    = $empresaService;
-
-        $this->buscaSetup = $this->setupService->find(1);
+        
+        $setupService = new SetupService();
+        $this->buscaSetup = $setupService->find(1);
         $this->linkWebService = $this->buscaSetup->link_sistema_terceiros;
         
         
@@ -78,6 +73,7 @@ class WonderServices
     
     public function enviarPedido($idPedido)
     {
+        
         $this->usuarioWebService = $this->buscaSetup->usuario_sistema_terceiros;
         $this->senhaWebService = $this->buscaSetup->senha_sistema_terceiros;
 
@@ -116,9 +112,12 @@ class WonderServices
 
     public function montaRequestPedido($idPedido)
     {
-        $buscaPedido = $this->pedidoService->find($idPedido);
+        $pedidoService = new PedidoService();
+        $itemPedidoService = new ItemPedidoService();
 
-        $buscaItensPedido = $this->itemPedidoService->findBy(
+        $buscaPedido = $pedidoService->find($idPedido);
+
+        $buscaItensPedido = $itemPedidoService->findBy(
             [
                 ["pedido_id","=",$idPedido]
             ]

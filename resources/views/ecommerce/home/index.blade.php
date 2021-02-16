@@ -18,23 +18,40 @@
             
         <div <!--class="card"-- >
             <div <!--class="card-body"-- >
-                <div class="row">
-                    <div class="col-xl pr-xl-2 mb-1 mb-xl-0">
-                        <img data-src="{{asset('img/fundo-home/img_fundo_home_1.png')}}"  src="{{asset('ecommerce/assets/img/1920X422/img1.jpg')}}" class="img-fluid lazyload" alt="Imagem responsiva" style="border-radius: 5px">
+                
+                @if (file_exists(public_path().'/img/video-home/video_1.mp4'))
+                    <div class="row mb-1">
+                        <video  preload="auto" autoplay="true" loop class="col-xl pr-xl-2 mb-1 mb-xl-0" style="border-radius:18px;" >
+                                
+                            <source src="{{asset('img/video-home/video_1.mp4')}}" type="video/mp4">
+                            Seu navegador não suporta HTML5.
+                        </video>
                     </div>
-                </div>
-                <div class="row  d-xl-none">
-                    <div class="col-xl pr-xl-2 mb-1 mb-xl-0">
-                        <img data-src="{{asset('img/fundo-home/img_fundo_home_2.png')}}"  src="{{asset('ecommerce/assets/img/1920X422/img1.jpg')}}" class="img-fluid lazyload" alt="Imagem responsiva" style="border-radius: 5px">
+                @endif
+                @if (file_exists(public_path().'/img/fundo-home/img_fundo_home_1.png'))
+                    <div class="row">
+                        <div class="col-xl pr-xl-2 mb-1 mb-xl-0">
+                            <img data-src="{{asset('img/fundo-home/img_fundo_home_1.png')}}"  src="{{asset('ecommerce/assets/img/1920X422/img1.jpg')}}" class="img-fluid lazyload" alt="Imagem responsiva" style="border-radius: 5px">
+                        </div>
                     </div>
-                </div>
-                <div class="row  d-xl-none">
-                    <div class="col-xl pr-xl-2  mb-1 mb-xl-0">
-                        
-                        <img data-src="{{asset('img/fundo-home/img_fundo_home_3.png')}}"  src="{{asset('ecommerce/assets/img/1920X422/img1.jpg')}}" class="img-fluid lazyload" alt="Imagem responsiva" style="border-radius: 5px">
+                @endif
+                @if (file_exists(public_path().'/img/fundo-home/img_fundo_home_2.png'))
+                    <div class="row  d-xl-none">
+                        <div class="col-xl pr-xl-2 mb-1 mb-xl-0">
+                            <img data-src="{{asset('img/fundo-home/img_fundo_home_2.png')}}"  src="{{asset('ecommerce/assets/img/1920X422/img1.jpg')}}" class="img-fluid lazyload" alt="Imagem responsiva" style="border-radius: 5px">
+                        </div>
+                    </div>
+                @endif
+                @if (file_exists(public_path().'/img/fundo-home/img_fundo_home_3.png'))
+                    <div class="row  d-xl-none">
+                        <div class="col-xl pr-xl-2  mb-1 mb-xl-0">
+                            
+                            <img data-src="{{asset('img/fundo-home/img_fundo_home_3.png')}}"  src="{{asset('ecommerce/assets/img/1920X422/img1.jpg')}}" class="img-fluid lazyload" alt="Imagem responsiva" style="border-radius: 5px">
 
+                        </div>
                     </div>
-                </div>
+                @endif
+                
                 
             </div>
         </div>

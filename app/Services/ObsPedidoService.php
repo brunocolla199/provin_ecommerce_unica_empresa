@@ -9,9 +9,9 @@ class ObsPedidoService
 {
     public  $obsRepository;
 
-    public function __construct(ObsPedidoRepository $obs)
+    public function __construct()
     {
-        $this->obsRepository = $obs;
+        $this->obsRepository = new ObsPedidoRepository();
     }
 
     public function find($id, array $with = [])

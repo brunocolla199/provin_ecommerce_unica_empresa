@@ -8,9 +8,9 @@ class GrupoProdutoService
 {
     public  $grupoProdutoRepository;
 
-    public function __construct(GrupoProdutoRepository $grupo)
+    public function __construct()
     {
-        $this->grupoProdutoRepository = $grupo;
+        $this->grupoProdutoRepository = new GrupoProdutoRepository();
     }
 
     public function find($id, array $with = [])

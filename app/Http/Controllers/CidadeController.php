@@ -9,16 +9,15 @@ use App\Services\CidadeService;
 
 class CidadeController extends Controller
 {
-    protected $cidadeService;
 
-    public function __construct(CidadeService $cidade)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->cidadeService = $cidade;
     }
 
     public function index() {
-        $cidades = $this->cidadeService->findBy(
+        $cidadeService = new CidadeService();
+        $cidades = $cidadeService->findBy(
             [],
             [],
             [['nome','asc']]
@@ -29,7 +28,8 @@ class CidadeController extends Controller
 
     public function create()
     {
-        $estados = $this->cidadeService->findBy(
+        $cidadeService = new CidadeService();
+        $estados = $cidadeService->findBy(
             [],
             [],
             [['sigla_estado','asc']],
@@ -51,7 +51,8 @@ class CidadeController extends Controller
            
             DB::transaction(function () use ($_request) {
                 $create = self::montaRequest($_request);
-                $this->cidadeService->create($create); 
+                $cidadeService = new CidadeService();
+                $cidadeService->create($create); 
             });
             Helper::setNotify('Nova cidade criada com sucesso!', 'success|check-circle');
             return redirect()->route('cidade');
@@ -65,7 +66,8 @@ class CidadeController extends Controller
 
     public function edit($_id)
     {
-        $estados = $this->cidadeService->findBy(
+        $cidadeService = new CidadeService();
+        $estados = $cidadeService->findBy(
             [],
             [],
             [['sigla_estado','asc']],
@@ -74,7 +76,7 @@ class CidadeController extends Controller
             null,
             ['sigla_estado','estado']
         );
-        $cidade = $this->cidadeService->find($_id);
+        $cidade = $cidadeService->find($_id);
         return view('admin.cidade.update', compact('cidade', 'estados'));
     }
 
@@ -90,7 +92,8 @@ class CidadeController extends Controller
        
         try {
             DB::transaction(function () use ($update, $id) {
-                $this->cidadeService->update(
+                $cidadeService = new CidadeService();
+                $cidadeService->update(
                     $update,
                     $id);
             });
@@ -118,7 +121,8 @@ class CidadeController extends Controller
 
     public function montaRequest(Request $request)
     {
-        $buscaNomeEstado = $this->cidadeService->findBy([['sigla_estado', '=', $request->estado]])->first();
+        $cidadeService = new CidadeService();
+        $buscaNomeEstado = $cidadeService->findBy([['sigla_estado', '=', $request->estado]])->first();
         return [
             'nome'   => $request->nome,
             'sigla_estado' => $request->estado,

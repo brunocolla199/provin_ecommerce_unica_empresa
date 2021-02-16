@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Produto;
-use App\Services\ItemPedidoService;
 use App\Services\GrupoProdutoService;
 use App\Services\ProdutoService;
 
-use App\Services\UserService;
 use App\Services\SetupService;
 use App\Services\CarrinhoService;
 use Illuminate\Support\Facades\Auth;
@@ -17,15 +15,6 @@ use App\Services\PedidoService;
 
 class ProdutoEcommerceController extends Controller
 {
-    protected $grupoProdutoService;
-    protected $produtoService;
-    protected $setupService;
-    protected $carrinhoService;
-    protected $pedidoService;
-
-    protected $itemPedidoService;
-    protected $userService;
-
     public $grupos;
     public $tamanhos;
     public $tamanho_padrao;
@@ -33,32 +22,22 @@ class ProdutoEcommerceController extends Controller
     public $caminhoImagens;
     public $tamanhosStr;
 
-    public function __construct(GrupoProdutoService $grupoProduto, ProdutoService $produto, SetupService $setup, ItemPedidoService $itemPedidoService, UserService $userService, CarrinhoService $carrinho, PedidoService $pedidoService)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->grupoProdutoService = $grupoProduto;
-        $this->produtoService = $produto;
-        $this->setupService = $setup;
-        $this->itemPedidoService = $itemPedidoService;
-        $this->userService = $userService;
-        $this->carrinhoService = $carrinho;
-        $this->pedidoService = $pedidoService;
 
-        $this->grupos = $this->grupoProdutoService->findBy([
-            [
-            'inativo','=',0
-            ]
+        $grupoProdutoService = new GrupoProdutoService();
+        $setupService = new SetupService();
+        $this->grupos = $grupoProdutoService->findBy([
+            ['inativo','=',0]
         ]);
 
-        $setup= $this->setupService->find(1);
-
-       
-
+        $setup= $setupService->find(1);
         $this->tamanhos = $setup->tamanhos;
         $this->tamanho_padrao = $setup->tamanho_padrao;
         $this->grupos_necessita_tamanho = $setup->grupos;
         $this->caminhoImagens = $setup->caminho_imagen_produto;
-        $this->tamanhosStr = $this->setupService->tamanhosToString(json_decode($this->tamanhos));
+        $this->tamanhosStr = $setupService->tamanhosToString(json_decode($this->tamanhos));
     }
 
     public function index(Request $request){
@@ -66,8 +45,6 @@ class ProdutoEcommerceController extends Controller
         $rangeMinimo  = $request->rangeMinimo;
         $rangeMaximo = $request->rangeMaximo;
         
-        
-
         if($request->query('regPorPage')){
             session()->forget('regPorPage');
             session()->put('regPorPage', $request->query('regPorPage'));
@@ -115,8 +92,9 @@ class ProdutoEcommerceController extends Controller
             ->appends(['rangeMaximo'=>$rangeMaximo])
             ->appends(['ordenacao'=>$request->query('ordenacao')]);
 
-        $pedidoNormal = $this->pedidoService->buscaPedidoCarrinho(2);
-        $pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
+        $pedidoService = new PedidoService();
+        $pedidoNormal = $pedidoService->buscaPedidoCarrinho(2);
+        $pedidoExpress = $pedidoService->buscaPedidoCarrinho(1);
         
         
         return view('ecommerce.produto.index',
@@ -141,15 +119,12 @@ class ProdutoEcommerceController extends Controller
 
     public function searchGrupo($id, Request $request){
         $produtos = new Produto();
- 
-
         if($request->query('regPorPage')){
             session()->forget('regPorPage');
             session()->put('regPorPage', $request->query('regPorPage'));
         }
 
         $registroPPagina = session()->get('regPorPage') ?? 20;
-
         $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1)->where('valor','>',0);
         if($id){
             $produtos = $produtos->where('grupo_produto_id','=',$id);
@@ -165,7 +140,6 @@ class ProdutoEcommerceController extends Controller
                 case 'preco_h_l':
                     $produtos = $produtos->orderBy('valor', 'desc');
                     break;
-
             }
         }else{
             $produtos = $produtos->orderBy('produto_terceiro_id', 'asc');
@@ -173,9 +147,9 @@ class ProdutoEcommerceController extends Controller
 
         $filtrosSelecionados = [$id];
 
-
-        $pedidoNormal = $this->pedidoService->buscaPedidoCarrinho(2);
-        $pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
+        $pedidoService = new PedidoService();
+        $pedidoNormal = $pedidoService->buscaPedidoCarrinho(2);
+        $pedidoExpress = $pedidoService->buscaPedidoCarrinho(1);
 
         $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1)->where('valor','>',0)->paginate($registroPPagina)
             ->appends(['regPorPage'=>$registroPPagina])
@@ -202,10 +176,12 @@ class ProdutoEcommerceController extends Controller
 
     public function detalhe($id)
     {
-        $produto = $this->produtoService->find($id);
+        $produtoService = new ProdutoService();
+        $pedidoService = new PedidoService();
+        $produto = $produtoService->find($id);
         
-        $pedidoNormal = $this->pedidoService->buscaPedidoCarrinho(2);
-        $pedidoExpress = $this->pedidoService->buscaPedidoCarrinho(1);
+        $pedidoNormal = $pedidoService->buscaPedidoCarrinho(2);
+        $pedidoExpress = $pedidoService->buscaPedidoCarrinho(1);
 
         return view('ecommerce.detalheProduto.index', 
             [
@@ -227,20 +203,20 @@ class ProdutoEcommerceController extends Controller
         $tipo_pedido = $request->tipo == 'express' ? 1: 2;
         $tamanho     = $request->tamanho ?? null;
         $quantidade  = $request->quantidade ?? 1;
-        
-        $add = $this->carrinhoService->addCarrinho($id_produto,$tipo_pedido,$tamanho, $quantidade);
+        $carrinhoService = new CarrinhoService();
+        $add = $carrinhoService->addCarrinho($id_produto,$tipo_pedido,$tamanho, $quantidade);
         if($add != false){
             return response()->json(['response' => 'successo', 'data'=> $add]);
         }else{
            return response()->json(['response' => 'erro']);
         }
-        
     }
 
     public function buscaProduto(Request $request)
     {
+        $produtoService = new ProdutoService();
         $idProduto = $request->id;
-        $produto = $this->produtoService->find($idProduto);
+        $produto = $produtoService->find($idProduto);
         return response()->json(
             [
                 'response' => 'successo',
@@ -260,9 +236,9 @@ class ProdutoEcommerceController extends Controller
         $operacao   = $request->operacao;
         $retorno = '';
         try {
-            
-            $buscaProduto = $this->produtoService->find($idProduto);
-            $update = $this->produtoService->update(
+            $produtoService = new ProdutoService();
+            $buscaProduto = $produtoService->find($idProduto);
+            $update = $produtoService->update(
             [
                 "quantidade_estoque" => $operacao == 'A' ? $buscaProduto->quantidade_estoque +$quantidade : $buscaProduto->quantidade_estoque - $quantidade
             ],

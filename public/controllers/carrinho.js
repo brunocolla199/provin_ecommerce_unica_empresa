@@ -73,7 +73,7 @@ function removeCarrinho(id, produto, qtdAtual, qtdRemovida)
 function calculaValorProduto(id,valor, qtd) {
     var valorTotal = valor * parseFloat(qtd);
     var valorTotalAux = valorTotal.toFixed(2).toString().replace('.', ',');
-    $('#total-'+id).html(valorTotalAux);
+    $('#total-'+id).html(formatarValor(parseFloat(valorTotalAux),false));
     calculaValorTotal();
     alteraCarinho(id).catch(function(error_msg){
         swal2_alert_error_support(error_msg);
@@ -90,17 +90,18 @@ function calculaValorTotal(){
         var id = value.id;
         var dataId = $('#'+id).attr('data-id');
         qtd += parseInt($('#qtd-'+dataId).val());
-        subTotal += parseFloat($('#'+id).text().replace(',', '.'));
+        subTotal += parseFloat($('#'+id).text().replace('.', '').replace(',', '.'));
     });
     valorAcrescimos = tipo == 1 ?(porcentagemAcrescimos/100)*subTotal: 0;
     
-    var subTotalAux = subTotal.toFixed(2).toString().replace('.', ',');
-    var acrescimos  = valorAcrescimos.toFixed(2).toString().replace('.', ',');
+    var subTotalAux = subTotal.toFixed(2).toString();
+    var acrescimos  = valorAcrescimos.toFixed(2).toString();
     
-    $('#adicional').html("R$ "+acrescimos);
-    $('#subTotal').html("R$ "+subTotalAux);
-    var totalGeral = (subTotal + valorAcrescimos).toFixed(2).toString().replace('.', ',');
-    $('#total').html("R$ "+totalGeral);
+    
+    $('#adicional').html(formatarValor(parseFloat(acrescimos), false));
+    $('#subTotal').html(formatarValor(parseFloat(subTotalAux), false ));
+    var totalGeral = (subTotal + valorAcrescimos).toFixed(2).toString();
+    $('#total').html(formatarValor(parseFloat(totalGeral),false));
 
     if(tipoPedido == 1){
         $('.pedidoExpress').text(qtd);

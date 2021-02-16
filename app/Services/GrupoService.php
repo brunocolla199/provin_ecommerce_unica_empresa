@@ -8,9 +8,9 @@ class GrupoService
 {
     public  $grupoRepository;
 
-    public function __construct(GrupoRepository $grupo)
+    public function __construct()
     {
-        $this->grupoRepository = $grupo;
+        $this->grupoRepository = new GrupoRepository();
     }
 
     public function find($id, array $with = [])

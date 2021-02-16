@@ -8,9 +8,9 @@ class EmpresaService
 {
     public  $empresaRepository;
 
-    public function __construct(EmpresaRepository $empresa)
+    public function __construct()
     {
-        $this->empresaRepository = $empresa;
+        $this->empresaRepository = new EmpresaRepository();
     }
 
     public function find($id, array $with = [])

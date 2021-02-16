@@ -15,42 +15,26 @@ use App\Services\UserService;
 
 class PedidoEcommerceController extends Controller
 {
-    protected $pedidoService;
 
-    protected $itemPedidoService;
-    protected $produtoService;
-    protected $obsPedidoService;
-    protected $statusPedidoService;
-    protected $setupService;
-    protected $userService;
-
-
-    public function __construct(UserService $userService, PedidoService $pedido, ItemPedidoService $itemPedido, ObsPedidoService $obsPedido, StatusPedidoService $statusPedido, SetupService $setup)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->pedidoService = $pedido;
-        $this->itemPedidoService = $itemPedido;
-        $this->obsPedidoService = $obsPedido;
-        $this->statusPedidoService = $statusPedido;
-        $this->setupService = $setup;
-        $this->userService = $userService;
-    
     }
 
     public function index(){
+        $userService = new UserService();
+        $pedidoService = new PedidoService();
 
-        $usuariosIn = $this->userService->buscaUsuariosMesmaEmpresa();
+        $usuariosIn = $userService->buscaUsuariosMesmaEmpresa();
         
-        $pedidos = $this->pedidoService->findBy(
+        $pedidos = $pedidoService->findBy(
             [
                 ['excluido','=',0],
                 ['status_pedido_id','!=',1,"AND"],
                 ['user_id','',$usuariosIn,"IN"]
             ],[],
             [
-                [
-                    'updated_at','desc'
-                ]
+                ['updated_at','desc']
             ]
         );
 
@@ -67,24 +51,22 @@ class PedidoEcommerceController extends Controller
      */
     public function detalhe($id)
     {
-        $pedido = $this->pedidoService->find($id);
-        $itens  = $this->itemPedidoService->findBy([
-            [
-            'pedido_id','=',$id
-            ]
+        $pedidoService = new PedidoService();
+        $itemPedidoService = new ItemPedidoService();
+        $obsPedidoService = new ObsPedidoService();
+        $setupService = new SetupService();
+
+        $pedido = $pedidoService->find($id);
+        $itens  = $itemPedidoService->findBy([
+            ['pedido_id','=',$id]
         ]);
 
-        $observacoes = $this->obsPedidoService->findBy([
-            [
-            'excluido','=',0
-            ],
+        $observacoes = $obsPedidoService->findBy([
+            ['excluido','=',0],
             ['pedido_id','=',$id,'AND']
         ]);
 
-        $setup = $this->setupService->find(1);
-
-
-
+        $setup = $setupService->find(1);
         return view('ecommerce.detalhePedido.index',
             [
                 'pedido' => $pedido,
@@ -128,7 +110,9 @@ class PedidoEcommerceController extends Controller
         
         try {
             DB::transaction(function () use ($idPedido,$obs) {
-            $this->obsPedidoService->create($idPedido,$obs,0);
+
+            $obsPedidoService = new ObsPedidoService();
+            $obsPedidoService->create($idPedido,$obs,0);
             });
             Helper::setNotify('Nova observação salva com sucesso!', 'success|check-circle');
             return redirect()->route('ecommerce.pedido.detalhe', ['id' => $idPedido ]);
@@ -138,6 +122,4 @@ class PedidoEcommerceController extends Controller
         }
         
     }
-
-    
 }

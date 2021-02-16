@@ -9,18 +9,15 @@ use Illuminate\Support\Facades\{Validator, DB};
 
 class GrupoProdutoController extends Controller
 {
-    protected $grupoProdutoService;
-    protected $produtoService;
-
-    public function __construct(GrupoProdutoService $grupoProduto)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->grupoProdutoService = $grupoProduto;
     }
 
     public function index()
     {
-        $grupos = $this->grupoProdutoService->findBy(
+        $grupoProdutoService = new GrupoProdutoService();
+        $grupos = $grupoProdutoService->findBy(
             [],
             [],
             [['nome','asc']]
@@ -40,7 +37,8 @@ class GrupoProdutoController extends Controller
         try {
             DB::transaction(function () use ($_request) {
                 $create = self::montaRequest($_request);
-                $this->grupoProdutoService->create($create);    
+                $grupoProdutoService = new GrupoProdutoService();
+                $grupoProdutoService->create($create);    
             });
             Helper::setNotify('Novo grupo de produto criado com sucesso!', 'success|check-circle');
             return redirect()->route('grupoProduto');
@@ -52,7 +50,8 @@ class GrupoProdutoController extends Controller
 
 
     public function edit($_id) {
-        $grupo  = $this->grupoProdutoService->find($_id);
+        $grupoProdutoService = new GrupoProdutoService();
+        $grupo  = $grupoProdutoService->find($_id);
         return view('admin.grupoProduto.update', compact( 'grupo'));
     }
 
@@ -65,10 +64,11 @@ class GrupoProdutoController extends Controller
         $id = $request->get('id');
         
         $update = self::montaRequest($request);
-      
+        unset($update['inativo']);
         try {
             DB::transaction(function () use ($update, $id) {
-                $this->grupoProdutoService->update(
+                $grupoProdutoService = new GrupoProdutoService();
+                $grupoProdutoService->update(
                     $update,
                     $id);
             });
@@ -82,14 +82,15 @@ class GrupoProdutoController extends Controller
 
     public function ativar_inativar(Request $_request)
     {
-        $buscaGrupoProduto = $this->grupoProdutoService->find($_request->id);
+        $grupoProdutoService = new GrupoProdutoService();
+        $buscaGrupoProduto = $grupoProdutoService->find($_request->id);
         try {
             
             $ativo_inativo      = $buscaGrupoProduto->inativo == 0 ? 1: 0;
             $nome_ativo_inativo = $buscaGrupoProduto->inativo == 0 ? 'inativado' : 'ativado';
             
-            DB::transaction(function () use ($_request, $ativo_inativo) {
-                $this->grupoProdutoService->update(['inativo' => $ativo_inativo], $_request->id);
+            DB::transaction(function () use ($grupoProdutoService, $_request, $ativo_inativo) {
+                $grupoProdutoService->update(['inativo' => $ativo_inativo], $_request->id);
             });
             Helper::setNotify('Grupo de produto '.$nome_ativo_inativo.' com sucesso!', 'success|check-circle');
             return response()->json(['response' => 'sucesso']);

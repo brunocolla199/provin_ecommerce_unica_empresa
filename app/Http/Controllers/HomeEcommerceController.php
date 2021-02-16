@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Services\SetupService;
 
 class HomeEcommerceController extends Controller
 {
@@ -18,11 +18,9 @@ class HomeEcommerceController extends Controller
 
     public function index()
     {
-
-
         return view('ecommerce.home.index',
             [
-                
+              
             ]
         );
     }

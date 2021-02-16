@@ -8,9 +8,9 @@ class StatusPedidoService
 {
     protected $statusPedidoRepository;
 
-    public function __construct(StatusPedidoRepository $statusPedido)
+    public function __construct()
     {
-        $this->statusPedidoRepository = $statusPedido;
+        $this->statusPedidoRepository = new StatusPedidoRepository();
     }
 
     public function find($id, array $with = [])

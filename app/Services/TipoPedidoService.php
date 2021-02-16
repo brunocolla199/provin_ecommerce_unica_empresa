@@ -8,9 +8,9 @@ class TipoPedidoService
 {
     protected $tipoPedidoRepository;
 
-    public function __construct(TipoPedidoRepository $tipoPedido)
+    public function __construct()
     {
-        $this->tipoPedidoRepository = $tipoPedido;
+        $this->tipoPedidoRepository = new TipoPedidoRepository;
     }
 
     public function find($id, array $with = [])

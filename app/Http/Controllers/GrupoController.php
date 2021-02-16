@@ -11,18 +11,16 @@ use App\Services\{GrupoService, UserService};
 
 class GrupoController extends Controller
 {
-    protected $grupoService;
-    protected $usuarioService;
 
-    public function __construct(GrupoService $grupo, UserService $user)
+
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->grupoService = $grupo;
-        $this->usuarioRepository = $user;
     }
     
     public function index() {
-        $grupos = $this->grupoService->findBy(
+        $grupoService = new GrupoService();
+        $grupos = $grupoService->findBy(
             [],
             [],
             [['nome','asc']]
@@ -44,7 +42,8 @@ class GrupoController extends Controller
                 return redirect()->back()->withInput();
             }
             DB::transaction(function () use ($_request) {
-                $grupo = $this->grupoService->create(
+                $grupoService = new GrupoService();
+                $grupo = $grupoService->create(
                     [
                     'nome'      => $_request->nome,
                     'descricao' => $_request->descricao,
@@ -62,7 +61,8 @@ class GrupoController extends Controller
 
 
     public function edit($_id) {
-        $grupo = $this->grupoService->find($_id);
+        $grupoService = new GrupoService();
+        $grupo = $grupoService->find($_id);
         return view('admin.grupo.update', compact('grupo'));
     }
 
@@ -74,7 +74,8 @@ class GrupoController extends Controller
         $id = $_request->idGrupo;
         try {
             DB::transaction(function () use ($_request, $id) {
-                $this->grupoService->update(
+                $grupoService = new GrupoService();
+                $grupoService->update(
                     [
                     'nome'      => $_request->nome,
                     'descricao' => $_request->descricao,
@@ -92,8 +93,10 @@ class GrupoController extends Controller
 
     public function ativar_inativar(Request $_request)
     {
-        $buscaGrupo = $this->grupoService->find($_request->id);
-        $usuarios = $this->usuarioRepository->findBy(
+        $grupoService = new GrupoService();
+        $usuarioService = new UserService();
+        $buscaGrupo = $grupoService->find($_request->id);
+        $usuarios = $usuarioService->findBy(
             [['grupo_id','=',$_request->id]],
             [],
             [],
@@ -107,8 +110,8 @@ class GrupoController extends Controller
             if(!empty($usuarios[0]) && $buscaGrupo->inativo == 0){
                 throw new Exception("Existem usuários vinculados a esse grupo", 1); 
             }
-            DB::transaction(function () use ($_request, $ativo_inativo) {
-                $this->grupoService->update(['inativo' => $ativo_inativo], $_request->id);
+            DB::transaction(function () use ($grupoService, $_request, $ativo_inativo) {
+                $grupoService->update(['inativo' => $ativo_inativo], $_request->id);
             });
             Helper::setNotify('Grupo '.$nome_ativo_inativo.' com sucesso!', 'success|check-circle');
             return response()->json(['response' => 'sucesso']);

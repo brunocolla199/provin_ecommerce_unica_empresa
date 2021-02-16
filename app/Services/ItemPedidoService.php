@@ -9,13 +9,10 @@ class ItemPedidoService
 {
 
     public $itemPedidoRepository;
-    public $produtoService;
 
-    public function __construct(ItemPedidoRepository $itemPedido, ProdutoService $produtoService)
+    public function __construct()
     {
-        
-        $this->produtoService = $produtoService;
-        $this->itemPedidoRepository = $itemPedido;
+        $this->itemPedidoRepository = new ItemPedidoRepository();
     }
 
     public function find($id, array $with = [])
@@ -74,7 +71,8 @@ class ItemPedidoService
 
     public function recalcular($id, $id_Produto,$quantidade)
     {
-        $buscaProduto = $this->produtoService->find($id_Produto);
+        $produtoService = new ProdutoService();
+        $buscaProduto = $produtoService->find($id_Produto);
         $valor_unitario = $buscaProduto->valor;
         $total = $quantidade * $buscaProduto->valor;
 

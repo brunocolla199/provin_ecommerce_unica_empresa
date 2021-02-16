@@ -282,3 +282,13 @@ function createFiltersComponentsGED($_indices, $_component, $_infoInputs, $_size
 
     $($_component).append(components);
 }
+
+
+function formatarValor(valor, comRS)
+{
+    if(comRS == true){
+        return valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+    } else {
+        return valor.toLocaleString('pt-br', {minimumFractionDigits: 2});
+    }
+}

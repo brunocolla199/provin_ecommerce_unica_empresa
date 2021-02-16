@@ -8,9 +8,9 @@ class EstoqueService
 {
     public  $estoqueRepository;
 
-    public function __construct(EstoqueRepository $estoque)
+    public function __construct()
     {
-        $this->estoqueRepository = $estoque;
+        $this->estoqueRepository = new EstoqueRepository();
     }
 
     public function find($id, array $with = [])

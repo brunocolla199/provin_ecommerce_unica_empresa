@@ -8,31 +8,18 @@ use Illuminate\Http\Request;
 
 class CarrinhoEcommerceController extends Controller
 {
-    protected $pedidoService;
-    protected $itemPedidoService;
-    protected $setupService;
-    protected $produtoService;
-    protected $carrinhoService;
-
     public $grupos;
 
-    public function __construct(PedidoService $pedido, ItemPedidoService $item, SetupService $setup, ProdutoService $produto, CarrinhoService $carrinho)
+    public function __construct()
     {
-        $this->middleware('auth');
-        $this->pedidoService = $pedido;
-        $this->itemPedidoService = $item;
-        $this->setupService = $setup;
-        $this->produtoService = $produto;
-        $this->carrinhoService = $carrinho;
-
-        
+        $this->middleware('auth');        
     }
 
     public function index($id)
     {
 
-
-        $itens = $this->itemPedidoService->findBy(
+        $itemPedidoService = new ItemPedidoService();
+        $itens = $itemPedidoService->findBy(
             [
                 [
                     'pedido_id','=',$id
@@ -40,7 +27,8 @@ class CarrinhoEcommerceController extends Controller
             ]
         );
 
-        $buscaSetup = $this->setupService->find(1);
+        $setupService = new SetupService();
+        $buscaSetup = $setupService->find(1);
         $tamanhos   = $buscaSetup['tamanhos'];
         $tamanho_padrao = $buscaSetup['tamanho_padrao'];
         $grupos_necessita_tamanho = $buscaSetup['grupos'];
@@ -71,10 +59,12 @@ class CarrinhoEcommerceController extends Controller
         $qtd = $request->quantidade;
         $tamanho = $request->tamanho; 
 
-        $buscaItem = $this->itemPedidoService->find($id);
+        $itemPedidoService = new ItemPedidoService();
+        $produtoService = new ProdutoService();
+        $buscaItem = $itemPedidoService->find($id);
 
         if($qtd >= $buscaItem->quantidade){
-            $verificaEstoque = $this->produtoService->verificaEstoque($buscaItem->produto->id,$qtd - $buscaItem->quantidade);
+            $verificaEstoque = $produtoService->verificaEstoque($buscaItem->produto->id,$qtd - $buscaItem->quantidade);
             if(!$verificaEstoque){
                 return response()->json([
                     'response' => 'erro',
@@ -84,9 +74,10 @@ class CarrinhoEcommerceController extends Controller
         }
         
         try {
-            DB::transaction(function () use ($buscaItem,$id,$qtd,$tamanho) {
-                $this->itemPedidoService->update($id,$buscaItem['pedido_id'],$buscaItem['produto_id'],$qtd,$buscaItem['valor_unitario'],$buscaItem['valor_total'],$tamanho);
-                $this->pedidoService->recalcular($buscaItem->pedido->id);
+            DB::transaction(function () use ($itemPedidoService, $buscaItem,$id,$qtd,$tamanho) {
+                $itemPedidoService->update($id,$buscaItem['pedido_id'],$buscaItem['produto_id'],$qtd,$buscaItem['valor_unitario'],$buscaItem['valor_total'],$tamanho);
+                $pedidoService = new PedidoService(); 
+                $pedidoService->recalcular($buscaItem->pedido->id);
             });    
             return response()->json(['response' => 'sucesso']);
         } catch (\Throwable $th) {
@@ -100,8 +91,8 @@ class CarrinhoEcommerceController extends Controller
 
     public function remove(Request $request){
         $id = $request->id;
-    
-        if($this->carrinhoService->removerCarrinho($id))
+        $carrinhoService = new CarrinhoService();
+        if($carrinhoService->removerCarrinho($id))
         {
             return response()->json(['response' => 'sucesso']);
         }else{
@@ -111,7 +102,9 @@ class CarrinhoEcommerceController extends Controller
 
     public function buscaItem(Request $request){
         $id = $request->id;
-        $item = $this->itemPedidoService->find($id);
+
+        $itemPedidoService = new ItemPedidoService();
+        $item = $itemPedidoService->find($id);
         return response()->json(
             [
                 'response' => 'successo',
@@ -124,15 +117,18 @@ class CarrinhoEcommerceController extends Controller
 
     public function detalheItem($id_pedido, $id_item)
     {
-        $item = $this->itemPedidoService->find($id_item);
-        $setup= $this->setupService->find(1);
+        $itemPedidoService = new ItemPedidoService();
+        $setupService = new SetupService();
+
+        $item = $itemPedidoService->find($id_item);
+        $setup= $setupService->find(1);
 
        
         return view('ecommerce.detalheProdutoCarrinho.index', 
             [
                 'item' => $item,
                 'tamanhos' => json_decode($setup->tamanhos),
-                'tamanhosStr' => $this->setupService->tamanhosToString(json_decode($setup->tamanhos)),
+                'tamanhosStr' => $setupService->tamanhosToString(json_decode($setup->tamanhos)),
                 'tamanhoDefault' => $setup->tamanho_padrao,
                 'grupos_necessita_tamanho' => $setup->grupos,
                 'caminho_imagem' => $setup->caminho_imagen_produto

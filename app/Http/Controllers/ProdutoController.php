@@ -11,29 +11,24 @@ use App\Services\{ProdutoService, GrupoProdutoService};
 class ProdutoController extends Controller
 {
 
-    protected $produtoService;
-    protected $grupoProdutoService;
-
-    public function __construct(ProdutoService $produto, GrupoProdutoService $grupoProduto)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->produtoService = $produto;
-        $this->grupoProdutoService = $grupoProduto;
     }
 
-    public function index(){
-
-        $produtos = $this->produtoService->findAll();
+    public function index()
+    {
+        $produtoService = new ProdutoService();
+        $produtos = $produtoService->findAll();
         return view('admin.produto.index', compact('produtos'));
 
     }
 
     public function create()
     {
-        $grupos  = $this->grupoProdutoService->findBy([
-            [
-            'inativo','=',0
-            ]
+        $grupoProdutoService = new GrupoProdutoService();
+        $grupos  = $grupoProdutoService->findBy([
+            ['inativo','=',0]
         ]);
         return view('admin.produto.create', compact('grupos'));
     }
@@ -53,7 +48,8 @@ class ProdutoController extends Controller
 
             DB::transaction(function () use ($_request) {
                 $create = self::montaRequest($_request);
-                $this->produtoService->create($create);    
+                $produtoService = new ProdutoService();
+                $produtoService->create($create);    
             });
 
             Helper::setNotify('Novo produto criado com sucesso!', 'success|check-circle');
@@ -72,11 +68,11 @@ class ProdutoController extends Controller
      */
     public function edit($id)
     {
-        $produto = $this->produtoService->find($id);
-        $grupos  = $this->grupoProdutoService->findBy([
-            [
-            'inativo','=',0
-            ]
+        $produtoService = new ProdutoService();
+        $grupoProdutoService = new GrupoProdutoService();
+        $produto = $produtoService->find($id);
+        $grupos  = $grupoProdutoService->findBy([
+            ['inativo','=',0]
         ]);
 
         return view('admin.produto.update', compact('produto','grupos'));
@@ -95,12 +91,12 @@ class ProdutoController extends Controller
             return redirect()->back()->withInput();
         }
         $update = self::montaRequest($_request);
+        unset($update['inativo']);
         $id = $_request->get('idProduto');
         try {
             DB::transaction(function () use ($update, $id) {
-                $this->produtoService->update(
-                    $update,
-                    $id);
+                $produtoService = new ProdutoService();
+                $produtoService->update($update,$id);
             });
             Helper::setNotify('Produto atualizado com sucesso!', 'success|check-circle');
             return redirect()->route('produto');
@@ -118,13 +114,14 @@ class ProdutoController extends Controller
      */
     public function ativar_inativar(Request $_request)
     {
-        $buscaProduto = $this->produtoService->find($_request->id);
+        $produtoService = new ProdutoService();
+        $buscaProduto = $produtoService->find($_request->id);
         try {
             $ativo_inativo      = $buscaProduto->inativo == 0 ? 1: 0;
             $nome_ativo_inativo = $buscaProduto->inativo == 0 ? 'inativado' : 'ativado';
 
-            DB::transaction(function () use ($_request) {
-                $this->produtoService->update(['inativo' => 1], $_request->id);
+            DB::transaction(function () use ($produtoService, $_request) {
+                $produtoService->update(['inativo' => 1], $_request->id);
             });
             Helper::setNotify('Produto '.$nome_ativo_inativo.' com sucesso!', 'success|check-circle');
             return response()->json(['response' => 'sucesso']);

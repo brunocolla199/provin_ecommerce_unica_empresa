@@ -9,9 +9,9 @@ class CidadeService
 {
     public  $cidadeRepository;
 
-    public function __construct(CidadeRepository $cidade)
+    public function __construct()
     {
-        $this->cidadeRepository = $cidade;
+        $this->cidadeRepository = new CidadeRepository();
     }
 
     public function find($id, array $with = [])

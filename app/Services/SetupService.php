@@ -8,9 +8,9 @@ class SetupService
 {
     protected $setupRepository;
 
-    public function __construct(SetupRepository $setup)
+    public function __construct()
     {
-        $this->setupRepository = $setup;
+        $this->setupRepository = new SetupRepository();
     }
 
     public function find($id, array $with = [])
