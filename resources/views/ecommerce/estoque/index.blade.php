@@ -9,13 +9,7 @@
 @section('content')
 <div class="row mb-8">
     <div class="d-none d-xl-block col-xl-3 col-wd-2gdot5">
-        <div class="mb-2" id='provin-maia'>
-            <img src="{{asset('img/banners/p2.png')}}"></img>
-        </div>
-
-        <div class="mb-2" id='provin-banner'>
-            <img src="{{asset('img/banners/p3.png')}}"></img>
-        </div>
+        @component('ecommerce.banner.index')@endcomponent
     </div>
     <div class="col-xl-9 col-wd-9gdot5" >
         @component('ecommerce.menu.menu-home') @endcomponent 
