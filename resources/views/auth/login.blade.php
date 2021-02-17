@@ -13,8 +13,34 @@
      <!-- CSS Electro Template -->
      <link rel="stylesheet" href="{{ asset('ecommerce/assets/css/theme.css') }}">
  </head>
- <body class="imgLogin">
-    <div class="container">
+ 
+ <body >
+        <style>
+                
+                .bg_video{
+                    position: fixed; 
+                    
+                    min-width: 100%; 
+                    min-height: 100%;
+                    
+                    height: auto; 
+                    z-index: -1000;
+                    margin-top: -70px;
+                    margin-left: 15px;
+                    background-size: cover; 
+                }
+                
+                </style>
+    @if (file_exists(public_path().'/img/video-home/video_1.mp4'))
+        <div class="row mb-1 ">
+            <video  preload="auto" autoplay="true" loop class="col-xl pr-xl-2 mb-1 mb-xl-0 bg_video" style="border-radius:18px;" >
+                    
+                <source src="{{asset('img/video-home/video_1.mp4')}}" type="video/mp4">
+                Seu navegador não suporta HTML5.
+            </video>
+        </div>
+    @endif
+    <div class="container" style="opacity: 0.7">
         <div class="row justify-content-center mb-3" style="margin-top:5%">
             <!-- Logo -->
         <a class="order-1 order-xl-0 navbar-brand  u-header__navbar-brand-center" href="{{route('login')}}" aria-label="Electro">
