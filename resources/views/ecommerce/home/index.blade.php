@@ -12,7 +12,7 @@
         <img class="img-responsive" src="{{asset('ecommerce/assets/img/loading/load.gif')}}" />
     </div> 
     <div id="conteudo" style="display: none">
-        <div class="col-xl-12 col-wd-9gdot5" >
+        <div class="col-xl-12 col-wd-12gdot5" >
             @component('ecommerce.menu.menu-home') @endcomponent
         </div>
             

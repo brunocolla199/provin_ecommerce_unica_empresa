@@ -12,7 +12,7 @@
         <!--<div class="d-none d-xl-block col-xl-3 col-wd-2gdot5">
             @component('ecommerce.banner.index')@endcomponent
         </div>-->
-        <div class="col-xl-12 col-wd-9gdot5" >
+        <div class="col-xl-12 col-wd-12gdot5" >
                 @component('ecommerce.menu.menu-home') @endcomponent
             <div class="card">
                 <div class="card-body" style="margin-bottom: 20px">
