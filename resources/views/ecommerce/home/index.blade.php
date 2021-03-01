@@ -12,8 +12,8 @@
         <img class="img-responsive" src="{{asset('ecommerce/assets/img/loading/load.gif')}}" />
     </div> 
     <div id="conteudo" style="display: none">
-        <div class="col-xl-12 col-wd-12gdot5" style="margin-bottom: -2%;margin-top: -5%">
-        @component('ecommerce.menu.menu-home') @endcomponent
+        <div class="col-xl-12 col-wd-9gdot5" >
+            @component('ecommerce.menu.menu-home') @endcomponent
         </div>
             
         <div <!--class="card"-- >
