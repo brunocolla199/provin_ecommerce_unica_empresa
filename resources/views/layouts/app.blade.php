@@ -708,7 +708,7 @@
             <!-- ========== END HEADER ========== -->
 
             <!-- ========== MAIN CONTENT ========== -->
-            <main id="content" role="main" style="margin-bottom: 13%;height: 100%">
+            <main id="content" role="main" style="margin-bottom: 13%;height: 100%;">
                 <!-- breadcrumb -->
                 <div class="bg-gray-13 bg-md-transparent">
                         <div class="container">
@@ -733,7 +733,7 @@
 
 
             <!-- ========== FOOTER ========== -->
-            <footer >
+            <footer id="footer">
                 <!-- Footer-copy-right -->
                 <div class="bg-gray-14 py-2">
                     <div class="container">
@@ -847,6 +847,9 @@
             <link rel="stylesheet" href="{{ asset('ecommerce/assets/vendor/slick-carousel/slick/slick.css') }}">
 
             <script type="text/javascript">
+                var h = $(window).height();
+                $('#content').css('min-height',h);
+
                 $(document).on('ready', function() {
                     $(".regular").slick({
                         infinite: false,
