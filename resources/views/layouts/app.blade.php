@@ -848,7 +848,7 @@
 
             <script type="text/javascript">
                 var h = $(window).height();
-                $('#content').css('min-height',h);
+                $('#content').css('min-height',h-130);
 
                 $(document).on('ready', function() {
                     $(".regular").slick({
