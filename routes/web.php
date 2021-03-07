@@ -18,7 +18,7 @@ Route::get('home','HomeController@checkLogin')->name('home');
 
 Route::get('login',  'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
-Route::post('register', 'UsuarioController@store')->name('register');
+Route::post('register', 'UsuarioController@storeAndLogin')->name('register');
 Route::post('logout','Auth\LoginController@logout')->name('logout');
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');

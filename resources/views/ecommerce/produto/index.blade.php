@@ -48,7 +48,7 @@
                     <ul class="nav nav-tab-shop" id="pills-tab" role="tablist">
                         <li class="nav-item">
                             <a href="{{route('ecommerce.produto')}}" >
-                                <b>{{__('sidebar_and_header.ecommerce.clear')}}</b>
+                                <b style="color: black">{{__('sidebar_and_header.ecommerce.clear')}}</b>
                             </a>
                         </li>
                         <!--<li class="nav-item">

@@ -122,8 +122,8 @@
                         @endif
                     </div>
                     <div class="js-form-message form-group mb-5">
-                        <label class="form-label" for="RegisterSrCPFExample3">CPF
-                            <span class="text-danger">*</span>
+                        <label class="form-label" for="RegisterSrCPFExample3">CPF 
+                            <span class="text-danger">*</span> <i style="font: italic;font-weight: normal">(Digite somente números)</i>
                         </label>
                         <input type="text" id="cpf" class="form-control cpf" value="{{ old('cpf') }}" name="cpf" id="RegisterSrCPFExample3" placeholder="Digite o CPF" aria-label="Digite o CPF" required
                         data-msg="Por favor, insira um CPF válido."

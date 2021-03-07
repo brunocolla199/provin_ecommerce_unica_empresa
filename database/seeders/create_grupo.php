@@ -25,5 +25,10 @@ class create_grupo extends Seeder
             'nome'      => 'Franquias',
             'descricao' => 'Grupo de Franquias'
         ]);
+
+        $grupoRepository->create([
+            'nome'      => 'Clientes',
+            'descricao' => 'Grupo de Clientes'
+        ]);
     }
 }

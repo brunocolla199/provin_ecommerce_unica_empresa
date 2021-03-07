@@ -501,7 +501,7 @@
                                             <li class="col"><a href="../shop/wishlist.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorites"><i class="font-size-22 ec ec-favorites"></i></a></li>
                                             -->
                                             <li class="col pr-0 mr-3">
-                                                <a href="@if (!empty($pedidoNormal[0])){{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }} @else #  @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="Carrinho">
+                                                <a href="@if (!empty($pedidoNormal[0])){{route('ecommerce.carrinho.detalhe', ['id' => $pedidoNormal[0]->id]) }} @else #  @endif" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="Sacola">
                                                     <img class="provin-icons" src="{{asset('img/icones/Sacola.png')}}"></img>
                                                     @if (!empty($pedidoNormal[0]))
                                                         <span style="left:18px;top:18px;" class="width-22 height-22 bg-dark position-absolute flex-content-center text-white rounded-circle left-12 top-8 font-weight-bold font-size-12 pedidoNormal">{{$pedidoNormal[0]->numero_itens ?? ''}}</span>

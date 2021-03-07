@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Classes\Helper;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Validator, DB, Hash};
+use Illuminate\Support\Facades\{Validator, DB, Hash, Auth};
 use App\Services\{UserService, PerfilService, GrupoService, EmpresaService};
 
 class UsuarioController extends Controller
@@ -197,8 +197,8 @@ class UsuarioController extends Controller
             'utilizar_permissoes_nivel_usuario' => false,
             'password'                          => $senha_igual == true ? $buscaSenha->password : Hash::make($request->password),
             'administrador'                     => false,
-            'perfil_id'                         => $request->perfil ?? null,
-            'grupo_id'                          => $request->grupo ?? null,
+            'perfil_id'                         => $request->perfil ?? 4,
+            'grupo_id'                          => $request->grupo ?? 4,
             'empresa_id'                        => $request->empresa ?? null,
             'cpf_cnpj'                          => $request->cpf ?? null,
             'telefone'                          => $request->fone ?? null
@@ -212,6 +212,31 @@ class UsuarioController extends Controller
         }
 
         return $createUser;
+    }
+
+    public function storeAndLogin(Request $_request) 
+    {
+
+        if (!$this->validator($_request)) {
+            return redirect()->back()->withInput();
+        }
+        try {
+            DB::transaction(function () use ($_request) {
+                $userService = new UserService();
+                $create = self::montaRequest($_request);
+                //event(new Registered($create));
+                //$this->registered($_request, $create);
+                $user = $userService->create($create);   
+                Auth::login($user); 
+            });
+            return redirect()->route('ecommerce.produto');
+            Helper::setNotify('Novo usuário criado com sucesso!', 'success|check-circle');
+           
+        } catch (\Throwable $th) {
+            dd($th);
+            Helper::setNotify("Erro ao criar o usuário", 'danger|close-circle');
+            return redirect()->back()->withInput();
+        }
     }
 
 }

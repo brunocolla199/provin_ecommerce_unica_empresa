@@ -43,6 +43,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <!--
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                                     <label class="control-label">Nome de Usuário</label>
@@ -57,6 +58,7 @@
                                     @endif
                                 </div>
                             </div>
+                        -->
                         </div>
                         
                         <div class="row">
@@ -74,6 +76,20 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('cpf') ? ' has-error' : '' }}">
+                                    <label class="control-label">CPF (Digite somente os números)</label>
+                                    <input type="text" id="cpf" name="cpf" value="{{ old('cpf') }}" class="form-control cpf" required>
+                                    <small class="form-control-feedback"> Digite o cpf. </small> 
+
+                                    @if ($errors->has('email'))
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <!--
+                            <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('foto') ? ' has-error' : '' }}">
                                     <label class="control-label">Foto</label>
                                     <input type="file" id="foto" name="foto" class="form-control" >
@@ -86,7 +102,22 @@
                                     @endif
                                 </div>
                             </div>
-                            
+                        -->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                    <div class="form-group{{ $errors->has('fone') ? ' has-error' : '' }}">
+                                        <label class="control-label">Telefone</label>
+                                        <input type="text" id="fone" name="fone" value="{{ old('fone') }}" class="form-control phone_with_ddd" required>
+                                        <small class="form-control-feedback"> Digite o telefone. </small> 
+    
+                                        @if ($errors->has('fone'))
+                                            <span class="help-block text-danger">
+                                                <strong>{{ $errors->first('fone') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
                         </div>
                         <div class="row">
 
@@ -111,6 +142,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('perfil') ? ' has-error' : '' }}">
@@ -151,6 +183,7 @@
                                 </div>
                             </div>
                         </div>
+                    <!--
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('empresa') ? ' has-error' : '' }}">
@@ -172,6 +205,7 @@
                                 </div>
                             </div>
                         </div>
+                    -->
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> @lang('buttons.general.save')</button>
@@ -183,4 +217,23 @@
         </div>
     </div>
     
+@endsection
+@section('footer')
+<script src="{{ asset('controllers/helper.js') }}"></script>
+<script>
+    $(document).ready(function() {
+
+        $('#cpf').on('blur',function(){
+            console.log('afd');
+            var cpf = $(this).val();
+            if(cpf != ''){
+                if(!validaCPF(cpf)){
+                    $('#cpf').val('');
+                    swal2_alert_error_not_reload("CPF Inválido. Verifique !");                
+                }
+            }
+        });
+        
+    })
+</script>
 @endsection

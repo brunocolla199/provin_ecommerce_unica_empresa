@@ -110,7 +110,7 @@
                                     <tr>
                                         <td>{{ $pedido->id }}</td>
                                         <td style="display: flex;justify-content: center;flex-direction: column;align-items: center"><i class="{{$pedido->statusPedido->nome_icone}}"></i>{{$pedido->statusPedido->nome}}</td>
-                                        <td>{{ $pedido->usuario->empresa->nome_fantasia ?? '' }}</td>
+                                        <td>{{ $pedido->usuario->name ?? '' }}</td>
                                         <td>{{ $pedido->tipoPedido->nome }}</td>
                                         <td>{{date('d/m/Y', strtotime($pedido->created_at)) }}</td>
                                         <td>@if (!empty($pedido->previsao_entrega))

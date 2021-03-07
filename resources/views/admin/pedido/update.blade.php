@@ -90,27 +90,27 @@
                     <hr class="m-t-0 m-b-10">
                     <div class="row col-md-12">
                             <div class="col-md-6">
-                                <div class="form-group{{ $errors->has('nomeFantasia') ? ' has-error' : '' }}">
-                                    <label class="control-label">Nome Fantasia</label>
-                                    <input type="text" readonly   id="nomeFantasia" name="nomeFantasia" value="{{ $pedido->usuario->empresa->nome_fantasia}}" class="form-control"  >
+                                <div class="form-group{{ $errors->has('nome') ? ' has-error' : '' }}">
+                                    <label class="control-label">Nome</label>
+                                    <input type="text" readonly   id="nome" name="nome" value="{{ $pedido->usuario->name}}" class="form-control"  >
                                     
-                                    @if ($errors->has('nomeFantasia'))
+                                    @if ($errors->has('nome'))
                                         <br/>    
                                         <span class="help-block text-danger">
-                                            <strong>{{ $errors->first('nomeFantasia') }}</strong>
+                                            <strong>{{ $errors->first('nome') }}</strong>
                                         </span>
                                     @endif
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('cpfCnpj') ? ' has-error' : '' }}">
-                                    <label class="control-label"> @if ($pedido->usuario->empresa->tipo_pessoa == 'F')
+                                    <label class="control-label"> @if ($pedido->usuario->tipo_pessoa == 'F')
                                         CPF
                                     @else
                                         CNPJ
                                     @endif    
                                     </label>
-                                    <input type="text" readonly   id="cpfCnpj" name="cpfCnpj" value="{{ $pedido->usuario->empresa->cpf_cnpj}}" class="form-control"  >
+                                    <input type="text" readonly   id="cpfCnpj" name="cpfCnpj" value="{{ $pedido->usuario->cpf_cnpj}}" class="form-control"  >
                                    
                                     @if ($errors->has('cpfCnpj'))
                                         <br/>    
@@ -125,7 +125,7 @@
                         <div class="col-md-6">
                             <div class="form-group{{ $errors->has('cidade') ? ' has-error' : '' }}">
                                 <label class="control-label">Cidade</label>
-                                <input type="text" readonly   id="cidade" name="cidade" value="{{ $pedido->usuario->empresa->cidade->nome .' - '. $pedido->usuario->empresa->cidade->sigla_estado}}" class="form-control"  >
+                                <input type="text" readonly   id="cidade" name="cidade" value="" class="form-control"  >
                                 
                                 @if ($errors->has('cidade'))
                                     <br/>    
@@ -138,7 +138,7 @@
                         <div class="col-md-6">
                             <div class="form-group{{ $errors->has('fone') ? ' has-error' : '' }}">
                                 <label class="control-label">Telefone</label>
-                                <input type="text" readonly   id="fone" name="fone" value="{{ $pedido->usuario->empresa->telefone}}" class="form-control"  >
+                                <input type="text" readonly   id="fone" name="fone" value="{{ $pedido->usuario->telefone}}" class="form-control"  >
                                 
                                 @if ($errors->has('fone'))
                                     <br/>    
