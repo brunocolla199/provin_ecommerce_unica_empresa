@@ -342,6 +342,7 @@
                             
                         </form>
                     </div>
+                    <!--
                     <div class="col-md-6">
                         <form method="POST" id="atualizacaoEstoqueFranquia" name="atualizacaoEstoqueFranquia" >
                             {{ csrf_field() }}
@@ -358,6 +359,7 @@
                             
                         </form>
                     </div>
+                -->
                 </div>
 
             </div>

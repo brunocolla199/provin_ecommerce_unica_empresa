@@ -22,19 +22,22 @@ class HomeController extends Controller
     public function checkLogin()
     {
     
+        //return redirect()->route('ecommerce.produto');
+        
         if(!Auth::check()){
             //Se não estiver logado direciona para o Login
-            return redirect()->route('login');
+            return redirect()->guest('ecommerce/produto');
         }
         
-        if(Auth::user()->perfil->area_admin == 1){
+        if(!empty(Auth::user()->perfil) && Auth::user()->perfil->area_admin == 1){
             
             //Se for adm
             return redirect()->guest('admin/home');
         }else{
             //Se não for adm
-           return redirect()->guest('ecommerce/home');
+           return redirect()->guest('ecommerce/produto');
 
         } 
+        
     }
 }

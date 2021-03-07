@@ -230,9 +230,11 @@
                         <div class="mb-2 pb-0dot5">
                         <button type="button" style="background-color:black;color:white"  class="btn btn-block add-cart" data-tipo="normal" data-id="{{$produto->id}}" ><i class="ec ec-add-to-cart mr-2 font-size-20"></i>Sacola <b id="totalItemCarrinhoNormal">{{$produtoPedidoNormal[0]->total}}</b></button>
                         </div>
+                        <!--
                         <div class="mb-2 pb-0dot5">
                         <button type="button" class="btn btn-block  add-cart" style="border-color: black" data-tipo="express" data-id="{{$produto->id}}"><i class="ec ec-add-to-cart mr-2 font-size-20"></i>Sacola Expressa <b id="totalItemCarrinhoExpresso">{{$produtoPedidoExpresso[0]->total}}</b></button>
                         </div>
+                    -->
                         
                         <div class="mb-3">
                             <a href="{{route('ecommerce.produto')}}" class="btn btn-block btn-dark">{{__('buttons.general.back')}}</a>

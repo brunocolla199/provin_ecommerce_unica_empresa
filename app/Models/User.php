@@ -29,7 +29,9 @@ class User extends Authenticatable
         'perfil_id',
         'grupo_id',
         'inativo',
-        'empresa_id'
+        'empresa_id',
+        'cpf_cnpj',
+        'telefone'
     ];
 
     /**

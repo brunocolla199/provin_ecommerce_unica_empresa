@@ -139,9 +139,11 @@
 <script type="text/javascript" >
 
   //verificacao pedido  liberado
+  /*
   var deadline = new Date(document.getElementById("proximaLiberacao").value).getTime(); 
   var now = new Date().getTime(); 
   var t = deadline - now;
+  */
 
   if(t < 0 && $('#pedidoNormal').val() != ''){
     let pedidoLiberado = swal2_alert_question("Pedido Liberado","Deseja acessa-lo ?","Sim!");

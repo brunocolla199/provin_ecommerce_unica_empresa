@@ -111,7 +111,7 @@ class PedidoService
     public function buscaPedidoCarrinho($tipo_pedido)
     {
         $userService = new UserService();
-        $usuariosIn = $userService->buscaUsuariosMesmaEmpresa();
+        $usuariosIn = [Auth::user()->id];
     
         return $this->pedidoRepository->findBy(
             [

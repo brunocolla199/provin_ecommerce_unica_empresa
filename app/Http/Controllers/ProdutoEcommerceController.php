@@ -24,7 +24,7 @@ class ProdutoEcommerceController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
 
         $grupoProdutoService = new GrupoProdutoService();
         $setupService = new SetupService();
@@ -41,6 +41,7 @@ class ProdutoEcommerceController extends Controller
     }
 
     public function index(Request $request){
+        
         $produtos = new Produto();
         $rangeMinimo  = $request->rangeMinimo;
         $rangeMaximo = $request->rangeMaximo;
@@ -93,10 +94,11 @@ class ProdutoEcommerceController extends Controller
             ->appends(['ordenacao'=>$request->query('ordenacao')]);
 
         $pedidoService = new PedidoService();
-        $pedidoNormal = $pedidoService->buscaPedidoCarrinho(2);
-        $pedidoExpress = $pedidoService->buscaPedidoCarrinho(1);
+        $pedidoNormal = Auth::check() ? $pedidoService->buscaPedidoCarrinho(2) : [];
+        $pedidoExpress = Auth::check() ? $pedidoService->buscaPedidoCarrinho(1) : [];
+
         
-        
+            
         return view('ecommerce.produto.index',
             [
                 'filtrosSelecionados' => $filtrosSelecionados,
@@ -148,8 +150,8 @@ class ProdutoEcommerceController extends Controller
         $filtrosSelecionados = [$id];
 
         $pedidoService = new PedidoService();
-        $pedidoNormal = $pedidoService->buscaPedidoCarrinho(2);
-        $pedidoExpress = $pedidoService->buscaPedidoCarrinho(1);
+        $pedidoNormal = Auth::check() ? $pedidoService->buscaPedidoCarrinho(2) : [];
+        $pedidoExpress = Auth::check() ? $pedidoService->buscaPedidoCarrinho(1) : [];
 
         $produtos = $produtos->where('inativo','=',0)->where('quantidade_estoque','>=',1)->where('valor','>',0)->paginate($registroPPagina)
             ->appends(['regPorPage'=>$registroPPagina])
@@ -180,8 +182,8 @@ class ProdutoEcommerceController extends Controller
         $pedidoService = new PedidoService();
         $produto = $produtoService->find($id);
         
-        $pedidoNormal = $pedidoService->buscaPedidoCarrinho(2);
-        $pedidoExpress = $pedidoService->buscaPedidoCarrinho(1);
+        $pedidoNormal = Auth::check() ? $pedidoService->buscaPedidoCarrinho(2) : [];
+        $pedidoExpress = Auth::check() ? $pedidoService->buscaPedidoCarrinho(1) : [];
 
         return view('ecommerce.detalheProduto.index', 
             [

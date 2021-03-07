@@ -12,7 +12,7 @@ class UsuarioController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
 
@@ -50,6 +50,7 @@ class UsuarioController extends Controller
 
     public function store(Request $_request) 
     {
+
         if (!$this->validator($_request)) {
             return redirect()->back()->withInput();
         }
@@ -62,7 +63,7 @@ class UsuarioController extends Controller
                 $userService->create($create);    
             });
             Helper::setNotify('Novo usuário criado com sucesso!', 'success|check-circle');
-            return redirect()->route('usuario');
+            return redirect()->route('ecommerce.produto');
         } catch (\Throwable $th) {
             dd($th);
             Helper::setNotify("Erro ao criar o usuário", 'danger|close-circle');
@@ -148,13 +149,12 @@ class UsuarioController extends Controller
         if(empty($request->get('idUsuario'))){
             $validator = Validator::make($request->all(),
                 [
-                    'username' => 'required|string|max:20',
+                    
                     'email'    => 'required|string|email|max:255|unique:users',
                     'name'     => 'required|string|max:255',
                     'password' => 'required|string|min:6|confirmed',
-                    'foto'     => 'image|mimes:jpeg,png,jpg',
-                    'perfil'   => 'required|numeric',
-                    'grupo'    => 'required|numeric'
+                    'cpf'      => 'required|string|min:14|',
+                    'fone'     => 'required|string'
                 ]
             );
             
@@ -163,9 +163,8 @@ class UsuarioController extends Controller
                 [
                     'name'     => 'required|string|max:255',
                     'password' => 'required|string|min:6|confirmed',
-                    'foto'     => 'image|mimes:jpeg,png,jpg',
-                    'perfil'   => 'required|numeric',
-                    'grupo'    => 'required|numeric'
+                    'cpf'      => 'required|string|min:14|',
+                    'fone'     => 'required|string'
                 ]
             );
         }
@@ -193,14 +192,16 @@ class UsuarioController extends Controller
 
         $createUser = [
             'name'                              => $request->name,
-            'username'                          => $request->username,
+            'username'                          => $request->name,
             'email'                             => $request->email,
             'utilizar_permissoes_nivel_usuario' => false,
             'password'                          => $senha_igual == true ? $buscaSenha->password : Hash::make($request->password),
             'administrador'                     => false,
-            'perfil_id'                         => $request->perfil,
-            'grupo_id'                          => $request->grupo,
-            'empresa_id'                        => $request->empresa ?? null
+            'perfil_id'                         => $request->perfil ?? null,
+            'grupo_id'                          => $request->grupo ?? null,
+            'empresa_id'                        => $request->empresa ?? null,
+            'cpf_cnpj'                          => $request->cpf ?? null,
+            'telefone'                          => $request->fone ?? null
         ];
 
         if (!empty($request->foto)) {

@@ -247,6 +247,7 @@
 <script>
     lazyload();
     let tipoPedido = $('#tipoPedido').val();
+    /*
     var now = new Date().getTime();
     var deadline = new Date(document.getElementById("proximaLiberacao").value).getTime(); 
     var t = deadline - now;
@@ -256,6 +257,7 @@
         
         document.getElementById("btn-enviar-mob").style.cursor = 'not-allowed';
     }
+    */
 
     $(document).on("click",".remove",function(){
         event.preventDefault();

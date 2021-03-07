@@ -18,15 +18,14 @@ Route::get('home','HomeController@checkLogin')->name('home');
 
 Route::get('login',  'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
+Route::post('register', 'UsuarioController@store')->name('register');
 Route::post('logout','Auth\LoginController@logout')->name('logout');
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
-
-Route::group(['middleware' => ['auth','userInativo']], function() {
-    
+   
     /** AREA ADMINISTRATIVA */
     Route::group(['middleware' => ['administrativeArea']], function() {
 
@@ -185,7 +184,7 @@ Route::group(['middleware' => ['auth','userInativo']], function() {
     });
 
     /** AREA ECOMMERCE */
-    Route::group(['middleware' => ['ecommerceArea']], function() {
+    
 
         Route::group(['prefix' => 'ecommerce'], function () {
 
@@ -212,7 +211,7 @@ Route::group(['middleware' => ['auth','userInativo']], function() {
 
            
             Route::group(['prefix' => 'carrinho'], function () {
-                Route::get('detalhe/{id}',   ['as' => 'ecommerce.carrinho.detalhe', 'uses' => 'CarrinhoEcommerceController@index'])->middleware('carrinhoEmpresa');
+                Route::get('detalhe/{id}',   ['as' => 'ecommerce.carrinho.detalhe', 'uses' => 'CarrinhoEcommerceController@index']);
                 Route::post('remover',  ['as' => 'ecommerce.carrinho.remover', 'uses' => 'CarrinhoEcommerceController@remove']);    
                 Route::post('update',  ['as' => 'ecommerce.carrinho.update', 'uses' => 'CarrinhoEcommerceController@update']);    
                 Route::post('buscaItem',   ['as' => 'ecommerce.carrinho.buscaItem', 'uses' => 'CarrinhoEcommerceController@buscaItem']);
@@ -220,8 +219,8 @@ Route::group(['middleware' => ['auth','userInativo']], function() {
             });
 
             Route::group(['prefix' => 'checkout'], function () {
-                Route::get('detalhe/{id}', ['as' => 'ecommerce.checkout.detalhe', 'uses' => 'CheckoutEcommerceController@index'])->middleware('carrinhoEmpresa');
-                Route::get('enviarPedido/{id}', ['as' => 'ecommerce.checkout.enviarPedido', 'uses' => 'CheckoutEcommerceController@enviarPedido'])->middleware('carrinhoEmpresa');
+                Route::get('detalhe/{id}', ['as' => 'ecommerce.checkout.detalhe', 'uses' => 'CheckoutEcommerceController@index']);
+                Route::get('enviarPedido/{id}', ['as' => 'ecommerce.checkout.enviarPedido', 'uses' => 'CheckoutEcommerceController@enviarPedido']);
                 
             });
 
@@ -230,7 +229,12 @@ Route::group(['middleware' => ['auth','userInativo']], function() {
                 
             });
 
+            Route::group(['prefix' => 'login-cadastro'], function () {
+                Route::get('', ['as' => 'ecommerce.login-cadastro', 'uses' => 'LoginCadastroController@index']);
+                
+            });
+
         });
-    });
-});
+    
+
 

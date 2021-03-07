@@ -289,16 +289,5 @@
 @endsection
 
 @section('footer')
-<script>
-    let tipoPedido = $('#tipoPedido').val();
-    var now = new Date().getTime();
-    var deadline = new Date(document.getElementById("proximaLiberacao").value).getTime(); 
-    var t = deadline - now;
-    console.log(t);
-    if(tipoPedido == 2 &&  t > 0 ){
-        $('#btn-enviar').attr('disabled',true);
-        document.getElementById("btn-enviar").style.cursor = 'not-allowed';
-        
-    }
-</script>
+
 @endsection
