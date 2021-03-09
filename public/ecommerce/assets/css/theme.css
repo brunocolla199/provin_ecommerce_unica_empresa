@@ -37857,3 +37857,7 @@ blockquote:not(.blockquote) p {
 .slick-next {
     display: none !important;
 }
+
+.slick-dots {
+  display:none
+}
