@@ -262,7 +262,7 @@
     $(document).on("click",".remove",function(){
         event.preventDefault();
         var id = $(this).data('id');
-        let removeCarinho = swal2_warning("Essa ação irá remover o produto do carrinho","Sim !");
+        let removeCarinho = swal2_warning("Essa ação irá remover o produto da sacola","Sim !");
         removeCarinho.then(resolvedValue => {
             $.ajax({
                 type: "POST",
