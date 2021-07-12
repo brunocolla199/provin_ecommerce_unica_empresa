@@ -32,7 +32,7 @@ class WonderServices
     */
     public function __construct()
     {
-        
+        set_time_limit(99999999);
         $setupService = new SetupService();
         $this->buscaSetup = $setupService->find(1);
         $this->linkWebService = $this->buscaSetup->link_sistema_terceiros;
@@ -166,7 +166,7 @@ class WonderServices
         return $request;
     }
 
-    public function consultaProduto($empresa)
+    public function consultaProduto($empresa, $produtoInicial, $numeroMaxProduto)
     {
 
         $this->usuarioWebService = $this->buscaSetup->usuario_sistema_terceiros;
@@ -184,7 +184,7 @@ class WonderServices
                 ]
             );
         
-            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/produtos?empresa='.$empresa;
+            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/produtos?first=' . $produtoInicial . '&max=' . $numeroMaxProduto . '&empresa='.$empresa;
             
             $response = $this->HTTP_CLIENT->get($url);
             

@@ -19,7 +19,7 @@ class ConfiguracaoController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-       
+        set_time_limit(99999999);
     }
     
     public function index()
@@ -185,18 +185,26 @@ class ConfiguracaoController extends Controller
                 $produtoService = new ProdutoService();
                 $wonderService = new WonderServices();
                 $produtoService->inativarTodosProdutos();
-                $produtos = $wonderService->consultaProduto($empresaPadrao);
-                
-                foreach ($produtos as $key => $valueProdutos) {
-                    
-                    
-                    if($valueProdutos->qtddisponivel > 0){
-                        $grupoNew = explode(' ',$valueProdutos->descricao)[0];
+
+                $produtoInicial = 0;
+                $produtoFinal = 5000;
+
+                for ($i=0; $i < 5; $i++) {
+
+                    $produtos = $wonderService->consultaProduto($empresaPadrao, $produtoInicial, $produtoFinal);
+                    $produtoInicial += 5000;
+                    $produtoFinal += 5000;
+                    foreach ($produtos as $key => $valueProdutos) {
                         
-                        $produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$grupoNew,$valueProdutos->descricao,$valueProdutos->qtddisponivel,1);            
+                        
+                        if($valueProdutos->qtddisponivel > 0){
+                            $grupoNew = explode(' ',$valueProdutos->descricao)[0];
+                            
+                            $produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$grupoNew,$valueProdutos->descricao,$valueProdutos->qtddisponivel,1);            
+                        }
+                        
+                        
                     }
-                    
-                    
                 }
                 
             });
@@ -211,6 +219,7 @@ class ConfiguracaoController extends Controller
 
     public function atualizarEstoqueFranquia()
     {
+        
         try {
 
             DB::transaction(function () {
@@ -230,42 +239,57 @@ class ConfiguracaoController extends Controller
 
                     //zera estoque de todos produtos
                     $buscaProduto = $estoqueService->zeraEstoqueEmpresa($value->id);
-                    //busca Produto Franqueada
-                    $produtos = $wonderService->consultaProduto($value->empresa_terceiro_id);
-        
-                    foreach ($produtos as $key => $valueProdutos) {
-                    //atualiza produto q tiverem estoque
-                        if($valueProdutos->qtddisponivel > 0){
-                            $grupoNew = explode(' ',$valueProdutos->descricao)[0];
-                        
-                            $produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$grupoNew,$valueProdutos->descricao,0,1);
+
+                    $produtoInicial = 0;
+                    $produtoFinal = 5000;
+
+                    for ($i=0; $i < 5; $i++) {
+
+                        //busca Produto Franqueada
+                        $produtos = $wonderService->consultaProduto($value->empresa_terceiro_id, $produtoInicial, $produtoFinal);
+
+                        $produtoInicial += 5000;
+                        $produtoFinal += 5000;
+            
+                        foreach ($produtos as $key => $valueProdutos) {
+                        //atualiza produto q tiverem estoque
+                            if($valueProdutos->qtddisponivel > 0){
+                                //dd($valueProdutos);
+                                $grupoNew = explode(' ',$valueProdutos->descricao)[0];
                             
-                            $buscaProdutoInterno = $produtoService->findOneBy(
-                                [
-                                    ['produto_terceiro_id','=',$valueProdutos->codigo]
-                                ]
-                            );
-                            $buscaEstoque = $estoqueService->findOneBy(
-                                [
-                                    ['empresa_id','=',$value->id],
-                                    ['produto_id','=',$buscaProdutoInterno->id,"AND"]
-                                ]
-                            );
-                            if($buscaEstoque){
-                                $estoqueService->update(
-                                    ['quantidade_estoque' => $valueProdutos->qtddisponivel],
-                                    $buscaEstoque->id
-                                );
-                            }else{
-                                $estoqueService->create(
+                                $produtoService->processaImportacao($valueProdutos->codigo,0,$valueProdutos->preco,0,$grupoNew,$valueProdutos->descricao,0,1);
+                                
+                                $buscaProdutoInterno = $produtoService->findOneBy(
                                     [
-                                        'empresa_id'  => $value->id,
-                                        'produto_id'  => $buscaProdutoInterno->id ,
-                                        'quantidade_estoque' => $valueProdutos->qtddisponivel
+                                        ['produto_terceiro_id','=',$valueProdutos->codigo]
                                     ]
                                 );
-                            } 
-                        }  
+                                $buscaEstoque = $estoqueService->findOneBy(
+                                    [
+                                        ['empresa_id','=',$value->id],
+                                        ['produto_id','=',$buscaProdutoInterno->id,"AND"]
+                                    ]
+                                );
+                                if($buscaEstoque){
+                                    $estoqueService->update(
+                                        [
+                                            'quantidade_estoque' => $valueProdutos->qtddisponivel,
+                                            'valor' => $valueProdutos->preco
+                                        ],
+                                        $buscaEstoque->id
+                                    );
+                                }else{
+                                    $estoqueService->create(
+                                        [
+                                            'empresa_id'  => $value->id,
+                                            'produto_id'  => $buscaProdutoInterno->id ,
+                                            'quantidade_estoque' => $valueProdutos->qtddisponivel,
+                                            'valor' => $valueProdutos->preco
+                                        ]
+                                    );
+                                } 
+                            }  
+                        }
                     }
                 }
             });
