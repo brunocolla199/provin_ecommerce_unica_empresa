@@ -21,7 +21,7 @@ class HomeController extends Controller
      */
     public function checkLogin()
     {
-    
+        dd('aki');
         //return redirect()->route('ecommerce.produto');
         
         if(!Auth::check()){

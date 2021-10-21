@@ -153,13 +153,14 @@
             <!-- Shop Body -->
             <!-- Tab Content -->
             <div class="tab-content" id="pills-tabContent">
+                @if ($produtos->count() == 0)
+                    <div class="alert alert-danger mt-5" role="alert">
+                        Nenhum Produto Encontrado!
+                    </div>
+                @endif
                 <div class="tab-pane fade pt-2 show active" id="pills-one-example1" role="tabpanel" aria-labelledby="pills-one-example1-tab" data-target-group="groups">
                     <ul class="row list-unstyled products-group no-gutters">
-                        @if ($produtos->count() == 0)
-                            <div class="alert alert-danger" role="alert">
-                                Nenhum Produto Encontrado!
-                            </div>
-                        @endif
+                        
                         
                         @foreach ($produtos as $produto)
                             @php
