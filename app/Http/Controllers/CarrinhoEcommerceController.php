@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Classes\Helper;
-use App\Services\{PedidoService, ItemPedidoService, SetupService, ProdutoService, CarrinhoService};
+use App\Services\{PedidoService, ItemPedidoService, SetupService, ProdutoService, CarrinhoService, EstoqueService};
 use Illuminate\Support\Facades\{DB};
 use Illuminate\Http\Request;
 
@@ -15,9 +15,11 @@ class CarrinhoEcommerceController extends Controller
         $this->middleware('auth');        
     }
 
-    public function index($id)
+    public function index(Request $request, $id)
     {
-
+        if($request->getMethod () != 'GET'){
+            return redirect()->route('ecommerce.produto');
+        }
         $itemPedidoService = new ItemPedidoService();
         $itens = $itemPedidoService->findBy(
             [
@@ -123,10 +125,13 @@ class CarrinhoEcommerceController extends Controller
         $item = $itemPedidoService->find($id_item);
         $setup= $setupService->find(1);
 
+        $estoqueService = new EstoqueService();
+        $estoque = $estoqueService->getEstoque($item->produto->id);
        
         return view('ecommerce.detalheProdutoCarrinho.index', 
             [
                 'item' => $item,
+                'estoque' => $estoque->quantidade_estoque,
                 'tamanhos' => json_decode($setup->tamanhos),
                 'tamanhosStr' => $setupService->tamanhosToString(json_decode($setup->tamanhos)),
                 'tamanhoDefault' => $setup->tamanho_padrao,

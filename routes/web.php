@@ -18,7 +18,8 @@ Route::get('home','HomeController@checkLogin')->name('home');
 
 Route::get('login',  'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
-Route::post('register', 'UsuarioController@storeAndLogin')->name('register');
+Route::post('register', 'Auth\LoginController@store')->name('register');
+//Route::post('registro','Auth\LoginController@store')->name('registro.salvar');
 Route::post('logout','Auth\LoginController@logout')->name('logout');
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
@@ -174,8 +175,9 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
                     Route::post('alterar',                    ['as' => 'configuracao.alterar',         'uses'  => 'ConfiguracaoController@update']);
                     Route::post('importar',                   ['as' => 'configuracao.importar',        'uses'  => 'ConfiguracaoController@import']);
                     Route::post('importarWebService',         ['as' => 'configuracao.importarWebService',        'uses'  => 'ConfiguracaoController@importWebService']);
-                    Route::post('atualizarEstoqueFranquia',   ['as' => 'configuracao.atualizarEstoqueFranquia',        'uses'  => 'ConfiguracaoController@atualizarEstoqueFranquia']);
-                    
+                    Route::post('atualizarEstoqueFranquia',   ['as' => 'configuracao.atualizarEstoque',          'uses'  => 'ConfiguracaoController@atualizarEstoque']);
+                    Route::post('atualizarEstoqueParcialFranquia',   ['as' => 'configuracao.atualizarEstoqueParcialFranquia',          'uses'  => 'ConfiguracaoController@atualizarEstoqueParcial']);
+                    Route::post('buscaFotos',                  ['as' => 'configuracao.buscaFotos',        'uses'  => 'ConfiguracaoController@buscaFotos']);
                 });
             });    
 
@@ -188,6 +190,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 
         Route::group(['prefix' => 'ecommerce'], function () {
 
+    
             Route::group(['prefix' => 'home'], function () {
                 Route::get('', ['as' => 'ecommerce.home', 'uses' => 'HomeEcommerceController@index']);
                
@@ -199,6 +202,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
                 Route::get('search/grupo/{id}',   ['as' => 'ecommerce.produto.search.grupo', 'uses' => 'ProdutoEcommerceController@searchGrupo']);
                 Route::post('adicionarCarinho',  ['as' => 'ecommerce.produto.adicionarCarinho', 'uses' => 'ProdutoEcommerceController@addCarrinho']);    
                 Route::post('buscaProduto',   ['as' => 'ecommerce.produto.buscaProduto', 'uses' => 'ProdutoEcommerceController@buscaProduto']);
+                Route::post('verificaFoto',   ['as' => 'ecommerce.produto.verificaFoto', 'uses' => 'ProdutoEcommerceController@verificaFoto']);
                 Route::post('updateEstoque',  ['as' => 'ecommerce.produto.updateEstoque', 'uses' => 'ProdutoEcommerceController@updateEstoque']);
             });
 
@@ -211,7 +215,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 
            
             Route::group(['prefix' => 'carrinho'], function () {
-                Route::get('detalhe/{id}',   ['as' => 'ecommerce.carrinho.detalhe', 'uses' => 'CarrinhoEcommerceController@index']);
+                Route::any('detalhe/{id}',   ['as' => 'ecommerce.carrinho.detalhe', 'uses' => 'CarrinhoEcommerceController@index']);
                 Route::post('remover',  ['as' => 'ecommerce.carrinho.remover', 'uses' => 'CarrinhoEcommerceController@remove']);    
                 Route::post('update',  ['as' => 'ecommerce.carrinho.update', 'uses' => 'CarrinhoEcommerceController@update']);    
                 Route::post('buscaItem',   ['as' => 'ecommerce.carrinho.buscaItem', 'uses' => 'CarrinhoEcommerceController@buscaItem']);

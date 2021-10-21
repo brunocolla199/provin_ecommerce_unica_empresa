@@ -1,4 +1,5 @@
 $(document).on("click",'.add-btn',function(){
+    $('.add-btn').prop('disabled', true);
     var id  = $(this).data('id');
     var qtdAtual = $('#qtd-'+id).val();
     var produto = $(this).data('produto');
@@ -7,13 +8,15 @@ $(document).on("click",'.add-btn',function(){
 });
 
 $(document).on("click",'.remove-btn',function(){
+    $('.remove-btn').prop('disabled', true);
     var id  = $(this).data('id');
     var qtdAtual = $('#qtd-'+id).val();
     var produto = $(this).data('produto');
     if(parseInt(qtdAtual) >= 2){ 
         removeCarrinho(id,produto,qtdAtual,1);
     }else{
-        swal2_alert_error_not_support('A quantidade não pode ser zerada.');        
+        swal2_alert_error_not_support('A quantidade não pode ser zerada.'); 
+        $('.remove-btn').prop('disabled', false);       
     } 
 });
 
@@ -50,9 +53,11 @@ function adicionaCarrinho(id,produto, qtdAtual, qtdAdicionada)
         {
             swal2_alert_error_not_support('Estoque indisponível.');
             $('#qtd-'+id).val(parseInt(qtdAtual));
+            $('.add-btn').prop('disabled', false);
         }else{ 
             calculaValorProduto(id,retorno.preco,parseInt(qtdAtual)+parseInt(qtdAdicionada));
             alteraProduto(produto,qtdAdicionada,'S').then(function(retorno){
+                $('.add-btn').prop('disabled', false);
             });
         }
     });
@@ -65,15 +70,16 @@ function removeCarrinho(id, produto, qtdAtual, qtdRemovida)
         $('#qtd-'+id).val(parseInt(qtdAtual)-qtdRemovida);
         calculaValorProduto(id,retorno.preco,parseInt(qtdAtual)-parseInt(qtdRemovida));
         alteraProduto(produto,qtdRemovida,'A').then(function(ret){
+            $('.remove-btn').prop('disabled', false);
         });    
     });
 
 }
 
 function calculaValorProduto(id,valor, qtd) {
-    var valorTotal = valor * parseFloat(qtd);
+    var valorTotal = parseFloat(valor) * parseFloat(qtd);
     var valorTotalAux = valorTotal.toFixed(2).toString().replace('.', ',');
-    $('#total-'+id).html(formatarValor(parseFloat(valorTotalAux),false));
+    $('#total-'+id).html(formatarValor(valorTotalAux,false));
     calculaValorTotal();
     alteraCarinho(id).catch(function(error_msg){
         swal2_alert_error_support(error_msg);

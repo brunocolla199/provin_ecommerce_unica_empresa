@@ -12,12 +12,14 @@ class Produto extends Model
         'nome', 
         'valor',
         'tamanho',
-        'produto_terceiro_id',
+        'produto_terceiro',
         'inativo',
         'grupo_produto_id',
         'variacao',
         'peso',
-        'quantidade_estoque'
+        'quantidade_estoque',
+        'produto_terceiro_id',
+        'existe_foto'
     ];
 
     public function grupo()

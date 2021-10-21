@@ -50,11 +50,12 @@ class ProdutoService
 
     public function verificaEstoque($id,$qtd)
     {
-        $buscaItem = $this->produtoRepository->find($id);
+        $estoqueService = new EstoqueService();
+        $buscaItem = $estoqueService->getEstoque($id);
         return $buscaItem->quantidade_estoque < $qtd ? false : true;
     }
 
-    public function processaImportacao($codigo,$variacao,$preco,$peso,$grupo,$descricao,$estoque,$atualizar)
+    public function processaImportacao($codigo, $idSistemaTerceiros,$variacao,$preco,$peso,$grupo,$descricao,$estoque,$atualizar)
     {
         $grupoService = new GrupoProdutoService();
         //Verifica Existencia do grupo
@@ -80,14 +81,13 @@ class ProdutoService
         //verifica Existencia do produto
         $buscaProduto = self::findBy(
             [
-                ['produto_terceiro_id','=',$codigo]
+                ['produto_terceiro','=',$codigo]
             ],
         );
 
         if($buscaProduto->count() > 0 && $atualizar == 1){
             //ativa produto
-            $update = self::montaRequestImportProduto($codigo,$variacao,$preco,$peso,$idGrupo,$descricao,$estoque);
-            
+            $update = self::montaRequestImportProduto($codigo, $idSistemaTerceiros ,$variacao,$preco,$peso,$idGrupo,$descricao,$estoque);
             self::update(
                 $update,
                 $buscaProduto[0]->id
@@ -95,7 +95,7 @@ class ProdutoService
         }else if($buscaProduto->count() == 0){
             
             //cadastra produto
-            $cadastro = self::montaRequestImportProduto($codigo,$variacao,$preco,$peso,$idGrupo,$descricao,$estoque);
+            $cadastro = self::montaRequestImportProduto($codigo, $idSistemaTerceiros,$variacao,$preco,$peso,$idGrupo,$descricao,$estoque);
             
             $retornoCreateProduto = self::create(
                $cadastro
@@ -106,11 +106,12 @@ class ProdutoService
 
     }
 
-    public function montaRequestImportProduto($codigo,$variacao,$preco,$peso,$idGrupo,$descricao,$estoque)
+    public function montaRequestImportProduto($codigo, $idSistemaTerceiros,$variacao,$preco,$peso,$idGrupo,$descricao,$estoque)
     {
         $produto = [
             'nome'               => $descricao,
-            'produto_terceiro_id'=> $codigo,
+            'produto_terceiro'   => $codigo,
+            'produto_terceiro_id'=> $idSistemaTerceiros,
             'inativo'            => 0,
             'grupo_produto_id'   => $idGrupo,
             'variacao'           => $variacao ?? 0,

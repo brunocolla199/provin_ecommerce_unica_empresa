@@ -10,6 +10,7 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\RequestOptions;
 use GuzzleHttp\Cookie\CookieJar;
+use Illuminate\Support\Facades\Auth;
 
 class WonderServices
 {
@@ -30,14 +31,19 @@ class WonderServices
     /*
     * Construtor
     */
-    public function __construct()
+    public function __construct($usuarioWebService = '', $senhaWebService = '')
     {
-        set_time_limit(99999999);
+        set_time_limit(100000000);
+
+
         $setupService = new SetupService();
         $this->buscaSetup = $setupService->find(1);
         $this->linkWebService = $this->buscaSetup->link_sistema_terceiros;
         
-        
+        $this->usuarioWebService = $usuarioWebService != '' ? $usuarioWebService : $this->buscaSetup->usuario_sistema_terceiros;
+        $this->senhaWebService = $senhaWebService != '' ? $senhaWebService : $this->buscaSetup->senha_sistema_terceiros;
+
+        self::login();
     }
 
    
@@ -73,12 +79,7 @@ class WonderServices
     
     public function enviarPedido($idPedido)
     {
-        
-        $this->usuarioWebService = $this->buscaSetup->usuario_sistema_terceiros;
-        $this->senhaWebService = $this->buscaSetup->senha_sistema_terceiros;
-
-        self::login();
-    
+   
         try {
             $request = self::montaRequestPedido($idPedido);
             
@@ -126,13 +127,17 @@ class WonderServices
         $itens = [];
         foreach ($buscaItensPedido as $key => $value) {
             $itens[$key] = [
-                "produto"    => $value->produto->produto_terceiro_id,
+                "produto"    => $value->produto->produto_terceiro,
                 "quantidade" => $value->quantidade,
                 "vlUnitario" => $value->valor_unitario,
                 "vlTotal"    => $value->valor_total
             ];
         }
 
+        $obs = [
+            "sequencia" => 1,
+            "texto" => "Pedido realizado pelo usuário " . $buscaPedido->usuario->name . " do representante " . $buscaPedido->usuario->empresa->razao_social
+        ];
         $request = [
             "numero"     => $buscaPedido->id,
             "data"       => date('Y-m-d').'T'.date('H:i:s').'-03:00',
@@ -140,26 +145,26 @@ class WonderServices
             "vlDesconto" => 0,
             "vlFrete"    => $buscaPedido->acrescimos,
             "tipoPagamento" => "AV",
-            "codTipoDoc"    => '62',
-            "idCondPagto"   => '2',
+            "codTipoDoc"    => $this->buscaSetup->tipo_documento_default,
+            "idCondPagto"   => $this->buscaSetup->condicao_pagamento_default,
             "cliente"    => [
-                "nomeRazaoSocial" => trim($buscaPedido->usuario->name),
-                "nomeFantasia"    => trim($buscaPedido->usuario->name),
-                "cpfCnpj"         => trim($buscaPedido->usuario->cpf_cnpj),
-                "tipoPessoa"      => trim('F'),
-                "rgInscEst"       => trim('ISENTO'),
-                "cidade"          => trim('Erechim'),
-                "uf"              => trim('RS'),
-                "endereco"        => trim('Av. Sete Setembro'),
-                "bairro"          => trim('Centro'),
-                "referencia"      => trim(''),
-                "cep"             => trim('99704-032'),
-                "email"           => trim($buscaPedido->usuario->email),
-                "fone1"           => trim($buscaPedido->usuario->telefone),
+                "nomeRazaoSocial" => trim(Auth::user()->empresa->razao_social),
+                "nomeFantasia"    => trim(Auth::user()->empresa->nome_fantasia),
+                "cpfCnpj"         => trim(Auth::user()->empresa->cpf_cnpj),
+                "tipoPessoa"      => strlen(trim(Auth::user()->empresa->cpf_cnpj)) == 14 ? 'F' : 'J',
+                "rgInscEst"       => trim(Auth::user()->empresa->rg_inscricao_estadual),
+                "cidade"          => trim(Auth::user()->empresa->cidade->nome),
+                "uf"              => trim(Auth::user()->empresa->cidade->sigla_estado),
+                "endereco"        => trim(Auth::user()->empresa->endereco),
+                "bairro"          => trim(Auth::user()->empresa->bairro),
+                "referencia"      => trim(Auth::user()->empresa->complemento),
+                "cep"             => trim(Auth::user()->empresa->cep),
+                "email"           => trim(Auth::user()->empresa->email),
+                "fone1"           => trim(Auth::user()->empresa->telefone),
                 "fone2"           => ''
             ],
             "itens"      => $itens,
-            "mensagens"  => [],
+            "mensagens"  => [$obs],
             "parcelas"   => []
         ];
 
@@ -167,13 +172,7 @@ class WonderServices
     }
 
     public function consultaProduto($empresa, $produtoInicial, $numeroMaxProduto)
-    {
-
-        $this->usuarioWebService = $this->buscaSetup->usuario_sistema_terceiros;
-        $this->senhaWebService = $this->buscaSetup->senha_sistema_terceiros;
-
-        self::login();
-        
+    {        
         try {
             $this->HTTP_CLIENT = new Client(
                 [
@@ -196,8 +195,115 @@ class WonderServices
             return ['error' => true, 'response' => $e->getMessage()];
         }
     }
+
+    public function consultaEstoque($idProduto)
+    {
+        try {
+            $this->HTTP_CLIENT = new Client(
+                [
+                    'headers' => [
+                        'content-type'  => 'application/json',
+                        'authorization' => $this->token    
+                    ]
+                ]
+            );
+        
+            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/produtos/'. $idProduto .'/estoque';
+            
+            $response = $this->HTTP_CLIENT->get($url);
+            
+            $body = $response->getBody()->getContents();
+            return json_decode($body);
+               
+        } catch (RequestException $e) {
+            
+            return ['error' => true, 'response' => $e->getMessage()];
+        }
+    }
     
-    
+    public function consultaListaImagem($idProduto)
+    {
+        try {
+            $this->HTTP_CLIENT = new Client(
+                [
+                    'headers' => [
+                        'content-type'  => 'application/json',
+                        'authorization' => $this->token    
+                    ]
+                ]
+            );
+        
+            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/produtos/' . $idProduto . '/imagens';
+            
+            $response = $this->HTTP_CLIENT->get($url);
+            
+            $body = $response->getBody()->getContents();
+            return json_decode($body);
+               
+        } catch (RequestException $e) {
+            
+            return ['error' => true, 'response' => $e->getMessage()];
+        }
+    }
+
+    public function consultaFoto($caminho)
+    {   
+        $this->usuarioWebService = $this->buscaSetup->usuario_sistema_terceiros;
+        $this->senhaWebService = $this->buscaSetup->senha_sistema_terceiros;
+
+        self::login();     
+        try {
+            $this->HTTP_CLIENT = new Client(
+                [
+                    'headers' => [
+                        'authorization' => $this->token,
+                        'Accept' => 'image/jpeg'  
+                    ]
+                ]
+            );
+        
+            $response = $this->HTTP_CLIENT->get($caminho);
+            //dd($response);
+            
+            $body = $response->getBody()->getContents();
+            $base64 = base64_encode($body);
+            $mime = "image/jpeg";
+            $img = ('data:' . $mime . ';base64,' . $base64);
+            
+            return $img;
+               
+        } catch (RequestException $e) {
+            
+            return ['error' => true, 'response' => $e->getMessage()];
+        }
+    }
+
+    public function consultaPreco($idProduto)
+    {
+
+        try {
+            $this->HTTP_CLIENT = new Client(
+                [
+                    'headers' => [
+                        'content-type'  => 'application/json',
+                        'authorization' => $this->token    
+                    ]
+                ]
+            );
+        
+            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/produtos/'. $idProduto .'/preco_tabela_preco?tabelaPreco=8';
+            
+            $response = $this->HTTP_CLIENT->get($url);
+            
+            $body = $response->getBody()->getContents();
+            return json_decode($body);
+               
+        } catch (RequestException $e) {
+            
+            return ['error' => true, 'response' => $e->getMessage()];
+        }
+
+    }
 
 
 }

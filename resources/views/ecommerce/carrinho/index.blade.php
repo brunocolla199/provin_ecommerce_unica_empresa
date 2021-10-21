@@ -21,6 +21,7 @@
             {{ Session::forget('message') }}
         @endif
         <form class="mb-4" action="#" method="post">
+            @csrf
         <input type="hidden" id="tipoPedido" value="{{$itens[0]->pedido->tipo_pedido_id}}">
         <input type="hidden" id="porcentagemAcrescimos" value="{{$porcentagemAcrescimos}}">
         <div class="cart block">
@@ -40,10 +41,10 @@
                   <tbody class="cart-table__body">
                         @foreach ($itens as $item)
                             <tr class="cart-table__row" id="row{{$item->id}}">
-                                <td class="cart-table__column cart-table__column--image"><a href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}"><img class="lazyload" data-src="@if (file_exists(public_path($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif" src="{{asset('ecommerce/assets/img/300X300/img1.jpg')}}" style="width: 160px;height: 160px" alt=""></a></td>
+                                <td class="cart-table__column cart-table__column--image"><a href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}"><img class="lazyload" data-src="@if (file_exists(public_path($caminho_imagem.'/'.$item->produto->produto_terceiro.'.jpeg'))) {{asset($caminho_imagem.'/'.$item->produto->produto_terceiro.'.jpeg')}}  @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif" src="{{asset('ecommerce/assets/img/300X300/img1.jpg')}}" style="width: 160px;height: 160px" alt=""></a></td>
                                 
                                 <td class="cart-table__column cart-table__column--product">
-                                    <a href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}" class="cart-table__product-name text-gray-90 btn">{{$item->produto->produto_terceiro_id}} - {{$item->produto->nome}}</a>
+                                    <a href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}" class="cart-table__product-name text-gray-90 btn">{{$item->produto->produto_terceiro}} - {{$item->produto->nome}}</a>
                                     <!--<ul class="cart-table__options">
                                         <li>Color: Yellow</li>
                                         <li>Material: Aluminium</li>
@@ -111,11 +112,11 @@
                                 <button  title="Remover" style="color: white;border-radius: 5px;width: 20px;height: 20px;display: flex;align-items: center;justify-content: center;cursor:pointer" class="btn btn-danger text-gray-32 font-size-26 remove"  data-id="{{$item->id}}">×</button>
                             </td>
                             <td>
-                                <a class=" d-md-table-cell" href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}"><img style="width: 150px;height:150px;border-radius: 10px" class="img-fluid max-width-150 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($item->produto->produto_terceiro_id,0,2).'/'.substr($item->produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif" alt="Image Description"></a>
+                                <a class=" d-md-table-cell" href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}"><img style="width: 150px;height:150px;border-radius: 10px" class="img-fluid max-width-150 p-1 border border-color-1" src="@if (file_exists(public_path($caminho_imagem.'/'.$item->produto->produto_terceiro.'.jpeg'))) {{asset($caminho_imagem.'/'.$item->produto->produto_terceiro.'.jpeg')}}  @else {{asset('ecommerce/assets/img/300X300/img1.jpg')}} @endif" alt="Image Description"></a>
                             </td>
 
                             <td  data-title="{{__('sidebar_and_header.ecommerce.produto')}}:">
-                                <a href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}" class="text-gray-90 btn ">{{$item->produto->produto_terceiro_id}} - {{$item->produto->nome}}</a>
+                                <a href="{{ route('ecommerce.carrinho.detalhe.item', ['id_pedido' => $item->pedido->id, 'id_item' => $item->id]) }}" class="text-gray-90 btn ">{{$item->produto->produto_terceiro}} - {{$item->produto->nome}}</a>
                             </td>
                             <td  data-title="Tamanho:">
                                     @if (in_array($item->produto->grupo_produto_id,json_decode($grupos_necessita_tamanho)))
@@ -247,10 +248,10 @@
 <script>
     lazyload();
     let tipoPedido = $('#tipoPedido').val();
-    /*
     var now = new Date().getTime();
     var deadline = new Date(document.getElementById("proximaLiberacao").value).getTime(); 
     var t = deadline - now;
+    /*
     if(tipoPedido == 2 &&  t > 0 ){
         
         $('#btn-enviar-mob').attr('disabled',true);
@@ -265,6 +266,7 @@
         let removeCarinho = swal2_warning("Essa ação irá remover o produto da sacola","Sim !");
         removeCarinho.then(resolvedValue => {
             $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: "POST",
                 url: '{{route("ecommerce.carrinho.remover")}}',
                 data: { id: id, _token: '{{csrf_token()}}' },
@@ -291,6 +293,7 @@
         var quantidade = $('#qtd-'+id).val();
         return new Promise((resolve,reject)=>{
             $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: "POST",
                 url: '{{route("ecommerce.carrinho.update")}}',
                 data: { id: id,tamanho: tamanho,quantidade: quantidade, _token: '{{csrf_token()}}' },
@@ -311,6 +314,7 @@
     {
         return new Promise((resolve,reject)=>{
             $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: "POST",
                 url: '{{route("ecommerce.produto.updateEstoque")}}',
                 data: { id: id,quantidade: qtd,operacao:operacao, _token: '{{csrf_token()}}' },
@@ -331,6 +335,7 @@
     {
         return new Promise((resolve,reject)=>{
             $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: "POST",
                 url: '{{route("ecommerce.produto.buscaProduto")}}',
                 data: { id: id, _token: '{{csrf_token()}}' },
@@ -351,6 +356,7 @@
     {
         return new Promise((resolve,reject)=>{
             $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: "POST",
                 url: '{{route("ecommerce.carrinho.buscaItem")}}',
                 data: { id: id, _token: '{{csrf_token()}}' },

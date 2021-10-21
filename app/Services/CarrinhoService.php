@@ -21,9 +21,10 @@ class CarrinhoService
         $pedidoService = new PedidoService();
         $setupService = new SetupService();
         $itemPedidoService = new ItemPedidoService();
+        $estoqueService = new EstoqueService();
 
-        $verificaEstoque = $produtoService->find($id_produto);
-        if($verificaEstoque['quantidade_estoque'] < $quantidade){
+        $verificaEstoque = $estoqueService->getEstoque($id_produto);
+        if($verificaEstoque->quantidade_estoque < $quantidade){
             Helper::setNotify("Produto não se encontra mais em estoque.", 'danger|close-circle');
             return false;
         }
@@ -44,14 +45,14 @@ class CarrinhoService
                 ]
             );
             try {
-                DB::transaction(function () use ($itemPedidoService, $produtoService, $pedidoService, $buscaExistItem,$buscaPedido,$id_produto,$quantidade,$tamanho,$verificaEstoque){
+                DB::transaction(function () use ($itemPedidoService, $pedidoService, $buscaExistItem,$buscaPedido,$id_produto,$quantidade,$tamanho,$verificaEstoque, $estoqueService){
                     if($buscaExistItem->count() > 0){
                         $itemPedidoService->update($buscaExistItem[0]->id,$buscaPedido[0]->id,$id_produto,$buscaExistItem[0]->quantidade +1,0,0,$tamanho);
                     }else{
                         
                         $itemPedidoService->create($buscaPedido[0]->id,$id_produto,$quantidade,0,0,$tamanho);   
                     }
-                    $produtoService->update(['quantidade_estoque' => $verificaEstoque['quantidade_estoque']-$quantidade],$id_produto);
+                    $estoqueService->update(['quantidade_estoque' => $verificaEstoque->quantidade_estoque - $quantidade],$verificaEstoque->id);
                     $pedidoService->recalcular($buscaPedido[0]->id);  
                 }); 
                  
@@ -90,14 +91,16 @@ class CarrinhoService
         $itemPedidoService = new ItemPedidoService();
         $produtoService = new ProdutoService();
         $pedidoService = new PedidoService();
+        $estoqueService = new EstoqueService();
         try {
 
-            DB::transaction(function () use ($idItem, $pedidoService, $produtoService, $itemPedidoService){
+            DB::transaction(function () use ($idItem, $pedidoService, $itemPedidoService, $estoqueService){
                 $buscaItem     = $itemPedidoService->find($idItem);
-                $buscaProduto  = $produtoService->find($buscaItem['produto_id']);
 
+                $verificaEstoque = $estoqueService->getEstoque($buscaItem['produto_id']);
+                
                 $itemPedidoService->delete($idItem);
-                $produtoService->update(['quantidade_estoque' => $buscaProduto['quantidade_estoque']+$buscaItem['quantidade']],$buscaItem['produto_id']);
+                $estoqueService->update(['quantidade_estoque' => $verificaEstoque->quantidade_estoque + $buscaItem['quantidade']],$verificaEstoque->id);
                 $pedidoService->recalcular($buscaItem->pedido->id);
             });
             

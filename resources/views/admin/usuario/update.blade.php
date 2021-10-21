@@ -179,7 +179,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--
+                        
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group{{ $errors->has('empresa') ? ' has-error' : '' }}">
@@ -201,7 +201,7 @@
                                 </div>
                             </div>
                         </div>
-                    -->
+                    
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> @lang('buttons.general.save')</button>

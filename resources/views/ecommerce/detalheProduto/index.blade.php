@@ -85,26 +85,26 @@
                     data-arrow-right-classes="fas fa-arrow-right u-slick__arrow-classic-inner u-slick__arrow-classic-inner--right mr-lg-2 mr-xl-4"
                     data-nav-for="#sliderSyncingThumb">
                         <div class="js-slide">
-                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'.jpeg'))) {{asset($caminho_imagem.'/'.$produto->produto_terceiro.'.jpeg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                         </div>
-                    @if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg')))
+                    @if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_2.jpeg')))
                         <div class="js-slide">
-                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
-                        </div>
-                    @endif
-                    @if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg')))
-                        <div class="js-slide">
-                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_2.jpeg'))) {{asset($caminho_imagem.'/'.$produto->produto_terceiro.'_2.jpeg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                         </div>
                     @endif
-                    @if ((file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg'))))
+                    @if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_3.jpeg')))
                         <div class="js-slide">
-                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_3.jpeg'))) {{asset($caminho_imagem.'/'.$produto->produto_terceiro.'_3.jpeg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                         </div>
                     @endif
-                    @if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg')))
+                    @if ((file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_4.jpeg'))))
                         <div class="js-slide">
-                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_4.jpeg'))) {{asset($caminho_imagem.'/'.$produto->produto_terceiro.'_4.jpeg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                        </div>
+                    @endif
+                    @if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_5.jpeg')))
+                        <div class="js-slide">
+                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_5.jpeg'))) {{asset($caminho_imagem.'/'.$produto->produto_terceiro.'_5.jpeg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                         </div>
                     @endif
                 </div>
@@ -115,30 +115,30 @@
                     data-is-thumbs="true"
                     data-nav-for="#sliderSyncingNav">
                     <div class="js-slide" style="cursor: pointer;">
-                        <img class="img-fluid" style="border-radius: 10px"  src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px"  src="@if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'.jpeg'))) {{asset($caminho_imagem.'/'.$produto->produto_terceiro.'.jpeg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
                     </div>
                     
-                    @if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg')))
+                    @if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_2.jpeg')))
                         <div class="js-slide" style="cursor: pointer;">
-                            <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_2.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
+                            <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_2.jpeg'))) {{asset($caminho_imagem.'/'.$produto->produto_terceiro.'_2.jpeg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
                         </div>
                     @endif
                     
-                    @if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg')))
+                    @if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_3.jpeg')))
                         <div class="js-slide" style="cursor: pointer;">
-                            <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_3.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
+                            <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_3.jpeg'))) {{asset($caminho_imagem.'/'.$produto->produto_terceiro.'_3.jpeg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
                         </div>
                     @endif
                     
-                    @if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg')))
+                    @if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_4.jpeg')))
                         <div class="js-slide" style="cursor: pointer;">
-                            <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_4.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
+                            <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_4.jpeg'))) {{asset($caminho_imagem.'/'.$produto->produto_terceiro.'_4.jpeg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
                         </div>
                     @endif
                     
-                    @if ((file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg'))))
+                    @if ((file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_5.jpeg'))))
                         <div class="js-slide" style="cursor: pointer;">
-                            <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro_id,0,2).'/'.substr($produto->produto_terceiro_id,0,-1).'_5.jpg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
+                            <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.'/'.$produto->produto_terceiro.'_5.jpeg'))) {{asset($caminho_imagem.'/'.$produto->produto_terceiro.'_5.jpeg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
                         </div>
                     @endif
                     
@@ -177,9 +177,9 @@
             <div class="mx-md-auto mx-lg-0 col-md-6 col-lg-4 col-xl-3">
                 <div class="mb-2">
                     <div class="card p-5 border-width-2 border-color-1 borders-radius-17">
-                        <div class="text-gray-9 font-size-14 pb-2 border-color-1 border-bottom mb-3">{{__('sidebar_and_header.ecommerce.quantidade')}}: <span class="text-green font-weight-bold"><span id="qtdEstoque">{{$produto->quantidade_estoque}}</span> {{__('sidebar_and_header.ecommerce.inEstoque')}}</span></div>
+                        <div class="text-gray-9 font-size-14 pb-2 border-color-1 border-bottom mb-3">{{__('sidebar_and_header.ecommerce.quantidade')}}: <span class="text-green font-weight-bold"><span id="qtdEstoque">{{$estoque}}</span> {{__('sidebar_and_header.ecommerce.inEstoque')}}</span></div>
                         <div class="mb-3">
-                        <div id="valorProduto" class="font-size-36">R${{number_format($produto->valor, 2, ',', '.')}}</div>
+                        <div id="valorProduto" class="font-size-36">R${{number_format($valor, 2, ',', '.')}}</div>
                         </div>
                         <div class="mb-3">
                             <h6 class="font-size-14">{{__('sidebar_and_header.ecommerce.quantidade')}}</h6>
@@ -187,7 +187,7 @@
                             <div class="border rounded-pill py-1 w-md-70 height-35 px-3 border-color-1">
                                 <div class="js-quantity row align-items-center">
                                     <div class="col">
-                                    <input id="quantidadeProduto"  class="js-result form-control h-auto border-0 rounded p-0 shadow-none qtd" data-produto="{{$produto->id}}" type="number" value="1" min="1" max="{{$produto->quantidade_estoque}}">
+                                    <input id="quantidadeProduto"  class="js-result form-control h-auto border-0 rounded p-0 shadow-none qtd" data-produto="{{$produto->id}}" type="number" value="1" min="1" max="{{$estoque}}">
                                     </div>
                                     <div class="col-auto pr-1">
                                         <a class="btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0 " id="remove-btn" href="javascript:;">
@@ -228,7 +228,11 @@
                             $produtoPedidoExpresso = DB::select('select sum(quantidade) as total from item_pedido as i inner join pedido as p ON (i.pedido_id = p.id) where i.produto_id = :idProduto and i.pedido_id = :idPedido', ['idProduto'=>$produto->id,'idPedido'=>$pedidoExpresso]);
                         @endphp
                         <div class="mb-2 pb-0dot5">
-                        <button type="button" style="background-color:black;color:white"  class="btn btn-block add-cart" data-tipo="normal" data-id="{{$produto->id}}" ><i class="ec ec-add-to-cart mr-2 font-size-20"></i>Sacola <b id="totalItemCarrinhoNormal">{{$produtoPedidoNormal[0]->total}}</b></button>
+                            @if (Auth::check())
+                                <button type="button" style="background-color:black;color:white"  class="btn btn-block add-cart" data-tipo="normal" data-id="{{$produto->id}}" ><i class="ec ec-add-to-cart mr-2 font-size-20"></i>Sacola <b id="totalItemCarrinhoNormal">{{$produtoPedidoNormal[0]->total}}</b></button>  
+                            @else
+                                <a style="background-color:black;color:white" class="btn btn-block add-cart" href="{{route('ecommerce.login-cadastro')}}"  data-tipo="normal" data-id="{{$produto->id}}" data-id="{{$produto->produto_id}}"><i class="ec ec-add-to-cart mr-2 font-size-20"></i>Sacola</a>
+                            @endif
                         </div>
                         <!--
                         <div class="mb-2 pb-0dot5">

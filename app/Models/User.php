@@ -30,8 +30,17 @@ class User extends Authenticatable
         'grupo_id',
         'inativo',
         'empresa_id',
-        'cpf_cnpj',
-        'telefone'
+        'utilizar_permissoes_nivel_usuario',
+        'tipo_pessoa',
+        'cpf_cnpj', 
+        'telefone', 
+        'endereco',
+        'numero',
+        'complemento',
+        'bairro',
+        'cidade_id',
+        'cep',
+        'rg_inscricao_estadual'
     ];
 
     /**

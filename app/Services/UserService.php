@@ -4,14 +4,17 @@ namespace App\Services;
 
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\SetupRepository;
 
 class UserService 
 {
     protected $userRepository;
+    protected $setupRepository;
 
     public function __construct()
     {
         $this->userRepository = new UserRepository();
+        $this->setupRepository = new SetupRepository();
     }
 
     public function find($id, array $with = [])
@@ -63,5 +66,22 @@ class UserService
             array_push($usuariosIn,$value->id);
         }
         return $usuariosIn;
+    }
+
+    public function getEmpresa()
+    {
+        $buscaSetup = $this->setupRepository->find(1);
+        $empresaService = new EmpresaService();
+        $buscaEmpresa = $empresaService->findOneBy(
+            [
+                ['empresa_terceiro_id', '=', $buscaSetup->empresa_default_sistema_terceiros]
+            ]
+        );
+
+        $empresaId = $buscaEmpresa->id ?? null;
+        if(Auth::check() && !empty(Auth::user()->empresa_id)){
+            $empresaId = Auth::user()->empresa_id;
+        }
+        return $empresaId;
     }
 }

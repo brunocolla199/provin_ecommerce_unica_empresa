@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTableUserAddColumnCpf extends Migration
+class AlterTableEstoqueAddColumnValor extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AlterTableUserAddColumnCpf extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('cpf_cnpj',18)->nullable(true);
-            $table->string('telefone',15)->nullable(true);
+        Schema::table('estoque', function (Blueprint $table) {
+            $table->float('valor')->default(0);
         });
     }
 
@@ -27,8 +26,7 @@ class AlterTableUserAddColumnCpf extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('cpf_cnpj');
-            $table->dropColumn('telefone');
+            $table->dropColumn('valor');
         });
     }
 }

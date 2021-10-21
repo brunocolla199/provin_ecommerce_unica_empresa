@@ -140,14 +140,14 @@
                         <label class="form-label" for="RegisterSrTelefoneExample3">Telefone
                             <span class="text-danger">*</span>
                         </label>
-                        <input type="text" class="form-control phone_with_ddd" value="{{ old('fone') }}" name="fone" id="RegisterSrTelefoneExample3" placeholder="Digite o telefone" aria-label="Digite o telefone" required
+                        <input type="text" class="form-control phone_with_ddd" value="{{ old('telefone') }}" name="telefone" id="RegisterSrTelefoneExample3" placeholder="Digite o telefone" aria-label="Digite o telefone" required
                         data-msg="Por favor, insira um telefone válido."
                         data-error-class="u-has-error"
                         data-success-class="u-has-success">
-                        @if ($errors->has('fone'))
+                        @if ($errors->has('telefone'))
                             <br/>    
                             <span class="help-block text-danger">
-                                <strong>{{ $errors->first('fone') }}</strong>
+                                <strong>{{ $errors->first('telefone') }}</strong>
                             </span>
                         @endif
                     </div>
@@ -163,6 +163,103 @@
                             <br/>    
                             <span class="help-block text-danger">
                                 <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="js-form-message form-group mb-5">
+                        <label class="form-label" for="Endereco">Endereço
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" value="{{ old('endereco') }}" name="endereco" id="endereco" placeholder="endereco " aria-label="endereco " required
+                        data-msg="Por favor, insira um endereço válido."
+                        data-error-class="u-has-error"
+                        data-success-class="u-has-success">
+                        @if ($errors->has('endereco'))
+                            <br/>    
+                            <span class="help-block text-danger">
+                                <strong>{{ $errors->first('endereco') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    <div class="js-form-message form-group mb-5">
+                        <label class="form-label" for="numero">Número
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" value="{{ old('numero') }}" name="numero" id="numero" placeholder="numero " aria-label="numero " required
+                        data-msg="Por favor, insira um número para o endereço."
+                        data-error-class="u-has-error"
+                        data-success-class="u-has-success">
+                        @if ($errors->has('numero'))
+                            <br/>    
+                            <span class="help-block text-danger">
+                                <strong>{{ $errors->first('numero') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="js-form-message form-group mb-5">
+                        <label class="form-label" for="bairro">Bairro
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" value="{{ old('bairro') }}" name="bairro" id="bairro" placeholder="bairro " aria-label="bairro " required
+                        data-msg="Por favor, insira o bairro válido."
+                        data-error-class="u-has-error"
+                        data-success-class="u-has-success">
+                        @if ($errors->has('bairro'))
+                            <br/>    
+                            <span class="help-block text-danger">
+                                <strong>{{ $errors->first('bairro') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="js-form-message form-group mb-5">
+                        <label class="form-label" for="complemento">Complemento
+                            
+                        </label>
+                        <input type="text" class="form-control" value="{{ old('complemento') }}" name="complemento" id="complemento" placeholder="complemento " aria-label="complemento " 
+                        data-msg="Por favor, insira o complemento."
+                        data-error-class="u-has-error"
+                        data-success-class="u-has-success">
+                        @if ($errors->has('complemento'))
+                            <br/>    
+                            <span class="help-block text-danger">
+                                <strong>{{ $errors->first('complemento') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="js-form-message form-group mb-5">
+                        <label class="form-label" for="cep">Cep
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control cep" value="{{ old('cep') }}" name="cep" id="cep" placeholder="cep " aria-label="cep " required
+                        data-msg="Por favor, insira um cep válido."
+                        data-error-class="u-has-error"
+                        data-success-class="u-has-success">
+                        @if ($errors->has('cep'))
+                            <br/>    
+                            <span class="help-block text-danger">
+                                <strong>{{ $errors->first('cep') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="js-form-message form-group mb-5">
+                        <label class="form-label" for="cidade_id">Cidade
+                            <span class="text-danger">*</span>
+                        </label>
+                        <select name="cidade_id" class="form-control selectpicker" id="cidade_id" value="{{ old('cidade_id') }}" required data-live-search="true">
+                            <option value="">Selecione</option>
+                            @foreach ($cidades as $cidade )
+                                    <option value="{{ $cidade->id }}" @if ($cidade->id == old('cidade_id') ) selected @endif > {{ $cidade->nome }} - {{$cidade->sigla_estado}} </option>    
+                            @endforeach
+                        </select>
+                        @if ($errors->has('cidade_id'))
+                            <br/>    
+                            <span class="help-block text-danger">
+                                <strong>{{ $errors->first('cidade_id') }}</strong>
                             </span>
                         @endif
                     </div>

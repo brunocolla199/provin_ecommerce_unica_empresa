@@ -38,8 +38,8 @@
                                     <th>ID</th>
                                     <th>Nome</th>
                                     <th>Grupo</th>
-                                    <th>Preço</th>
-                                    <th>Qtd Estoque</th>
+                                    <!--<th>Preço</th>
+                                    <th>Qtd Estoque</th>-->
                                     <th>Controle</th>
                                 </tr>
                             </thead>
@@ -49,8 +49,8 @@
                                         <td>{{ $produto->produto_terceiro_id }}</td>
                                         <td>{{ $produto->nome ?? ''}}</td>
                                         <td>{{ $produto->grupo->nome ?? '' }}</td>
-                                        <td class="money">{{number_format($produto->valor, 2, ',', '.')  }}</td>
-                                        <td>{{ $produto->quantidade_estoque }}</td>
+                                        <!--<td class="money">{{number_format($produto->valor, 2, ',', '.')  }}</td>
+                                        <td>{{ $produto->quantidade_estoque }}</td>-->
                                         <td>
                                             @if ($produto->inativo == 0)
                                                 <button style="width: 90px" class="btn waves-effect waves-light btn-danger sa-danger ativar_inativar" data-acao="inativar" data-id="{{$produto->id}}"> <i class="mdi mdi-delete"></i> @lang('buttons.general.disable') </button>  

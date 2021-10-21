@@ -26,6 +26,12 @@ class Setup extends Model
         'senha_sistema_terceiros',
         'telefone_proprietaria',
         'email_proprietaria',
-        'empresa_default_sistema_terceiros'
+        'empresa_default_sistema_terceiros',
+        'tipo_documento_default',
+        'condicao_pagamento_default',
+        'perfil_default',
+        'grupo_default',
+        'email_default',
+        'empresa_default'
     ];
 }

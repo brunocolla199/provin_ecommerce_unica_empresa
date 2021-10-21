@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\ItemPedidoRepository;
-
+use Illuminate\Support\Facades\Auth;
 
 class ItemPedidoService
 {
@@ -71,8 +71,13 @@ class ItemPedidoService
 
     public function recalcular($id, $id_Produto,$quantidade)
     {
-        $produtoService = new ProdutoService();
-        $buscaProduto = $produtoService->find($id_Produto);
+        $estoqueService = new EstoqueService();
+        $buscaProduto = $estoqueService->findOneBy(
+            [
+                ['produto_id', '=', $id_Produto],
+                ['empresa_id', '=', Auth::user()->empresa_id]
+            ]
+        );
         $valor_unitario = $buscaProduto->valor;
         $total = $quantidade * $buscaProduto->valor;
 

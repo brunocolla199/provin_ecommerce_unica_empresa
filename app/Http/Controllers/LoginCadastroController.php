@@ -11,6 +11,7 @@ use App\Services\ItemPedidoService;
 use App\Services\StatusPedidoService;
 use App\Services\ObsPedidoService;
 use App\Services\SetupService;
+use App\Repositories\CidadeRepository;
 
 class LoginCadastroController extends Controller
 {
@@ -22,7 +23,10 @@ class LoginCadastroController extends Controller
 
     public function index(){
         
-        return view('ecommerce.login-cadastro.index');
+        $cidadeRepository = new CidadeRepository();
+        $cidades = $cidadeRepository->findAll();
+
+        return view('ecommerce.login-cadastro.index', compact('cidades'));
 
     }
 

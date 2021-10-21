@@ -18,9 +18,16 @@
                 <div class="card-body" style="margin-bottom: 20px">
                     <!--<h3 class="box-title">@lang('page_titles.pedido.index')</h3>
                     <hr class="m-t-0 m-b-10">-->
+                    @if ($pedidos->count() < 1)
+                        <div class="alert alert-danger" role="alert">
+                            Nenhum Pedido Encontrado!
+                        </div>
+                    @endif
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade pt-2 show active" id="pills-one-example1" role="tabpanel" aria-labelledby="pills-one-example1-tab" data-target-group="groups">
                             <ul class="row list-unstyled products-group no-gutters">
+                                
+                                
                                 @foreach ($pedidos as $pedido)
                                 <li class="col-6 col-md-4 col-wd-2gdot4 @if ($pedidos->count() > 1) product-item @endif mb-3" >
                                     <div class="product-item__outer h-100">

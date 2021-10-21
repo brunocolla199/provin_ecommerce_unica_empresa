@@ -60,4 +60,18 @@ class EstoqueService
         }
     }
 
+    public function getEstoque($produto)
+    {
+        $userService = new UserService();
+        $empresa = $userService->getEmpresa();
+
+        $estoque = $this->findOneBy(
+            [
+                ['empresa_id', '=', $empresa],
+                ['produto_id', '=', $produto]
+            ]
+        );
+        return $estoque;
+    }
+
 }

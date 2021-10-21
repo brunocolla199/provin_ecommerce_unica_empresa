@@ -48,26 +48,45 @@
     </head>
     <body>
         @php
-            if(Auth::check()) {
-                $grupos = \App\Models\GrupoProduto::where('inativo','=',0);
-                $setup  = \App\Models\Setup::find(1);
-    
-                $usuariosIn = [Auth::user()->id];    
-                $pedidoNormal  = \App\Models\Pedido::where('excluido','=',0)
-                        ->where('status_pedido_id','=',1)
-                        ->where('numero_itens','>',0)
-                        ->where('tipo_pedido_id','=',2)
-                        ->whereIn('user_id', $usuariosIn)
-                        ->orderBy('id','desc')
-                        ->take(1)
-                        ->get(); 
-                
-               
-            }
+            $grupos = \App\Models\GrupoProduto::where('inativo','=',0);
+            $setup  = \App\Models\Setup::find(1);
+   
+            $usuariosIn = [Auth::user()->id ?? 0];
             
+            $buscaUltimoPedidoNormalProcessado = \App\Models\Pedido::where('excluido','=',0)
+                    ->where('status_pedido_id','>',1)
+                    ->where('status_pedido_id','!=',6)
+                    ->where('tipo_pedido_id','=',2)
+                    ->where('pedido_terceiro_id','!=',null)
+                    ->whereIn('user_id', $usuariosIn)
+                    ->orderBy('pedido_terceiro_id','desc')
+                    ->take(1)
+                    ->get();
+            
+            $dataProximaLiberacao = $buscaUltimoPedidoNormalProcessado->count() > 0 && $setup->tempo_liberacao_pedido > 0 ? date ('Y-m-d H:i:s',strtotime('+'.$setup->tempo_liberacao_pedido.' days', strtotime($buscaUltimoPedidoNormalProcessado[0]['data_envio_pedido']))) : date('Y-m-d H:i:s', strtotime('-1 day'));
+            $pedidoNormal  = buscaPedidoCarrinho(2, $usuariosIn);
+            $pedidoExpress = buscaPedidoCarrinho(1, $usuariosIn);
+            
+            function buscaPedidoCarrinho($tipo_pedido, $usuariosIn)
+            {
+                
+                return \App\Models\Pedido::where('excluido','=',0)
+                    ->where('status_pedido_id','=',1)
+                    ->where('numero_itens','>',0)
+                    ->where('tipo_pedido_id','=',$tipo_pedido)
+                    ->whereIn('user_id', $usuariosIn)
+                    ->orderBy('id','desc')
+                    ->take(1)
+                    ->get();       
+            }
+
         @endphp
         <body>
-            
+            <input type="hidden" name="pedidoNormal" id="pedidoNormal" value="{{$pedidoNormal->count() > 0 ? $pedidoNormal[0]->id : ''}}">
+        <input type="hidden" name="proximaLiberacao" id="proximaLiberacao" value="{{$dataProximaLiberacao}}">
+        <input type="hidden" name="enviarPedidoNormal" id="enviarPedidoNormal" value="{{Auth::check() && Auth::user()->perfil->eco_enviar_pedido_normal}}">
+        <input type="hidden" name="controleTempoPedidoNormal" id="controleTempoPedidoNormal" value="{{Auth::check() && Auth::user()->perfil->eco_controle_tempo_pedido_normal}}">
+        <input type="hidden" name="enviarPedidoExpresso" id="enviarPedidoExpresso" value="{{Auth::check() && Auth::user()->perfil->eco_enviar_pedido_expresso}}">
             <!-- ========== HEADER ========== -->
         <header id="header" class="u-header u-header-left-aligned-nav">
             <div class="u-header__section">
@@ -677,17 +696,20 @@
                                         <div id="navBar" class="collapse navbar-collapse u-header__navbar-collapse">
                                             <ul class="navbar-nav u-header__navbar-nav">
                                                 <li class="nav-item u-header__nav-item">
-                                                    <a class="nav-link u-header__nav-link"  ></a>
+                                                    <a class="nav-link u-header__nav-link"  href="{{route('ecommerce.home')}}">{{__('sidebar_and_header.tooltip_home')}}</a>
                                                 </li>
                                                 <li class="nav-item u-header__nav-item">
                                                     <a class="nav-link u-header__nav-link"  href="{{route('ecommerce.produto')}}">{{__('sidebar_and_header.ecommerce.product')}}</a>
                                                 </li>
                                                 <li class="nav-item u-header__nav-item">
-                                                    <a class="nav-link u-header__nav-link"  ></a>
+                                                    <a class="nav-link u-header__nav-link"  href="{{route('ecommerce.pedido')}}">{{__('sidebar_and_header.uls_li_system.pedido')}}</a>
                                                 </li>
-                                                <li class="nav-item u-header__nav-item">
-                                                    <a class="nav-link u-header__nav-link"  ></a>
-                                                </li>
+                                                @if (Auth::check())
+                                                    <li class="nav-item u-header__nav-item">
+                                                        <a class="nav-link u-header__nav-link"  href="{{route('ecommerce.estoque')}}">{{__('sidebar_and_header.uls_li_system.estoque')}}</a>
+                                                    </li>
+                                                @endif
+                                                
                                                                     
                                             </ul>
                                         </div>

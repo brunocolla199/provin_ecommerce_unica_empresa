@@ -212,6 +212,83 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('perfil_default') ? ' has-error' : '' }}">
+                                    <label class="control-label">Perfil Default</label>
+                                    <select name="perfil_default" id="perfil_default" class="form-control text-center selectpicker" required  data-size="10" data-live-search="true" >
+                                            <option value="">Selecione</option>
+                                        @foreach ($perfils as $perfil)
+                                            <option value="{{ $perfil->id }}" @if ($perfil->id == $configuracao->perfil_default ) selected @endif > {{ $perfil->nome }} </option>    
+                                        @endforeach
+                                    </select>
+                                    <small class="form-control-feedback"> Selecione o perfil default do sistema de terceiros. </small> 
+
+                                    @if ($errors->has('perfil_default'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('perfil_default') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('grupo_default') ? ' has-error' : '' }}">
+                                    <label class="control-label">Grupo de Usuário Default</label>
+                                    <select name="grupo_default" id="grupo_default" class="form-control text-center selectpicker" required data-size="10" data-live-search="true" >
+                                            <option value="">Selecione</option>
+                                        @foreach ($gruposUsuarios as $grupoUsuario)
+                                            <option value="{{ $grupoUsuario->id }}" @if ($grupoUsuario->id == $configuracao->grupo_default ) selected @endif > {{ $grupoUsuario->nome }} </option>    
+                                        @endforeach
+                                    </select>
+                                    <small class="form-control-feedback"> Selecione o grupo de usuário default do sistema. </small> 
+
+                                    @if ($errors->has('grupo_default'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('grupo_default') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('email_default') ? ' has-error' : '' }}">
+                                    <label class="control-label">Email Default</label>
+                                    <input type="email"  id="email_default" name="email_default" value="{{$configuracao->email_default}}" class="form-control " required autofocus>
+                                    <small class="form-control-feedback"> Digite o email que irá receber as notificações. </small> 
+
+                                    @if ($errors->has('email_default'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('email_default') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('empresa_default') ? ' has-error' : '' }}">
+                                    <label class="control-label">Empresa Default</label>
+                                    <select name="empresa_default" id="empresa_default" class="form-control text-center selectpicker" required data-size="10" data-live-search="true"  >
+                                            <option value="">Selecione</option>
+                                        @foreach ($empresas as $empresa)
+                                            <option value="{{ $empresa->id }}" @if ($empresa->id == $configuracao->empresa_default ) selected @endif > {{ $empresa->razao_social }} </option>    
+                                        @endforeach
+                                    </select>
+                                    <small class="form-control-feedback"> Selecione a empresa default do sistema. </small> 
+
+                                    @if ($errors->has('empresa_default'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('empresa_default') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="row">
                             <div class="col-md-12">
                                 <legend>Sistema de Terceiros</legend>
@@ -280,6 +357,37 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('tipo_documento_default') ? ' has-error' : '' }}">
+                                    <label class="control-label">Tipo de Documento Default</label>
+                                    <input type="text"  id="tipo_documento_default" name="tipo_documento_default" value="{{ $configuracao->tipo_documento_default }}" class="form-control " required autofocus>
+                                    <small class="form-control-feedback"> Digite o tipo de documento default do sistema de terceiros. </small> 
+
+                                    @if ($errors->has('tipo_documento_default'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('tipo_documento_default') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('condicao_pagamento_default') ? ' has-error' : '' }}">
+                                    <label class="control-label">Condição de Pagamento Default</label>
+                                    <input type="text"  id="condicao_pagamento_default" name="condicao_pagamento_default" value="{{ $configuracao->condicao_pagamento_default }}" class="form-control " required autofocus>
+                                    <small class="form-control-feedback"> Digite a condição de pagamento default do sistema de terceiros. </small> 
+
+                                    @if ($errors->has('condicao_pagamento_default'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('condicao_pagamento_default') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> @lang('buttons.general.save')</button>
@@ -339,18 +447,16 @@
                                     </button>
                                 </div>
                             </div>
-                            
                         </form>
                     </div>
-                    <!--
                     <div class="col-md-6">
                         <form method="POST" id="atualizacaoEstoqueFranquia" name="atualizacaoEstoqueFranquia" >
                             {{ csrf_field() }}
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Atualização Estoque da Franquiada</label><br>
+                                    <label class="control-label">Atualização Estoque Geral</label><br>
                                     
-                                    <button class="btn btn-info" id="btn-atualizaFranquia" type="submit" >
+                                    <button class="btn btn-info" id="btn-atualizaEstoque" type="submit" >
                                         <span  id="spinerBtn" role="status" aria-hidden="true"></span>
                                         Atualizar
                                     </button>
@@ -359,7 +465,41 @@
                             
                         </form>
                     </div>
-                -->
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <form method="POST" id="buscaFotos" name="buscaFotos" >
+                            {{ csrf_field() }}
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Buscar Fotos</label><br>
+                                    
+                                    <button class="btn btn-info" id="btn-buscarFoto" type="submit" >
+                                        <span  id="spinerBtnFoto" role="status" aria-hidden="true"></span>
+                                        Buscar
+                                    </button>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <form method="POST" id="atualizacaoEstoqueParcialFranquia" name="atualizacaoEstoqueParcialFranquia" >
+                            {{ csrf_field() }}
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Atualização Estoque Parcial</label><br>
+                                    
+                                    <button class="btn btn-info" id="btn-atualizaEstoqueParcial" type="submit" >
+                                        <span  id="spinerBtnEstoqueParcial" role="status" aria-hidden="true"></span>
+                                        Atualizar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
                 </div>
 
             </div>
@@ -382,12 +522,20 @@
                 readURL(this, 'img_logo_sistema');
             });
 
-            $('#btn-atualizaFranquia').on('click',function(){
+            $('#btn-atualizaEstoque').on('click',function(){
                 $(this).attr('disabled',true);
                 $('#spinerBtn').attr('class','spinner-border spinner-border-sm');
 
-                document.atualizacaoEstoqueFranquia.action = '{{ route('configuracao.atualizarEstoqueFranquia') }}'
+                document.atualizacaoEstoqueFranquia.action = '{{ route('configuracao.atualizarEstoque') }}'
                 $('#atualizacaoEstoqueFranquia').submit();
+            });
+
+            $('#btn-atualizaEstoqueParcial').on('click',function(){
+                $(this).attr('disabled',true);
+                $('#spinerBtnEstoqueParcial').attr('class','spinner-border spinner-border-sm');
+
+                document.atualizacaoEstoqueParcialFranquia.action = '{{ route('configuracao.atualizarEstoqueParcialFranquia') }}'
+                $('#atualizacaoEstoqueParcialFranquia').submit();
             });
 
             $('#btn-atualizaProduto').on('click',function(){
@@ -397,6 +545,16 @@
                 document.atualizaProduto.action = '{{ route('configuracao.importarWebService') }}'
                 $('#atualizaProduto').submit();
             });
+
+
+            $('#btn-buscarFoto').on('click',function(){
+                $(this).attr('disabled',true);
+                $('#spinerBtnFoto').attr('class','spinner-border spinner-border-sm');
+                
+                document.buscaFotos.action = '{{ route('configuracao.buscaFotos') }}'
+                $('#buscaFotos').submit();
+            });
+
 
 
         });

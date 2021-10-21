@@ -132,7 +132,7 @@ class PedidoService
     public function buscaUltimoPedidoNormalProcessado()
     {
         $userService = new UserService();
-        $usuariosIn = $userService->buscaUsuariosMesmaEmpresa();
+        $usuariosIn = [Auth::user()->id];
         return $this->pedidoRepository->findBy(
             [
                 ['excluido','=',0],

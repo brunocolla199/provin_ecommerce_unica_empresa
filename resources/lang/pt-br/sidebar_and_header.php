@@ -47,7 +47,8 @@ return [
         'pages'         => 'Páginas',
         'list'          => 'Listagem',
         'product'       => 'Produto',
-        'pedido'        => 'Pedido'
+        'pedido'        => 'Pedido',
+        'estoque'       => 'Estoque'
         
     ],
 

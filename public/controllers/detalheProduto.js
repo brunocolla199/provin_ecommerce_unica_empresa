@@ -38,7 +38,7 @@ $(document).ready(function(){
     $('.tamanho').on('click',function(){
         var tamanho = $(this).text();
         $(".tamanho").each(function(index, value){
-            $('#'+value.id).removeAttr('class').attr('class','page-link tamanho').attr('data-selected',true);
+            $('#'+value.id).removeAttr('class').attr('class','page-link tamanho').attr('data-selected',false);
         });
         $('#tamanho-'+tamanho).attr('data-selected',true).attr('class','page-link current tamanho');
     });
