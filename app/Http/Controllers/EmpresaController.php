@@ -127,7 +127,7 @@ class EmpresaController extends Controller
             'cnpj'                  => ($request->tipo_pessoa == 'J') ?  'required|string|max:18|min:18' : '',
             'rg'                    => ($request->tipo_pessoa == 'F') ?  'required|string' : '',
             'ie'                    => ($request->tipo_pessoa == 'J') ?  'required|string' : '' ,
-            'empresa_terceiro_id'   => 'required|numeric|min:1|max:1000'
+            'empresa_terceiro_id'   => 'required|numeric|min:1'
         ]);
 
         
