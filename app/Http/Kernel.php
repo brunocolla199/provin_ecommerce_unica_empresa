@@ -67,5 +67,7 @@ class Kernel extends HttpKernel
         'controleGeral' => \App\Http\Middleware\ControleGeralMiddleware::class,
         'carrinhoEmpresa' => \App\Http\Middleware\CarrinhoEmpresaMiddleware::class,
         'userInativo' => \App\Http\Middleware\UserInativo::class,
+        'listarEstoque' => \App\Http\Middleware\ListarEstoqueMiddleware::class,
+        'listarPedido' => \App\Http\Middleware\ListarPedidoMiddleware::class,
     ];
 }

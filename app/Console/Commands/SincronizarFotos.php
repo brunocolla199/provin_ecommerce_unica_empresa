@@ -1,25 +1,24 @@
 <?php
 
 namespace App\Console\Commands;
-
-use Illuminate\Console\Command;
 use App\Http\Controllers\ConfiguracaoController;
+use Illuminate\Console\Command;
 
-class SincronizaEstoqueFranquias extends Command
+class SincronizarFotos extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'sincronizaEstoqueFranquias';
+    protected $signature = 'sincronizarFotos';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Comando para sincronizar o estoque das franquias';
+    protected $description = 'Command para sincronizar fotos';
 
     protected $configuracaoController;
 
@@ -41,6 +40,6 @@ class SincronizaEstoqueFranquias extends Command
      */
     public function handle()
     {
-        $this->configuracaoController->atualizarEstoque();
+        $this->configuracaoController->buscaFotos();
     }
 }

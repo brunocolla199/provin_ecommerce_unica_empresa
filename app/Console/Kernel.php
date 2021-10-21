@@ -13,7 +13,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\SincronizaEstoqueFranquias',
+        'App\Console\Commands\SincronizaProdutoRecompra',
+        'App\Console\Commands\SincronizarFotos',
+        'App\Console\Commands\SincronizaEstoqueParcialFranquias'
     ];
 
     /**
@@ -24,7 +27,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //$schedule->command('sincronizaEstoqueFranquias')->everyThirtyMinutes();
+        
+        //$schedule->command('sincronizaProdutoRecompra')->dailyAt('00:10')->runInBackground();
+        //$schedule->command('sincronizarFotos')->dailyAt('1:00')->runInBackground();
+        //$schedule->command('sincronizaEstoqueFranquias')->dailyAt('00:30')->runInBackground();
+        //$schedule->command('sincronizaEstoqueParcialFranquias')->dailyAt('12:00')->runInBackground();
+        //$schedule->command('sincronizaEstoqueParcialFranquias')->dailyAt('18:00')->runInBackground();
     }
 
     /**

@@ -5,21 +5,21 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Http\Controllers\ConfiguracaoController;
 
-class SincronizaEstoqueFranquias extends Command
+class SincronizaEstoqueParcialFranquias extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'sincronizaEstoqueFranquias';
+    protected $signature = 'sincronizaEstoqueParcialFranquias';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Comando para sincronizar o estoque das franquias';
+    protected $description = 'Comando para sincronizar o estoque parcial das franquias';
 
     protected $configuracaoController;
 
@@ -28,10 +28,10 @@ class SincronizaEstoqueFranquias extends Command
      *
      * @return void
      */
-    public function __construct(ConfiguracaoController $configuracaoController)
+    public function __construct()
     {
         parent::__construct();
-        $this->configuracaoController = $configuracaoController;
+        
     }
 
     /**
@@ -41,6 +41,8 @@ class SincronizaEstoqueFranquias extends Command
      */
     public function handle()
     {
-        $this->configuracaoController->atualizarEstoque();
+        echo "passou";
+        //$configuracaoController =  new ConfiguracaoController();
+        //$configuracaoController->atualizarEstoqueParcial();
     }
 }

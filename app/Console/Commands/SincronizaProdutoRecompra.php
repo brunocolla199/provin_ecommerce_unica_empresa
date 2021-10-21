@@ -12,7 +12,7 @@ class SincronizaProdutoRecompra extends Command
      *
      * @var string
      */
-    protected $signature = 'command:sincronizaProdutoRecompra';
+    protected $signature = 'sincronizaProdutoRecompra';
 
     /**
      * The console command description.
