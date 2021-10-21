@@ -4,10 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Repositories\PedidoRepository;
 use Illuminate\Support\Facades\{Auth};
 
-class CarrinhoEmpresaMiddleware
+class ListarEstoqueMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,19 +16,17 @@ class CarrinhoEmpresaMiddleware
      * @return mixed
      */
 
-     protected $pedidoRepository;
 
-     public function __construct(PedidoRepository $pedido)
+
+     public function __construct()
      {
-         $this->pedidoRepository = $pedido;
+         
      }
 
     public function handle(Request $request, Closure $next)
     {
-        $idPedido = $request->id;
-        $buscaPedido = $this->pedidoRepository->find($idPedido);
-
-        if( Auth::user()->id == $buscaPedido->usuario->id) {
+        
+        if( Auth::user()->perfil->eco_listar_estoque == 1) {
             return $next($request);
         } else {
             return response()->view('errors.403');
