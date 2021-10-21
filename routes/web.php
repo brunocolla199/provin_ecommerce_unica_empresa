@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/',   'HomeController@checkLogin')->name('home');
 Route::get('home','HomeController@checkLogin')->name('home');
 
