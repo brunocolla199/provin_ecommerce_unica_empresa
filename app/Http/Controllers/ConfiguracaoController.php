@@ -237,7 +237,7 @@ class ConfiguracaoController extends Controller
                     foreach ($produtos as $key => $valueProdutos) {
                         
                         $grupoNew = explode(' ',$valueProdutos->descricao)[0];
-                        if(substr($valueProdutos->codigo, -1) != 'F') {
+                        if(substr($valueProdutos->codigo, -1) == 'F') {
                             $produtoService->processaImportacao($valueProdutos->codigo, $valueProdutos->id,0,$valueProdutos->preco,0,$grupoNew,$valueProdutos->descricao,0,1);            
                         }   
                         
@@ -413,7 +413,7 @@ class ConfiguracaoController extends Controller
 
     public function preparaAtualizacaoEstoque($produto_terceiro, $produto_terceiro_id, $idProduto)
     {   
-        if(substr($produto_terceiro, -1) != 'F') {
+        if(substr($produto_terceiro, -1) == 'F') {
                         
                     
             $estoqueEmpresas = $this->wonderService->consultaEstoque($produto_terceiro_id);
