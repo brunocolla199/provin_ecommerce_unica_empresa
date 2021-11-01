@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Request;
 use App\Classes\WonderServices;
 use App\Classes\Helper;
 use Illuminate\Support\Facades\DB;
+use App\Classes\PagSeguro;
 
 class CheckoutEcommerceController extends Controller
 {
@@ -65,6 +66,50 @@ class CheckoutEcommerceController extends Controller
                 });
                 Helper::setNotify('Pedido '.$buscaPedido->id.' criado com sucesso!', 'success|check-circle');
                 
+
+                //Envia Pedido pag seguro
+                //$PagSeguro = new PagSeguro();
+	
+                //EFETUAR PAGAMENTO
+                /*
+                $venda = array("codigo"=>"1",
+                            "valor"=>100.00,
+                            "descricao"=>"VENDA DE NONONONONONO",
+                            "nome"=>"",
+                            "email"=>"",
+                            "telefone"=>"(XX) XXXX-XXXX",
+                            "rua"=>"",
+                            "numero"=>"",
+                            "bairro"=>"",
+                            "cidade"=>"",
+                            "estado"=>"XX", //2 LETRAS MAIÚSCULAS
+                            "cep"=>"XX.XXX-XXX",
+                            "codigo_pagseguro"=>"");
+                            
+                $PagSeguro->executeCheckout($venda,"http://SEUSITE/pedido/".$_GET['codigo']);
+                */
+
+                //provavel vem no endereco de retorno
+                /*
+                if( isset($_GET['transaction_id']) ){
+                    $pagamento = $PagSeguro->getStatusByReference($_GET['codigo']);
+                    
+                    $pagamento->codigo_pagseguro = $_GET['transaction_id'];
+                    if($pagamento->status==3 || $pagamento->status==4){
+                        //ATUALIZAR DADOS DA VENDA, COMO DATA DO PAGAMENTO E STATUS DO PAGAMENTO
+                        
+                    }else{
+                        //ATUALIZAR NA BASE DE DADOS
+                    }
+                }
+                */
+
+
+
+
+
+                
+                //fim pag seguro
                 return redirect()->route('ecommerce.produto');
             } catch (\Throwable $th) {
                 

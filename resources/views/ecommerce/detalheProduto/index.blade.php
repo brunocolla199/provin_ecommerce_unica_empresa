@@ -146,7 +146,7 @@
             </div>
             <div class="col-md-6 col-lg-4 col-xl-4 mb-md-6 mb-lg-0">
                 <div class="mb-2">
-                    <a href="#" class="font-size-12 text-gray-5 mb-2 d-inline-block">{{$produto->produto_terceiro_id}}</a>
+                    <a href="#" class="font-size-12 text-gray-5 mb-2 d-inline-block">{{$produto->produto_terceiro}}</a>
                     <h2 class="font-size-25 text-lh-1dot2">{{$produto->nome}}</h2>
                     <!--<div class="mb-2">
                         <a class="d-inline-flex align-items-center small font-size-15 text-lh-1" href="#">

@@ -148,7 +148,7 @@
             </div>
             <div class="col-md-6 col-lg-4 col-xl-4 mb-md-6 mb-lg-0">
                 <div class="mb-2">
-                    <a href="#" class="font-size-12 text-gray-5 mb-2 d-inline-block">{{$item->produto->produto_terceiro_id}}</a>
+                    <a href="#" class="font-size-12 text-gray-5 mb-2 d-inline-block">{{$item->produto->produto_terceiro}}</a>
                     <h2 class="font-size-25 text-lh-1dot2">{{$item->produto->nome}}</h2>
                     
                     @if(in_array($item->produto->grupo_produto_id,json_decode($grupos_necessita_tamanho))) 
