@@ -136,7 +136,7 @@ class WonderServices
 
         $obs = [
             "sequencia" => 1,
-            "texto" => "Pedido realizado pelo usuário " . $buscaPedido->usuario->name . " do representante " . $buscaPedido->usuario->empresa->razao_social
+            "texto" => "Pedido realizado pelo cliente " . $buscaPedido->usuario->name . " com o telefone " . $buscaPedido->usuario->telefone. " e email " . $buscaPedido->usuario->email_verified_at ?? ''
         ];
         $request = [
             "numero"     => $buscaPedido->id,

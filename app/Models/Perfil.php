@@ -18,7 +18,8 @@ class Perfil extends Model
         'eco_enviar_pedido_normal',
         'eco_enviar_pedido_expresso',
         'admin_controle_geral',
-        'area_admin'
+        'area_admin',
+        'eco_listar_estoque'
     ];
 
     public function users()

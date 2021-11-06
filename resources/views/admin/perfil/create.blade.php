@@ -135,6 +135,18 @@
                                 &nbsp;Enviar Pedido Expresso
                             </div>
                         </div>
+
+                        <div class="col-md-12">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-4">
+                                <b>&#10149;</b>
+                                <input style="vertical-align: text-bottom" type="checkbox" data-toggle-target="marcarTodosRecompra" name="eco_listar_estoque" id="eco_listar_estoque" 
+                                @if (old('eco_listar_estoque') == 'on')
+                                checked                                    
+                                @endif>
+                                &nbsp;Listar Estoque
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row"><br></div>

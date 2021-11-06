@@ -176,6 +176,7 @@ class PerfilController extends Controller
             'eco_enviar_pedido_expresso' => $request->eco_enviar_pedido_expresso == 'on' ? 1 :0,
             'admin_controle_geral'       => $request->admin_controle_geral == 'on' ? 1 :0,
             'area_admin'                 => $request->area_admin == 'on' ? 1 :0,
+            'eco_listar_estoque'         => $request->eco_listar_estoque == 'on' ? 1 :0,
         ];
     }
 }

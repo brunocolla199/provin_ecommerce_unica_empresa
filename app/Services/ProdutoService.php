@@ -118,7 +118,8 @@ class ProdutoService
             'peso'               => $peso ?? 0,
             'quantidade_estoque' => $estoque,
             'valor'              => str_replace(',','.',$preco),
-            'tamanho'            => ''
+            'tamanho'            => '',
+            'existe_foto'        => true
         ];
 
         return $produto;

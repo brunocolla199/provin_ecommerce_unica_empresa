@@ -704,7 +704,7 @@
                                                 <li class="nav-item u-header__nav-item">
                                                     <a class="nav-link u-header__nav-link"  href="{{route('ecommerce.pedido')}}">{{__('sidebar_and_header.uls_li_system.pedido')}}</a>
                                                 </li>
-                                                @if (Auth::check())
+                                                @if (Auth::check() && Auth::user()->perfil->eco_listar_estoque)
                                                     <li class="nav-item u-header__nav-item">
                                                         <a class="nav-link u-header__nav-link"  href="{{route('ecommerce.estoque')}}">{{__('sidebar_and_header.uls_li_system.estoque')}}</a>
                                                     </li>

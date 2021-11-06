@@ -25,12 +25,14 @@
         </a>
         
     </div>
-    <div>
-        <a href="{{route('ecommerce.estoque')}}">
-            <img  class="@if ($explode[2] == 'estoque') borda @endif iconeEstoque" src="{{asset('img/icones/s4.4.png')}}">
-            <span style="display: flex;justify-content: center;font-size: 12px;width: 80%"> Estoque </span>
-        </a>
-        
-    </div>
+    @if (Auth::user()->perfil->eco_listar_estoque)
+        <div>
+            
+                <a href="{{route('ecommerce.estoque')}}">
+                    <img  class="@if ($explode[2] == 'estoque') borda @endif iconeEstoque" src="{{asset('img/icones/s4.4.png')}}">
+                    <span style="display: flex;justify-content: center;font-size: 12px;width: 80%"> Estoque </span>
+                </a> 
+        </div>
+    @endif
 </div>
      
