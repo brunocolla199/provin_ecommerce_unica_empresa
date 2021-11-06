@@ -282,6 +282,8 @@ class WonderServices
     {
 
         try {
+
+            $tabelaPreco = $this->buscaSetup->tabela_preco_default ?? 8;
             $this->HTTP_CLIENT = new Client(
                 [
                     'headers' => [
@@ -291,7 +293,7 @@ class WonderServices
                 ]
             );
         
-            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/produtos/'. $idProduto .'/preco_tabela_preco?tabelaPreco=8';
+            $url = $this->linkWebService.'/probusweb/seam/resource/probusrest/api/produtos/'. $idProduto .'/preco_tabela_preco?tabelaPreco=' . $tabelaPreco ;
             
             $response = $this->HTTP_CLIENT->get($url);
             

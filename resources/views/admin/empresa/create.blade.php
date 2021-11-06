@@ -269,6 +269,19 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('fator_multiplicador') ? ' has-error' : '' }}">
+                                    <label class="control-label">Fator Multiplicador dos Preços</label>
+                                    <input type="number" min="1" max="1000" id="fator_multiplicador" name="fator_multiplicador" value="{{ old('fator_multiplicador') }}" class="form-control " required>
+                                    <small class="form-control-feedback"> Digite o fator multiplicador. </small> 
+
+                                    @if ($errors->has('fator_multiplicador'))
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('fator_multiplicador') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                         
 

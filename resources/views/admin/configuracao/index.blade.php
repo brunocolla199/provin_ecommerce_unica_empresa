@@ -387,6 +387,23 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group{{ $errors->has('tabela_preco_default') ? ' has-error' : '' }}">
+                                    <label class="control-label">Tabela de Preço Default</label>
+                                    <input type="text"  id="tabela_preco_default" name="tabela_preco_default" value="{{ $configuracao->tabela_preco_default }}" class="form-control " required autofocus>
+                                    <small class="form-control-feedback"> Digite a tabela de preço default do sistema de terceiros. </small> 
+
+                                    @if ($errors->has('tabela_preco_default'))
+                                        <br/>    
+                                        <span class="help-block text-danger">
+                                            <strong>{{ $errors->first('tabela_preco_default') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                         
                     </div>
                     <div class="form-actions">

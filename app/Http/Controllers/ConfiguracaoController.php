@@ -140,7 +140,8 @@ class ConfiguracaoController extends Controller
             'perfil_default'                        => (int)$request->perfil_default ?? null,
             'grupo_default'                         => (int)$request->grupo_default ?? null,
             'email_default'                         => $request->email_default ?? '',
-            'empresa_default'                       => $request->empresa_default ?? null
+            'empresa_default'                       => $request->empresa_default ?? null,
+            'tabela_preco_default'                  => $request->tabela_preco_default ?? null
         ];
 
         if ($request->logo_login) {
@@ -373,6 +374,15 @@ class ConfiguracaoController extends Controller
                 $wonderService = new WonderServices();
                 $produtoService = new ProdutoService();
                 
+                $setupService = new SetupService();
+                $buscaSetup = $setupService->find(1);
+
+                $empresa = $this->empresaService->findOneBy(
+                    [
+                        ['id', '=', $buscaSetup->empresa_default]
+                    ]
+                );
+                
                 $buscaProdutos = $produtoService->findOneBy(
                     [
                         ['id', '=', $idProduto]
@@ -398,7 +408,7 @@ class ConfiguracaoController extends Controller
                 $precoaAtual = $buscaPreco[0]->preco ?? 0;
                 DB::table('estoque')
                 ->where('produto_id', $idProduto)
-                ->update(['valor' => $precoaAtual * 5]);
+                ->update(['valor' => $precoaAtual * $empresa->fator_multiplicador]);
             //});
             /*
             Helper::setNotify('Estoque atualizado com sucesso!', 'success|check-circle');

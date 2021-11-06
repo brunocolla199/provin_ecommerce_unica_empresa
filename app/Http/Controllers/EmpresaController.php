@@ -156,7 +156,8 @@ class EmpresaController extends Controller
             'bairro'                                 => $request->bairro,
             'inativo'                                => $request->inativo ?? 0,
             'email'                                  => $request->email,
-            'rg_inscricao_estadual'                  => $request->ie ?? $request->rg
+            'rg_inscricao_estadual'                  => $request->ie ?? $request->rg,
+            'fator_multiplicador'                    => $request->fator_multiplicador
         ];
         return $create;
     }

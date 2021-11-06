@@ -302,8 +302,12 @@ class ProdutoEcommerceController extends Controller
         $retorno = asset('ecommerce/assets/img/212X200/img1.jpg');
         
         if($tipo == 'Entrada'){
-            if(file_exists(public_path($setup->caminho_imagen_produto.'/'.$idProdutoTerceiro.'_2.jpeg'))){
-                $retorno = asset($setup->caminho_imagen_produto.'/'.$idProdutoTerceiro.'_2.jpeg');
+            if(file_exists(public_path($setup->caminho_imagen_produto.'/'.$idProdutoTerceiro.'_10.jpeg'))){
+                $retorno = asset($setup->caminho_imagen_produto.'/'.$idProdutoTerceiro.'_10.jpeg');
+            }else{
+                if(file_exists(public_path($setup->caminho_imagen_produto.'/'.$idProdutoTerceiro.'.jpeg'))){
+                    $retorno = asset($setup->caminho_imagen_produto.'/'.$idProdutoTerceiro.'.jpeg');
+                }
             }
         }else {
             if(file_exists(public_path($setup->caminho_imagen_produto.'/'.$idProdutoTerceiro.'.jpeg'))){

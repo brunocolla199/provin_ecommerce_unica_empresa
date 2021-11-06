@@ -32,6 +32,7 @@ class Setup extends Model
         'perfil_default',
         'grupo_default',
         'email_default',
-        'empresa_default'
+        'empresa_default',
+        'tabela_preco_default'
     ];
 }

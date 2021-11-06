@@ -27,7 +27,8 @@ class Empresa extends Model
         'cep',
         'usuario_sistema_terceiros',
         'senha_sistema_terceiros',
-        'rg_inscricao_estadual'
+        'rg_inscricao_estadual',
+        'fator_multiplicador'
     ];
 
     
