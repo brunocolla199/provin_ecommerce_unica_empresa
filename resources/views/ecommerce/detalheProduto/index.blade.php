@@ -85,8 +85,15 @@
                     data-arrow-right-classes="fas fa-arrow-right u-slick__arrow-classic-inner u-slick__arrow-classic-inner--right mr-lg-2 mr-xl-4"
                     data-nav-for="#sliderSyncingThumb">
                         <div class="js-slide">
-                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.'/'.substr($produto->produto_terceiro, 0, -1).'.jpeg'))) {{asset($caminho_imagem.'/'.substr($produto->produto_terceiro, 0, -1).'.jpeg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
+                            <img class="img-fluid" style="border-radius: 10px" id="imagem-produto" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro, 0, -1).'.jpeg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro, 0, -1).'.jpeg')}}  @else {{asset('ecommerce/assets/img/720X660/img1.jpg')}} @endif" alt="Image Description">
                         </div>
+                        @for ($i = 2; $i <= 15; $i++)
+                            @if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro, 0, -1).'_'.$i.'.jpeg')))
+                                <div class="js-slide" style="cursor: pointer;">
+                                    <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro, 0, -1).'_'.$i.'.jpeg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro, 0, -1).'_'.$i.'.jpeg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
+                                </div>
+                            @endif
+                        @endfor
                     
                 </div>
 
@@ -96,17 +103,16 @@
                     data-is-thumbs="true"
                     data-nav-for="#sliderSyncingNav">
                     <div class="js-slide" style="cursor: pointer;">
-                        <img class="img-fluid" style="border-radius: 10px"  src="@if (file_exists(public_path($caminho_imagem.'/'.substr($produto->produto_terceiro, 0, -1).'.jpeg'))) {{asset($caminho_imagem.'/'.substr($produto->produto_terceiro, 0, -1).'.jpeg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
+                        <img class="img-fluid" style="border-radius: 10px"  src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro, 0, -1).'.jpeg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro, 0, -1).'.jpeg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
                     </div>
 
                     @for ($i = 2; $i <= 15; $i++)
-                        @if (file_exists(public_path($caminho_imagem.'/'.substr($produto->produto_terceiro, 0, -1).'_'.$i.'.jpeg')))
+                        @if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro, 0, -1).'_'.$i.'.jpeg')))
                             <div class="js-slide" style="cursor: pointer;">
-                                <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.'/'.substr($produto->produto_terceiro, 0, -1).'_'.$i.'.jpeg'))) {{asset($caminho_imagem.'/'.substr($produto->produto_terceiro, 0, -1).'_'.$i.'.jpeg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
+                                <img class="img-fluid" style="border-radius: 10px" src="@if (file_exists(public_path($caminho_imagem.substr($produto->produto_terceiro, 0, -1).'_'.$i.'.jpeg'))) {{asset($caminho_imagem.substr($produto->produto_terceiro, 0, -1).'_'.$i.'.jpeg')}}  @else {{asset('ecommerce/assets/img/212X200/img1.jpg')}} @endif" alt="Image Description">
                             </div>
                         @endif
                     @endfor
-                    
                     
                 </div>
             </div>
